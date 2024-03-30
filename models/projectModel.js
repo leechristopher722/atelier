@@ -58,7 +58,7 @@ const projectSchema = new mongoose.Schema(
           // this only points to current doc on NEW document creation
           return val < this.price;
         },
-        message: 'Discount price ({VALUE}) should be less than regular price'
+        message: 'Discount price {VALUE} should be less than regular price'
       }
     },
     isSecret: {

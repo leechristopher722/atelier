@@ -29,7 +29,8 @@ const userSchema = new mongoose.Schema({
   password: {
     type: String,
     required: [true, 'Please provide a password'],
-    minLength: 8
+    minLength: 8,
+    select: false // Hide password from response
   },
   passwordConfirm: {
     type: String,
@@ -55,6 +56,14 @@ userSchema.pre('save', async function(next) {
   this.passwordConfirm = undefined;
   next();
 });
+
+// Instance method, available on all user document
+userSchema.methods.correctPassword = async function(
+  candidatePassword,
+  userPassword
+) {
+  return await argon2.verify(userPassword, candidatePassword);
+};
 
 const User = mongoose.model('User', userSchema);
 

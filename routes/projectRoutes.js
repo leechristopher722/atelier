@@ -1,5 +1,6 @@
 const express = require('express');
 const projectController = require('../controllers/projectController');
+const authController = require('./../controllers/authController');
 
 const router = express.Router();
 
@@ -9,7 +10,7 @@ router.route('/project-stats').get(projectController.getProjectStats);
 
 router
   .route('/')
-  .get(projectController.getAllProjects)
+  .get(authController.protect, projectController.getAllProjects)
   .post(projectController.createProject);
 
 router

@@ -42,7 +42,8 @@ const userSchema = new mongoose.Schema({
       },
       message: 'Passwords are not the same'
     }
-  }
+  },
+  passwordChangedAt: Date
 });
 
 // Document Middleware
@@ -63,6 +64,16 @@ userSchema.methods.correctPassword = async function(
   userPassword
 ) {
   return await argon2.verify(userPassword, candidatePassword);
+};
+
+userSchema.methods.changedPasswordAfter = function(JWTTimestamp) {
+  if (this.passwordChangedAt) {
+    const changedTimestamp = this.passwordChangedAt.getTime() / 1000;
+
+    return JWTTimestamp < changedTimestamp;
+  }
+
+  return false;
 };
 
 const User = mongoose.model('User', userSchema);

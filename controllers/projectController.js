@@ -13,6 +13,7 @@ exports.getAllProjects = catchAsync(async (req, res, next) => {
 
   res.status(200).json({
     status: 'success',
+    user: req.user,
     requestedAt: req.requestTime,
     results: projects.length,
     data: {

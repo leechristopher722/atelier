@@ -77,10 +77,6 @@ exports.deleteProject = catchAsync(async (req, res, next) => {
     status: 'success',
     data: null
   });
-  res.status(404).json({
-    status: 'fail',
-    message: err
-  });
 });
 
 exports.getProjectStats = catchAsync(async (req, res, next) => {
@@ -113,9 +109,5 @@ exports.getProjectStats = catchAsync(async (req, res, next) => {
     data: {
       stats
     }
-  });
-  res.status(404).json({
-    status: 'fail',
-    message: err
   });
 });

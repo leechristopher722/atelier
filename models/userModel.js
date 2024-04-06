@@ -51,7 +51,12 @@ const userSchema = new mongoose.Schema({
   },
   passwordChangedAt: Date,
   passwordResetToken: String,
-  passwordResetExpires: Date
+  passwordResetExpires: Date,
+  active: {
+    type: Boolean,
+    default: true,
+    select: false
+  }
 });
 
 // Document Middleware
@@ -74,12 +79,17 @@ userSchema.pre('save', function(next) {
   next();
 });
 
+userSchema.pre(/^find/, function(next) {
+  this.find({ active: { $ne: false } });
+  next();
+});
+
 // Instance method, available on all user document
 userSchema.methods.correctPassword = async function(
-  candidatePassword,
-  userPassword
+  userHashedPassword,
+  inputPassword
 ) {
-  return await argon2.verify(userPassword, candidatePassword);
+  return await argon2.verify(userHashedPassword, inputPassword);
 };
 
 userSchema.methods.changedPasswordAfter = function(JWTTimestamp) {

@@ -12,6 +12,31 @@ const signToken = id => {
   });
 };
 
+const createSendToken = (user, statusCode, res) => {
+  const token = signToken(user._id);
+  const cookieOptions = {
+    expires: new Date(
+      Date.now() + process.env.JWT_COOKIE_EXPIRES_IN * 24 * 60 * 60 * 1000
+    ),
+    httpOnly: true
+  };
+
+  if (process.env.NODE_ENV === 'production') cookieOptions.secure = true;
+
+  res.cookie('jwt', token, cookieOptions);
+
+  // Remove password from output
+  user.password = undefined;
+
+  res.status(statusCode).json({
+    status: 'success',
+    token,
+    data: {
+      user
+    }
+  });
+};
+
 exports.signup = catchAsync(async (req, res, next) => {
   // Have to cleanse user input to prevent themselves from assigning to an admin role, etc.
   const newUser = await User.create({
@@ -24,15 +49,7 @@ exports.signup = catchAsync(async (req, res, next) => {
   });
 
   // Create JWT Token, Header is created automatically: logs in automatically upon signup
-  const token = signToken(newUser._id);
-
-  res.status(201).json({
-    status: 'success',
-    token,
-    data: {
-      user: newUser
-    }
-  });
+  createSendToken(newUser, 201, res);
 });
 
 exports.login = catchAsync(async (req, res, next) => {
@@ -47,17 +64,12 @@ exports.login = catchAsync(async (req, res, next) => {
   const user = await User.findOne({ email }).select('+password'); // findOne() will not contain password bc it is not selected in userModel, which is why we use select()
 
   // Check email and password all together to provide less info on which(email or pw) info is incorrect
-  if (!user || !(await user.correctPassword(password, user.password))) {
+  if (!user || !(await user.correctPassword(user.password, password))) {
     return next(new AppError('Incorrect email or password', 401));
   }
 
   // 3) If everything is ok, send token to client
-  const token = signToken(user._id);
-
-  res.status(200).json({
-    status: 'success',
-    token
-  });
+  createSendToken(user, 200, res);
 });
 
 exports.protect = catchAsync(async (req, res, next) => {
@@ -76,6 +88,7 @@ exports.protect = catchAsync(async (req, res, next) => {
       new AppError('You are not logged in. Please log in to get access', 401)
     );
   }
+
   // 2) Verify token
   const decoded = await promisify(jwt.verify)(token, process.env.JWT_SECRET);
 
@@ -126,7 +139,6 @@ exports.forgotPassword = catchAsync(async (req, res, next) => {
   // 2) Generate the random reset token
   const resetToken = user.createPasswordResetToken();
   await user.save({ validateBeforeSave: false });
-  console.log(req.protocol);
 
   // 3) Send it to user's email
   const resetURL = `${req.protocol}://${req.get(
@@ -184,60 +196,28 @@ exports.resetPassword = catchAsync(async (req, res, next) => {
   // 3) Update changedPasswordAt property for the user: handled in the middleware
 
   // 4) Log the user in, send JWT
-  const token = signToken(user._id);
-
-  res.status(201).json({
-    status: 'success',
-    token
-  });
+  createSendToken(user, 200, res);
 });
 
 exports.updatePassword = catchAsync(async (req, res, next) => {
   // 1) Get user from collection
-  let token;
-
-  if (
-    req.headers.authorization &&
-    req.headers.authorization.startsWith('Bearer')
-  ) {
-    token = req.headers.authorization.split(' ')[1];
-  }
-
-  if (!token) {
-    return next(
-      new AppError('You are not logged in. Please log in to get access', 401)
-    );
-  }
-
-  const decoded = await promisify(jwt.verify)(token, process.env.JWT_SECRET);
-
-  const currentUser = await User.findById(decoded.id).select('+password');
-  if (!currentUser) {
-    return next(
-      new AppError('The user belonging to this token no longer exists.', 401)
-    );
-  }
+  const currentUser = await User.findById(req.user.id).select('+password');
 
   // 2) Check if POSTed current password is correct
   if (
     !(await currentUser.correctPassword(
-      req.body.currentPassword,
-      currentUser.password
+      currentUser.password,
+      req.body.currentPassword
     ))
   ) {
-    return next(new AppError('Incorrect password', 401));
+    return next(new AppError('Your current password is incorrect.', 401));
   }
 
   // 3) If so, update password
   currentUser.password = req.body.newPassword;
   currentUser.passwordConfirm = req.body.newPasswordConfirm;
-  await currentUser.save();
+  await currentUser.save(); // Not use findByIdAndUpdate bc it won't run validators & document middlewares
 
   // 4) Log user in, send JWT
-  newToken = signToken(currentUser._id);
-
-  res.status(201).json({
-    status: 'success',
-    token: newToken
-  });
+  createSendToken(currentUser, 200, res);
 });

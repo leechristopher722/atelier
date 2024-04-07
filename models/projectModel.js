@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const slugify = require('slugify');
+const User = require('./userModel');
 // const validator = require('validator');
 
 const projectSchema = new mongoose.Schema(
@@ -90,6 +91,12 @@ projectSchema.virtual('priceWon').get(function() {
 projectSchema.pre('save', function(next) {
   // console.log(this); // Shows how data is stored to DB right before .save()
   this.slug = slugify(this.name, { lower: true });
+  next();
+});
+
+projectSchema.pre('save', async function(next) {
+  const usersPromises = this.userRoles.map(async id => await User.findById(id));
+  this.userRoles = await Promise.all(usersPromises);
   next();
 });
 

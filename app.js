@@ -41,7 +41,11 @@ app.use(mongoSanitize());
 app.use(xssCleaner());
 
 // Prevent parameter pollution
-app.use(hpp());
+app.use(
+  hpp({
+    whitelist: ['tickets', 'difficulty', 'userRoles']
+  })
+);
 
 // Serving static files
 app.use(express.static(`${__dirname}/public`));

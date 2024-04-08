@@ -1,7 +1,5 @@
 const mongoose = require('mongoose');
 const slugify = require('slugify');
-const User = require('./userModel');
-// const validator = require('validator');
 
 const projectSchema = new mongoose.Schema(
   {
@@ -33,35 +31,39 @@ const projectSchema = new mongoose.Schema(
       type: String,
       trim: true
     },
-    userRoles: {
-      type: Map,
-      of: String
-    },
+    members: [
+      {
+        type: mongoose.Schema.ObjectId,
+        ref: 'User'
+      }
+    ],
     createdAt: {
       type: Date,
       default: Date.now()
     },
-    tickets: {
-      type: [String],
-      default: []
-    },
-    price: {
-      type: Number,
-      min: [0, 'Price must be greater than or equal to 0'],
-      max: [1000, 'Price must be less than or equal to 1000']
-    },
-    priceDiscount: {
-      type: Number,
-      validate: {
-        // Custom validators: there is validators npm library on github preBuilt
-        validator: function(val) {
-          // Will not work on update *******IMPORTANT**********
-          // this only points to current doc on NEW document creation
-          return val < this.price;
-        },
-        message: 'Discount price {VALUE} should be less than regular price'
+    tickets: [
+      {
+        type: mongoose.Schema.ObjectId,
+        ref: 'Ticket'
       }
-    },
+    ],
+    // price: {
+    //   type: Number,
+    //   min: [0, 'Price must be greater than or equal to 0'],
+    //   max: [1000, 'Price must be less than or equal to 1000']
+    // },
+    // priceDiscount: {
+    //   type: Number,
+    //   validate: {
+    //     // Custom validators: there is validators npm library on github preBuilt
+    //     validator: function(val) {
+    //       // Will not work on update *******IMPORTANT**********
+    //       // this only points to current doc on NEW document creation
+    //       return val < this.price;
+    //     },
+    //     message: 'Discount price {VALUE} should be less than regular price'
+    //   }
+    // },
     isSecret: {
       type: Boolean,
       default: false
@@ -83,9 +85,9 @@ const projectSchema = new mongoose.Schema(
 
 // Virtual Property: For simple data that does not need to be stored in the DB
 // Separating business logic from the database in the model, and having little in controller.
-projectSchema.virtual('priceWon').get(function() {
-  return this.price * 1340;
-});
+// projectSchema.virtual('priceWon').get(function() {
+//   return this.price * 1340;
+// });
 
 // DOCUMENT MIDDLEWARE: runs only before .save() or .create() NOT FOR UPDATES
 projectSchema.pre('save', function(next) {
@@ -94,11 +96,12 @@ projectSchema.pre('save', function(next) {
   next();
 });
 
-projectSchema.pre('save', async function(next) {
-  const usersPromises = this.userRoles.map(async id => await User.findById(id));
-  this.userRoles = await Promise.all(usersPromises);
-  next();
-});
+// FOR EMBEDDING USERROLES
+// projectSchema.pre('save', async function(next) {
+//   const usersPromises = this.userRoles.map(async id => await User.findById(id));
+//   this.userRoles = await Promise.all(usersPromises);
+//   next();
+// });
 
 // DOCUMENT MIDDLEWARE: runs after .save() or .create() NOT FOR UPDATES
 // projectSchema.post('save', function(doc, next) {
@@ -113,6 +116,15 @@ projectSchema.pre(/^find/, function(next) {
   this.find({ isSecret: { $ne: true } });
 
   this.start = Date.now();
+  next();
+});
+
+// Populate Members of the project with query middleware
+projectSchema.pre(/^find/, function(next) {
+  this.populate({
+    path: 'members',
+    select: '-__v -passwordChangedAt'
+  });
   next();
 });
 

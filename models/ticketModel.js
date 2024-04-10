@@ -26,7 +26,7 @@ const ticketSchema = new mongoose.Schema(
     assignee: {
       type: mongoose.Schema.ObjectId,
       ref: 'User',
-      required: [true, 'A ticket must have an assigne e']
+      required: [true, 'A ticket must have an assignee']
     },
     type: String,
     description: {
@@ -61,24 +61,24 @@ ticketSchema.pre('save', function(next) {
   next();
 });
 
-// DOCUMENT MIDDLEWARE: runs after .save() or .create() NOT FOR UPDATES
-// ticketSchema.post('save', function(doc, next) {
-//   console.log(doc);
-//   next();
-// });
-
 // QUERY MIDDLEWARE: deals w/ queries not documents
+ticketSchema.pre(/^find/, function(next) {
+  this.populate({
+    path: 'assignee',
+    select: 'name'
+  });
+  // .populate({
+  //   path: 'project',
+  //   select: '-members name'
+  // });
+  next();
+});
+
 ticketSchema.post(/^find/, function(docs, next) {
   console.log(`Query took ${Date.now() - this.start} milliseconds`);
   next();
 });
 
-// AGGREGATION MDIDLEWARE: removing secret ticket in aggregation pipeline
-ticketSchema.pre('aggregate', function(next) {
-  this.pipeline().unshift({ $match: { isSecret: { $ne: true } } }); // Aggregation pipeline object (array)
-  next();
-});
-
-const Ticket = mongoose.model('ticket', ticketSchema);
+const Ticket = mongoose.model('Ticket', ticketSchema);
 
 module.exports = Ticket;

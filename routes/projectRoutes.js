@@ -1,10 +1,13 @@
 const express = require('express');
 const projectController = require('../controllers/projectController');
 const authController = require('./../controllers/authController');
+const ticketRouter = require('./ticketRoutes');
 
 const router = express.Router();
 
 // router.param('id', projectController.checkID); // MongoDB checks ID by default
+
+router.use('/:projectId/tickets', ticketRouter);
 
 router.route('/project-stats').get(projectController.getProjectStats);
 

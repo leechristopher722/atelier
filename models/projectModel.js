@@ -41,12 +41,6 @@ const projectSchema = new mongoose.Schema(
       type: Date,
       default: Date.now()
     },
-    tickets: [
-      {
-        type: mongoose.Schema.ObjectId,
-        ref: 'Ticket'
-      }
-    ],
     // price: {
     //   type: Number,
     //   min: [0, 'Price must be greater than or equal to 0'],
@@ -88,6 +82,13 @@ const projectSchema = new mongoose.Schema(
 // projectSchema.virtual('priceWon').get(function() {
 //   return this.price * 1340;
 // });
+
+// Virtual populate
+projectSchema.virtual('tickets', {
+  ref: 'Ticket',
+  foreignField: 'project',
+  localField: '_id'
+});
 
 // DOCUMENT MIDDLEWARE: runs only before .save() or .create() NOT FOR UPDATES
 projectSchema.pre('save', function(next) {

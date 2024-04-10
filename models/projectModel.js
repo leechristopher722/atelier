@@ -37,6 +37,10 @@ const projectSchema = new mongoose.Schema(
         ref: 'User'
       }
     ],
+    numTickets: {
+      type: Number,
+      default: 0
+    },
     createdAt: {
       type: Date,
       default: Date.now()
@@ -76,6 +80,8 @@ const projectSchema = new mongoose.Schema(
     toObject: { virtuals: true }
   }
 );
+
+projectSchema.index({ slug: 1 });
 
 // Virtual Property: For simple data that does not need to be stored in the DB
 // Separating business logic from the database in the model, and having little in controller.

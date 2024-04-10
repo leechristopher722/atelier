@@ -13,7 +13,7 @@ router.route('/project-stats').get(projectController.getProjectStats);
 
 router
   .route('/')
-  .get(authController.protect, projectController.getAllProjects)
+  .get(projectController.getAllProjects)
   .post(projectController.createProject);
 
 router

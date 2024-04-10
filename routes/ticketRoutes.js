@@ -4,15 +4,12 @@ const authController = require('./../controllers/authController');
 
 const router = express.Router({ mergeParams: true });
 
+router.use(authController.protect);
+
 router
   .route('/')
-  .get(authController.protect, ticketController.getAllTickets)
-  .post(
-    authController.protect,
-    authController.restrictTo('user'),
-    ticketController.setProjectUserIds,
-    ticketController.createTicket
-  );
+  .get(ticketController.getAllTickets)
+  .post(ticketController.setProjectUserIds, ticketController.createTicket);
 
 router
   .route('/:id')

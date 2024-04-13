@@ -9,6 +9,8 @@ const router = express.Router();
 
 router.use('/:projectId/tickets', ticketRouter);
 
+router.use(authController.protect);
+
 router.route('/project-stats').get(projectController.getProjectStats);
 
 router
@@ -21,7 +23,6 @@ router
   .get(projectController.getProject)
   .patch(projectController.updateProject)
   .delete(
-    authController.protect,
     authController.restrictTo('admin', 'project manager'),
     projectController.deleteProject
   );

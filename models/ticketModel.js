@@ -1,6 +1,5 @@
 const mongoose = require('mongoose');
 const slugify = require('slugify');
-const projectModel = require('./projectModel');
 const Project = require('./projectModel');
 
 const ticketSchema = new mongoose.Schema(

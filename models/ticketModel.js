@@ -10,8 +10,8 @@ const ticketSchema = new mongoose.Schema(
       unique: true,
       trim: true,
       maxLength: [
-        40,
-        'A ticket name must be less than or equal to 40 characters'
+        100,
+        'A ticket name must be less than or equal to 100 characters'
       ]
     },
     slug: String,
@@ -25,7 +25,14 @@ const ticketSchema = new mongoose.Schema(
       ref: 'User',
       required: [true, 'A ticket must have an assignee']
     },
-    type: String,
+    category: {
+      type: String,
+      enum: {
+        values: ['dev', 'design', 'user experience'],
+        message: 'Ticket categories are either: dev, design, user experience'
+      },
+      required: [true, 'A ticket must have a category']
+    },
     description: {
       type: String,
       trim: true
@@ -34,12 +41,13 @@ const ticketSchema = new mongoose.Schema(
       type: Date,
       default: Date.now()
     },
-    difficulty: {
+    status: {
       type: String,
       enum: {
-        values: ['easy', 'medium', 'hard'],
-        message: 'Difficulty is either: easy, medium, hard'
-      }
+        values: ['created', 'in progress', 'completed'],
+        message: 'Ticket status is either: created, in progress, or completed'
+      },
+      default: 'created'
     },
     comments: {
       type: String

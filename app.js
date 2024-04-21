@@ -6,7 +6,7 @@ const helmet = require('helmet');
 const mongoSanitize = require('express-mongo-sanitize');
 const xssCleaner = require('./utils/xssCleaner');
 const hpp = require('hpp');
-const hbs = require('hbs');
+const expressHandlebars = require('express-handlebars');
 
 const AppError = require('./utils/appError');
 const globalErrorHandler = require('./controllers/errorController');
@@ -17,6 +17,14 @@ const viewRouter = require('./routes/viewRoutes');
 
 const app = express();
 
+var hbs = expressHandlebars.create({
+  extname: 'hbs',
+  defaultLayout: 'main',
+  layoutsDir: `${__dirname}/views/layouts`,
+  partialsDir: `${__dirname}/views/partials`
+});
+
+app.engine('hbs', hbs.engine);
 app.set('view engine', 'hbs');
 app.set('views', path.join(__dirname, 'views'));
 

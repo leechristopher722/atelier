@@ -9,12 +9,12 @@ const projectSchema = new mongoose.Schema(
       unique: true,
       trim: true,
       maxLength: [
-        40,
-        'A project name must be less than or equal to 40 characters'
+        30,
+        'A project name must be less than or equal to 30 characters'
       ],
       minLength: [
-        10,
-        'A project name must be more than or equal to 10 characters'
+        3,
+        'A project name must be more than or equal to 3 characters'
       ]
       // External Library for validator
       // validate: [
@@ -25,7 +25,8 @@ const projectSchema = new mongoose.Schema(
     slug: String,
     summary: {
       type: String,
-      trim: true
+      trim: true,
+      reuqired: [true, 'A project must have a summary']
     },
     description: {
       type: String,
@@ -72,6 +73,14 @@ const projectSchema = new mongoose.Schema(
         values: ['easy', 'medium', 'hard'],
         message: 'Difficulty is either: easy, medium, hard'
       }
+    },
+    status: {
+      type: String,
+      enum: {
+        values: ['Planning', 'In Progress', 'Completed'],
+        message: 'Ticket status is either: Planning, In Progress, or Completed'
+      },
+      default: 'Planning'
     }
   },
   {

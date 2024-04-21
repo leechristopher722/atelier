@@ -85,9 +85,13 @@ projectSchema.index({ slug: 1 });
 
 // Virtual Property: For simple data that does not need to be stored in the DB
 // Separating business logic from the database in the model, and having little in controller.
-// projectSchema.virtual('priceWon').get(function() {
-//   return this.price * 1340;
-// });
+projectSchema.virtual('createdAtClean').get(function() {
+  return new Date(this.createdAt).toLocaleDateString('en-US', {
+    year: 'numeric',
+    month: 'short',
+    day: 'numeric'
+  });
+});
 
 // Virtual populate
 projectSchema.virtual('tickets', {

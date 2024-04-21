@@ -1,3 +1,4 @@
+const path = require('path');
 const express = require('express');
 const morgan = require('morgan');
 const rateLimit = require('express-rate-limit');
@@ -5,18 +6,28 @@ const helmet = require('helmet');
 const mongoSanitize = require('express-mongo-sanitize');
 const xssCleaner = require('./utils/xssCleaner');
 const hpp = require('hpp');
+const hbs = require('hbs');
 
 const AppError = require('./utils/appError');
 const globalErrorHandler = require('./controllers/errorController');
 const projectRouter = require('./routes/projectRoutes');
 const userRouter = require('./routes/userRoutes');
 const ticketRouter = require('./routes/ticketRoutes');
+const viewRouter = require('./routes/viewRoutes');
 
 const app = express();
 
+app.set('view engine', 'hbs');
+app.set('views', path.join(__dirname, 'views'));
+
 // 1) Global Middlewares - order matters a lot
 // Set Security HTTP headers
-app.use(helmet());
+app.use(
+  helmet({
+    contentSecurityPolicy:
+      process.env.NODE_ENV === 'production' ? undefined : false
+  })
+);
 
 // Development Logging
 if (process.env.NODE_ENV === 'development') {
@@ -49,7 +60,7 @@ app.use(
 );
 
 // Serving static files
-app.use(express.static(`${__dirname}/public`));
+app.use(express.static(path.join(__dirname, 'public')));
 
 // Test middleware
 app.use((req, res, next) => {
@@ -58,6 +69,7 @@ app.use((req, res, next) => {
 });
 
 // 3) Routes
+app.use('/', viewRouter);
 app.use('/api/v1/projects', projectRouter);
 app.use('/api/v1/users', userRouter);
 app.use('/api/v1/tickets', ticketRouter);

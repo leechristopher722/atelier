@@ -6,7 +6,6 @@ const crypto = require('crypto');
 const userSchema = new mongoose.Schema({
   name: {
     type: String,
-    required: [true, 'Please provide your name'],
     trim: true,
     maxLength: [
       40,
@@ -47,9 +46,9 @@ const userSchema = new mongoose.Schema({
         return el === this.password;
       },
       message: 'Passwords are not the same'
-    },
-    profile_image: String
+    }
   },
+  profileImage: String,
   passwordChangedAt: Date,
   passwordResetToken: String,
   passwordResetExpires: Date,

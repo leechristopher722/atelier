@@ -1,0 +1,1061 @@
+doctype html
+//
+  Author: Keenthemes
+  Product Name: Keen
+  Product Version: 3.0.6
+  Purchase: https://themes.getbootstrap.com/product/keen-the-ultimate-bootstrap-admin-theme/
+  Website: http://www.keenthemes.com
+  Contact: support@keenthemes.com
+  Follow: www.twitter.com/keenthemes
+  Dribbble: www.dribbble.com/keenthemes
+  Like: www.facebook.com/keenthemes
+  License: For each use you must have a valid license purchased only from above link in order to legally use the theme for your project.
+html(lang="en")
+  // begin::Head
+  include ../partials/_head
+  // end::Head
+  // begin::Body
+  body.app-default(id="kt_app_body", data-kt-app-layout="dark-sidebar", data-kt-app-header-fixed="true", data-kt-app-sidebar-enabled="true", data-kt-app-sidebar-fixed="true", data-kt-app-sidebar-hoverable="true", data-kt-app-sidebar-push-header="true", data-kt-app-sidebar-push-toolbar="true", data-kt-app-sidebar-push-footer="true", data-kt-app-toolbar-enabled="true")
+    // begin::Theme mode setup on page load
+    script.
+      var defaultThemeMode = "light"; var themeMode; if ( document.documentElement ) { if ( document.documentElement.hasAttribute("data-bs-theme-mode")) { themeMode = document.documentElement.getAttribute("data-bs-theme-mode"); } else { if ( localStorage.getItem("data-bs-theme") !== null ) { themeMode = localStorage.getItem("data-bs-theme"); } else { themeMode = defaultThemeMode; } } if (themeMode === "system") { themeMode = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light"; } document.documentElement.setAttribute("data-bs-theme", themeMode); }
+    // end::Theme mode setup on page load
+    // begin::App
+    .d-flex.flex-column.flex-root.app-root(id="kt_app_root")
+      // begin::Page
+      .app-page.flex-column.flex-column-fluid(id="kt_app_page")
+        // begin::Header
+        include ../partials/_header
+        // end::Header
+        // begin::Wrapper
+        .app-wrapper.flex-column.flex-row-fluid(id="kt_app_wrapper")
+          // begin::Siderbar
+          include ../partials/_sidebar
+          // end::Siderbar
+          // begin::Main
+          .app-main.flex-column.flex-row-fluid(id="kt_app_main")
+            // begin::Content wrapper
+            block content   
+            // end::Content wrapper
+            // begin::Footer
+            include ../partials/_footer
+            // end::Footer
+          // end:::Main
+        // end::Wrapper
+      // end::Page
+    // end::App
+    // begin::Drawers
+    // begin::Activities drawer
+    .bg-body(id="kt_activities", data-kt-drawer="true", data-kt-drawer-name="activities", data-kt-drawer-activate="true", data-kt-drawer-overlay="true", data-kt-drawer-width="{default:'300px', 'lg': '900px'}", data-kt-drawer-direction="end", data-kt-drawer-toggle="#kt_activities_toggle", data-kt-drawer-close="#kt_activities_close")
+      .card.shadow-none.border-0.rounded-0
+        // begin::Header
+        .card-header(id="kt_activities_header")
+          h3.card-title.fw-bold.text-gray-900 Activity Logs
+          .card-toolbar
+            button.btn.btn-sm.btn-icon.btn-active-light-primary.me-n5(type="button", id="kt_activities_close")
+              i.ki-duotone.ki-cross.fs-1
+                span.path1
+                span.path2
+        // end::Header
+        // begin::Body
+        .card-body.position-relative(id="kt_activities_body")
+          // begin::Content
+          .position-relative.scroll-y.me-n5.pe-5(id="kt_activities_scroll", data-kt-scroll="true", data-kt-scroll-height="auto", data-kt-scroll-wrappers="#kt_activities_body", data-kt-scroll-dependencies="#kt_activities_header, #kt_activities_footer", data-kt-scroll-offset="5px")
+            // begin::Timeline items
+            .timeline.timeline-border-dashed
+              // begin::Timeline item
+              .timeline-item
+                // begin::Timeline line
+                .timeline-line
+                // end::Timeline line
+                // begin::Timeline icon
+                .timeline-icon
+                  i.ki-duotone.ki-message-text-2.fs-2.text-gray-500
+                    span.path1
+                    span.path2
+                    span.path3
+                // end::Timeline icon
+                // begin::Timeline content
+                .timeline-content.mb-10.mt-n1
+                  // begin::Timeline heading
+                  .pe-3.mb-5
+                    // begin::Title
+                    .fs-5.fw-semibold.mb-2 There are 2 new tasks for you in “AirPlus Mobile App” project:
+                    // end::Title
+                    // begin::Description
+                    .d-flex.align-items-center.mt-1.fs-6
+                      // begin::Info
+                      .text-muted.me-2.fs-7 Added at 4:23 PM by
+                      // end::Info
+                      // begin::User
+                      .symbol.symbol-circle.symbol-25px(data-bs-toggle="tooltip", data-bs-boundary="window", data-bs-placement="top", title="Nina Nilson")
+                        img(src="assets/media/avatars/300-14.jpg", alt="img")
+                      // end::User
+                    // end::Description
+                  // end::Timeline heading
+                  // begin::Timeline details
+                  .overflow-auto.pb-5
+                    // begin::Record
+                    .d-flex.align-items-center.border.border-dashed.border-gray-300.rounded.min-w-750px.px-7.py-3.mb-5
+                      // begin::Title
+                      a.fs-5.text-gray-900.text-hover-primary.fw-semibold.w-375px.min-w-200px(href="apps/projects/project.html") Meeting with customer
+                      // end::Title
+                      // begin::Label
+                      .min-w-175px.pe-2
+                        span.badge.badge-light.text-muted Application Design
+                      // end::Label
+                      // begin::Users
+                      .symbol-group.symbol-hover.flex-nowrap.flex-grow-1.min-w-100px.pe-2
+                        // begin::User
+                        .symbol.symbol-circle.symbol-25px
+                          img(src="assets/media/avatars/300-2.jpg", alt="img")
+                        // end::User
+                        // begin::User
+                        .symbol.symbol-circle.symbol-25px
+                          img(src="assets/media/avatars/300-14.jpg", alt="img")
+                        // end::User
+                        // begin::User
+                        .symbol.symbol-circle.symbol-25px
+                          .symbol-label.fs-8.fw-semibold.bg-primary.text-inverse-primary A
+                        // end::User
+                      // end::Users
+                      // begin::Progress
+                      .min-w-125px.pe-2
+                        span.badge.badge-light-primary In Progress
+                      // end::Progress
+                      // begin::Action
+                      a.btn.btn-sm.btn-light.btn-active-light-primary(href="apps/projects/project.html") View
+                      // end::Action
+                    // end::Record
+                    // begin::Record
+                    .d-flex.align-items-center.border.border-dashed.border-gray-300.rounded.min-w-750px.px-7.py-3.mb-0
+                      // begin::Title
+                      a.fs-5.text-gray-900.text-hover-primary.fw-semibold.w-375px.min-w-200px(href="apps/projects/project.html") Project Delivery Preparation
+                      // end::Title
+                      // begin::Label
+                      .min-w-175px
+                        span.badge.badge-light.text-muted CRM System Development
+                      // end::Label
+                      // begin::Users
+                      .symbol-group.symbol-hover.flex-nowrap.flex-grow-1.min-w-100px
+                        // begin::User
+                        .symbol.symbol-circle.symbol-25px
+                          img(src="assets/media/avatars/300-20.jpg", alt="img")
+                        // end::User
+                        // begin::User
+                        .symbol.symbol-circle.symbol-25px
+                          .symbol-label.fs-8.fw-semibold.bg-success.text-inverse-primary B
+                        // end::User
+                      // end::Users
+                      // begin::Progress
+                      .min-w-125px
+                        span.badge.badge-light-success Completed
+                      // end::Progress
+                      // begin::Action
+                      a.btn.btn-sm.btn-light.btn-active-light-primary(href="apps/projects/project.html") View
+                      // end::Action
+                    // end::Record
+                  // end::Timeline details
+                // end::Timeline content
+              // end::Timeline item
+              // begin::Timeline item
+              .timeline-item
+                // begin::Timeline line
+                .timeline-line
+                // end::Timeline line
+                // begin::Timeline icon
+                .timeline-icon.me-4
+                  i.ki-duotone.ki-flag.fs-2.text-gray-500
+                    span.path1
+                    span.path2
+                // end::Timeline icon
+                // begin::Timeline content
+                .timeline-content.mb-10.mt-n2
+                  // begin::Timeline heading
+                  .overflow-auto.pe-3
+                    // begin::Title
+                    .fs-5.fw-semibold.mb-2 Invitation for crafting engaging designs that speak human workshop
+                    // end::Title
+                    // begin::Description
+                    .d-flex.align-items-center.mt-1.fs-6
+                      // begin::Info
+                      .text-muted.me-2.fs-7 Sent at 4:23 PM by
+                      // end::Info
+                      // begin::User
+                      .symbol.symbol-circle.symbol-25px(data-bs-toggle="tooltip", data-bs-boundary="window", data-bs-placement="top", title="Alan Nilson")
+                        img(src="assets/media/avatars/300-1.jpg", alt="img")
+                      // end::User
+                    // end::Description
+                  // end::Timeline heading
+                // end::Timeline content
+              // end::Timeline item
+              // begin::Timeline item
+              .timeline-item
+                // begin::Timeline line
+                .timeline-line
+                // end::Timeline line
+                // begin::Timeline icon
+                .timeline-icon
+                  i.ki-duotone.ki-disconnect.fs-2.text-gray-500
+                    span.path1
+                    span.path2
+                    span.path3
+                    span.path4
+                    span.path5
+                // end::Timeline icon
+                // begin::Timeline content
+                .timeline-content.mb-10.mt-n1
+                  // begin::Timeline heading
+                  .mb-5.pe-3
+                    // begin::Title
+                    a.fs-5.fw-semibold.text-gray-800.text-hover-primary.mb-2(href="#") 3 New Incoming Project Files:
+                    // end::Title
+                    // begin::Description
+                    .d-flex.align-items-center.mt-1.fs-6
+                      // begin::Info
+                      .text-muted.me-2.fs-7 Sent at 10:30 PM by
+                      // end::Info
+                      // begin::User
+                      .symbol.symbol-circle.symbol-25px(data-bs-toggle="tooltip", data-bs-boundary="window", data-bs-placement="top", title="Jan Hummer")
+                        img(src="assets/media/avatars/300-23.jpg", alt="img")
+                      // end::User
+                    // end::Description
+                  // end::Timeline heading
+                  // begin::Timeline details
+                  .overflow-auto.pb-5
+                    .d-flex.align-items-center.border.border-dashed.border-gray-300.rounded.min-w-700px.p-5
+                      // begin::Item
+                      .d-flex.flex-aligns-center.pe-10.pe-lg-20
+                        // begin::Icon
+                        img.w-30px.me-3(src="assets/media/svg/files/pdf.svg")
+                        // end::Icon
+                        // begin::Info
+                        .ms-1.fw-semibold
+                          // begin::Desc
+                          a.fs-6.text-hover-primary.fw-bold(href="apps/projects/project.html") Finance KPI App Guidelines
+                          // end::Desc
+                          // begin::Number
+                          .text-gray-500 1.9mb
+                          // end::Number
+                        // begin::Info
+                      // end::Item
+                      // begin::Item
+                      .d-flex.flex-aligns-center.pe-10.pe-lg-20
+                        // begin::Icon
+                        img.w-30px.me-3(alt="apps/projects/project.html", src="assets/media/svg/files/doc.svg")
+                        // end::Icon
+                        // begin::Info
+                        .ms-1.fw-semibold
+                          // begin::Desc
+                          a.fs-6.text-hover-primary.fw-bold(href="#") Client UAT Testing Results
+                          // end::Desc
+                          // begin::Number
+                          .text-gray-500 18kb
+                          // end::Number
+                        // end::Info
+                      // end::Item
+                      // begin::Item
+                      .d-flex.flex-aligns-center
+                        // begin::Icon
+                        img.w-30px.me-3(alt="apps/projects/project.html", src="assets/media/svg/files/css.svg")
+                        // end::Icon
+                        // begin::Info
+                        .ms-1.fw-semibold
+                          // begin::Desc
+                          a.fs-6.text-hover-primary.fw-bold(href="#") Finance Reports
+                          // end::Desc
+                          // begin::Number
+                          .text-gray-500 20mb
+                          // end::Number
+                        // end::Icon
+                      // end::Item
+                  // end::Timeline details
+                // end::Timeline content
+              // end::Timeline item
+              // begin::Timeline item
+              .timeline-item
+                // begin::Timeline line
+                .timeline-line
+                // end::Timeline line
+                // begin::Timeline icon
+                .timeline-icon
+                  i.ki-duotone.ki-abstract-26.fs-2.text-gray-500
+                    span.path1
+                    span.path2
+                // end::Timeline icon
+                // begin::Timeline content
+                .timeline-content.mb-10.mt-n1
+                  // begin::Timeline heading
+                  .pe-3.mb-5
+                    // begin::Title
+                    .fs-5.fw-semibold.mb-2
+                      | Task
+                      a.text-primary.fw-bold.me-1(href="#") #45890
+                      | merged with
+                      a.text-primary.fw-bold.me-1(href="#") #45890
+                      | in “Ads Pro Admin Dashboard project:
+                    // end::Title
+                    // begin::Description
+                    .d-flex.align-items-center.mt-1.fs-6
+                      // begin::Info
+                      .text-muted.me-2.fs-7 Initiated at 4:23 PM by
+                      // end::Info
+                      // begin::User
+                      .symbol.symbol-circle.symbol-25px(data-bs-toggle="tooltip", data-bs-boundary="window", data-bs-placement="top", title="Nina Nilson")
+                        img(src="assets/media/avatars/300-14.jpg", alt="img")
+                      // end::User
+                    // end::Description
+                  // end::Timeline heading
+                // end::Timeline content
+              // end::Timeline item
+              // begin::Timeline item
+              .timeline-item
+                // begin::Timeline line
+                .timeline-line
+                // end::Timeline line
+                // begin::Timeline icon
+                .timeline-icon
+                  i.ki-duotone.ki-pencil.fs-2.text-gray-500
+                    span.path1
+                    span.path2
+                // end::Timeline icon
+                // begin::Timeline content
+                .timeline-content.mb-10.mt-n1
+                  // begin::Timeline heading
+                  .pe-3.mb-5
+                    // begin::Title
+                    .fs-5.fw-semibold.mb-2 3 new application design concepts added:
+                    // end::Title
+                    // begin::Description
+                    .d-flex.align-items-center.mt-1.fs-6
+                      // begin::Info
+                      .text-muted.me-2.fs-7 Created at 4:23 PM by
+                      // end::Info
+                      // begin::User
+                      .symbol.symbol-circle.symbol-25px(data-bs-toggle="tooltip", data-bs-boundary="window", data-bs-placement="top", title="Marcus Dotson")
+                        img(src="assets/media/avatars/300-2.jpg", alt="img")
+                      // end::User
+                    // end::Description
+                  // end::Timeline heading
+                  // begin::Timeline details
+                  .overflow-auto.pb-5
+                    .d-flex.align-items-center.border.border-dashed.border-gray-300.rounded.min-w-700px.p-7
+                      // begin::Item
+                      .overlay.me-10
+                        // begin::Image
+                        .overlay-wrapper
+                          img.rounded.w-150px(alt="img", src="assets/media/stock/600x400/img-29.jpg")
+                        // end::Image
+                        // begin::Link
+                        .overlay-layer.bg-dark.bg-opacity-10.rounded
+                          a.btn.btn-sm.btn-primary.btn-shadow(href="#") Explore
+                        // end::Link
+                      // end::Item
+                      // begin::Item
+                      .overlay.me-10
+                        // begin::Image
+                        .overlay-wrapper
+                          img.rounded.w-150px(alt="img", src="assets/media/stock/600x400/img-31.jpg")
+                        // end::Image
+                        // begin::Link
+                        .overlay-layer.bg-dark.bg-opacity-10.rounded
+                          a.btn.btn-sm.btn-primary.btn-shadow(href="#") Explore
+                        // end::Link
+                      // end::Item
+                      // begin::Item
+                      .overlay
+                        // begin::Image
+                        .overlay-wrapper
+                          img.rounded.w-150px(alt="img", src="assets/media/stock/600x400/img-40.jpg")
+                        // end::Image
+                        // begin::Link
+                        .overlay-layer.bg-dark.bg-opacity-10.rounded
+                          a.btn.btn-sm.btn-primary.btn-shadow(href="#") Explore
+                        // end::Link
+                      // end::Item
+                  // end::Timeline details
+                // end::Timeline content
+              // end::Timeline item
+              // begin::Timeline item
+              .timeline-item
+                // begin::Timeline line
+                .timeline-line
+                // end::Timeline line
+                // begin::Timeline icon
+                .timeline-icon
+                  i.ki-duotone.ki-sms.fs-2.text-gray-500
+                    span.path1
+                    span.path2
+                // end::Timeline icon
+                // begin::Timeline content
+                .timeline-content.mb-10.mt-n1
+                  // begin::Timeline heading
+                  .pe-3.mb-5
+                    // begin::Title
+                    .fs-5.fw-semibold.mb-2
+                      | New case
+                      a.text-primary.fw-bold.me-1(href="#") #67890
+                      | is assigned to you in Multi-platform Database Design project
+                    // end::Title
+                    // begin::Description
+                    .overflow-auto.pb-5
+                      // begin::Wrapper
+                      .d-flex.align-items-center.mt-1.fs-6
+                        // begin::Info
+                        .text-muted.me-2.fs-7 Added at 4:23 PM by
+                        // end::Info
+                        // begin::User
+                        a.text-primary.fw-bold.me-1(href="#") Alice Tan
+                        // end::User
+                      // end::Wrapper
+                    // end::Description
+                  // end::Timeline heading
+                // end::Timeline content
+              // end::Timeline item
+              // begin::Timeline item
+              .timeline-item
+                // begin::Timeline line
+                .timeline-line
+                // end::Timeline line
+                // begin::Timeline icon
+                .timeline-icon
+                  i.ki-duotone.ki-pencil.fs-2.text-gray-500
+                    span.path1
+                    span.path2
+                // end::Timeline icon
+                // begin::Timeline content
+                .timeline-content.mb-10.mt-n1
+                  // begin::Timeline heading
+                  .pe-3.mb-5
+                    // begin::Title
+                    .fs-5.fw-semibold.mb-2 You have received a new order:
+                    // end::Title
+                    // begin::Description
+                    .d-flex.align-items-center.mt-1.fs-6
+                      // begin::Info
+                      .text-muted.me-2.fs-7 Placed at 5:05 AM by
+                      // end::Info
+                      // begin::User
+                      .symbol.symbol-circle.symbol-25px(data-bs-toggle="tooltip", data-bs-boundary="window", data-bs-placement="top", title="Robert Rich")
+                        img(src="assets/media/avatars/300-4.jpg", alt="img")
+                      // end::User
+                    // end::Description
+                  // end::Timeline heading
+                  // begin::Timeline details
+                  .overflow-auto.pb-5
+                    // begin::Notice
+                    .notice.d-flex.bg-light-primary.rounded.border-primary.border.border-dashed.min-w-lg-600px.flex-shrink-0.p-6
+                      // begin::Icon
+                      i.ki-duotone.ki-devices-2.fs-2tx.text-primary.me-4
+                        span.path1
+                        span.path2
+                        span.path3
+                      // end::Icon
+                      // begin::Wrapper
+                      .d-flex.flex-stack.flex-grow-1.flex-wrap.flex-md-nowrap
+                        // begin::Content
+                        .mb-3.mb-md-0.fw-semibold
+                          h4.text-gray-900.fw-bold Database Backup Process Completed!
+                          .fs-6.text-gray-700.pe-7 Login into Admin Dashboard to make sure the data integrity is OK
+                        // end::Content
+                        // begin::Action
+                        a.btn.btn-primary.px-6.align-self-center.text-nowrap(href="#") Proceed
+                        // end::Action
+                      // end::Wrapper
+                    // end::Notice
+                  // end::Timeline details
+                // end::Timeline content
+              // end::Timeline item
+              // begin::Timeline item
+              .timeline-item
+                // begin::Timeline line
+                .timeline-line
+                // end::Timeline line
+                // begin::Timeline icon
+                .timeline-icon
+                  i.ki-duotone.ki-basket.fs-2.text-gray-500
+                    span.path1
+                    span.path2
+                    span.path3
+                    span.path4
+                // end::Timeline icon
+                // begin::Timeline content
+                .timeline-content.mt-n1
+                  // begin::Timeline heading
+                  .pe-3.mb-5
+                    // begin::Title
+                    .fs-5.fw-semibold.mb-2
+                      | New order
+                      a.text-primary.fw-bold.me-1(href="#") #67890
+                      | is placed for Workshow Planning &amp; Budget Estimation
+                    // end::Title
+                    // begin::Description
+                    .d-flex.align-items-center.mt-1.fs-6
+                      // begin::Info
+                      .text-muted.me-2.fs-7 Placed at 4:23 PM by
+                      // end::Info
+                      // begin::User
+                      a.text-primary.fw-bold.me-1(href="#") Jimmy Bold
+                      // end::User
+                    // end::Description
+                  // end::Timeline heading
+                // end::Timeline content
+              // end::Timeline item
+            // end::Timeline items
+          // end::Content
+        // end::Body
+        // begin::Footer
+        .card-footer.py-5.text-center(id="kt_activities_footer")
+          a.btn.btn-bg-body.text-primary(href="pages/user-profile/activity.html")
+            | View All Activities
+            i.ki-duotone.ki-arrow-right.fs-3.text-primary
+              span.path1
+              span.path2
+        // end::Footer
+    // end::Activities drawer
+    // begin::Chat drawer
+    .bg-body(id="kt_drawer_chat", data-kt-drawer="true", data-kt-drawer-name="chat", data-kt-drawer-activate="true", data-kt-drawer-overlay="true", data-kt-drawer-width="{default:'300px', 'md': '500px'}", data-kt-drawer-direction="end", data-kt-drawer-toggle="#kt_drawer_chat_toggle", data-kt-drawer-close="#kt_drawer_chat_close")
+      // begin::Messenger
+      .card.w-100.border-0.rounded-0(id="kt_drawer_chat_messenger")
+        // begin::Card header
+        .card-header.pe-5(id="kt_drawer_chat_messenger_header")
+          // begin::Title
+          .card-title
+            // begin::User
+            .d-flex.justify-content-center.flex-column.me-3
+              a.fs-4.fw-bold.text-gray-900.text-hover-primary.me-1.mb-2.lh-1(href="#") Brian Cox
+              // begin::Info
+              .mb-0.lh-1
+                span.badge.badge-success.badge-circle.w-10px.h-10px.me-1
+                span.fs-7.fw-semibold.text-muted Active
+              // end::Info
+            // end::User
+          // end::Title
+          // begin::Card toolbar
+          .card-toolbar
+            // begin::Menu
+            .me-0
+              button.btn.btn-sm.btn-icon.btn-active-color-primary(data-kt-menu-trigger="click", data-kt-menu-placement="bottom-end")
+                i.ki-duotone.ki-dots-square.fs-2
+                  span.path1
+                  span.path2
+                  span.path3
+                  span.path4
+              // begin::Menu 3
+              .menu.menu-sub.menu-sub-dropdown.menu-column.menu-rounded.menu-gray-800.menu-state-bg-light-primary.fw-semibold.w-200px.py-3(data-kt-menu="true")
+                // begin::Heading
+                .menu-item.px-3
+                  .menu-content.text-muted.pb-2.px-3.fs-7.text-uppercase Contacts
+                // end::Heading
+                // begin::Menu item
+                .menu-item.px-3
+                  a.menu-link.px-3(href="#", data-bs-toggle="modal", data-bs-target="#kt_modal_users_search") Add Contact
+                // end::Menu item
+                // begin::Menu item
+                .menu-item.px-3
+                  a.menu-link.flex-stack.px-3(href="#", data-bs-toggle="modal", data-bs-target="#kt_modal_invite_friends")
+                    | Invite Contacts
+                    span.ms-2(data-bs-toggle="tooltip", title="Specify a contact email to send an invitation")
+                      i.ki-duotone.ki-information.fs-7
+                        span.path1
+                        span.path2
+                        span.path3
+                // end::Menu item
+                // begin::Menu item
+                .menu-item.px-3(data-kt-menu-trigger="hover", data-kt-menu-placement="right-start")
+                  a.menu-link.px-3(href="#")
+                    span.menu-title Groups
+                    span.menu-arrow
+                  // begin::Menu sub
+                  .menu-sub.menu-sub-dropdown.w-175px.py-4
+                    // begin::Menu item
+                    .menu-item.px-3
+                      a.menu-link.px-3(href="#", data-bs-toggle="tooltip", title="Coming soon") Create Group
+                    // end::Menu item
+                    // begin::Menu item
+                    .menu-item.px-3
+                      a.menu-link.px-3(href="#", data-bs-toggle="tooltip", title="Coming soon") Invite Members
+                    // end::Menu item
+                    // begin::Menu item
+                    .menu-item.px-3
+                      a.menu-link.px-3(href="#", data-bs-toggle="tooltip", title="Coming soon") Settings
+                    // end::Menu item
+                  // end::Menu sub
+                // end::Menu item
+                // begin::Menu item
+                .menu-item.px-3.my-1
+                  a.menu-link.px-3(href="#", data-bs-toggle="tooltip", title="Coming soon") Settings
+                // end::Menu item
+              // end::Menu 3
+            // end::Menu
+            // begin::Close
+            .btn.btn-sm.btn-icon.btn-active-color-primary(id="kt_drawer_chat_close")
+              i.ki-duotone.ki-cross-square.fs-2
+                span.path1
+                span.path2
+            // end::Close
+          // end::Card toolbar
+        // end::Card header
+        // begin::Card body
+        .card-body(id="kt_drawer_chat_messenger_body")
+          // begin::Messages
+          .scroll-y.me-n5.pe-5(data-kt-element="messages", data-kt-scroll="true", data-kt-scroll-activate="true", data-kt-scroll-height="auto", data-kt-scroll-dependencies="#kt_drawer_chat_messenger_header, #kt_drawer_chat_messenger_footer", data-kt-scroll-wrappers="#kt_drawer_chat_messenger_body", data-kt-scroll-offset="0px")
+            // begin::Message(in)
+            .d-flex.justify-content-start.mb-10
+              // begin::Wrapper
+              .d-flex.flex-column.align-items-start
+                // begin::User
+                .d-flex.align-items-center.mb-2
+                  // begin::Avatar
+                  .symbol.symbol-35px.symbol-circle
+                    img(alt="Pic", src="assets/media/avatars/300-25.jpg")
+                  // end::Avatar
+                  // begin::Details
+                  .ms-3
+                    a.fs-5.fw-bold.text-gray-900.text-hover-primary.me-1(href="#") Brian Cox
+                    span.text-muted.fs-7.mb-1 2 mins
+                  // end::Details
+                // end::User
+                // begin::Text
+                .p-5.rounded.bg-light-info.text-gray-900.fw-semibold.mw-lg-400px.text-start(data-kt-element="message-text") How likely are you to recommend our company to your friends and family ?
+                // end::Text
+              // end::Wrapper
+            // end::Message(in)
+            // begin::Message(out)
+            .d-flex.justify-content-end.mb-10
+              // begin::Wrapper
+              .d-flex.flex-column.align-items-end
+                // begin::User
+                .d-flex.align-items-center.mb-2
+                  // begin::Details
+                  .me-3
+                    span.text-muted.fs-7.mb-1 5 mins
+                    a.fs-5.fw-bold.text-gray-900.text-hover-primary.ms-1(href="#") You
+                  // end::Details
+                  // begin::Avatar
+                  .symbol.symbol-35px.symbol-circle
+                    img(alt="Pic", src="assets/media/avatars/300-1.jpg")
+                  // end::Avatar
+                // end::User
+                // begin::Text
+                .p-5.rounded.bg-light-primary.text-gray-900.fw-semibold.mw-lg-400px.text-end(data-kt-element="message-text") Hey there, we’re just writing to let you know that you’ve been subscribed to a repository on GitHub.
+                // end::Text
+              // end::Wrapper
+            // end::Message(out)
+            // begin::Message(in)
+            .d-flex.justify-content-start.mb-10
+              // begin::Wrapper
+              .d-flex.flex-column.align-items-start
+                // begin::User
+                .d-flex.align-items-center.mb-2
+                  // begin::Avatar
+                  .symbol.symbol-35px.symbol-circle
+                    img(alt="Pic", src="assets/media/avatars/300-25.jpg")
+                  // end::Avatar
+                  // begin::Details
+                  .ms-3
+                    a.fs-5.fw-bold.text-gray-900.text-hover-primary.me-1(href="#") Brian Cox
+                    span.text-muted.fs-7.mb-1 1 Hour
+                  // end::Details
+                // end::User
+                // begin::Text
+                .p-5.rounded.bg-light-info.text-gray-900.fw-semibold.mw-lg-400px.text-start(data-kt-element="message-text") Ok, Understood!
+                // end::Text
+              // end::Wrapper
+            // end::Message(in)
+            // begin::Message(out)
+            .d-flex.justify-content-end.mb-10
+              // begin::Wrapper
+              .d-flex.flex-column.align-items-end
+                // begin::User
+                .d-flex.align-items-center.mb-2
+                  // begin::Details
+                  .me-3
+                    span.text-muted.fs-7.mb-1 2 Hours
+                    a.fs-5.fw-bold.text-gray-900.text-hover-primary.ms-1(href="#") You
+                  // end::Details
+                  // begin::Avatar
+                  .symbol.symbol-35px.symbol-circle
+                    img(alt="Pic", src="assets/media/avatars/300-1.jpg")
+                  // end::Avatar
+                // end::User
+                // begin::Text
+                .p-5.rounded.bg-light-primary.text-gray-900.fw-semibold.mw-lg-400px.text-end(data-kt-element="message-text") You’ll receive notifications for all issues, pull requests!
+                // end::Text
+              // end::Wrapper
+            // end::Message(out)
+            // begin::Message(in)
+            .d-flex.justify-content-start.mb-10
+              // begin::Wrapper
+              .d-flex.flex-column.align-items-start
+                // begin::User
+                .d-flex.align-items-center.mb-2
+                  // begin::Avatar
+                  .symbol.symbol-35px.symbol-circle
+                    img(alt="Pic", src="assets/media/avatars/300-25.jpg")
+                  // end::Avatar
+                  // begin::Details
+                  .ms-3
+                    a.fs-5.fw-bold.text-gray-900.text-hover-primary.me-1(href="#") Brian Cox
+                    span.text-muted.fs-7.mb-1 3 Hours
+                  // end::Details
+                // end::User
+                // begin::Text
+                .p-5.rounded.bg-light-info.text-gray-900.fw-semibold.mw-lg-400px.text-start(data-kt-element="message-text")
+                  | You can unwatch this repository immediately by clicking here:
+                  a(href="https://keenthemes.com") Keenthemes.com
+                // end::Text
+              // end::Wrapper
+            // end::Message(in)
+            // begin::Message(out)
+            .d-flex.justify-content-end.mb-10
+              // begin::Wrapper
+              .d-flex.flex-column.align-items-end
+                // begin::User
+                .d-flex.align-items-center.mb-2
+                  // begin::Details
+                  .me-3
+                    span.text-muted.fs-7.mb-1 4 Hours
+                    a.fs-5.fw-bold.text-gray-900.text-hover-primary.ms-1(href="#") You
+                  // end::Details
+                  // begin::Avatar
+                  .symbol.symbol-35px.symbol-circle
+                    img(alt="Pic", src="assets/media/avatars/300-1.jpg")
+                  // end::Avatar
+                // end::User
+                // begin::Text
+                .p-5.rounded.bg-light-primary.text-gray-900.fw-semibold.mw-lg-400px.text-end(data-kt-element="message-text") Most purchased Business courses during this sale!
+                // end::Text
+              // end::Wrapper
+            // end::Message(out)
+            // begin::Message(in)
+            .d-flex.justify-content-start.mb-10
+              // begin::Wrapper
+              .d-flex.flex-column.align-items-start
+                // begin::User
+                .d-flex.align-items-center.mb-2
+                  // begin::Avatar
+                  .symbol.symbol-35px.symbol-circle
+                    img(alt="Pic", src="assets/media/avatars/300-25.jpg")
+                  // end::Avatar
+                  // begin::Details
+                  .ms-3
+                    a.fs-5.fw-bold.text-gray-900.text-hover-primary.me-1(href="#") Brian Cox
+                    span.text-muted.fs-7.mb-1 5 Hours
+                  // end::Details
+                // end::User
+                // begin::Text
+                .p-5.rounded.bg-light-info.text-gray-900.fw-semibold.mw-lg-400px.text-start(data-kt-element="message-text") Company BBQ to celebrate the last quater achievements and goals. Food and drinks provided
+                // end::Text
+              // end::Wrapper
+            // end::Message(in)
+            // begin::Message(template for out)
+            .d-flex.justify-content-end.mb-10.d-none(data-kt-element="template-out")
+              // begin::Wrapper
+              .d-flex.flex-column.align-items-end
+                // begin::User
+                .d-flex.align-items-center.mb-2
+                  // begin::Details
+                  .me-3
+                    span.text-muted.fs-7.mb-1 Just now
+                    a.fs-5.fw-bold.text-gray-900.text-hover-primary.ms-1(href="#") You
+                  // end::Details
+                  // begin::Avatar
+                  .symbol.symbol-35px.symbol-circle
+                    img(alt="Pic", src="assets/media/avatars/300-1.jpg")
+                  // end::Avatar
+                // end::User
+                // begin::Text
+                .p-5.rounded.bg-light-primary.text-gray-900.fw-semibold.mw-lg-400px.text-end(data-kt-element="message-text")
+                // end::Text
+              // end::Wrapper
+            // end::Message(template for out)
+            // begin::Message(template for in)
+            .d-flex.justify-content-start.mb-10.d-none(data-kt-element="template-in")
+              // begin::Wrapper
+              .d-flex.flex-column.align-items-start
+                // begin::User
+                .d-flex.align-items-center.mb-2
+                  // begin::Avatar
+                  .symbol.symbol-35px.symbol-circle
+                    img(alt="Pic", src="assets/media/avatars/300-25.jpg")
+                  // end::Avatar
+                  // begin::Details
+                  .ms-3
+                    a.fs-5.fw-bold.text-gray-900.text-hover-primary.me-1(href="#") Brian Cox
+                    span.text-muted.fs-7.mb-1 Just now
+                  // end::Details
+                // end::User
+                // begin::Text
+                .p-5.rounded.bg-light-info.text-gray-900.fw-semibold.mw-lg-400px.text-start(data-kt-element="message-text") Right before vacation season we have the next Big Deal for you.
+                // end::Text
+              // end::Wrapper
+            // end::Message(template for in)
+          // end::Messages
+        // end::Card body
+        // begin::Card footer
+        .card-footer.pt-4(id="kt_drawer_chat_messenger_footer")
+          // begin::Input
+          textarea.form-control.form-control-flush.mb-3(rows="1", data-kt-element="input", placeholder="Type a message")
+          // end::Input
+          // begin:Toolbar
+          .d-flex.flex-stack
+            // begin::Actions
+            .d-flex.align-items-center.me-2
+              button.btn.btn-sm.btn-icon.btn-active-light-primary.me-1(type="button", data-bs-toggle="tooltip", title="Coming soon")
+                i.ki-duotone.ki-paper-clip.fs-3
+              button.btn.btn-sm.btn-icon.btn-active-light-primary.me-1(type="button", data-bs-toggle="tooltip", title="Coming soon")
+                i.ki-duotone.ki-cloud-add.fs-3
+                  span.path1
+                  span.path2
+            // end::Actions
+            // begin::Send
+            button.btn.btn-primary(type="button", data-kt-element="send") Send
+            // end::Send
+          // end::Toolbar
+        // end::Card footer
+      // end::Messenger
+    // end::Chat drawer
+    // begin::Chat drawer
+    .bg-body(id="kt_shopping_cart", data-kt-drawer="true", data-kt-drawer-name="cart", data-kt-drawer-activate="true", data-kt-drawer-overlay="true", data-kt-drawer-width="{default:'300px', 'md': '500px'}", data-kt-drawer-direction="end", data-kt-drawer-toggle="#kt_drawer_shopping_cart_toggle", data-kt-drawer-close="#kt_drawer_shopping_cart_close")
+      // begin::Messenger
+      .card.card-flush.w-100.rounded-0
+        // begin::Card header
+        .card-header
+          // begin::Title
+          h3.card-title.text-gray-900.fw-bold Shopping Cart
+          // end::Title
+          // begin::Card toolbar
+          .card-toolbar
+            // begin::Close
+            .btn.btn-sm.btn-icon.btn-active-light-primary(id="kt_drawer_shopping_cart_close")
+              i.ki-duotone.ki-cross.fs-2
+                span.path1
+                span.path2
+            // end::Close
+          // end::Card toolbar
+        // end::Card header
+        // begin::Card body
+        .card-body.hover-scroll-overlay-y.h-400px.pt-5
+          // begin::Item
+          .d-flex.flex-stack
+            // begin::Wrapper
+            .d-flex.flex-column.me-3
+              // begin::Section
+              .mb-3
+                a.text-gray-800.text-hover-primary.fs-4.fw-bold(href="apps/ecommerce/sales/details.html") Iblender
+                span.text-gray-500.fw-semibold.d-block The best kitchen gadget in 2022
+              // end::Section
+              // begin::Section
+              .d-flex.align-items-center
+                span.fw-bold.text-gray-800.fs-5 $ 350
+                span.text-muted.mx-2 for
+                span.fw-bold.text-gray-800.fs-5.me-3 5
+                a.btn.btn-sm.btn-light-success.btn-icon-success.btn-icon.w-25px.h-25px.me-2(href="#")
+                  i.ki-duotone.ki-minus.fs-4
+                a.btn.btn-sm.btn-light-success.btn-icon.w-25px.h-25px(href="#")
+                  i.ki-duotone.ki-plus.fs-4
+              // end::Wrapper
+            // end::Wrapper
+            // begin::Pic
+            .symbol.symbol-70px.symbol-2by3.flex-shrink-0
+              img(src="assets/media/stock/600x400/img-1.jpg")
+            // end::Pic
+          // end::Item
+          // begin::Separator
+          .separator.separator-dashed.my-6
+          // end::Separator
+          // begin::Item
+          .d-flex.flex-stack
+            // begin::Wrapper
+            .d-flex.flex-column.me-3
+              // begin::Section
+              .mb-3
+                a.text-gray-800.text-hover-primary.fs-4.fw-bold(href="apps/ecommerce/sales/details.html") SmartCleaner
+                span.text-gray-500.fw-semibold.d-block Smart tool for cooking
+              // end::Section
+              // begin::Section
+              .d-flex.align-items-center
+                span.fw-bold.text-gray-800.fs-5 $ 650
+                span.text-muted.mx-2 for
+                span.fw-bold.text-gray-800.fs-5.me-3 4
+                a.btn.btn-sm.btn-light-success.btn-icon-success.btn-icon.w-25px.h-25px.me-2(href="#")
+                  i.ki-duotone.ki-minus.fs-4
+                a.btn.btn-sm.btn-light-success.btn-icon.w-25px.h-25px(href="#")
+                  i.ki-duotone.ki-plus.fs-4
+              // end::Wrapper
+            // end::Wrapper
+            // begin::Pic
+            .symbol.symbol-70px.symbol-2by3.flex-shrink-0
+              img(src="assets/media/stock/600x400/img-3.jpg")
+            // end::Pic
+          // end::Item
+          // begin::Separator
+          .separator.separator-dashed.my-6
+          // end::Separator
+          // begin::Item
+          .d-flex.flex-stack
+            // begin::Wrapper
+            .d-flex.flex-column.me-3
+              // begin::Section
+              .mb-3
+                a.text-gray-800.text-hover-primary.fs-4.fw-bold(href="apps/ecommerce/sales/details.html") CameraMaxr
+                span.text-gray-500.fw-semibold.d-block Professional camera for edge
+              // end::Section
+              // begin::Section
+              .d-flex.align-items-center
+                span.fw-bold.text-gray-800.fs-5 $ 150
+                span.text-muted.mx-2 for
+                span.fw-bold.text-gray-800.fs-5.me-3 3
+                a.btn.btn-sm.btn-light-success.btn-icon-success.btn-icon.w-25px.h-25px.me-2(href="#")
+                  i.ki-duotone.ki-minus.fs-4
+                a.btn.btn-sm.btn-light-success.btn-icon.w-25px.h-25px(href="#")
+                  i.ki-duotone.ki-plus.fs-4
+              // end::Wrapper
+            // end::Wrapper
+            // begin::Pic
+            .symbol.symbol-70px.symbol-2by3.flex-shrink-0
+              img(src="assets/media/stock/600x400/img-8.jpg")
+            // end::Pic
+          // end::Item
+          // begin::Separator
+          .separator.separator-dashed.my-6
+          // end::Separator
+          // begin::Item
+          .d-flex.flex-stack
+            // begin::Wrapper
+            .d-flex.flex-column.me-3
+              // begin::Section
+              .mb-3
+                a.text-gray-800.text-hover-primary.fs-4.fw-bold(href="apps/ecommerce/sales/details.html") $D Printer
+                span.text-gray-500.fw-semibold.d-block Manfactoring unique objekts
+              // end::Section
+              // begin::Section
+              .d-flex.align-items-center
+                span.fw-bold.text-gray-800.fs-5 $ 1450
+                span.text-muted.mx-2 for
+                span.fw-bold.text-gray-800.fs-5.me-3 7
+                a.btn.btn-sm.btn-light-success.btn-icon-success.btn-icon.w-25px.h-25px.me-2(href="#")
+                  i.ki-duotone.ki-minus.fs-4
+                a.btn.btn-sm.btn-light-success.btn-icon.w-25px.h-25px(href="#")
+                  i.ki-duotone.ki-plus.fs-4
+              // end::Wrapper
+            // end::Wrapper
+            // begin::Pic
+            .symbol.symbol-70px.symbol-2by3.flex-shrink-0
+              img(src="assets/media/stock/600x400/img-26.jpg")
+            // end::Pic
+          // end::Item
+          // begin::Separator
+          .separator.separator-dashed.my-6
+          // end::Separator
+          // begin::Item
+          .d-flex.flex-stack
+            // begin::Wrapper
+            .d-flex.flex-column.me-3
+              // begin::Section
+              .mb-3
+                a.text-gray-800.text-hover-primary.fs-4.fw-bold(href="apps/ecommerce/sales/details.html") MotionWire
+                span.text-gray-500.fw-semibold.d-block Perfect animation tool
+              // end::Section
+              // begin::Section
+              .d-flex.align-items-center
+                span.fw-bold.text-gray-800.fs-5 $ 650
+                span.text-muted.mx-2 for
+                span.fw-bold.text-gray-800.fs-5.me-3 7
+                a.btn.btn-sm.btn-light-success.btn-icon-success.btn-icon.w-25px.h-25px.me-2(href="#")
+                  i.ki-duotone.ki-minus.fs-4
+                a.btn.btn-sm.btn-light-success.btn-icon.w-25px.h-25px(href="#")
+                  i.ki-duotone.ki-plus.fs-4
+              // end::Wrapper
+            // end::Wrapper
+            // begin::Pic
+            .symbol.symbol-70px.symbol-2by3.flex-shrink-0
+              img(src="assets/media/stock/600x400/img-21.jpg")
+            // end::Pic
+          // end::Item
+          // begin::Separator
+          .separator.separator-dashed.my-6
+          // end::Separator
+          // begin::Item
+          .d-flex.flex-stack
+            // begin::Wrapper
+            .d-flex.flex-column.me-3
+              // begin::Section
+              .mb-3
+                a.text-gray-800.text-hover-primary.fs-4.fw-bold(href="apps/ecommerce/sales/details.html") Samsung
+                span.text-gray-500.fw-semibold.d-block Profile info,Timeline etc
+              // end::Section
+              // begin::Section
+              .d-flex.align-items-center
+                span.fw-bold.text-gray-800.fs-5 $ 720
+                span.text-muted.mx-2 for
+                span.fw-bold.text-gray-800.fs-5.me-3 6
+                a.btn.btn-sm.btn-light-success.btn-icon-success.btn-icon.w-25px.h-25px.me-2(href="#")
+                  i.ki-duotone.ki-minus.fs-4
+                a.btn.btn-sm.btn-light-success.btn-icon.w-25px.h-25px(href="#")
+                  i.ki-duotone.ki-plus.fs-4
+              // end::Wrapper
+            // end::Wrapper
+            // begin::Pic
+            .symbol.symbol-70px.symbol-2by3.flex-shrink-0
+              img(src="assets/media/stock/600x400/img-34.jpg")
+            // end::Pic
+          // end::Item
+          // begin::Separator
+          .separator.separator-dashed.my-6
+          // end::Separator
+          // begin::Item
+          .d-flex.flex-stack
+            // begin::Wrapper
+            .d-flex.flex-column.me-3
+              // begin::Section
+              .mb-3
+                a.text-gray-800.text-hover-primary.fs-4.fw-bold(href="apps/ecommerce/sales/details.html") $D Printer
+                span.text-gray-500.fw-semibold.d-block Manfactoring unique objekts
+              // end::Section
+              // begin::Section
+              .d-flex.align-items-center
+                span.fw-bold.text-gray-800.fs-5 $ 430
+                span.text-muted.mx-2 for
+                span.fw-bold.text-gray-800.fs-5.me-3 8
+                a.btn.btn-sm.btn-light-success.btn-icon-success.btn-icon.w-25px.h-25px.me-2(href="#")
+                  i.ki-duotone.ki-minus.fs-4
+                a.btn.btn-sm.btn-light-success.btn-icon.w-25px.h-25px(href="#")
+                  i.ki-duotone.ki-plus.fs-4
+              // end::Wrapper
+            // end::Wrapper
+            // begin::Pic
+            .symbol.symbol-70px.symbol-2by3.flex-shrink-0
+              img(src="assets/media/stock/600x400/img-27.jpg")
+            // end::Pic
+          // end::Item
+        // end::Card body
+        // begin::Card footer
+        .card-footer
+          // begin::Item
+          .d-flex.flex-stack
+            span.fw-bold.text-gray-600 Total
+            span.text-gray-800.fw-bolder.fs-5 $ 1840.00
+          // end::Item
+          // begin::Item
+          .d-flex.flex-stack
+            span.fw-bold.text-gray-600 Sub total
+            span.text-primary.fw-bolder.fs-5 $ 246.35
+          // end::Item
+          // end::Action
+          .d-flex.justify-content-end.mt-9
+            a.btn.btn-primary.d-flex.justify-content-end(href="#") Pleace Order
+          // end::Action
+        // end::Card footer
+      // end::Messenger
+    // end::Chat drawer
+    // end::Drawers
+    // begin::Scrolltop
+    .scrolltop(id="kt_scrolltop", data-kt-scrolltop="true")
+      i.ki-duotone.ki-arrow-up
+        span.path1
+        span.path2
+    // end::Scrolltop
+    include ../partials/_modals
+  // end::Body

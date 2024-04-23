@@ -1,0 +1,1454 @@
+extends ../layouts/base
+
+block content
+  body
+    .d-flex.flex-column.flex-column-fluid
+      // begin::Toolbar
+      .app-toolbar.py-3.py-lg-6(id="kt_app_toolbar")
+      // end::Toolbar
+      // begin::Content
+      .app-content.flex-column-fluid(id="kt_app_content")
+        // begin::Content container
+        .app-container.container-xxl(id="kt_app_content_container")
+          // begin::Navbar
+          include ../partials/_projectHeader
+          // end::Navbar
+          // begin::Toolbar
+          .d-flex.flex-wrap.flex-stack.pt-10.pb-8
+            // begin::Heading
+            h3.fw-bold.my-2
+              | Project Targets
+              span.fs-6.text-gray-500.fw-semibold.ms-1 by Recent Updates ↓
+            // end::Heading
+            // begin::Controls
+            .d-flex.flex-wrap.my-1
+              // begin::Tab nav
+              ul.nav.nav-pills.me-5
+                li.nav-item.m-0
+                  a.btn.btn-sm.btn-icon.btn-light.btn-color-muted.btn-active-primary.active.me-3(data-bs-toggle="tab", href="#kt_project_targets_card_pane")
+                    i.ki-duotone.ki-element-plus.fs-1
+                      span.path1
+                      span.path2
+                      span.path3
+                      span.path4
+                      span.path5
+                li.nav-item.m-0
+                  a.btn.btn-sm.btn-icon.btn-light.btn-color-muted.btn-active-primary(data-bs-toggle="tab", href="#kt_project_targets_table_pane")
+                    i.ki-duotone.ki-row-horizontal.fs-2
+                      span.path1
+                      span.path2
+              // end::Tab nav
+              // begin::Wrapper
+              .my-0
+                // begin::Select
+                select.form-select.form-select-sm.border-body.bg-body.w-150px(name="status", data-control="select2", data-hide-search="true")
+                  option(value="1", selected="selected") Recently Updated
+                  option(value="2") Last Month
+                  option(value="3") Last Quarter
+                  option(value="4") Last Year
+                // end::Select
+              // end::Wrapper
+            // end::Controls
+          // end::Toolbar
+          // begin::Tab Content
+          .tab-content
+            // begin::Tab pane
+            .tab-pane.fade.show.active(id="kt_project_targets_card_pane")
+              // begin::Row
+              .row.g-9
+                // begin::Col
+                .col-md-4.col-lg-12.col-xl-4
+                  // begin::Col header
+                  .mb-9
+                    .d-flex.flex-stack
+                      .fw-bold.fs-4
+                        | Yet to start
+                        span.fs-6.text-gray-500.ms-2 2
+                      // begin::Menu
+                      div
+                        button.btn.btn-sm.btn-icon.btn-color-light-dark.btn-active-light-primary(type="button", data-kt-menu-trigger="click", data-kt-menu-placement="bottom-end")
+                          i.ki-duotone.ki-element-plus.fs-2
+                            span.path1
+                            span.path2
+                            span.path3
+                            span.path4
+                            span.path5
+                        // begin::Menu 1
+                        .menu.menu-sub.menu-sub-dropdown.w-250px.w-md-300px(data-kt-menu="true", id="kt_menu_654bb8f62dadb")
+                          // begin::Header
+                          .px-7.py-5
+                            .fs-5.text-gray-900.fw-bold Filter Options
+                          // end::Header
+                          // begin::Menu separator
+                          .separator.border-gray-200
+                          // end::Menu separator
+                          // begin::Form
+                          .px-7.py-5
+                            // begin::Input group
+                            .mb-10
+                              // begin::Label
+                              label.form-label.fw-semibold Status:
+                              // end::Label
+                              // begin::Input
+                              div
+                                select.form-select.form-select-solid(multiple="multiple", data-kt-select2="true", data-close-on-select="false", data-placeholder="Select option", data-dropdown-parent="#kt_menu_654bb8f62dadb", data-allow-clear="true")
+                                  option
+                                  option(value="1") Approved
+                                  option(value="2") Pending
+                                  option(value="2") In Process
+                                  option(value="2") Rejected
+                              // end::Input
+                            // end::Input group
+                            // begin::Input group
+                            .mb-10
+                              // begin::Label
+                              label.form-label.fw-semibold Member Type:
+                              // end::Label
+                              // begin::Options
+                              .d-flex
+                                // begin::Options
+                                label.form-check.form-check-sm.form-check-custom.form-check-solid.me-5
+                                  input.form-check-input(type="checkbox", value="1")
+                                  span.form-check-label Author
+                                // end::Options
+                                // begin::Options
+                                label.form-check.form-check-sm.form-check-custom.form-check-solid
+                                  input.form-check-input(type="checkbox", value="2", checked="checked")
+                                  span.form-check-label Customer
+                                // end::Options
+                              // end::Options
+                            // end::Input group
+                            // begin::Input group
+                            .mb-10
+                              // begin::Label
+                              label.form-label.fw-semibold Notifications:
+                              // end::Label
+                              // begin::Switch
+                              .form-check.form-switch.form-switch-sm.form-check-custom.form-check-solid
+                                input.form-check-input(type="checkbox", name="notifications", checked="checked")
+                                label.form-check-label Enabled
+                              // end::Switch
+                            // end::Input group
+                            // begin::Actions
+                            .d-flex.justify-content-end
+                              button.btn.btn-sm.btn-light.btn-active-light-primary.me-2(type="reset", data-kt-menu-dismiss="true") Reset
+                              button.btn.btn-sm.btn-primary(type="submit", data-kt-menu-dismiss="true") Apply
+                            // end::Actions
+                          // end::Form
+                        // end::Menu 1
+                      // end::Menu
+                    .h-3px.w-100.bg-warning
+                  // end::Col header
+                  | {{#each project.tickets}}
+                  // begin::Card
+                  .card.mb-6.mb-xl-9
+                    // begin::Card body
+                    .card-body
+                      // begin::Header
+                      .d-flex.flex-stack.mb-3
+                        // begin::Badge
+                        .badge.badge-light {{category}}
+                        // end::Badge
+                        // begin::Menu
+                        div
+                          button.btn.btn-sm.btn-icon.btn-color-light-dark.btn-active-light-primary(type="button", data-kt-menu-trigger="click", data-kt-menu-placement="bottom-end")
+                            i.ki-duotone.ki-element-plus.fs-2
+                              span.path1
+                              span.path2
+                              span.path3
+                              span.path4
+                              span.path5
+                          // begin::Menu 3
+                          .menu.menu-sub.menu-sub-dropdown.menu-column.menu-rounded.menu-gray-800.menu-state-bg-light-primary.fw-semibold.w-200px.py-3(data-kt-menu="true")
+                            // begin::Heading
+                            .menu-item.px-3
+                              .menu-content.text-muted.pb-2.px-3.fs-7.text-uppercase Payments
+                            // end::Heading
+                            // begin::Menu item
+                            .menu-item.px-3
+                              a.menu-link.px-3(href="#") Create Invoice
+                            // end::Menu item
+                            // begin::Menu item
+                            .menu-item.px-3
+                              a.menu-link.flex-stack.px-3(href="#")
+                                | Create Payment
+                                span.ms-2(data-bs-toggle="tooltip", title="Specify a target name for future usage and reference")
+                                  i.ki-duotone.ki-information.fs-6
+                                    span.path1
+                                    span.path2
+                                    span.path3
+                            // end::Menu item
+                            // begin::Menu item
+                            .menu-item.px-3
+                              a.menu-link.px-3(href="#") Generate Bill
+                            // end::Menu item
+                            // begin::Menu item
+                            .menu-item.px-3(data-kt-menu-trigger="hover", data-kt-menu-placement="right-end")
+                              a.menu-link.px-3(href="#")
+                                span.menu-title Subscription
+                                span.menu-arrow
+                              // begin::Menu sub
+                              .menu-sub.menu-sub-dropdown.w-175px.py-4
+                                // begin::Menu item
+                                .menu-item.px-3
+                                  a.menu-link.px-3(href="#") Plans
+                                // end::Menu item
+                                // begin::Menu item
+                                .menu-item.px-3
+                                  a.menu-link.px-3(href="#") Billing
+                                // end::Menu item
+                                // begin::Menu item
+                                .menu-item.px-3
+                                  a.menu-link.px-3(href="#") Statements
+                                // end::Menu item
+                                // begin::Menu separator
+                                .separator.my-2
+                                // end::Menu separator
+                                // begin::Menu item
+                                .menu-item.px-3
+                                  .menu-content.px-3
+                                    // begin::Switch
+                                    label.form-check.form-switch.form-check-custom.form-check-solid
+                                      // begin::Input
+                                      input.form-check-input.w-30px.h-20px(type="checkbox", value="1", checked="checked", name="notifications")
+                                      // end::Input
+                                      // end::Label
+                                      span.form-check-label.text-muted.fs-6 Recuring
+                                      // end::Label
+                                    // end::Switch
+                                // end::Menu item
+                              // end::Menu sub
+                            // end::Menu item
+                            // begin::Menu item
+                            .menu-item.px-3.my-1
+                              a.menu-link.px-3(href="#") Settings
+                            // end::Menu item
+                          // end::Menu 3
+                        // end::Menu
+                      // end::Header
+                      // begin::Title
+                      .mb-2
+                        a.fs-4.fw-bold.mb-1.text-gray-900.text-hover-primary(href="#") {{name}}
+                      // end::Title
+                      // begin::Content
+                      .fs-6.fw-semibold.text-gray-600.mb-5 {{description}}
+                      // end::Content
+                      // begin::Footer
+                      .d-flex.flex-stack.flex-wrapr
+                        // begin::Users
+                        .symbol-group.symbol-hover.my-1
+                          .symbol.symbol-35px.symbol-circle(data-bs-toggle="tooltip", title="Melody Macy")
+                            img(alt="Pic", src="assets/media/avatars/300-2.jpg")
+                          .symbol.symbol-35px.symbol-circle(data-bs-toggle="tooltip", title="Harry Mcpherson")
+                            img(alt="Pic", src="assets/media/avatars/300-19.jpg")
+                          .symbol.symbol-35px.symbol-circle(data-bs-toggle="tooltip", title="Susan Redwood")
+                            span.symbol-label.bg-primary.text-inverse-primary.fw-bold S
+                        // end::Users
+                        // begin::Stats
+                        .d-flex.my-1
+                          // begin::Stat
+                          .border.border-dashed.border-gray-300.rounded.d-flex.align-items-center.py-2.px-3
+                            i.ki-duotone.ki-paper-clip.fs-3
+                            span.ms-1.fs-7.fw-bold.text-gray-600 6
+                          // end::Stat
+                          // begin::Stat
+                          .border.border-dashed.border-gray-300.d-flex.align-items-center.rounded.py-2.px-3.ms-3
+                            i.ki-duotone.ki-message-text-2.fs-3
+                              span.path1
+                              span.path2
+                              span.path3
+                            span.ms-1.fs-7.fw-bold.text-gray-600 9
+                          // end::Stat
+                        // end::Stats
+                      // end::Footer
+                    // end::Card body
+                  // end::Card
+                  | {{/each}}
+                  a.btn.btn-primary.er.w-100.fs-6.px-8.py-4(href="#", data-bs-toggle="modal", data-bs-target="#kt_modal_new_target") Create New Ticket
+                // end::Col
+                // begin::Col
+                .col-md-4.col-lg-12.col-xl-4
+                  // begin::Col header
+                  .mb-9
+                    .d-flex.flex-stack
+                      .fw-bold.fs-4
+                        | In Progress
+                        span.fs-6.text-gray-500.ms-2 4
+                      // begin::Menu
+                      div
+                        button.btn.btn-sm.btn-icon.btn-color-light-dark.btn-active-light-primary(type="button", data-kt-menu-trigger="click", data-kt-menu-placement="bottom-end")
+                          i.ki-duotone.ki-element-plus.fs-2
+                            span.path1
+                            span.path2
+                            span.path3
+                            span.path4
+                            span.path5
+                        // begin::Menu 1
+                        .menu.menu-sub.menu-sub-dropdown.w-250px.w-md-300px(data-kt-menu="true", id="kt_menu_654bb8f62db90")
+                          // begin::Header
+                          .px-7.py-5
+                            .fs-5.text-gray-900.fw-bold Filter Options
+                          // end::Header
+                          // begin::Menu separator
+                          .separator.border-gray-200
+                          // end::Menu separator
+                          // begin::Form
+                          .px-7.py-5
+                            // begin::Input group
+                            .mb-10
+                              // begin::Label
+                              label.form-label.fw-semibold Status:
+                              // end::Label
+                              // begin::Input
+                              div
+                                select.form-select.form-select-solid(multiple="multiple", data-kt-select2="true", data-close-on-select="false", data-placeholder="Select option", data-dropdown-parent="#kt_menu_654bb8f62db90", data-allow-clear="true")
+                                  option
+                                  option(value="1") Approved
+                                  option(value="2") Pending
+                                  option(value="2") In Process
+                                  option(value="2") Rejected
+                              // end::Input
+                            // end::Input group
+                            // begin::Input group
+                            .mb-10
+                              // begin::Label
+                              label.form-label.fw-semibold Member Type:
+                              // end::Label
+                              // begin::Options
+                              .d-flex
+                                // begin::Options
+                                label.form-check.form-check-sm.form-check-custom.form-check-solid.me-5
+                                  input.form-check-input(type="checkbox", value="1")
+                                  span.form-check-label Author
+                                // end::Options
+                                // begin::Options
+                                label.form-check.form-check-sm.form-check-custom.form-check-solid
+                                  input.form-check-input(type="checkbox", value="2", checked="checked")
+                                  span.form-check-label Customer
+                                // end::Options
+                              // end::Options
+                            // end::Input group
+                            // begin::Input group
+                            .mb-10
+                              // begin::Label
+                              label.form-label.fw-semibold Notifications:
+                              // end::Label
+                              // begin::Switch
+                              .form-check.form-switch.form-switch-sm.form-check-custom.form-check-solid
+                                input.form-check-input(type="checkbox", name="notifications", checked="checked")
+                                label.form-check-label Enabled
+                              // end::Switch
+                            // end::Input group
+                            // begin::Actions
+                            .d-flex.justify-content-end
+                              button.btn.btn-sm.btn-light.btn-active-light-primary.me-2(type="reset", data-kt-menu-dismiss="true") Reset
+                              button.btn.btn-sm.btn-primary(type="submit", data-kt-menu-dismiss="true") Apply
+                            // end::Actions
+                          // end::Form
+                        // end::Menu 1
+                      // end::Menu
+                    .h-3px.w-100.bg-primary
+                  // end::Col header
+                  // begin::Card
+                  .card.mb-6.mb-xl-9
+                    // begin::Card body
+                    .card-body
+                      // begin::Header
+                      .d-flex.flex-stack.mb-3
+                        // begin::Badge
+                        .badge.badge-light Development
+                        // end::Badge
+                        // begin::Menu
+                        div
+                          button.btn.btn-sm.btn-icon.btn-color-light-dark.btn-active-light-primary(type="button", data-kt-menu-trigger="click", data-kt-menu-placement="bottom-end")
+                            i.ki-duotone.ki-element-plus.fs-2
+                              span.path1
+                              span.path2
+                              span.path3
+                              span.path4
+                              span.path5
+                          // begin::Menu 3
+                          .menu.menu-sub.menu-sub-dropdown.menu-column.menu-rounded.menu-gray-800.menu-state-bg-light-primary.fw-semibold.w-200px.py-3(data-kt-menu="true")
+                            // begin::Heading
+                            .menu-item.px-3
+                              .menu-content.text-muted.pb-2.px-3.fs-7.text-uppercase Payments
+                            // end::Heading
+                            // begin::Menu item
+                            .menu-item.px-3
+                              a.menu-link.px-3(href="#") Create Invoice
+                            // end::Menu item
+                            // begin::Menu item
+                            .menu-item.px-3
+                              a.menu-link.flex-stack.px-3(href="#")
+                                | Create Payment
+                                span.ms-2(data-bs-toggle="tooltip", title="Specify a target name for future usage and reference")
+                                  i.ki-duotone.ki-information.fs-6
+                                    span.path1
+                                    span.path2
+                                    span.path3
+                            // end::Menu item
+                            // begin::Menu item
+                            .menu-item.px-3
+                              a.menu-link.px-3(href="#") Generate Bill
+                            // end::Menu item
+                            // begin::Menu item
+                            .menu-item.px-3(data-kt-menu-trigger="hover", data-kt-menu-placement="right-end")
+                              a.menu-link.px-3(href="#")
+                                span.menu-title Subscription
+                                span.menu-arrow
+                              // begin::Menu sub
+                              .menu-sub.menu-sub-dropdown.w-175px.py-4
+                                // begin::Menu item
+                                .menu-item.px-3
+                                  a.menu-link.px-3(href="#") Plans
+                                // end::Menu item
+                                // begin::Menu item
+                                .menu-item.px-3
+                                  a.menu-link.px-3(href="#") Billing
+                                // end::Menu item
+                                // begin::Menu item
+                                .menu-item.px-3
+                                  a.menu-link.px-3(href="#") Statements
+                                // end::Menu item
+                                // begin::Menu separator
+                                .separator.my-2
+                                // end::Menu separator
+                                // begin::Menu item
+                                .menu-item.px-3
+                                  .menu-content.px-3
+                                    // begin::Switch
+                                    label.form-check.form-switch.form-check-custom.form-check-solid
+                                      // begin::Input
+                                      input.form-check-input.w-30px.h-20px(type="checkbox", value="1", checked="checked", name="notifications")
+                                      // end::Input
+                                      // end::Label
+                                      span.form-check-label.text-muted.fs-6 Recuring
+                                      // end::Label
+                                    // end::Switch
+                                // end::Menu item
+                              // end::Menu sub
+                            // end::Menu item
+                            // begin::Menu item
+                            .menu-item.px-3.my-1
+                              a.menu-link.px-3(href="#") Settings
+                            // end::Menu item
+                          // end::Menu 3
+                        // end::Menu
+                      // end::Header
+                      // begin::Title
+                      .mb-2
+                        a.fs-4.fw-bold.mb-1.text-gray-900.text-hover-primary(href="#") Sales report page
+                      // end::Title
+                      // begin::Content
+                      .fs-6.fw-semibold.text-gray-600.mb-5 First, a disclaimer takes a couple hours
+                      // end::Content
+                      // begin::Footer
+                      .d-flex.flex-stack.flex-wrapr
+                        // begin::Users
+                        .symbol-group.symbol-hover.my-1
+                          .symbol.symbol-35px.symbol-circle(data-bs-toggle="tooltip", title="Alan Warden")
+                            span.symbol-label.bg-warning.text-inverse-warning.fw-bold A
+                          .symbol.symbol-35px.symbol-circle(data-bs-toggle="tooltip", title="Michelle Swanston")
+                            img(alt="Pic", src="assets/media/avatars/300-7.jpg")
+                        // end::Users
+                        // begin::Stats
+                        .d-flex.my-1
+                          // begin::Stat
+                          .border.border-dashed.border-gray-300.rounded.d-flex.align-items-center.py-2.px-3
+                            i.ki-duotone.ki-paper-clip.fs-3
+                            span.ms-1.fs-7.fw-bold.text-gray-600 8
+                          // end::Stat
+                          // begin::Stat
+                          .border.border-dashed.border-gray-300.d-flex.align-items-center.rounded.py-2.px-3.ms-3
+                            i.ki-duotone.ki-message-text-2.fs-3
+                              span.path1
+                              span.path2
+                              span.path3
+                            span.ms-1.fs-7.fw-bold.text-gray-600 3
+                          // end::Stat
+                        // end::Stats
+                      // end::Footer
+                    // end::Card body
+                  // end::Card
+                  // begin::Card
+                  .card.mb-6.mb-xl-9
+                    // begin::Card body
+                    .card-body
+                      // begin::Header
+                      .d-flex.flex-stack.mb-3
+                        // begin::Badge
+                        .badge.badge-light Testing
+                        // end::Badge
+                        // begin::Menu
+                        div
+                          button.btn.btn-sm.btn-icon.btn-color-light-dark.btn-active-light-primary(type="button", data-kt-menu-trigger="click", data-kt-menu-placement="bottom-end")
+                            i.ki-duotone.ki-element-plus.fs-2
+                              span.path1
+                              span.path2
+                              span.path3
+                              span.path4
+                              span.path5
+                          // begin::Menu 3
+                          .menu.menu-sub.menu-sub-dropdown.menu-column.menu-rounded.menu-gray-800.menu-state-bg-light-primary.fw-semibold.w-200px.py-3(data-kt-menu="true")
+                            // begin::Heading
+                            .menu-item.px-3
+                              .menu-content.text-muted.pb-2.px-3.fs-7.text-uppercase Payments
+                            // end::Heading
+                            // begin::Menu item
+                            .menu-item.px-3
+                              a.menu-link.px-3(href="#") Create Invoice
+                            // end::Menu item
+                            // begin::Menu item
+                            .menu-item.px-3
+                              a.menu-link.flex-stack.px-3(href="#")
+                                | Create Payment
+                                span.ms-2(data-bs-toggle="tooltip", title="Specify a target name for future usage and reference")
+                                  i.ki-duotone.ki-information.fs-6
+                                    span.path1
+                                    span.path2
+                                    span.path3
+                            // end::Menu item
+                            // begin::Menu item
+                            .menu-item.px-3
+                              a.menu-link.px-3(href="#") Generate Bill
+                            // end::Menu item
+                            // begin::Menu item
+                            .menu-item.px-3(data-kt-menu-trigger="hover", data-kt-menu-placement="right-end")
+                              a.menu-link.px-3(href="#")
+                                span.menu-title Subscription
+                                span.menu-arrow
+                              // begin::Menu sub
+                              .menu-sub.menu-sub-dropdown.w-175px.py-4
+                                // begin::Menu item
+                                .menu-item.px-3
+                                  a.menu-link.px-3(href="#") Plans
+                                // end::Menu item
+                                // begin::Menu item
+                                .menu-item.px-3
+                                  a.menu-link.px-3(href="#") Billing
+                                // end::Menu item
+                                // begin::Menu item
+                                .menu-item.px-3
+                                  a.menu-link.px-3(href="#") Statements
+                                // end::Menu item
+                                // begin::Menu separator
+                                .separator.my-2
+                                // end::Menu separator
+                                // begin::Menu item
+                                .menu-item.px-3
+                                  .menu-content.px-3
+                                    // begin::Switch
+                                    label.form-check.form-switch.form-check-custom.form-check-solid
+                                      // begin::Input
+                                      input.form-check-input.w-30px.h-20px(type="checkbox", value="1", checked="checked", name="notifications")
+                                      // end::Input
+                                      // end::Label
+                                      span.form-check-label.text-muted.fs-6 Recuring
+                                      // end::Label
+                                    // end::Switch
+                                // end::Menu item
+                              // end::Menu sub
+                            // end::Menu item
+                            // begin::Menu item
+                            .menu-item.px-3.my-1
+                              a.menu-link.px-3(href="#") Settings
+                            // end::Menu item
+                          // end::Menu 3
+                        // end::Menu
+                      // end::Header
+                      // begin::Title
+                      .mb-2
+                        a.fs-4.fw-bold.mb-1.text-gray-900.text-hover-primary(href="#") Meeting with customer
+                      // end::Title
+                      // begin::Content
+                      .fs-6.fw-semibold.text-gray-600.mb-5 First, a disclaimer – the entire process writing a blog post often takes a couple of hours if you can type
+                      // end::Content
+                      // begin::Footer
+                      .d-flex.flex-stack.flex-wrapr
+                        // begin::Users
+                        .symbol-group.symbol-hover.my-1
+                          .symbol.symbol-35px.symbol-circle(data-bs-toggle="tooltip", title="Francis Mitcham")
+                            img(alt="Pic", src="assets/media/avatars/300-20.jpg")
+                          .symbol.symbol-35px.symbol-circle(data-bs-toggle="tooltip", title="Harry Mcpherson")
+                            img(alt="Pic", src="assets/media/avatars/300-19.jpg")
+                          .symbol.symbol-35px.symbol-circle(data-bs-toggle="tooltip", title="Susan Redwood")
+                            span.symbol-label.bg-primary.text-inverse-primary.fw-bold S
+                        // end::Users
+                        // begin::Stats
+                        .d-flex.my-1
+                          // begin::Stat
+                          .border.border-dashed.border-gray-300.rounded.d-flex.align-items-center.py-2.px-3
+                            i.ki-duotone.ki-paper-clip.fs-3
+                            span.ms-1.fs-7.fw-bold.text-gray-600 2
+                          // end::Stat
+                          // begin::Stat
+                          .border.border-dashed.border-gray-300.d-flex.align-items-center.rounded.py-2.px-3.ms-3
+                            i.ki-duotone.ki-message-text-2.fs-3
+                              span.path1
+                              span.path2
+                              span.path3
+                            span.ms-1.fs-7.fw-bold.text-gray-600 6
+                          // end::Stat
+                        // end::Stats
+                      // end::Footer
+                    // end::Card body
+                  // end::Card
+                  // begin::Card
+                  .card.mb-6.mb-xl-9
+                    // begin::Card body
+                    .card-body
+                      // begin::Header
+                      .d-flex.flex-stack.mb-3
+                        // begin::Badge
+                        .badge.badge-light UI Design
+                        // end::Badge
+                        // begin::Menu
+                        div
+                          button.btn.btn-sm.btn-icon.btn-color-light-dark.btn-active-light-primary(type="button", data-kt-menu-trigger="click", data-kt-menu-placement="bottom-end")
+                            i.ki-duotone.ki-element-plus.fs-2
+                              span.path1
+                              span.path2
+                              span.path3
+                              span.path4
+                              span.path5
+                          // begin::Menu 3
+                          .menu.menu-sub.menu-sub-dropdown.menu-column.menu-rounded.menu-gray-800.menu-state-bg-light-primary.fw-semibold.w-200px.py-3(data-kt-menu="true")
+                            // begin::Heading
+                            .menu-item.px-3
+                              .menu-content.text-muted.pb-2.px-3.fs-7.text-uppercase Payments
+                            // end::Heading
+                            // begin::Menu item
+                            .menu-item.px-3
+                              a.menu-link.px-3(href="#") Create Invoice
+                            // end::Menu item
+                            // begin::Menu item
+                            .menu-item.px-3
+                              a.menu-link.flex-stack.px-3(href="#")
+                                | Create Payment
+                                span.ms-2(data-bs-toggle="tooltip", title="Specify a target name for future usage and reference")
+                                  i.ki-duotone.ki-information.fs-6
+                                    span.path1
+                                    span.path2
+                                    span.path3
+                            // end::Menu item
+                            // begin::Menu item
+                            .menu-item.px-3
+                              a.menu-link.px-3(href="#") Generate Bill
+                            // end::Menu item
+                            // begin::Menu item
+                            .menu-item.px-3(data-kt-menu-trigger="hover", data-kt-menu-placement="right-end")
+                              a.menu-link.px-3(href="#")
+                                span.menu-title Subscription
+                                span.menu-arrow
+                              // begin::Menu sub
+                              .menu-sub.menu-sub-dropdown.w-175px.py-4
+                                // begin::Menu item
+                                .menu-item.px-3
+                                  a.menu-link.px-3(href="#") Plans
+                                // end::Menu item
+                                // begin::Menu item
+                                .menu-item.px-3
+                                  a.menu-link.px-3(href="#") Billing
+                                // end::Menu item
+                                // begin::Menu item
+                                .menu-item.px-3
+                                  a.menu-link.px-3(href="#") Statements
+                                // end::Menu item
+                                // begin::Menu separator
+                                .separator.my-2
+                                // end::Menu separator
+                                // begin::Menu item
+                                .menu-item.px-3
+                                  .menu-content.px-3
+                                    // begin::Switch
+                                    label.form-check.form-switch.form-check-custom.form-check-solid
+                                      // begin::Input
+                                      input.form-check-input.w-30px.h-20px(type="checkbox", value="1", checked="checked", name="notifications")
+                                      // end::Input
+                                      // end::Label
+                                      span.form-check-label.text-muted.fs-6 Recuring
+                                      // end::Label
+                                    // end::Switch
+                                // end::Menu item
+                              // end::Menu sub
+                            // end::Menu item
+                            // begin::Menu item
+                            .menu-item.px-3.my-1
+                              a.menu-link.px-3(href="#") Settings
+                            // end::Menu item
+                          // end::Menu 3
+                        // end::Menu
+                      // end::Header
+                      // begin::Title
+                      .mb-2
+                        a.fs-4.fw-bold.mb-1.text-gray-900.text-hover-primary(href="#") Design main Dashboard
+                      // end::Title
+                      // begin::Content
+                      .fs-6.fw-semibold.text-gray-600.mb-5 First, a disclaimer takes a couple hours
+                      // end::Content
+                      // begin::Footer
+                      .d-flex.flex-stack.flex-wrapr
+                        // begin::Users
+                        .symbol-group.symbol-hover.my-1
+                          .symbol.symbol-35px.symbol-circle(data-bs-toggle="tooltip", title="Francis Mitcham")
+                            img(alt="Pic", src="assets/media/avatars/300-20.jpg")
+                          .symbol.symbol-35px.symbol-circle(data-bs-toggle="tooltip", title="Michelle Swanston")
+                            img(alt="Pic", src="assets/media/avatars/300-7.jpg")
+                          .symbol.symbol-35px.symbol-circle(data-bs-toggle="tooltip", title="Susan Redwood")
+                            span.symbol-label.bg-primary.text-inverse-primary.fw-bold S
+                        // end::Users
+                        // begin::Stats
+                        .d-flex.my-1
+                          // begin::Stat
+                          .border.border-dashed.border-gray-300.rounded.d-flex.align-items-center.py-2.px-3
+                            i.ki-duotone.ki-paper-clip.fs-3
+                            span.ms-1.fs-7.fw-bold.text-gray-600 8
+                          // end::Stat
+                          // begin::Stat
+                          .border.border-dashed.border-gray-300.d-flex.align-items-center.rounded.py-2.px-3.ms-3
+                            i.ki-duotone.ki-message-text-2.fs-3
+                              span.path1
+                              span.path2
+                              span.path3
+                            span.ms-1.fs-7.fw-bold.text-gray-600 6
+                          // end::Stat
+                        // end::Stats
+                      // end::Footer
+                    // end::Card body
+                  // end::Card
+                  // begin::Card
+                  .card.mb-6.mb-xl-9
+                    // begin::Card body
+                    .card-body
+                      // begin::Header
+                      .d-flex.flex-stack.mb-3
+                        // begin::Badge
+                        .badge.badge-light Phase 2.6 QA
+                        // end::Badge
+                        // begin::Menu
+                        div
+                          button.btn.btn-sm.btn-icon.btn-color-light-dark.btn-active-light-primary(type="button", data-kt-menu-trigger="click", data-kt-menu-placement="bottom-end")
+                            i.ki-duotone.ki-element-plus.fs-2
+                              span.path1
+                              span.path2
+                              span.path3
+                              span.path4
+                              span.path5
+                          // begin::Menu 3
+                          .menu.menu-sub.menu-sub-dropdown.menu-column.menu-rounded.menu-gray-800.menu-state-bg-light-primary.fw-semibold.w-200px.py-3(data-kt-menu="true")
+                            // begin::Heading
+                            .menu-item.px-3
+                              .menu-content.text-muted.pb-2.px-3.fs-7.text-uppercase Payments
+                            // end::Heading
+                            // begin::Menu item
+                            .menu-item.px-3
+                              a.menu-link.px-3(href="#") Create Invoice
+                            // end::Menu item
+                            // begin::Menu item
+                            .menu-item.px-3
+                              a.menu-link.flex-stack.px-3(href="#")
+                                | Create Payment
+                                span.ms-2(data-bs-toggle="tooltip", title="Specify a target name for future usage and reference")
+                                  i.ki-duotone.ki-information.fs-6
+                                    span.path1
+                                    span.path2
+                                    span.path3
+                            // end::Menu item
+                            // begin::Menu item
+                            .menu-item.px-3
+                              a.menu-link.px-3(href="#") Generate Bill
+                            // end::Menu item
+                            // begin::Menu item
+                            .menu-item.px-3(data-kt-menu-trigger="hover", data-kt-menu-placement="right-end")
+                              a.menu-link.px-3(href="#")
+                                span.menu-title Subscription
+                                span.menu-arrow
+                              // begin::Menu sub
+                              .menu-sub.menu-sub-dropdown.w-175px.py-4
+                                // begin::Menu item
+                                .menu-item.px-3
+                                  a.menu-link.px-3(href="#") Plans
+                                // end::Menu item
+                                // begin::Menu item
+                                .menu-item.px-3
+                                  a.menu-link.px-3(href="#") Billing
+                                // end::Menu item
+                                // begin::Menu item
+                                .menu-item.px-3
+                                  a.menu-link.px-3(href="#") Statements
+                                // end::Menu item
+                                // begin::Menu separator
+                                .separator.my-2
+                                // end::Menu separator
+                                // begin::Menu item
+                                .menu-item.px-3
+                                  .menu-content.px-3
+                                    // begin::Switch
+                                    label.form-check.form-switch.form-check-custom.form-check-solid
+                                      // begin::Input
+                                      input.form-check-input.w-30px.h-20px(type="checkbox", value="1", checked="checked", name="notifications")
+                                      // end::Input
+                                      // end::Label
+                                      span.form-check-label.text-muted.fs-6 Recuring
+                                      // end::Label
+                                    // end::Switch
+                                // end::Menu item
+                              // end::Menu sub
+                            // end::Menu item
+                            // begin::Menu item
+                            .menu-item.px-3.my-1
+                              a.menu-link.px-3(href="#") Settings
+                            // end::Menu item
+                          // end::Menu 3
+                        // end::Menu
+                      // end::Header
+                      // begin::Title
+                      .mb-2
+                        a.fs-4.fw-bold.mb-1.text-gray-900.text-hover-primary(href="#") User Module Testing
+                      // end::Title
+                      // begin::Content
+                      .fs-6.fw-semibold.text-gray-600.mb-5 First, a disclaimer – the entire process writing a blog post often.
+                      // end::Content
+                      // begin::Footer
+                      .d-flex.flex-stack.flex-wrapr
+                        // begin::Users
+                        .symbol-group.symbol-hover.my-1
+                          .symbol.symbol-35px.symbol-circle(data-bs-toggle="tooltip", title="Melody Macy")
+                            img(alt="Pic", src="assets/media/avatars/300-2.jpg")
+                          .symbol.symbol-35px.symbol-circle(data-bs-toggle="tooltip", title="Barry Walter")
+                            img(alt="Pic", src="assets/media/avatars/300-12.jpg")
+                        // end::Users
+                        // begin::Stats
+                        .d-flex.my-1
+                          // begin::Stat
+                          .border.border-dashed.border-gray-300.rounded.d-flex.align-items-center.py-2.px-3
+                            i.ki-duotone.ki-paper-clip.fs-3
+                            span.ms-1.fs-7.fw-bold.text-gray-600 3
+                          // end::Stat
+                          // begin::Stat
+                          .border.border-dashed.border-gray-300.d-flex.align-items-center.rounded.py-2.px-3.ms-3
+                            i.ki-duotone.ki-message-text-2.fs-3
+                              span.path1
+                              span.path2
+                              span.path3
+                            span.ms-1.fs-7.fw-bold.text-gray-600 8
+                          // end::Stat
+                        // end::Stats
+                      // end::Footer
+                    // end::Card body
+                  // end::Card
+                // end::Col
+                // begin::Col
+                .col-md-4.col-lg-12.col-xl-4
+                  // begin::Col header
+                  .mb-9
+                    .d-flex.flex-stack
+                      .fw-bold.fs-4
+                        | Completed
+                        span.fs-6.text-gray-500.ms-2 3
+                      // begin::Menu
+                      div
+                        button.btn.btn-sm.btn-icon.btn-color-light-dark.btn-active-light-primary(type="button", data-kt-menu-trigger="click", data-kt-menu-placement="bottom-end")
+                          i.ki-duotone.ki-element-plus.fs-2
+                            span.path1
+                            span.path2
+                            span.path3
+                            span.path4
+                            span.path5
+                        // begin::Menu 1
+                        .menu.menu-sub.menu-sub-dropdown.w-250px.w-md-300px(data-kt-menu="true", id="kt_menu_654bb8f62dbef")
+                          // begin::Header
+                          .px-7.py-5
+                            .fs-5.text-gray-900.fw-bold Filter Options
+                          // end::Header
+                          // begin::Menu separator
+                          .separator.border-gray-200
+                          // end::Menu separator
+                          // begin::Form
+                          .px-7.py-5
+                            // begin::Input group
+                            .mb-10
+                              // begin::Label
+                              label.form-label.fw-semibold Status:
+                              // end::Label
+                              // begin::Input
+                              div
+                                select.form-select.form-select-solid(multiple="multiple", data-kt-select2="true", data-close-on-select="false", data-placeholder="Select option", data-dropdown-parent="#kt_menu_654bb8f62dbef", data-allow-clear="true")
+                                  option
+                                  option(value="1") Approved
+                                  option(value="2") Pending
+                                  option(value="2") In Process
+                                  option(value="2") Rejected
+                              // end::Input
+                            // end::Input group
+                            // begin::Input group
+                            .mb-10
+                              // begin::Label
+                              label.form-label.fw-semibold Member Type:
+                              // end::Label
+                              // begin::Options
+                              .d-flex
+                                // begin::Options
+                                label.form-check.form-check-sm.form-check-custom.form-check-solid.me-5
+                                  input.form-check-input(type="checkbox", value="1")
+                                  span.form-check-label Author
+                                // end::Options
+                                // begin::Options
+                                label.form-check.form-check-sm.form-check-custom.form-check-solid
+                                  input.form-check-input(type="checkbox", value="2", checked="checked")
+                                  span.form-check-label Customer
+                                // end::Options
+                              // end::Options
+                            // end::Input group
+                            // begin::Input group
+                            .mb-10
+                              // begin::Label
+                              label.form-label.fw-semibold Notifications:
+                              // end::Label
+                              // begin::Switch
+                              .form-check.form-switch.form-switch-sm.form-check-custom.form-check-solid
+                                input.form-check-input(type="checkbox", name="notifications", checked="checked")
+                                label.form-check-label Enabled
+                              // end::Switch
+                            // end::Input group
+                            // begin::Actions
+                            .d-flex.justify-content-end
+                              button.btn.btn-sm.btn-light.btn-active-light-primary.me-2(type="reset", data-kt-menu-dismiss="true") Reset
+                              button.btn.btn-sm.btn-primary(type="submit", data-kt-menu-dismiss="true") Apply
+                            // end::Actions
+                          // end::Form
+                        // end::Menu 1
+                      // end::Menu
+                    .h-3px.w-100.bg-success
+                  // end::Col header
+                  // begin::Card
+                  .card.mb-6.mb-xl-9
+                    // begin::Card body
+                    .card-body
+                      // begin::Header
+                      .d-flex.flex-stack.mb-3
+                        // begin::Badge
+                        .badge.badge-light UI Design
+                        // end::Badge
+                        // begin::Menu
+                        div
+                          button.btn.btn-sm.btn-icon.btn-color-light-dark.btn-active-light-primary(type="button", data-kt-menu-trigger="click", data-kt-menu-placement="bottom-end")
+                            i.ki-duotone.ki-element-plus.fs-2
+                              span.path1
+                              span.path2
+                              span.path3
+                              span.path4
+                              span.path5
+                          // begin::Menu 3
+                          .menu.menu-sub.menu-sub-dropdown.menu-column.menu-rounded.menu-gray-800.menu-state-bg-light-primary.fw-semibold.w-200px.py-3(data-kt-menu="true")
+                            // begin::Heading
+                            .menu-item.px-3
+                              .menu-content.text-muted.pb-2.px-3.fs-7.text-uppercase Payments
+                            // end::Heading
+                            // begin::Menu item
+                            .menu-item.px-3
+                              a.menu-link.px-3(href="#") Create Invoice
+                            // end::Menu item
+                            // begin::Menu item
+                            .menu-item.px-3
+                              a.menu-link.flex-stack.px-3(href="#")
+                                | Create Payment
+                                span.ms-2(data-bs-toggle="tooltip", title="Specify a target name for future usage and reference")
+                                  i.ki-duotone.ki-information.fs-6
+                                    span.path1
+                                    span.path2
+                                    span.path3
+                            // end::Menu item
+                            // begin::Menu item
+                            .menu-item.px-3
+                              a.menu-link.px-3(href="#") Generate Bill
+                            // end::Menu item
+                            // begin::Menu item
+                            .menu-item.px-3(data-kt-menu-trigger="hover", data-kt-menu-placement="right-end")
+                              a.menu-link.px-3(href="#")
+                                span.menu-title Subscription
+                                span.menu-arrow
+                              // begin::Menu sub
+                              .menu-sub.menu-sub-dropdown.w-175px.py-4
+                                // begin::Menu item
+                                .menu-item.px-3
+                                  a.menu-link.px-3(href="#") Plans
+                                // end::Menu item
+                                // begin::Menu item
+                                .menu-item.px-3
+                                  a.menu-link.px-3(href="#") Billing
+                                // end::Menu item
+                                // begin::Menu item
+                                .menu-item.px-3
+                                  a.menu-link.px-3(href="#") Statements
+                                // end::Menu item
+                                // begin::Menu separator
+                                .separator.my-2
+                                // end::Menu separator
+                                // begin::Menu item
+                                .menu-item.px-3
+                                  .menu-content.px-3
+                                    // begin::Switch
+                                    label.form-check.form-switch.form-check-custom.form-check-solid
+                                      // begin::Input
+                                      input.form-check-input.w-30px.h-20px(type="checkbox", value="1", checked="checked", name="notifications")
+                                      // end::Input
+                                      // end::Label
+                                      span.form-check-label.text-muted.fs-6 Recuring
+                                      // end::Label
+                                    // end::Switch
+                                // end::Menu item
+                              // end::Menu sub
+                            // end::Menu item
+                            // begin::Menu item
+                            .menu-item.px-3.my-1
+                              a.menu-link.px-3(href="#") Settings
+                            // end::Menu item
+                          // end::Menu 3
+                        // end::Menu
+                      // end::Header
+                      // begin::Title
+                      .mb-2
+                        a.fs-4.fw-bold.mb-1.text-gray-900.text-hover-primary(href="#") Branding Logo
+                      // end::Title
+                      // begin::Content
+                      .fs-6.fw-semibold.text-gray-600.mb-5 First, a disclaimer – the entire process writing a blog post often takes a couple of hours if you can type
+                      // end::Content
+                      // begin::Footer
+                      .d-flex.flex-stack.flex-wrapr
+                        // begin::Users
+                        .symbol-group.symbol-hover.my-1
+                          .symbol.symbol-35px.symbol-circle(data-bs-toggle="tooltip", title="Perry Matthew")
+                            span.symbol-label.bg-success.text-inverse-success.fw-bold R
+                          .symbol.symbol-35px.symbol-circle(data-bs-toggle="tooltip", title="Barry Walter")
+                            img(alt="Pic", src="assets/media/avatars/300-12.jpg")
+                          .symbol.symbol-35px.symbol-circle(data-bs-toggle="tooltip", title="Susan Redwood")
+                            span.symbol-label.bg-primary.text-inverse-primary.fw-bold S
+                        // end::Users
+                        // begin::Stats
+                        .d-flex.my-1
+                          // begin::Stat
+                          .border.border-dashed.border-gray-300.rounded.d-flex.align-items-center.py-2.px-3
+                            i.ki-duotone.ki-paper-clip.fs-3
+                            span.ms-1.fs-7.fw-bold.text-gray-600 6
+                          // end::Stat
+                          // begin::Stat
+                          .border.border-dashed.border-gray-300.d-flex.align-items-center.rounded.py-2.px-3.ms-3
+                            i.ki-duotone.ki-message-text-2.fs-3
+                              span.path1
+                              span.path2
+                              span.path3
+                            span.ms-1.fs-7.fw-bold.text-gray-600 2
+                          // end::Stat
+                        // end::Stats
+                      // end::Footer
+                    // end::Card body
+                  // end::Card
+                  // begin::Card
+                  .card.mb-6.mb-xl-9
+                    // begin::Card body
+                    .card-body
+                      // begin::Header
+                      .d-flex.flex-stack.mb-3
+                        // begin::Badge
+                        .badge.badge-light QA
+                        // end::Badge
+                        // begin::Menu
+                        div
+                          button.btn.btn-sm.btn-icon.btn-color-light-dark.btn-active-light-primary(type="button", data-kt-menu-trigger="click", data-kt-menu-placement="bottom-end")
+                            i.ki-duotone.ki-element-plus.fs-2
+                              span.path1
+                              span.path2
+                              span.path3
+                              span.path4
+                              span.path5
+                          // begin::Menu 3
+                          .menu.menu-sub.menu-sub-dropdown.menu-column.menu-rounded.menu-gray-800.menu-state-bg-light-primary.fw-semibold.w-200px.py-3(data-kt-menu="true")
+                            // begin::Heading
+                            .menu-item.px-3
+                              .menu-content.text-muted.pb-2.px-3.fs-7.text-uppercase Payments
+                            // end::Heading
+                            // begin::Menu item
+                            .menu-item.px-3
+                              a.menu-link.px-3(href="#") Create Invoice
+                            // end::Menu item
+                            // begin::Menu item
+                            .menu-item.px-3
+                              a.menu-link.flex-stack.px-3(href="#")
+                                | Create Payment
+                                span.ms-2(data-bs-toggle="tooltip", title="Specify a target name for future usage and reference")
+                                  i.ki-duotone.ki-information.fs-6
+                                    span.path1
+                                    span.path2
+                                    span.path3
+                            // end::Menu item
+                            // begin::Menu item
+                            .menu-item.px-3
+                              a.menu-link.px-3(href="#") Generate Bill
+                            // end::Menu item
+                            // begin::Menu item
+                            .menu-item.px-3(data-kt-menu-trigger="hover", data-kt-menu-placement="right-end")
+                              a.menu-link.px-3(href="#")
+                                span.menu-title Subscription
+                                span.menu-arrow
+                              // begin::Menu sub
+                              .menu-sub.menu-sub-dropdown.w-175px.py-4
+                                // begin::Menu item
+                                .menu-item.px-3
+                                  a.menu-link.px-3(href="#") Plans
+                                // end::Menu item
+                                // begin::Menu item
+                                .menu-item.px-3
+                                  a.menu-link.px-3(href="#") Billing
+                                // end::Menu item
+                                // begin::Menu item
+                                .menu-item.px-3
+                                  a.menu-link.px-3(href="#") Statements
+                                // end::Menu item
+                                // begin::Menu separator
+                                .separator.my-2
+                                // end::Menu separator
+                                // begin::Menu item
+                                .menu-item.px-3
+                                  .menu-content.px-3
+                                    // begin::Switch
+                                    label.form-check.form-switch.form-check-custom.form-check-solid
+                                      // begin::Input
+                                      input.form-check-input.w-30px.h-20px(type="checkbox", value="1", checked="checked", name="notifications")
+                                      // end::Input
+                                      // end::Label
+                                      span.form-check-label.text-muted.fs-6 Recuring
+                                      // end::Label
+                                    // end::Switch
+                                // end::Menu item
+                              // end::Menu sub
+                            // end::Menu item
+                            // begin::Menu item
+                            .menu-item.px-3.my-1
+                              a.menu-link.px-3(href="#") Settings
+                            // end::Menu item
+                          // end::Menu 3
+                        // end::Menu
+                      // end::Header
+                      // begin::Title
+                      .mb-2
+                        a.fs-4.fw-bold.mb-1.text-gray-900.text-hover-primary(href="#") To check User Management
+                      // end::Title
+                      // begin::Content
+                      .fs-6.fw-semibold.text-gray-600.mb-5 First, a disclaimer takes a couple hours
+                      // end::Content
+                      // begin::Footer
+                      .d-flex.flex-stack.flex-wrapr
+                        // begin::Users
+                        .symbol-group.symbol-hover.my-1
+                          .symbol.symbol-35px.symbol-circle(data-bs-toggle="tooltip", title="Melody Macy")
+                            img(alt="Pic", src="assets/media/avatars/300-2.jpg")
+                          .symbol.symbol-35px.symbol-circle(data-bs-toggle="tooltip", title="Perry Matthew")
+                            span.symbol-label.bg-info.text-inverse-info.fw-bold P
+                        // end::Users
+                        // begin::Stats
+                        .d-flex.my-1
+                          // begin::Stat
+                          .border.border-dashed.border-gray-300.rounded.d-flex.align-items-center.py-2.px-3
+                            i.ki-duotone.ki-paper-clip.fs-3
+                            span.ms-1.fs-7.fw-bold.text-gray-600 4
+                          // end::Stat
+                          // begin::Stat
+                          .border.border-dashed.border-gray-300.d-flex.align-items-center.rounded.py-2.px-3.ms-3
+                            i.ki-duotone.ki-message-text-2.fs-3
+                              span.path1
+                              span.path2
+                              span.path3
+                            span.ms-1.fs-7.fw-bold.text-gray-600 8
+                          // end::Stat
+                        // end::Stats
+                      // end::Footer
+                    // end::Card body
+                  // end::Card
+                  // begin::Card
+                  .card.mb-6.mb-xl-9
+                    // begin::Card body
+                    .card-body
+                      // begin::Header
+                      .d-flex.flex-stack.mb-3
+                        // begin::Badge
+                        .badge.badge-light Phase 2.6 QA
+                        // end::Badge
+                        // begin::Menu
+                        div
+                          button.btn.btn-sm.btn-icon.btn-color-light-dark.btn-active-light-primary(type="button", data-kt-menu-trigger="click", data-kt-menu-placement="bottom-end")
+                            i.ki-duotone.ki-element-plus.fs-2
+                              span.path1
+                              span.path2
+                              span.path3
+                              span.path4
+                              span.path5
+                          // begin::Menu 3
+                          .menu.menu-sub.menu-sub-dropdown.menu-column.menu-rounded.menu-gray-800.menu-state-bg-light-primary.fw-semibold.w-200px.py-3(data-kt-menu="true")
+                            // begin::Heading
+                            .menu-item.px-3
+                              .menu-content.text-muted.pb-2.px-3.fs-7.text-uppercase Payments
+                            // end::Heading
+                            // begin::Menu item
+                            .menu-item.px-3
+                              a.menu-link.px-3(href="#") Create Invoice
+                            // end::Menu item
+                            // begin::Menu item
+                            .menu-item.px-3
+                              a.menu-link.flex-stack.px-3(href="#")
+                                | Create Payment
+                                span.ms-2(data-bs-toggle="tooltip", title="Specify a target name for future usage and reference")
+                                  i.ki-duotone.ki-information.fs-6
+                                    span.path1
+                                    span.path2
+                                    span.path3
+                            // end::Menu item
+                            // begin::Menu item
+                            .menu-item.px-3
+                              a.menu-link.px-3(href="#") Generate Bill
+                            // end::Menu item
+                            // begin::Menu item
+                            .menu-item.px-3(data-kt-menu-trigger="hover", data-kt-menu-placement="right-end")
+                              a.menu-link.px-3(href="#")
+                                span.menu-title Subscription
+                                span.menu-arrow
+                              // begin::Menu sub
+                              .menu-sub.menu-sub-dropdown.w-175px.py-4
+                                // begin::Menu item
+                                .menu-item.px-3
+                                  a.menu-link.px-3(href="#") Plans
+                                // end::Menu item
+                                // begin::Menu item
+                                .menu-item.px-3
+                                  a.menu-link.px-3(href="#") Billing
+                                // end::Menu item
+                                // begin::Menu item
+                                .menu-item.px-3
+                                  a.menu-link.px-3(href="#") Statements
+                                // end::Menu item
+                                // begin::Menu separator
+                                .separator.my-2
+                                // end::Menu separator
+                                // begin::Menu item
+                                .menu-item.px-3
+                                  .menu-content.px-3
+                                    // begin::Switch
+                                    label.form-check.form-switch.form-check-custom.form-check-solid
+                                      // begin::Input
+                                      input.form-check-input.w-30px.h-20px(type="checkbox", value="1", checked="checked", name="notifications")
+                                      // end::Input
+                                      // end::Label
+                                      span.form-check-label.text-muted.fs-6 Recuring
+                                      // end::Label
+                                    // end::Switch
+                                // end::Menu item
+                              // end::Menu sub
+                            // end::Menu item
+                            // begin::Menu item
+                            .menu-item.px-3.my-1
+                              a.menu-link.px-3(href="#") Settings
+                            // end::Menu item
+                          // end::Menu 3
+                        // end::Menu
+                      // end::Header
+                      // begin::Title
+                      .mb-2
+                        a.fs-4.fw-bold.mb-1.text-gray-900.text-hover-primary(href="#") User Module Testing
+                      // end::Title
+                      // begin::Content
+                      .fs-6.fw-semibold.text-gray-600.mb-5 First, a disclaimer – the entire process writing a blog post often.
+                      // end::Content
+                      // begin::Footer
+                      .d-flex.flex-stack.flex-wrapr
+                        // begin::Users
+                        .symbol-group.symbol-hover.my-1
+                          .symbol.symbol-35px.symbol-circle(data-bs-toggle="tooltip", title="Perry Matthew")
+                            span.symbol-label.bg-success.text-inverse-success.fw-bold R
+                          .symbol.symbol-35px.symbol-circle(data-bs-toggle="tooltip", title="Melody Macy")
+                            img(alt="Pic", src="assets/media/avatars/300-2.jpg")
+                          .symbol.symbol-35px.symbol-circle(data-bs-toggle="tooltip", title="Susan Redwood")
+                            span.symbol-label.bg-primary.text-inverse-primary.fw-bold S
+                        // end::Users
+                        // begin::Stats
+                        .d-flex.my-1
+                          // begin::Stat
+                          .border.border-dashed.border-gray-300.rounded.d-flex.align-items-center.py-2.px-3
+                            i.ki-duotone.ki-paper-clip.fs-3
+                            span.ms-1.fs-7.fw-bold.text-gray-600 7
+                          // end::Stat
+                          // begin::Stat
+                          .border.border-dashed.border-gray-300.d-flex.align-items-center.rounded.py-2.px-3.ms-3
+                            i.ki-duotone.ki-message-text-2.fs-3
+                              span.path1
+                              span.path2
+                              span.path3
+                            span.ms-1.fs-7.fw-bold.text-gray-600 10
+                          // end::Stat
+                        // end::Stats
+                      // end::Footer
+                    // end::Card body
+                  // end::Card
+                // end::Col
+              // end::Row
+            // end::Tab pane
+            // begin::Tab pane
+            .tab-pane.fade(id="kt_project_targets_table_pane")
+              .card.card-flush
+                .card-body.pt-3
+                  // begin::Table
+                  table.table.table-row-bordered.table-row-dashed.gy-4.align-middle.fw-bold(id="kt_profile_overview_table")
+                    thead.fs-7.text-gray-500.text-uppercase
+                      tr
+                        th.min-w-250px Target
+                        th.min-w-90px Section
+                        th.min-w-150px Due Date
+                        th.min-w-90px Members
+                        th.min-w-90px Status
+                        th.min-w-50px
+                    tbody.fs-6
+                      tr
+                        td.fw-bold
+                          a.text-gray-900.text-hover-primary(href="#") Meeting with customer
+                        td
+                          span.badge.badge-light.fw-semibold.me-auto UI Design
+                        td Jan 28, 2020
+                        td
+                          .symbol-group.symbol-hover.fs-8
+                            .symbol.symbol-25px.symbol-circle(data-bs-toggle="tooltip", title="Melody Macy")
+                              img(alt="Pic", src="assets/media/avatars/300-2.jpg")
+                            .symbol.symbol-25px.symbol-circle(data-bs-toggle="tooltip", title="John Mixin")
+                              img(alt="Pic", src="assets/media/avatars/300-14.jpg")
+                            .symbol.symbol-25px.symbol-circle(data-bs-toggle="tooltip", title="Susan Redwood")
+                              span.symbol-label.bg-primary.text-inverse-primary.fw-bold S
+                        td
+                          span.badge.badge-light-primary.fw-bold.me-auto In Progress
+                        td.text-end
+                          a.btn.btn-bg-light.btn-active-color-primary.btn-sm(href="#") View
+                      tr
+                        td.fw-bold
+                          a.text-gray-900.text-hover-primary(href="#") User Module Testing
+                        td
+                          span.badge.badge-light.fw-semibold.me-auto Phase 2.6 QA
+                        td Jul 11, 2020
+                        td
+                          .symbol-group.symbol-hover.fs-8
+                            .symbol.symbol-25px.symbol-circle(data-bs-toggle="tooltip", title="Alan Warden")
+                              span.symbol-label.bg-warning.text-inverse-warning.fw-bold A
+                            .symbol.symbol-25px.symbol-circle(data-bs-toggle="tooltip", title="Robin Watterman")
+                              span.symbol-label.bg-success.text-inverse-success.fw-bold R
+                        td
+                          span.badge.badge-light-success.fw-bold.me-auto Completed
+                        td.text-end
+                          a.btn.btn-bg-light.btn-active-color-primary.btn-sm(href="#") View
+                      tr
+                        td.fw-bold
+                          a.text-gray-900.text-hover-primary(href="#") Sales report page
+                        td
+                          span.badge.badge-light.fw-semibold.me-auto QA
+                        td Apr 8, 2020
+                        td
+                          .symbol-group.symbol-hover.fs-8
+                            .symbol.symbol-25px.symbol-circle(data-bs-toggle="tooltip", title="Melody Macy")
+                              img(alt="Pic", src="assets/media/avatars/300-2.jpg")
+                            .symbol.symbol-25px.symbol-circle(data-bs-toggle="tooltip", title="Kristen Goodwin")
+                              img(alt="Pic", src="assets/media/avatars/300-9.jpg")
+                            .symbol.symbol-25px.symbol-circle(data-bs-toggle="tooltip", title="Mikaela Collins")
+                              span.symbol-label.bg-info.text-inverse-info.fw-bold M
+                        td
+                          span.badge.badge-light.fw-bold.me-auto Yet to start
+                        td.text-end
+                          a.btn.btn-bg-light.btn-active-color-primary.btn-sm(href="#") View
+                      tr
+                        td.fw-bold
+                          a.text-gray-900.text-hover-primary(href="#") Meeting with customer
+                        td
+                          span.badge.badge-light.fw-semibold.me-auto Prototype
+                        td Sep 10, 2020
+                        td
+                          .symbol-group.symbol-hover.fs-8
+                            .symbol.symbol-25px.symbol-circle(data-bs-toggle="tooltip", title="Robin Watterman")
+                              span.symbol-label.bg-success.text-inverse-success.fw-bold R
+                            .symbol.symbol-25px.symbol-circle(data-bs-toggle="tooltip", title="Brian Cox")
+                              img(alt="Pic", src="assets/media/avatars/300-5.jpg")
+                        td
+                          span.badge.badge-light-success.fw-bold.me-auto Completed
+                        td.text-end
+                          a.btn.btn-bg-light.btn-active-color-primary.btn-sm(href="#") View
+                      tr
+                        td.fw-bold
+                          a.text-gray-900.text-hover-primary(href="#") Design main Dashboard
+                        td
+                          span.badge.badge-light.fw-semibold.me-auto UI Design
+                        td Sep 18, 2020
+                        td
+                          .symbol-group.symbol-hover.fs-8
+                            .symbol.symbol-25px.symbol-circle(data-bs-toggle="tooltip", title="Melody Macy")
+                              img(alt="Pic", src="assets/media/avatars/300-2.jpg")
+                            .symbol.symbol-25px.symbol-circle(data-bs-toggle="tooltip", title="Emma Smith")
+                              img(alt="Pic", src="assets/media/avatars/300-6.jpg")
+                            .symbol.symbol-25px.symbol-circle(data-bs-toggle="tooltip", title="Lucy Matthews")
+                              img(alt="Pic", src="assets/media/avatars/300-21.jpg")
+                        td
+                          span.badge.badge-light-success.fw-bold.me-auto Completed
+                        td.text-end
+                          a.btn.btn-bg-light.btn-active-color-primary.btn-sm(href="#") View
+                      tr
+                        td.fw-bold
+                          a.text-gray-900.text-hover-primary(href="#") User Module Testing
+                        td
+                          span.badge.badge-light.fw-semibold.me-auto Development
+                        td Sep 11, 2020
+                        td
+                          .symbol-group.symbol-hover.fs-8
+                            .symbol.symbol-25px.symbol-circle(data-bs-toggle="tooltip", title="Francis Mitcham")
+                              img(alt="Pic", src="assets/media/avatars/300-20.jpg")
+                            .symbol.symbol-25px.symbol-circle(data-bs-toggle="tooltip", title="Deanna Taylor")
+                              img(alt="Pic", src="assets/media/avatars/300-23.jpg")
+                            .symbol.symbol-25px.symbol-circle(data-bs-toggle="tooltip", title="Mikaela Collins")
+                              span.symbol-label.bg-info.text-inverse-info.fw-bold M
+                        td
+                          span.badge.badge-light-primary.fw-bold.me-auto In Progress
+                        td.text-end
+                          a.btn.btn-bg-light.btn-active-color-primary.btn-sm(href="#") View
+                      tr
+                        td.fw-bold
+                          a.text-gray-900.text-hover-primary(href="#") To check User Management
+                        td
+                          span.badge.badge-light.fw-semibold.me-auto Pahse 3.2
+                        td Sep 10, 2020
+                        td
+                          .symbol-group.symbol-hover.fs-8
+                            .symbol.symbol-25px.symbol-circle(data-bs-toggle="tooltip", title="Lucy Matthews")
+                              img(alt="Pic", src="assets/media/avatars/300-21.jpg")
+                            .symbol.symbol-25px.symbol-circle(data-bs-toggle="tooltip", title="Kristen Goodwin")
+                              img(alt="Pic", src="assets/media/avatars/300-9.jpg")
+                            .symbol.symbol-25px.symbol-circle(data-bs-toggle="tooltip", title="Michelle Swanston")
+                              img(alt="Pic", src="assets/media/avatars/300-7.jpg")
+                        td
+                          span.badge.badge-light.fw-bold.me-auto Yet to start
+                        td.text-end
+                          a.btn.btn-bg-light.btn-active-color-primary.btn-sm(href="#") View
+                      tr
+                        td.fw-bold
+                          a.text-gray-900.text-hover-primary(href="#") Create Roles Module
+                        td
+                          span.badge.badge-light.fw-semibold.me-auto Branding
+                        td Jun 22, 2020
+                        td
+                          .symbol-group.symbol-hover.fs-8
+                            .symbol.symbol-25px.symbol-circle(data-bs-toggle="tooltip", title="Michelle Swanston")
+                              img(alt="Pic", src="assets/media/avatars/300-7.jpg")
+                            .symbol.symbol-25px.symbol-circle(data-bs-toggle="tooltip", title="Robin Watterman")
+                              span.symbol-label.bg-success.text-inverse-success.fw-bold R
+                            .symbol.symbol-25px.symbol-circle(data-bs-toggle="tooltip", title="Alan Warden")
+                              span.symbol-label.bg-warning.text-inverse-warning.fw-bold A
+                        td
+                          span.badge.badge-light.fw-bold.me-auto Yet to start
+                        td.text-end
+                          a.btn.btn-bg-light.btn-active-color-primary.btn-sm(href="#") View
+                  // end::Table
+            // end::Tab pane
+          // end::Tab Content
+        // end::Content container
+      // end::Content
+    // end::Content wrapper

@@ -2,12 +2,11 @@ const logoutButton = document.querySelector('#logout_button');
 
 const logout = () => {
   axios
-    .get('/logout')
-    .then(response => {
-      console.log(response);
-      // location.reload(true);
+    .get('http://127.0.0.1:8000/api/v1/users/logout')
+    .then(res => {
+      if (res.data.status === 'success') location.assign('/login');
     })
-    .catch(error => {
+    .catch(err => {
       console.log(error);
     });
 };

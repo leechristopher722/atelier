@@ -1,0 +1,2766 @@
+extends ../layouts/base
+
+block content
+  body
+    // begin::Content wrapper
+    .d-flex.flex-column.flex-column-fluid
+      // begin::Toolbar
+      .app-toolbar.py-3.py-lg-6(id="kt_app_toolbar")
+      // end::Toolbar
+      // begin::Content
+      .app-content.flex-column-fluid(id="kt_app_content")
+        // begin::Content container
+        .app-container.container-xxl(id="kt_app_content_container")
+          // begin::Navbar
+          include ../partials/_projectHeader
+          // end::Navbar
+          // begin::Row
+          .row.gx-6.gx-xl-9
+            // begin::Col
+            .col-lg-6
+              // begin::Summary
+              .card.card-flush.h-lg-100
+                // begin::Card header
+                .card-header.mt-6
+                  // begin::Card title
+                  .card-title.flex-column
+                    h3.fw-bold.mb-1 Tasks Summary
+                    .fs-6.fw-semibold.text-gray-500 24 Overdue Tasks
+                  // end::Card title
+                  // begin::Card toolbar
+                  .card-toolbar
+                    a.btn.btn-light.btn-sm(href="#") View Tasks
+                  // end::Card toolbar
+                // end::Card header
+                // begin::Card body
+                .card-body.p-9.pt-5
+                  // begin::Wrapper
+                  .d-flex.flex-wrap
+                    // begin::Chart
+                    .position-relative.d-flex.flex-center.h-175px.w-175px.me-15.mb-7
+                      .position-absolute.translate-middle.start-50.top-50.d-flex.flex-column.flex-center
+                        span.fs-2qx.fw-bold 237
+                        span.fs-6.fw-semibold.text-gray-500 Total Tasks
+                      canvas(id="project_overview_chart")
+                    // end::Chart
+                    // begin::Labels
+                    .d-flex.flex-column.justify-content-center.flex-row-fluid.pe-11.mb-5
+                      // begin::Label
+                      .d-flex.fs-6.fw-semibold.align-items-center.mb-3
+                        .bullet.bg-primary.me-3
+                        .text-gray-500 Active
+                        .ms-auto.fw-bold.text-gray-700 30
+                      // end::Label
+                      // begin::Label
+                      .d-flex.fs-6.fw-semibold.align-items-center.mb-3
+                        .bullet.bg-success.me-3
+                        .text-gray-500 Completed
+                        .ms-auto.fw-bold.text-gray-700 45
+                      // end::Label
+                      // begin::Label
+                      .d-flex.fs-6.fw-semibold.align-items-center.mb-3
+                        .bullet.bg-danger.me-3
+                        .text-gray-500 Overdue
+                        .ms-auto.fw-bold.text-gray-700 0
+                      // end::Label
+                      // begin::Label
+                      .d-flex.fs-6.fw-semibold.align-items-center
+                        .bullet.bg-gray-300.me-3
+                        .text-gray-500 Yet to start
+                        .ms-auto.fw-bold.text-gray-700 25
+                      // end::Label
+                    // end::Labels
+                  // end::Wrapper
+                  // begin::Notice
+                  .notice.d-flex.bg-light-primary.rounded.border-primary.border.border-dashed.p-6
+                    // begin::Wrapper
+                    .d-flex.flex-stack.flex-grow-1
+                      // begin::Content
+                      .fw-semibold
+                        .fs-6.text-gray-700
+                          a.fw-bold.me-1(href="#") Invite New .NET Collaborators
+                          | to create great outstanding business to business .jsp modutr class scripts
+                      // end::Content
+                    // end::Wrapper
+                  // end::Notice
+                // end::Card body
+              // end::Summary
+            // end::Col
+            // begin::Col
+            .col-lg-6
+              // begin::Graph
+              .card.card-flush.h-lg-100
+                // begin::Card header
+                .card-header.mt-6
+                  // begin::Card title
+                  .card-title.flex-column
+                    h3.fw-bold.mb-1 Tasks Over Time
+                    // begin::Labels
+                    .fs-6.d-flex.text-gray-500.fs-6.fw-semibold
+                      // begin::Label
+                      .d-flex.align-items-center.me-6
+                        span.menu-bullet.d-flex.align-items-center.me-2
+                          span.bullet.bg-success
+                        | Complete
+                      // end::Label
+                      // begin::Label
+                      .d-flex.align-items-center
+                        span.menu-bullet.d-flex.align-items-center.me-2
+                          span.bullet.bg-primary
+                        | Incomplete
+                      // end::Label
+                    // end::Labels
+                  // end::Card title
+                  // begin::Card toolbar
+                  .card-toolbar
+                    // begin::Select
+                    select.form-select.form-select-solid.form-select-sm.fw-bold.w-100px(name="status", data-control="select2", data-hide-search="true")
+                      option(value="1") 2020 Q1
+                      option(value="2") 2020 Q2
+                      option(value="3", selected="selected") 2020 Q3
+                      option(value="4") 2020 Q4
+                    // end::Select
+                  // end::Card toolbar
+                // end::Card header
+                // begin::Card body
+                .card-body.pt-10.pb-0.px-5
+                  // begin::Chart
+                  .card-rounded-bottom(id="kt_project_overview_graph", style="height: 300px")
+                  // end::Chart
+                // end::Card body
+              // end::Graph
+            // end::Col
+            // begin::Col
+            .col-lg-6
+              // begin::Card
+              .card.card-flush.h-lg-100
+                // begin::Card header
+                .card-header.mt-6
+                  // begin::Card title
+                  .card-title.flex-column
+                    h3.fw-bold.mb-1 What&apos;s on the road?
+                    .fs-6.text-gray-500 Total 482 participants
+                  // end::Card title
+                  // begin::Card toolbar
+                  .card-toolbar
+                    // begin::Select
+                    select.form-select.form-select-solid.form-select-sm.fw-bold.w-100px(name="status", data-control="select2", data-hide-search="true")
+                      option(value="1", selected="selected") Options
+                      option(value="2") Option 1
+                      option(value="3") Option 2
+                      option(value="4") Option 3
+                    // end::Select
+                  // end::Card toolbar
+                // end::Card header
+                // begin::Card body
+                .card-body.p-9.pt-4
+                  // begin::Dates
+                  ul.nav.nav-pills.d-flex.flex-nowrap.hover-scroll-x.py-2
+                    // begin::Date
+                    li.nav-item.me-1
+                      a.nav-link.btn.d-flex.flex-column.flex-center.rounded-pill.min-w-45px.me-2.py-4.px-3.btn-active-primary(data-bs-toggle="tab", href="#kt_schedule_day_0")
+                        span.opacity-50.fs-7.fw-semibold Su
+                        span.fs-6.fw-bold 22
+                    // end::Date
+                    // begin::Date
+                    li.nav-item.me-1
+                      a.nav-link.btn.d-flex.flex-column.flex-center.rounded-pill.min-w-45px.me-2.py-4.px-3.btn-active-primary.active(data-bs-toggle="tab", href="#kt_schedule_day_1")
+                        span.opacity-50.fs-7.fw-semibold Mo
+                        span.fs-6.fw-bold 23
+                    // end::Date
+                    // begin::Date
+                    li.nav-item.me-1
+                      a.nav-link.btn.d-flex.flex-column.flex-center.rounded-pill.min-w-45px.me-2.py-4.px-3.btn-active-primary(data-bs-toggle="tab", href="#kt_schedule_day_2")
+                        span.opacity-50.fs-7.fw-semibold Tu
+                        span.fs-6.fw-bold 24
+                    // end::Date
+                    // begin::Date
+                    li.nav-item.me-1
+                      a.nav-link.btn.d-flex.flex-column.flex-center.rounded-pill.min-w-45px.me-2.py-4.px-3.btn-active-primary(data-bs-toggle="tab", href="#kt_schedule_day_3")
+                        span.opacity-50.fs-7.fw-semibold We
+                        span.fs-6.fw-bold 25
+                    // end::Date
+                    // begin::Date
+                    li.nav-item.me-1
+                      a.nav-link.btn.d-flex.flex-column.flex-center.rounded-pill.min-w-45px.me-2.py-4.px-3.btn-active-primary(data-bs-toggle="tab", href="#kt_schedule_day_4")
+                        span.opacity-50.fs-7.fw-semibold Th
+                        span.fs-6.fw-bold 26
+                    // end::Date
+                    // begin::Date
+                    li.nav-item.me-1
+                      a.nav-link.btn.d-flex.flex-column.flex-center.rounded-pill.min-w-45px.me-2.py-4.px-3.btn-active-primary(data-bs-toggle="tab", href="#kt_schedule_day_5")
+                        span.opacity-50.fs-7.fw-semibold Fr
+                        span.fs-6.fw-bold 27
+                    // end::Date
+                    // begin::Date
+                    li.nav-item.me-1
+                      a.nav-link.btn.d-flex.flex-column.flex-center.rounded-pill.min-w-45px.me-2.py-4.px-3.btn-active-primary(data-bs-toggle="tab", href="#kt_schedule_day_6")
+                        span.opacity-50.fs-7.fw-semibold Sa
+                        span.fs-6.fw-bold 28
+                    // end::Date
+                    // begin::Date
+                    li.nav-item.me-1
+                      a.nav-link.btn.d-flex.flex-column.flex-center.rounded-pill.min-w-45px.me-2.py-4.px-3.btn-active-primary(data-bs-toggle="tab", href="#kt_schedule_day_7")
+                        span.opacity-50.fs-7.fw-semibold Su
+                        span.fs-6.fw-bold 29
+                    // end::Date
+                    // begin::Date
+                    li.nav-item.me-1
+                      a.nav-link.btn.d-flex.flex-column.flex-center.rounded-pill.min-w-45px.me-2.py-4.px-3.btn-active-primary(data-bs-toggle="tab", href="#kt_schedule_day_8")
+                        span.opacity-50.fs-7.fw-semibold Mo
+                        span.fs-6.fw-bold 30
+                    // end::Date
+                    // begin::Date
+                    li.nav-item.me-1
+                      a.nav-link.btn.d-flex.flex-column.flex-center.rounded-pill.min-w-45px.me-2.py-4.px-3.btn-active-primary(data-bs-toggle="tab", href="#kt_schedule_day_9")
+                        span.opacity-50.fs-7.fw-semibold Tu
+                        span.fs-6.fw-bold 31
+                    // end::Date
+                  // end::Dates
+                  // begin::Tab Content
+                  .tab-content
+                    // begin::Day
+                    .tab-pane.fade.show(id="kt_schedule_day_0")
+                      // begin::Time
+                      .d-flex.flex-stack.position-relative.mt-8
+                        // begin::Bar
+                        .position-absolute.h-100.w-4px.bg-secondary.rounded.top-0.start-0
+                        // end::Bar
+                        // begin::Info
+                        .fw-semibold.ms-5.text-gray-600
+                          // begin::Time
+                          .fs-5
+                            | 9:00 - 10:00
+                            span.fs-7.text-gray-500.text-uppercase am
+                          // end::Time
+                          // begin::Title
+                          a.fs-5.fw-bold.text-gray-800.text-hover-primary.mb-2(href="#") Marketing Campaign Discussion
+                          // end::Title
+                          // begin::User
+                          .text-gray-500
+                            | Lead by
+                            a(href="#") Karina Clarke
+                          // end::User
+                        // end::Info
+                        // begin::Action
+                        a.btn.btn-bg-light.btn-active-color-primary.btn-sm(href="#") View
+                        // end::Action
+                      // end::Time
+                      // begin::Time
+                      .d-flex.flex-stack.position-relative.mt-8
+                        // begin::Bar
+                        .position-absolute.h-100.w-4px.bg-secondary.rounded.top-0.start-0
+                        // end::Bar
+                        // begin::Info
+                        .fw-semibold.ms-5.text-gray-600
+                          // begin::Time
+                          .fs-5
+                            | 13:00 - 14:00
+                            span.fs-7.text-gray-500.text-uppercase pm
+                          // end::Time
+                          // begin::Title
+                          a.fs-5.fw-bold.text-gray-800.text-hover-primary.mb-2(href="#") 9 Degree Project Estimation Meeting
+                          // end::Title
+                          // begin::User
+                          .text-gray-500
+                            | Lead by
+                            a(href="#") Peter Marcus
+                          // end::User
+                        // end::Info
+                        // begin::Action
+                        a.btn.btn-bg-light.btn-active-color-primary.btn-sm(href="#") View
+                        // end::Action
+                      // end::Time
+                      // begin::Time
+                      .d-flex.flex-stack.position-relative.mt-8
+                        // begin::Bar
+                        .position-absolute.h-100.w-4px.bg-secondary.rounded.top-0.start-0
+                        // end::Bar
+                        // begin::Info
+                        .fw-semibold.ms-5.text-gray-600
+                          // begin::Time
+                          .fs-5
+                            | 11:00 - 11:45
+                            span.fs-7.text-gray-500.text-uppercase am
+                          // end::Time
+                          // begin::Title
+                          a.fs-5.fw-bold.text-gray-800.text-hover-primary.mb-2(href="#") 9 Degree Project Estimation Meeting
+                          // end::Title
+                          // begin::User
+                          .text-gray-500
+                            | Lead by
+                            a(href="#") Yannis Gloverson
+                          // end::User
+                        // end::Info
+                        // begin::Action
+                        a.btn.btn-bg-light.btn-active-color-primary.btn-sm(href="#") View
+                        // end::Action
+                      // end::Time
+                    // end::Day
+                    // begin::Day
+                    .tab-pane.fade.show.active(id="kt_schedule_day_1")
+                      // begin::Time
+                      .d-flex.flex-stack.position-relative.mt-8
+                        // begin::Bar
+                        .position-absolute.h-100.w-4px.bg-secondary.rounded.top-0.start-0
+                        // end::Bar
+                        // begin::Info
+                        .fw-semibold.ms-5.text-gray-600
+                          // begin::Time
+                          .fs-5
+                            | 9:00 - 10:00
+                            span.fs-7.text-gray-500.text-uppercase am
+                          // end::Time
+                          // begin::Title
+                          a.fs-5.fw-bold.text-gray-800.text-hover-primary.mb-2(href="#") Development Team Capacity Review
+                          // end::Title
+                          // begin::User
+                          .text-gray-500
+                            | Lead by
+                            a(href="#") Walter White
+                          // end::User
+                        // end::Info
+                        // begin::Action
+                        a.btn.btn-bg-light.btn-active-color-primary.btn-sm(href="#") View
+                        // end::Action
+                      // end::Time
+                      // begin::Time
+                      .d-flex.flex-stack.position-relative.mt-8
+                        // begin::Bar
+                        .position-absolute.h-100.w-4px.bg-secondary.rounded.top-0.start-0
+                        // end::Bar
+                        // begin::Info
+                        .fw-semibold.ms-5.text-gray-600
+                          // begin::Time
+                          .fs-5
+                            | 14:30 - 15:30
+                            span.fs-7.text-gray-500.text-uppercase pm
+                          // end::Time
+                          // begin::Title
+                          a.fs-5.fw-bold.text-gray-800.text-hover-primary.mb-2(href="#") Sales Pitch Proposal
+                          // end::Title
+                          // begin::User
+                          .text-gray-500
+                            | Lead by
+                            a(href="#") Walter White
+                          // end::User
+                        // end::Info
+                        // begin::Action
+                        a.btn.btn-bg-light.btn-active-color-primary.btn-sm(href="#") View
+                        // end::Action
+                      // end::Time
+                      // begin::Time
+                      .d-flex.flex-stack.position-relative.mt-8
+                        // begin::Bar
+                        .position-absolute.h-100.w-4px.bg-secondary.rounded.top-0.start-0
+                        // end::Bar
+                        // begin::Info
+                        .fw-semibold.ms-5.text-gray-600
+                          // begin::Time
+                          .fs-5
+                            | 9:00 - 10:00
+                            span.fs-7.text-gray-500.text-uppercase am
+                          // end::Time
+                          // begin::Title
+                          a.fs-5.fw-bold.text-gray-800.text-hover-primary.mb-2(href="#") Dashboard UI/UX Design Review
+                          // end::Title
+                          // begin::User
+                          .text-gray-500
+                            | Lead by
+                            a(href="#") Walter White
+                          // end::User
+                        // end::Info
+                        // begin::Action
+                        a.btn.btn-bg-light.btn-active-color-primary.btn-sm(href="#") View
+                        // end::Action
+                      // end::Time
+                    // end::Day
+                    // begin::Day
+                    .tab-pane.fade.show(id="kt_schedule_day_2")
+                      // begin::Time
+                      .d-flex.flex-stack.position-relative.mt-8
+                        // begin::Bar
+                        .position-absolute.h-100.w-4px.bg-secondary.rounded.top-0.start-0
+                        // end::Bar
+                        // begin::Info
+                        .fw-semibold.ms-5.text-gray-600
+                          // begin::Time
+                          .fs-5
+                            | 16:30 - 17:30
+                            span.fs-7.text-gray-500.text-uppercase pm
+                          // end::Time
+                          // begin::Title
+                          a.fs-5.fw-bold.text-gray-800.text-hover-primary.mb-2(href="#") Lunch &amp; Learn Catch Up
+                          // end::Title
+                          // begin::User
+                          .text-gray-500
+                            | Lead by
+                            a(href="#") Peter Marcus
+                          // end::User
+                        // end::Info
+                        // begin::Action
+                        a.btn.btn-bg-light.btn-active-color-primary.btn-sm(href="#") View
+                        // end::Action
+                      // end::Time
+                      // begin::Time
+                      .d-flex.flex-stack.position-relative.mt-8
+                        // begin::Bar
+                        .position-absolute.h-100.w-4px.bg-secondary.rounded.top-0.start-0
+                        // end::Bar
+                        // begin::Info
+                        .fw-semibold.ms-5.text-gray-600
+                          // begin::Time
+                          .fs-5
+                            | 10:00 - 11:00
+                            span.fs-7.text-gray-500.text-uppercase am
+                          // end::Time
+                          // begin::Title
+                          a.fs-5.fw-bold.text-gray-800.text-hover-primary.mb-2(href="#") Sales Pitch Proposal
+                          // end::Title
+                          // begin::User
+                          .text-gray-500
+                            | Lead by
+                            a(href="#") Walter White
+                          // end::User
+                        // end::Info
+                        // begin::Action
+                        a.btn.btn-bg-light.btn-active-color-primary.btn-sm(href="#") View
+                        // end::Action
+                      // end::Time
+                      // begin::Time
+                      .d-flex.flex-stack.position-relative.mt-8
+                        // begin::Bar
+                        .position-absolute.h-100.w-4px.bg-secondary.rounded.top-0.start-0
+                        // end::Bar
+                        // begin::Info
+                        .fw-semibold.ms-5.text-gray-600
+                          // begin::Time
+                          .fs-5
+                            | 11:00 - 11:45
+                            span.fs-7.text-gray-500.text-uppercase am
+                          // end::Time
+                          // begin::Title
+                          a.fs-5.fw-bold.text-gray-800.text-hover-primary.mb-2(href="#") Marketing Campaign Discussion
+                          // end::Title
+                          // begin::User
+                          .text-gray-500
+                            | Lead by
+                            a(href="#") Terry Robins
+                          // end::User
+                        // end::Info
+                        // begin::Action
+                        a.btn.btn-bg-light.btn-active-color-primary.btn-sm(href="#") View
+                        // end::Action
+                      // end::Time
+                    // end::Day
+                    // begin::Day
+                    .tab-pane.fade.show(id="kt_schedule_day_3")
+                      // begin::Time
+                      .d-flex.flex-stack.position-relative.mt-8
+                        // begin::Bar
+                        .position-absolute.h-100.w-4px.bg-secondary.rounded.top-0.start-0
+                        // end::Bar
+                        // begin::Info
+                        .fw-semibold.ms-5.text-gray-600
+                          // begin::Time
+                          .fs-5
+                            | 14:30 - 15:30
+                            span.fs-7.text-gray-500.text-uppercase pm
+                          // end::Time
+                          // begin::Title
+                          a.fs-5.fw-bold.text-gray-800.text-hover-primary.mb-2(href="#") Lunch &amp; Learn Catch Up
+                          // end::Title
+                          // begin::User
+                          .text-gray-500
+                            | Lead by
+                            a(href="#") Naomi Hayabusa
+                          // end::User
+                        // end::Info
+                        // begin::Action
+                        a.btn.btn-bg-light.btn-active-color-primary.btn-sm(href="#") View
+                        // end::Action
+                      // end::Time
+                      // begin::Time
+                      .d-flex.flex-stack.position-relative.mt-8
+                        // begin::Bar
+                        .position-absolute.h-100.w-4px.bg-secondary.rounded.top-0.start-0
+                        // end::Bar
+                        // begin::Info
+                        .fw-semibold.ms-5.text-gray-600
+                          // begin::Time
+                          .fs-5
+                            | 9:00 - 10:00
+                            span.fs-7.text-gray-500.text-uppercase am
+                          // end::Time
+                          // begin::Title
+                          a.fs-5.fw-bold.text-gray-800.text-hover-primary.mb-2(href="#") Committee Review Approvals
+                          // end::Title
+                          // begin::User
+                          .text-gray-500
+                            | Lead by
+                            a(href="#") Bob Harris
+                          // end::User
+                        // end::Info
+                        // begin::Action
+                        a.btn.btn-bg-light.btn-active-color-primary.btn-sm(href="#") View
+                        // end::Action
+                      // end::Time
+                      // begin::Time
+                      .d-flex.flex-stack.position-relative.mt-8
+                        // begin::Bar
+                        .position-absolute.h-100.w-4px.bg-secondary.rounded.top-0.start-0
+                        // end::Bar
+                        // begin::Info
+                        .fw-semibold.ms-5.text-gray-600
+                          // begin::Time
+                          .fs-5
+                            | 9:00 - 10:00
+                            span.fs-7.text-gray-500.text-uppercase am
+                          // end::Time
+                          // begin::Title
+                          a.fs-5.fw-bold.text-gray-800.text-hover-primary.mb-2(href="#") Development Team Capacity Review
+                          // end::Title
+                          // begin::User
+                          .text-gray-500
+                            | Lead by
+                            a(href="#") Walter White
+                          // end::User
+                        // end::Info
+                        // begin::Action
+                        a.btn.btn-bg-light.btn-active-color-primary.btn-sm(href="#") View
+                        // end::Action
+                      // end::Time
+                    // end::Day
+                    // begin::Day
+                    .tab-pane.fade.show(id="kt_schedule_day_4")
+                      // begin::Time
+                      .d-flex.flex-stack.position-relative.mt-8
+                        // begin::Bar
+                        .position-absolute.h-100.w-4px.bg-secondary.rounded.top-0.start-0
+                        // end::Bar
+                        // begin::Info
+                        .fw-semibold.ms-5.text-gray-600
+                          // begin::Time
+                          .fs-5
+                            | 10:00 - 11:00
+                            span.fs-7.text-gray-500.text-uppercase am
+                          // end::Time
+                          // begin::Title
+                          a.fs-5.fw-bold.text-gray-800.text-hover-primary.mb-2(href="#") Project Review &amp; Testing
+                          // end::Title
+                          // begin::User
+                          .text-gray-500
+                            | Lead by
+                            a(href="#") Karina Clarke
+                          // end::User
+                        // end::Info
+                        // begin::Action
+                        a.btn.btn-bg-light.btn-active-color-primary.btn-sm(href="#") View
+                        // end::Action
+                      // end::Time
+                      // begin::Time
+                      .d-flex.flex-stack.position-relative.mt-8
+                        // begin::Bar
+                        .position-absolute.h-100.w-4px.bg-secondary.rounded.top-0.start-0
+                        // end::Bar
+                        // begin::Info
+                        .fw-semibold.ms-5.text-gray-600
+                          // begin::Time
+                          .fs-5
+                            | 10:00 - 11:00
+                            span.fs-7.text-gray-500.text-uppercase am
+                          // end::Time
+                          // begin::Title
+                          a.fs-5.fw-bold.text-gray-800.text-hover-primary.mb-2(href="#") Creative Content Initiative
+                          // end::Title
+                          // begin::User
+                          .text-gray-500
+                            | Lead by
+                            a(href="#") Kendell Trevor
+                          // end::User
+                        // end::Info
+                        // begin::Action
+                        a.btn.btn-bg-light.btn-active-color-primary.btn-sm(href="#") View
+                        // end::Action
+                      // end::Time
+                      // begin::Time
+                      .d-flex.flex-stack.position-relative.mt-8
+                        // begin::Bar
+                        .position-absolute.h-100.w-4px.bg-secondary.rounded.top-0.start-0
+                        // end::Bar
+                        // begin::Info
+                        .fw-semibold.ms-5.text-gray-600
+                          // begin::Time
+                          .fs-5
+                            | 16:30 - 17:30
+                            span.fs-7.text-gray-500.text-uppercase pm
+                          // end::Time
+                          // begin::Title
+                          a.fs-5.fw-bold.text-gray-800.text-hover-primary.mb-2(href="#") Marketing Campaign Discussion
+                          // end::Title
+                          // begin::User
+                          .text-gray-500
+                            | Lead by
+                            a(href="#") Sean Bean
+                          // end::User
+                        // end::Info
+                        // begin::Action
+                        a.btn.btn-bg-light.btn-active-color-primary.btn-sm(href="#") View
+                        // end::Action
+                      // end::Time
+                    // end::Day
+                    // begin::Day
+                    .tab-pane.fade.show(id="kt_schedule_day_5")
+                      // begin::Time
+                      .d-flex.flex-stack.position-relative.mt-8
+                        // begin::Bar
+                        .position-absolute.h-100.w-4px.bg-secondary.rounded.top-0.start-0
+                        // end::Bar
+                        // begin::Info
+                        .fw-semibold.ms-5.text-gray-600
+                          // begin::Time
+                          .fs-5
+                            | 13:00 - 14:00
+                            span.fs-7.text-gray-500.text-uppercase pm
+                          // end::Time
+                          // begin::Title
+                          a.fs-5.fw-bold.text-gray-800.text-hover-primary.mb-2(href="#") Weekly Team Stand-Up
+                          // end::Title
+                          // begin::User
+                          .text-gray-500
+                            | Lead by
+                            a(href="#") Sean Bean
+                          // end::User
+                        // end::Info
+                        // begin::Action
+                        a.btn.btn-bg-light.btn-active-color-primary.btn-sm(href="#") View
+                        // end::Action
+                      // end::Time
+                      // begin::Time
+                      .d-flex.flex-stack.position-relative.mt-8
+                        // begin::Bar
+                        .position-absolute.h-100.w-4px.bg-secondary.rounded.top-0.start-0
+                        // end::Bar
+                        // begin::Info
+                        .fw-semibold.ms-5.text-gray-600
+                          // begin::Time
+                          .fs-5
+                            | 10:00 - 11:00
+                            span.fs-7.text-gray-500.text-uppercase am
+                          // end::Time
+                          // begin::Title
+                          a.fs-5.fw-bold.text-gray-800.text-hover-primary.mb-2(href="#") Committee Review Approvals
+                          // end::Title
+                          // begin::User
+                          .text-gray-500
+                            | Lead by
+                            a(href="#") David Stevenson
+                          // end::User
+                        // end::Info
+                        // begin::Action
+                        a.btn.btn-bg-light.btn-active-color-primary.btn-sm(href="#") View
+                        // end::Action
+                      // end::Time
+                      // begin::Time
+                      .d-flex.flex-stack.position-relative.mt-8
+                        // begin::Bar
+                        .position-absolute.h-100.w-4px.bg-secondary.rounded.top-0.start-0
+                        // end::Bar
+                        // begin::Info
+                        .fw-semibold.ms-5.text-gray-600
+                          // begin::Time
+                          .fs-5
+                            | 14:30 - 15:30
+                            span.fs-7.text-gray-500.text-uppercase pm
+                          // end::Time
+                          // begin::Title
+                          a.fs-5.fw-bold.text-gray-800.text-hover-primary.mb-2(href="#") Development Team Capacity Review
+                          // end::Title
+                          // begin::User
+                          .text-gray-500
+                            | Lead by
+                            a(href="#") Bob Harris
+                          // end::User
+                        // end::Info
+                        // begin::Action
+                        a.btn.btn-bg-light.btn-active-color-primary.btn-sm(href="#") View
+                        // end::Action
+                      // end::Time
+                    // end::Day
+                    // begin::Day
+                    .tab-pane.fade.show(id="kt_schedule_day_6")
+                      // begin::Time
+                      .d-flex.flex-stack.position-relative.mt-8
+                        // begin::Bar
+                        .position-absolute.h-100.w-4px.bg-secondary.rounded.top-0.start-0
+                        // end::Bar
+                        // begin::Info
+                        .fw-semibold.ms-5.text-gray-600
+                          // begin::Time
+                          .fs-5
+                            | 13:00 - 14:00
+                            span.fs-7.text-gray-500.text-uppercase pm
+                          // end::Time
+                          // begin::Title
+                          a.fs-5.fw-bold.text-gray-800.text-hover-primary.mb-2(href="#") Marketing Campaign Discussion
+                          // end::Title
+                          // begin::User
+                          .text-gray-500
+                            | Lead by
+                            a(href="#") Naomi Hayabusa
+                          // end::User
+                        // end::Info
+                        // begin::Action
+                        a.btn.btn-bg-light.btn-active-color-primary.btn-sm(href="#") View
+                        // end::Action
+                      // end::Time
+                      // begin::Time
+                      .d-flex.flex-stack.position-relative.mt-8
+                        // begin::Bar
+                        .position-absolute.h-100.w-4px.bg-secondary.rounded.top-0.start-0
+                        // end::Bar
+                        // begin::Info
+                        .fw-semibold.ms-5.text-gray-600
+                          // begin::Time
+                          .fs-5
+                            | 11:00 - 11:45
+                            span.fs-7.text-gray-500.text-uppercase am
+                          // end::Time
+                          // begin::Title
+                          a.fs-5.fw-bold.text-gray-800.text-hover-primary.mb-2(href="#") Creative Content Initiative
+                          // end::Title
+                          // begin::User
+                          .text-gray-500
+                            | Lead by
+                            a(href="#") Walter White
+                          // end::User
+                        // end::Info
+                        // begin::Action
+                        a.btn.btn-bg-light.btn-active-color-primary.btn-sm(href="#") View
+                        // end::Action
+                      // end::Time
+                      // begin::Time
+                      .d-flex.flex-stack.position-relative.mt-8
+                        // begin::Bar
+                        .position-absolute.h-100.w-4px.bg-secondary.rounded.top-0.start-0
+                        // end::Bar
+                        // begin::Info
+                        .fw-semibold.ms-5.text-gray-600
+                          // begin::Time
+                          .fs-5
+                            | 10:00 - 11:00
+                            span.fs-7.text-gray-500.text-uppercase am
+                          // end::Time
+                          // begin::Title
+                          a.fs-5.fw-bold.text-gray-800.text-hover-primary.mb-2(href="#") Committee Review Approvals
+                          // end::Title
+                          // begin::User
+                          .text-gray-500
+                            | Lead by
+                            a(href="#") Michael Walters
+                          // end::User
+                        // end::Info
+                        // begin::Action
+                        a.btn.btn-bg-light.btn-active-color-primary.btn-sm(href="#") View
+                        // end::Action
+                      // end::Time
+                    // end::Day
+                    // begin::Day
+                    .tab-pane.fade.show(id="kt_schedule_day_7")
+                      // begin::Time
+                      .d-flex.flex-stack.position-relative.mt-8
+                        // begin::Bar
+                        .position-absolute.h-100.w-4px.bg-secondary.rounded.top-0.start-0
+                        // end::Bar
+                        // begin::Info
+                        .fw-semibold.ms-5.text-gray-600
+                          // begin::Time
+                          .fs-5
+                            | 14:30 - 15:30
+                            span.fs-7.text-gray-500.text-uppercase pm
+                          // end::Time
+                          // begin::Title
+                          a.fs-5.fw-bold.text-gray-800.text-hover-primary.mb-2(href="#") Development Team Capacity Review
+                          // end::Title
+                          // begin::User
+                          .text-gray-500
+                            | Lead by
+                            a(href="#") Terry Robins
+                          // end::User
+                        // end::Info
+                        // begin::Action
+                        a.btn.btn-bg-light.btn-active-color-primary.btn-sm(href="#") View
+                        // end::Action
+                      // end::Time
+                      // begin::Time
+                      .d-flex.flex-stack.position-relative.mt-8
+                        // begin::Bar
+                        .position-absolute.h-100.w-4px.bg-secondary.rounded.top-0.start-0
+                        // end::Bar
+                        // begin::Info
+                        .fw-semibold.ms-5.text-gray-600
+                          // begin::Time
+                          .fs-5
+                            | 11:00 - 11:45
+                            span.fs-7.text-gray-500.text-uppercase am
+                          // end::Time
+                          // begin::Title
+                          a.fs-5.fw-bold.text-gray-800.text-hover-primary.mb-2(href="#") Sales Pitch Proposal
+                          // end::Title
+                          // begin::User
+                          .text-gray-500
+                            | Lead by
+                            a(href="#") David Stevenson
+                          // end::User
+                        // end::Info
+                        // begin::Action
+                        a.btn.btn-bg-light.btn-active-color-primary.btn-sm(href="#") View
+                        // end::Action
+                      // end::Time
+                      // begin::Time
+                      .d-flex.flex-stack.position-relative.mt-8
+                        // begin::Bar
+                        .position-absolute.h-100.w-4px.bg-secondary.rounded.top-0.start-0
+                        // end::Bar
+                        // begin::Info
+                        .fw-semibold.ms-5.text-gray-600
+                          // begin::Time
+                          .fs-5
+                            | 11:00 - 11:45
+                            span.fs-7.text-gray-500.text-uppercase am
+                          // end::Time
+                          // begin::Title
+                          a.fs-5.fw-bold.text-gray-800.text-hover-primary.mb-2(href="#") Sales Pitch Proposal
+                          // end::Title
+                          // begin::User
+                          .text-gray-500
+                            | Lead by
+                            a(href="#") Caleb Donaldson
+                          // end::User
+                        // end::Info
+                        // begin::Action
+                        a.btn.btn-bg-light.btn-active-color-primary.btn-sm(href="#") View
+                        // end::Action
+                      // end::Time
+                    // end::Day
+                    // begin::Day
+                    .tab-pane.fade.show(id="kt_schedule_day_8")
+                      // begin::Time
+                      .d-flex.flex-stack.position-relative.mt-8
+                        // begin::Bar
+                        .position-absolute.h-100.w-4px.bg-secondary.rounded.top-0.start-0
+                        // end::Bar
+                        // begin::Info
+                        .fw-semibold.ms-5.text-gray-600
+                          // begin::Time
+                          .fs-5
+                            | 13:00 - 14:00
+                            span.fs-7.text-gray-500.text-uppercase pm
+                          // end::Time
+                          // begin::Title
+                          a.fs-5.fw-bold.text-gray-800.text-hover-primary.mb-2(href="#") Creative Content Initiative
+                          // end::Title
+                          // begin::User
+                          .text-gray-500
+                            | Lead by
+                            a(href="#") Caleb Donaldson
+                          // end::User
+                        // end::Info
+                        // begin::Action
+                        a.btn.btn-bg-light.btn-active-color-primary.btn-sm(href="#") View
+                        // end::Action
+                      // end::Time
+                      // begin::Time
+                      .d-flex.flex-stack.position-relative.mt-8
+                        // begin::Bar
+                        .position-absolute.h-100.w-4px.bg-secondary.rounded.top-0.start-0
+                        // end::Bar
+                        // begin::Info
+                        .fw-semibold.ms-5.text-gray-600
+                          // begin::Time
+                          .fs-5
+                            | 9:00 - 10:00
+                            span.fs-7.text-gray-500.text-uppercase am
+                          // end::Time
+                          // begin::Title
+                          a.fs-5.fw-bold.text-gray-800.text-hover-primary.mb-2(href="#") Creative Content Initiative
+                          // end::Title
+                          // begin::User
+                          .text-gray-500
+                            | Lead by
+                            a(href="#") Michael Walters
+                          // end::User
+                        // end::Info
+                        // begin::Action
+                        a.btn.btn-bg-light.btn-active-color-primary.btn-sm(href="#") View
+                        // end::Action
+                      // end::Time
+                      // begin::Time
+                      .d-flex.flex-stack.position-relative.mt-8
+                        // begin::Bar
+                        .position-absolute.h-100.w-4px.bg-secondary.rounded.top-0.start-0
+                        // end::Bar
+                        // begin::Info
+                        .fw-semibold.ms-5.text-gray-600
+                          // begin::Time
+                          .fs-5
+                            | 13:00 - 14:00
+                            span.fs-7.text-gray-500.text-uppercase pm
+                          // end::Time
+                          // begin::Title
+                          a.fs-5.fw-bold.text-gray-800.text-hover-primary.mb-2(href="#") Creative Content Initiative
+                          // end::Title
+                          // begin::User
+                          .text-gray-500
+                            | Lead by
+                            a(href="#") Caleb Donaldson
+                          // end::User
+                        // end::Info
+                        // begin::Action
+                        a.btn.btn-bg-light.btn-active-color-primary.btn-sm(href="#") View
+                        // end::Action
+                      // end::Time
+                    // end::Day
+                    // begin::Day
+                    .tab-pane.fade.show(id="kt_schedule_day_9")
+                      // begin::Time
+                      .d-flex.flex-stack.position-relative.mt-8
+                        // begin::Bar
+                        .position-absolute.h-100.w-4px.bg-secondary.rounded.top-0.start-0
+                        // end::Bar
+                        // begin::Info
+                        .fw-semibold.ms-5.text-gray-600
+                          // begin::Time
+                          .fs-5
+                            | 11:00 - 11:45
+                            span.fs-7.text-gray-500.text-uppercase am
+                          // end::Time
+                          // begin::Title
+                          a.fs-5.fw-bold.text-gray-800.text-hover-primary.mb-2(href="#") Weekly Team Stand-Up
+                          // end::Title
+                          // begin::User
+                          .text-gray-500
+                            | Lead by
+                            a(href="#") Naomi Hayabusa
+                          // end::User
+                        // end::Info
+                        // begin::Action
+                        a.btn.btn-bg-light.btn-active-color-primary.btn-sm(href="#") View
+                        // end::Action
+                      // end::Time
+                      // begin::Time
+                      .d-flex.flex-stack.position-relative.mt-8
+                        // begin::Bar
+                        .position-absolute.h-100.w-4px.bg-secondary.rounded.top-0.start-0
+                        // end::Bar
+                        // begin::Info
+                        .fw-semibold.ms-5.text-gray-600
+                          // begin::Time
+                          .fs-5
+                            | 13:00 - 14:00
+                            span.fs-7.text-gray-500.text-uppercase pm
+                          // end::Time
+                          // begin::Title
+                          a.fs-5.fw-bold.text-gray-800.text-hover-primary.mb-2(href="#") Project Review &amp; Testing
+                          // end::Title
+                          // begin::User
+                          .text-gray-500
+                            | Lead by
+                            a(href="#") Yannis Gloverson
+                          // end::User
+                        // end::Info
+                        // begin::Action
+                        a.btn.btn-bg-light.btn-active-color-primary.btn-sm(href="#") View
+                        // end::Action
+                      // end::Time
+                      // begin::Time
+                      .d-flex.flex-stack.position-relative.mt-8
+                        // begin::Bar
+                        .position-absolute.h-100.w-4px.bg-secondary.rounded.top-0.start-0
+                        // end::Bar
+                        // begin::Info
+                        .fw-semibold.ms-5.text-gray-600
+                          // begin::Time
+                          .fs-5
+                            | 12:00 - 13:00
+                            span.fs-7.text-gray-500.text-uppercase pm
+                          // end::Time
+                          // begin::Title
+                          a.fs-5.fw-bold.text-gray-800.text-hover-primary.mb-2(href="#") Lunch &amp; Learn Catch Up
+                          // end::Title
+                          // begin::User
+                          .text-gray-500
+                            | Lead by
+                            a(href="#") David Stevenson
+                          // end::User
+                        // end::Info
+                        // begin::Action
+                        a.btn.btn-bg-light.btn-active-color-primary.btn-sm(href="#") View
+                        // end::Action
+                      // end::Time
+                    // end::Day
+                  // end::Tab Content
+                // end::Card body
+              // end::Card
+            // end::Col
+            // begin::Col
+            .col-lg-6
+              // begin::Card
+              .card.card-flush.h-lg-100
+                // begin::Card header
+                .card-header.mt-6
+                  // begin::Card title
+                  .card-title.flex-column
+                    h3.fw-bold.mb-1 Latest Files
+                    .fs-6.text-gray-500 Total 382 fiels, 2,6GB space usage
+                  // end::Card title
+                  // begin::Card toolbar
+                  .card-toolbar
+                    a.btn.btn-bg-light.btn-active-color-primary.btn-sm(href="#") View All
+                  // end::Card toolbar
+                // end::Card header
+                // begin::Card body
+                .card-body.p-9.pt-3
+                  // begin::Files
+                  .d-flex.flex-column.mb-9
+                    // begin::File
+                    .d-flex.align-items-center.mb-5
+                      // begin::Icon
+                      .symbol.symbol-30px.me-5
+                        img(alt="Icon", src="assets/media/svg/files/pdf.svg")
+                      // end::Icon
+                      // begin::Details
+                      .fw-semibold
+                        a.fs-6.fw-bold.text-gray-900.text-hover-primary(href="#") Project tech requirements
+                        .text-gray-500
+                          | 2 days ago
+                          a(href="#") Karina Clark
+                      // end::Details
+                      // begin::Menu
+                      button.btn.btn-clean.btn-sm.btn-icon.btn-icon-primary.btn-active-light-primary.ms-auto(type="button", data-kt-menu-trigger="click", data-kt-menu-placement="bottom-end")
+                        i.ki-duotone.ki-element-plus.fs-3
+                          span.path1
+                          span.path2
+                          span.path3
+                          span.path4
+                          span.path5
+                      // begin::Menu 1
+                      .menu.menu-sub.menu-sub-dropdown.w-250px.w-md-300px(data-kt-menu="true", id="kt_menu_654bb8f96fec2")
+                        // begin::Header
+                        .px-7.py-5
+                          .fs-5.text-gray-900.fw-bold Filter Options
+                        // end::Header
+                        // begin::Menu separator
+                        .separator.border-gray-200
+                        // end::Menu separator
+                        // begin::Form
+                        .px-7.py-5
+                          // begin::Input group
+                          .mb-10
+                            // begin::Label
+                            label.form-label.fw-semibold Status:
+                            // end::Label
+                            // begin::Input
+                            div
+                              select.form-select.form-select-solid(multiple="multiple", data-kt-select2="true", data-close-on-select="false", data-placeholder="Select option", data-dropdown-parent="#kt_menu_654bb8f96fec2", data-allow-clear="true")
+                                option
+                                option(value="1") Approved
+                                option(value="2") Pending
+                                option(value="2") In Process
+                                option(value="2") Rejected
+                            // end::Input
+                          // end::Input group
+                          // begin::Input group
+                          .mb-10
+                            // begin::Label
+                            label.form-label.fw-semibold Member Type:
+                            // end::Label
+                            // begin::Options
+                            .d-flex
+                              // begin::Options
+                              label.form-check.form-check-sm.form-check-custom.form-check-solid.me-5
+                                input.form-check-input(type="checkbox", value="1")
+                                span.form-check-label Author
+                              // end::Options
+                              // begin::Options
+                              label.form-check.form-check-sm.form-check-custom.form-check-solid
+                                input.form-check-input(type="checkbox", value="2", checked="checked")
+                                span.form-check-label Customer
+                              // end::Options
+                            // end::Options
+                          // end::Input group
+                          // begin::Input group
+                          .mb-10
+                            // begin::Label
+                            label.form-label.fw-semibold Notifications:
+                            // end::Label
+                            // begin::Switch
+                            .form-check.form-switch.form-switch-sm.form-check-custom.form-check-solid
+                              input.form-check-input(type="checkbox", name="notifications", checked="checked")
+                              label.form-check-label Enabled
+                            // end::Switch
+                          // end::Input group
+                          // begin::Actions
+                          .d-flex.justify-content-end
+                            button.btn.btn-sm.btn-light.btn-active-light-primary.me-2(type="reset", data-kt-menu-dismiss="true") Reset
+                            button.btn.btn-sm.btn-primary(type="submit", data-kt-menu-dismiss="true") Apply
+                          // end::Actions
+                        // end::Form
+                      // end::Menu 1
+                      // end::Menu
+                    // end::File
+                    // begin::File
+                    .d-flex.align-items-center.mb-5
+                      // begin::Icon
+                      .symbol.symbol-30px.me-5
+                        img(alt="Icon", src="assets/media/svg/files/doc.svg")
+                      // end::Icon
+                      // begin::Details
+                      .fw-semibold
+                        a.fs-6.fw-bold.text-gray-900.text-hover-primary(href="#") Create FureStibe branding proposal
+                        .text-gray-500
+                          | Due in 1 day
+                          a(href="#") Marcus Blake
+                      // end::Details
+                      // begin::Menu
+                      button.btn.btn-clean.btn-sm.btn-icon.btn-icon-primary.btn-active-light-primary.ms-auto(type="button", data-kt-menu-trigger="click", data-kt-menu-placement="bottom-end")
+                        i.ki-duotone.ki-element-plus.fs-3
+                          span.path1
+                          span.path2
+                          span.path3
+                          span.path4
+                          span.path5
+                      // begin::Menu 1
+                      .menu.menu-sub.menu-sub-dropdown.w-250px.w-md-300px(data-kt-menu="true", id="kt_menu_654bb8f96fecd")
+                        // begin::Header
+                        .px-7.py-5
+                          .fs-5.text-gray-900.fw-bold Filter Options
+                        // end::Header
+                        // begin::Menu separator
+                        .separator.border-gray-200
+                        // end::Menu separator
+                        // begin::Form
+                        .px-7.py-5
+                          // begin::Input group
+                          .mb-10
+                            // begin::Label
+                            label.form-label.fw-semibold Status:
+                            // end::Label
+                            // begin::Input
+                            div
+                              select.form-select.form-select-solid(multiple="multiple", data-kt-select2="true", data-close-on-select="false", data-placeholder="Select option", data-dropdown-parent="#kt_menu_654bb8f96fecd", data-allow-clear="true")
+                                option
+                                option(value="1") Approved
+                                option(value="2") Pending
+                                option(value="2") In Process
+                                option(value="2") Rejected
+                            // end::Input
+                          // end::Input group
+                          // begin::Input group
+                          .mb-10
+                            // begin::Label
+                            label.form-label.fw-semibold Member Type:
+                            // end::Label
+                            // begin::Options
+                            .d-flex
+                              // begin::Options
+                              label.form-check.form-check-sm.form-check-custom.form-check-solid.me-5
+                                input.form-check-input(type="checkbox", value="1")
+                                span.form-check-label Author
+                              // end::Options
+                              // begin::Options
+                              label.form-check.form-check-sm.form-check-custom.form-check-solid
+                                input.form-check-input(type="checkbox", value="2", checked="checked")
+                                span.form-check-label Customer
+                              // end::Options
+                            // end::Options
+                          // end::Input group
+                          // begin::Input group
+                          .mb-10
+                            // begin::Label
+                            label.form-label.fw-semibold Notifications:
+                            // end::Label
+                            // begin::Switch
+                            .form-check.form-switch.form-switch-sm.form-check-custom.form-check-solid
+                              input.form-check-input(type="checkbox", name="notifications", checked="checked")
+                              label.form-check-label Enabled
+                            // end::Switch
+                          // end::Input group
+                          // begin::Actions
+                          .d-flex.justify-content-end
+                            button.btn.btn-sm.btn-light.btn-active-light-primary.me-2(type="reset", data-kt-menu-dismiss="true") Reset
+                            button.btn.btn-sm.btn-primary(type="submit", data-kt-menu-dismiss="true") Apply
+                          // end::Actions
+                        // end::Form
+                      // end::Menu 1
+                      // end::Menu
+                    // end::File
+                    // begin::File
+                    .d-flex.align-items-center.mb-5
+                      // begin::Icon
+                      .symbol.symbol-30px.me-5
+                        img(alt="Icon", src="assets/media/svg/files/css.svg")
+                      // end::Icon
+                      // begin::Details
+                      .fw-semibold
+                        a.fs-6.fw-bold.text-gray-900.text-hover-primary(href="#") Completed Project Stylings
+                        .text-gray-500
+                          | Due in 1 day
+                          a(href="#") Terry Barry
+                      // end::Details
+                      // begin::Menu
+                      button.btn.btn-clean.btn-sm.btn-icon.btn-icon-primary.btn-active-light-primary.ms-auto(type="button", data-kt-menu-trigger="click", data-kt-menu-placement="bottom-end")
+                        i.ki-duotone.ki-element-plus.fs-3
+                          span.path1
+                          span.path2
+                          span.path3
+                          span.path4
+                          span.path5
+                      // begin::Menu 1
+                      .menu.menu-sub.menu-sub-dropdown.w-250px.w-md-300px(data-kt-menu="true", id="kt_menu_654bb8f96fed5")
+                        // begin::Header
+                        .px-7.py-5
+                          .fs-5.text-gray-900.fw-bold Filter Options
+                        // end::Header
+                        // begin::Menu separator
+                        .separator.border-gray-200
+                        // end::Menu separator
+                        // begin::Form
+                        .px-7.py-5
+                          // begin::Input group
+                          .mb-10
+                            // begin::Label
+                            label.form-label.fw-semibold Status:
+                            // end::Label
+                            // begin::Input
+                            div
+                              select.form-select.form-select-solid(multiple="multiple", data-kt-select2="true", data-close-on-select="false", data-placeholder="Select option", data-dropdown-parent="#kt_menu_654bb8f96fed5", data-allow-clear="true")
+                                option
+                                option(value="1") Approved
+                                option(value="2") Pending
+                                option(value="2") In Process
+                                option(value="2") Rejected
+                            // end::Input
+                          // end::Input group
+                          // begin::Input group
+                          .mb-10
+                            // begin::Label
+                            label.form-label.fw-semibold Member Type:
+                            // end::Label
+                            // begin::Options
+                            .d-flex
+                              // begin::Options
+                              label.form-check.form-check-sm.form-check-custom.form-check-solid.me-5
+                                input.form-check-input(type="checkbox", value="1")
+                                span.form-check-label Author
+                              // end::Options
+                              // begin::Options
+                              label.form-check.form-check-sm.form-check-custom.form-check-solid
+                                input.form-check-input(type="checkbox", value="2", checked="checked")
+                                span.form-check-label Customer
+                              // end::Options
+                            // end::Options
+                          // end::Input group
+                          // begin::Input group
+                          .mb-10
+                            // begin::Label
+                            label.form-label.fw-semibold Notifications:
+                            // end::Label
+                            // begin::Switch
+                            .form-check.form-switch.form-switch-sm.form-check-custom.form-check-solid
+                              input.form-check-input(type="checkbox", name="notifications", checked="checked")
+                              label.form-check-label Enabled
+                            // end::Switch
+                          // end::Input group
+                          // begin::Actions
+                          .d-flex.justify-content-end
+                            button.btn.btn-sm.btn-light.btn-active-light-primary.me-2(type="reset", data-kt-menu-dismiss="true") Reset
+                            button.btn.btn-sm.btn-primary(type="submit", data-kt-menu-dismiss="true") Apply
+                          // end::Actions
+                        // end::Form
+                      // end::Menu 1
+                      // end::Menu
+                    // end::File
+                    // begin::File
+                    .d-flex.align-items-center
+                      // begin::Icon
+                      .symbol.symbol-30px.me-5
+                        img(alt="Icon", src="assets/media/svg/files/ai.svg")
+                      // end::Icon
+                      // begin::Details
+                      .fw-semibold
+                        a.fs-6.fw-bold.text-gray-900.text-hover-primary(href="#") Create Project Wireframes
+                        .text-gray-500
+                          | Due in 3 days
+                          a(href="#") Roth Bloom
+                      // end::Details
+                      // begin::Menu
+                      button.btn.btn-clean.btn-sm.btn-icon.btn-icon-primary.btn-active-light-primary.ms-auto(type="button", data-kt-menu-trigger="click", data-kt-menu-placement="bottom-end")
+                        i.ki-duotone.ki-element-plus.fs-3
+                          span.path1
+                          span.path2
+                          span.path3
+                          span.path4
+                          span.path5
+                      // begin::Menu 1
+                      .menu.menu-sub.menu-sub-dropdown.w-250px.w-md-300px(data-kt-menu="true", id="kt_menu_654bb8f96fedc")
+                        // begin::Header
+                        .px-7.py-5
+                          .fs-5.text-gray-900.fw-bold Filter Options
+                        // end::Header
+                        // begin::Menu separator
+                        .separator.border-gray-200
+                        // end::Menu separator
+                        // begin::Form
+                        .px-7.py-5
+                          // begin::Input group
+                          .mb-10
+                            // begin::Label
+                            label.form-label.fw-semibold Status:
+                            // end::Label
+                            // begin::Input
+                            div
+                              select.form-select.form-select-solid(multiple="multiple", data-kt-select2="true", data-close-on-select="false", data-placeholder="Select option", data-dropdown-parent="#kt_menu_654bb8f96fedc", data-allow-clear="true")
+                                option
+                                option(value="1") Approved
+                                option(value="2") Pending
+                                option(value="2") In Process
+                                option(value="2") Rejected
+                            // end::Input
+                          // end::Input group
+                          // begin::Input group
+                          .mb-10
+                            // begin::Label
+                            label.form-label.fw-semibold Member Type:
+                            // end::Label
+                            // begin::Options
+                            .d-flex
+                              // begin::Options
+                              label.form-check.form-check-sm.form-check-custom.form-check-solid.me-5
+                                input.form-check-input(type="checkbox", value="1")
+                                span.form-check-label Author
+                              // end::Options
+                              // begin::Options
+                              label.form-check.form-check-sm.form-check-custom.form-check-solid
+                                input.form-check-input(type="checkbox", value="2", checked="checked")
+                                span.form-check-label Customer
+                              // end::Options
+                            // end::Options
+                          // end::Input group
+                          // begin::Input group
+                          .mb-10
+                            // begin::Label
+                            label.form-label.fw-semibold Notifications:
+                            // end::Label
+                            // begin::Switch
+                            .form-check.form-switch.form-switch-sm.form-check-custom.form-check-solid
+                              input.form-check-input(type="checkbox", name="notifications", checked="checked")
+                              label.form-check-label Enabled
+                            // end::Switch
+                          // end::Input group
+                          // begin::Actions
+                          .d-flex.justify-content-end
+                            button.btn.btn-sm.btn-light.btn-active-light-primary.me-2(type="reset", data-kt-menu-dismiss="true") Reset
+                            button.btn.btn-sm.btn-primary(type="submit", data-kt-menu-dismiss="true") Apply
+                          // end::Actions
+                        // end::Form
+                      // end::Menu 1
+                      // end::Menu
+                    // end::File
+                  // end::Files
+                  // begin::Notice
+                  .notice.d-flex.bg-light-primary.rounded.border-primary.border.border-dashed.p-6
+                    // begin::Icon
+                    i.ki-duotone.ki-svg/files/upload.svg.fs-2tx.text-primary.me-4
+                    // end::Icon
+                    // begin::Wrapper
+                    .d-flex.flex-stack.flex-grow-1
+                      // begin::Content
+                      .fw-semibold
+                        h4.text-gray-900.fw-bold Quick file uploader
+                        .fs-6.text-gray-700 Drag &amp; Drop or choose files from computer
+                      // end::Content
+                    // end::Wrapper
+                  // end::Notice
+                // end::Card body
+              // end::Card
+            // end::Col
+            // begin::Col
+            .col-lg-6
+              // begin::Card
+              .card.card-flush.h-lg-100
+                // begin::Card header
+                .card-header.mt-6
+                  // begin::Card title
+                  .card-title.flex-column
+                    h3.fw-bold.mb-1 New Contibutors
+                    .fs-6.text-gray-500 From total 482 Participants
+                  // end::Card title
+                  // begin::Card toolbar
+                  .card-toolbar
+                    a.btn.btn-bg-light.btn-active-color-primary.btn-sm(href="#") View All
+                  // end::Card toolbar
+                // end::Card toolbar
+                // begin::Card body
+                .card-body.d-flex.flex-column.p-9.pt-3.mb-9
+                  // begin::Item
+                  .d-flex.align-items-center.mb-5
+                    // begin::Avatar
+                    .me-5.position-relative
+                      // begin::Image
+                      .symbol.symbol-35px.symbol-circle
+                        img(alt="Pic", src="assets/media/avatars/300-6.jpg")
+                      // end::Image
+                    // end::Avatar
+                    // begin::Details
+                    .fw-semibold
+                      a.fs-5.fw-bold.text-gray-900.text-hover-primary(href="#") Emma Smith
+                      .text-gray-500 8 Pending &amp; 97 Completed Tasks
+                    // end::Details
+                    // begin::Badge
+                    .badge.badge-light.ms-auto 5
+                    // end::Badge
+                  // end::Item
+                  // begin::Item
+                  .d-flex.align-items-center.mb-5
+                    // begin::Avatar
+                    .me-5.position-relative
+                      // begin::Image
+                      .symbol.symbol-35px.symbol-circle
+                        span.symbol-label.bg-light-danger.text-danger.fw-semibold M
+                      // end::Image
+                      // begin::Online
+                      .bg-success.position-absolute.h-8px.w-8px.rounded-circle.translate-middle.start-100.top-100.ms-n1.mt-n1
+                      // end::Online
+                    // end::Avatar
+                    // begin::Details
+                    .fw-semibold
+                      a.fs-5.fw-bold.text-gray-900.text-hover-primary(href="#") Melody Macy
+                      .text-gray-500 5 Pending &amp; 84 Completed
+                    // end::Details
+                    // begin::Badge
+                    .badge.badge-light.ms-auto 8
+                    // end::Badge
+                  // end::Item
+                  // begin::Item
+                  .d-flex.align-items-center.mb-5
+                    // begin::Avatar
+                    .me-5.position-relative
+                      // begin::Image
+                      .symbol.symbol-35px.symbol-circle
+                        img(alt="Pic", src="assets/media/avatars/300-1.jpg")
+                      // end::Image
+                    // end::Avatar
+                    // begin::Details
+                    .fw-semibold
+                      a.fs-5.fw-bold.text-gray-900.text-hover-primary(href="#") Max Smith
+                      .text-gray-500 9 Pending &amp; 103 Completed
+                    // end::Details
+                    // begin::Badge
+                    .badge.badge-light.ms-auto 9
+                    // end::Badge
+                  // end::Item
+                  // begin::Item
+                  .d-flex.align-items-center.mb-5
+                    // begin::Avatar
+                    .me-5.position-relative
+                      // begin::Image
+                      .symbol.symbol-35px.symbol-circle
+                        img(alt="Pic", src="assets/media/avatars/300-5.jpg")
+                      // end::Image
+                    // end::Avatar
+                    // begin::Details
+                    .fw-semibold
+                      a.fs-5.fw-bold.text-gray-900.text-hover-primary(href="#") Sean Bean
+                      .text-gray-500 3 Pending &amp; 55 Completed
+                    // end::Details
+                    // begin::Badge
+                    .badge.badge-light.ms-auto 3
+                    // end::Badge
+                  // end::Item
+                  // begin::Item
+                  .d-flex.align-items-center
+                    // begin::Avatar
+                    .me-5.position-relative
+                      // begin::Image
+                      .symbol.symbol-35px.symbol-circle
+                        img(alt="Pic", src="assets/media/avatars/300-25.jpg")
+                      // end::Image
+                    // end::Avatar
+                    // begin::Details
+                    .fw-semibold
+                      a.fs-5.fw-bold.text-gray-900.text-hover-primary(href="#") Brian Cox
+                      .text-gray-500 4 Pending &amp; 115 Completed
+                    // end::Details
+                    // begin::Badge
+                    .badge.badge-light.ms-auto 4
+                    // end::Badge
+                  // end::Item
+                // end::Card body
+              // end::Card
+            // end::Col
+            // begin::Col
+            .col-lg-6
+              // begin::Tasks
+              .card.card-flush.h-lg-100
+                // begin::Card header
+                .card-header.mt-6
+                  // begin::Card title
+                  .card-title.flex-column
+                    h3.fw-bold.mb-1 My Tasks
+                    .fs-6.text-gray-500 Total 25 tasks in backlog
+                  // end::Card title
+                  // begin::Card toolbar
+                  .card-toolbar
+                    a.btn.btn-bg-light.btn-active-color-primary.btn-sm(href="#") View All
+                  // end::Card toolbar
+                // end::Card header
+                // begin::Card body
+                .card-body.d-flex.flex-column.mb-9.p-9.pt-3
+                  // begin::Item
+                  .d-flex.align-items-center.position-relative.mb-7
+                    // begin::Label
+                    .position-absolute.top-0.start-0.rounded.h-100.bg-secondary.w-4px
+                    // end::Label
+                    // begin::Checkbox
+                    .form-check.form-check-custom.form-check-solid.ms-6.me-4
+                      input.form-check-input(type="checkbox")
+                    // end::Checkbox
+                    // begin::Details
+                    .fw-semibold
+                      a.fs-6.fw-bold.text-gray-900.text-hover-primary(href="#") Create FureStibe branding logo
+                      // begin::Info
+                      .text-gray-500
+                        | Due in 1 day
+                        a(href="#") Karina Clark
+                      // end::Info
+                    // end::Details
+                    // begin::Menu
+                    button.btn.btn-clean.btn-sm.btn-icon.btn-icon-primary.btn-active-light-primary.ms-auto(type="button", data-kt-menu-trigger="click", data-kt-menu-placement="bottom-end")
+                      i.ki-duotone.ki-element-plus.fs-3
+                        span.path1
+                        span.path2
+                        span.path3
+                        span.path4
+                        span.path5
+                    // begin::Menu 1
+                    .menu.menu-sub.menu-sub-dropdown.w-250px.w-md-300px(data-kt-menu="true", id="kt_menu_654bb8f96ffa9")
+                      // begin::Header
+                      .px-7.py-5
+                        .fs-5.text-gray-900.fw-bold Filter Options
+                      // end::Header
+                      // begin::Menu separator
+                      .separator.border-gray-200
+                      // end::Menu separator
+                      // begin::Form
+                      .px-7.py-5
+                        // begin::Input group
+                        .mb-10
+                          // begin::Label
+                          label.form-label.fw-semibold Status:
+                          // end::Label
+                          // begin::Input
+                          div
+                            select.form-select.form-select-solid(multiple="multiple", data-kt-select2="true", data-close-on-select="false", data-placeholder="Select option", data-dropdown-parent="#kt_menu_654bb8f96ffa9", data-allow-clear="true")
+                              option
+                              option(value="1") Approved
+                              option(value="2") Pending
+                              option(value="2") In Process
+                              option(value="2") Rejected
+                          // end::Input
+                        // end::Input group
+                        // begin::Input group
+                        .mb-10
+                          // begin::Label
+                          label.form-label.fw-semibold Member Type:
+                          // end::Label
+                          // begin::Options
+                          .d-flex
+                            // begin::Options
+                            label.form-check.form-check-sm.form-check-custom.form-check-solid.me-5
+                              input.form-check-input(type="checkbox", value="1")
+                              span.form-check-label Author
+                            // end::Options
+                            // begin::Options
+                            label.form-check.form-check-sm.form-check-custom.form-check-solid
+                              input.form-check-input(type="checkbox", value="2", checked="checked")
+                              span.form-check-label Customer
+                            // end::Options
+                          // end::Options
+                        // end::Input group
+                        // begin::Input group
+                        .mb-10
+                          // begin::Label
+                          label.form-label.fw-semibold Notifications:
+                          // end::Label
+                          // begin::Switch
+                          .form-check.form-switch.form-switch-sm.form-check-custom.form-check-solid
+                            input.form-check-input(type="checkbox", name="notifications", checked="checked")
+                            label.form-check-label Enabled
+                          // end::Switch
+                        // end::Input group
+                        // begin::Actions
+                        .d-flex.justify-content-end
+                          button.btn.btn-sm.btn-light.btn-active-light-primary.me-2(type="reset", data-kt-menu-dismiss="true") Reset
+                          button.btn.btn-sm.btn-primary(type="submit", data-kt-menu-dismiss="true") Apply
+                        // end::Actions
+                      // end::Form
+                    // end::Menu 1
+                    // end::Menu
+                  // end::Item
+                  // begin::Item
+                  .d-flex.align-items-center.position-relative.mb-7
+                    // begin::Label
+                    .position-absolute.top-0.start-0.rounded.h-100.bg-secondary.w-4px
+                    // end::Label
+                    // begin::Checkbox
+                    .form-check.form-check-custom.form-check-solid.ms-6.me-4
+                      input.form-check-input(type="checkbox")
+                    // end::Checkbox
+                    // begin::Details
+                    .fw-semibold
+                      a.fs-6.fw-bold.text-gray-900.text-hover-primary(href="#") Schedule a meeting with FireBear CTO John
+                      // begin::Info
+                      .text-gray-500
+                        | Due in 3 days
+                        a(href="#") Rober Doe
+                      // end::Info
+                    // end::Details
+                    // begin::Menu
+                    button.btn.btn-clean.btn-sm.btn-icon.btn-icon-primary.btn-active-light-primary.ms-auto(type="button", data-kt-menu-trigger="click", data-kt-menu-placement="bottom-end")
+                      i.ki-duotone.ki-element-plus.fs-3
+                        span.path1
+                        span.path2
+                        span.path3
+                        span.path4
+                        span.path5
+                    // begin::Menu 1
+                    .menu.menu-sub.menu-sub-dropdown.w-250px.w-md-300px(data-kt-menu="true", id="kt_menu_654bb8f96ffb3")
+                      // begin::Header
+                      .px-7.py-5
+                        .fs-5.text-gray-900.fw-bold Filter Options
+                      // end::Header
+                      // begin::Menu separator
+                      .separator.border-gray-200
+                      // end::Menu separator
+                      // begin::Form
+                      .px-7.py-5
+                        // begin::Input group
+                        .mb-10
+                          // begin::Label
+                          label.form-label.fw-semibold Status:
+                          // end::Label
+                          // begin::Input
+                          div
+                            select.form-select.form-select-solid(multiple="multiple", data-kt-select2="true", data-close-on-select="false", data-placeholder="Select option", data-dropdown-parent="#kt_menu_654bb8f96ffb3", data-allow-clear="true")
+                              option
+                              option(value="1") Approved
+                              option(value="2") Pending
+                              option(value="2") In Process
+                              option(value="2") Rejected
+                          // end::Input
+                        // end::Input group
+                        // begin::Input group
+                        .mb-10
+                          // begin::Label
+                          label.form-label.fw-semibold Member Type:
+                          // end::Label
+                          // begin::Options
+                          .d-flex
+                            // begin::Options
+                            label.form-check.form-check-sm.form-check-custom.form-check-solid.me-5
+                              input.form-check-input(type="checkbox", value="1")
+                              span.form-check-label Author
+                            // end::Options
+                            // begin::Options
+                            label.form-check.form-check-sm.form-check-custom.form-check-solid
+                              input.form-check-input(type="checkbox", value="2", checked="checked")
+                              span.form-check-label Customer
+                            // end::Options
+                          // end::Options
+                        // end::Input group
+                        // begin::Input group
+                        .mb-10
+                          // begin::Label
+                          label.form-label.fw-semibold Notifications:
+                          // end::Label
+                          // begin::Switch
+                          .form-check.form-switch.form-switch-sm.form-check-custom.form-check-solid
+                            input.form-check-input(type="checkbox", name="notifications", checked="checked")
+                            label.form-check-label Enabled
+                          // end::Switch
+                        // end::Input group
+                        // begin::Actions
+                        .d-flex.justify-content-end
+                          button.btn.btn-sm.btn-light.btn-active-light-primary.me-2(type="reset", data-kt-menu-dismiss="true") Reset
+                          button.btn.btn-sm.btn-primary(type="submit", data-kt-menu-dismiss="true") Apply
+                        // end::Actions
+                      // end::Form
+                    // end::Menu 1
+                    // end::Menu
+                  // end::Item
+                  // begin::Item
+                  .d-flex.align-items-center.position-relative.mb-7
+                    // begin::Label
+                    .position-absolute.top-0.start-0.rounded.h-100.bg-secondary.w-4px
+                    // end::Label
+                    // begin::Checkbox
+                    .form-check.form-check-custom.form-check-solid.ms-6.me-4
+                      input.form-check-input(type="checkbox")
+                    // end::Checkbox
+                    // begin::Details
+                    .fw-semibold
+                      a.fs-6.fw-bold.text-gray-900.text-hover-primary(href="#") 9 Degree Porject Estimation
+                      // begin::Info
+                      .text-gray-500
+                        | Due in 1 week
+                        a(href="#") Neil Owen
+                      // end::Info
+                    // end::Details
+                    // begin::Menu
+                    button.btn.btn-clean.btn-sm.btn-icon.btn-icon-primary.btn-active-light-primary.ms-auto(type="button", data-kt-menu-trigger="click", data-kt-menu-placement="bottom-end")
+                      i.ki-duotone.ki-element-plus.fs-3
+                        span.path1
+                        span.path2
+                        span.path3
+                        span.path4
+                        span.path5
+                    // begin::Menu 1
+                    .menu.menu-sub.menu-sub-dropdown.w-250px.w-md-300px(data-kt-menu="true", id="kt_menu_654bb8f96ffbc")
+                      // begin::Header
+                      .px-7.py-5
+                        .fs-5.text-gray-900.fw-bold Filter Options
+                      // end::Header
+                      // begin::Menu separator
+                      .separator.border-gray-200
+                      // end::Menu separator
+                      // begin::Form
+                      .px-7.py-5
+                        // begin::Input group
+                        .mb-10
+                          // begin::Label
+                          label.form-label.fw-semibold Status:
+                          // end::Label
+                          // begin::Input
+                          div
+                            select.form-select.form-select-solid(multiple="multiple", data-kt-select2="true", data-close-on-select="false", data-placeholder="Select option", data-dropdown-parent="#kt_menu_654bb8f96ffbc", data-allow-clear="true")
+                              option
+                              option(value="1") Approved
+                              option(value="2") Pending
+                              option(value="2") In Process
+                              option(value="2") Rejected
+                          // end::Input
+                        // end::Input group
+                        // begin::Input group
+                        .mb-10
+                          // begin::Label
+                          label.form-label.fw-semibold Member Type:
+                          // end::Label
+                          // begin::Options
+                          .d-flex
+                            // begin::Options
+                            label.form-check.form-check-sm.form-check-custom.form-check-solid.me-5
+                              input.form-check-input(type="checkbox", value="1")
+                              span.form-check-label Author
+                            // end::Options
+                            // begin::Options
+                            label.form-check.form-check-sm.form-check-custom.form-check-solid
+                              input.form-check-input(type="checkbox", value="2", checked="checked")
+                              span.form-check-label Customer
+                            // end::Options
+                          // end::Options
+                        // end::Input group
+                        // begin::Input group
+                        .mb-10
+                          // begin::Label
+                          label.form-label.fw-semibold Notifications:
+                          // end::Label
+                          // begin::Switch
+                          .form-check.form-switch.form-switch-sm.form-check-custom.form-check-solid
+                            input.form-check-input(type="checkbox", name="notifications", checked="checked")
+                            label.form-check-label Enabled
+                          // end::Switch
+                        // end::Input group
+                        // begin::Actions
+                        .d-flex.justify-content-end
+                          button.btn.btn-sm.btn-light.btn-active-light-primary.me-2(type="reset", data-kt-menu-dismiss="true") Reset
+                          button.btn.btn-sm.btn-primary(type="submit", data-kt-menu-dismiss="true") Apply
+                        // end::Actions
+                      // end::Form
+                    // end::Menu 1
+                    // end::Menu
+                  // end::Item
+                  // begin::Item
+                  .d-flex.align-items-center.position-relative.mb-7
+                    // begin::Label
+                    .position-absolute.top-0.start-0.rounded.h-100.bg-secondary.w-4px
+                    // end::Label
+                    // begin::Checkbox
+                    .form-check.form-check-custom.form-check-solid.ms-6.me-4
+                      input.form-check-input(type="checkbox")
+                    // end::Checkbox
+                    // begin::Details
+                    .fw-semibold
+                      a.fs-6.fw-bold.text-gray-900.text-hover-primary(href="#") Dashgboard UI &amp; UX for Leafr CRM
+                      // begin::Info
+                      .text-gray-500
+                        | Due in 1 week
+                        a(href="#") Olivia Wild
+                      // end::Info
+                    // end::Details
+                    // begin::Menu
+                    button.btn.btn-clean.btn-sm.btn-icon.btn-icon-primary.btn-active-light-primary.ms-auto(type="button", data-kt-menu-trigger="click", data-kt-menu-placement="bottom-end")
+                      i.ki-duotone.ki-element-plus.fs-3
+                        span.path1
+                        span.path2
+                        span.path3
+                        span.path4
+                        span.path5
+                    // begin::Menu 1
+                    .menu.menu-sub.menu-sub-dropdown.w-250px.w-md-300px(data-kt-menu="true", id="kt_menu_654bb8f96ffc5")
+                      // begin::Header
+                      .px-7.py-5
+                        .fs-5.text-gray-900.fw-bold Filter Options
+                      // end::Header
+                      // begin::Menu separator
+                      .separator.border-gray-200
+                      // end::Menu separator
+                      // begin::Form
+                      .px-7.py-5
+                        // begin::Input group
+                        .mb-10
+                          // begin::Label
+                          label.form-label.fw-semibold Status:
+                          // end::Label
+                          // begin::Input
+                          div
+                            select.form-select.form-select-solid(multiple="multiple", data-kt-select2="true", data-close-on-select="false", data-placeholder="Select option", data-dropdown-parent="#kt_menu_654bb8f96ffc5", data-allow-clear="true")
+                              option
+                              option(value="1") Approved
+                              option(value="2") Pending
+                              option(value="2") In Process
+                              option(value="2") Rejected
+                          // end::Input
+                        // end::Input group
+                        // begin::Input group
+                        .mb-10
+                          // begin::Label
+                          label.form-label.fw-semibold Member Type:
+                          // end::Label
+                          // begin::Options
+                          .d-flex
+                            // begin::Options
+                            label.form-check.form-check-sm.form-check-custom.form-check-solid.me-5
+                              input.form-check-input(type="checkbox", value="1")
+                              span.form-check-label Author
+                            // end::Options
+                            // begin::Options
+                            label.form-check.form-check-sm.form-check-custom.form-check-solid
+                              input.form-check-input(type="checkbox", value="2", checked="checked")
+                              span.form-check-label Customer
+                            // end::Options
+                          // end::Options
+                        // end::Input group
+                        // begin::Input group
+                        .mb-10
+                          // begin::Label
+                          label.form-label.fw-semibold Notifications:
+                          // end::Label
+                          // begin::Switch
+                          .form-check.form-switch.form-switch-sm.form-check-custom.form-check-solid
+                            input.form-check-input(type="checkbox", name="notifications", checked="checked")
+                            label.form-check-label Enabled
+                          // end::Switch
+                        // end::Input group
+                        // begin::Actions
+                        .d-flex.justify-content-end
+                          button.btn.btn-sm.btn-light.btn-active-light-primary.me-2(type="reset", data-kt-menu-dismiss="true") Reset
+                          button.btn.btn-sm.btn-primary(type="submit", data-kt-menu-dismiss="true") Apply
+                        // end::Actions
+                      // end::Form
+                    // end::Menu 1
+                    // end::Menu
+                  // end::Item
+                  // begin::Item
+                  .d-flex.align-items-center.position-relative
+                    // begin::Label
+                    .position-absolute.top-0.start-0.rounded.h-100.bg-secondary.w-4px
+                    // end::Label
+                    // begin::Checkbox
+                    .form-check.form-check-custom.form-check-solid.ms-6.me-4
+                      input.form-check-input(type="checkbox")
+                    // end::Checkbox
+                    // begin::Details
+                    .fw-semibold
+                      a.fs-6.fw-bold.text-gray-900.text-hover-primary(href="#") Mivy App R&amp;D, Meeting with clients
+                      // begin::Info
+                      .text-gray-500
+                        | Due in 2 weeks
+                        a(href="#") Sean Bean
+                      // end::Info
+                    // end::Details
+                    // begin::Menu
+                    button.btn.btn-clean.btn-sm.btn-icon.btn-icon-primary.btn-active-light-primary.ms-auto(type="button", data-kt-menu-trigger="click", data-kt-menu-placement="bottom-end")
+                      i.ki-duotone.ki-element-plus.fs-3
+                        span.path1
+                        span.path2
+                        span.path3
+                        span.path4
+                        span.path5
+                    // begin::Menu 1
+                    .menu.menu-sub.menu-sub-dropdown.w-250px.w-md-300px(data-kt-menu="true", id="kt_menu_654bb8f96ffcd")
+                      // begin::Header
+                      .px-7.py-5
+                        .fs-5.text-gray-900.fw-bold Filter Options
+                      // end::Header
+                      // begin::Menu separator
+                      .separator.border-gray-200
+                      // end::Menu separator
+                      // begin::Form
+                      .px-7.py-5
+                        // begin::Input group
+                        .mb-10
+                          // begin::Label
+                          label.form-label.fw-semibold Status:
+                          // end::Label
+                          // begin::Input
+                          div
+                            select.form-select.form-select-solid(multiple="multiple", data-kt-select2="true", data-close-on-select="false", data-placeholder="Select option", data-dropdown-parent="#kt_menu_654bb8f96ffcd", data-allow-clear="true")
+                              option
+                              option(value="1") Approved
+                              option(value="2") Pending
+                              option(value="2") In Process
+                              option(value="2") Rejected
+                          // end::Input
+                        // end::Input group
+                        // begin::Input group
+                        .mb-10
+                          // begin::Label
+                          label.form-label.fw-semibold Member Type:
+                          // end::Label
+                          // begin::Options
+                          .d-flex
+                            // begin::Options
+                            label.form-check.form-check-sm.form-check-custom.form-check-solid.me-5
+                              input.form-check-input(type="checkbox", value="1")
+                              span.form-check-label Author
+                            // end::Options
+                            // begin::Options
+                            label.form-check.form-check-sm.form-check-custom.form-check-solid
+                              input.form-check-input(type="checkbox", value="2", checked="checked")
+                              span.form-check-label Customer
+                            // end::Options
+                          // end::Options
+                        // end::Input group
+                        // begin::Input group
+                        .mb-10
+                          // begin::Label
+                          label.form-label.fw-semibold Notifications:
+                          // end::Label
+                          // begin::Switch
+                          .form-check.form-switch.form-switch-sm.form-check-custom.form-check-solid
+                            input.form-check-input(type="checkbox", name="notifications", checked="checked")
+                            label.form-check-label Enabled
+                          // end::Switch
+                        // end::Input group
+                        // begin::Actions
+                        .d-flex.justify-content-end
+                          button.btn.btn-sm.btn-light.btn-active-light-primary.me-2(type="reset", data-kt-menu-dismiss="true") Reset
+                          button.btn.btn-sm.btn-primary(type="submit", data-kt-menu-dismiss="true") Apply
+                        // end::Actions
+                      // end::Form
+                    // end::Menu 1
+                    // end::Menu
+                  // end::Item
+                // end::Card body
+              // end::Tasks
+            // end::Col
+          // end::Row
+          // begin::Table
+          .card.card-flush.mt-6.mt-xl-9
+            // begin::Card header
+            .card-header.mt-5
+              // begin::Card title
+              .card-title.flex-column
+                h3.fw-bold.mb-1 Project Spendings
+                .fs-6.text-gray-500 Total $260,300 sepnt so far
+              // begin::Card title
+              // begin::Card toolbar
+              .card-toolbar.my-1
+                // begin::Select
+                .me-6.my-1
+                  select.w-125px.form-select.form-select-solid.form-select-sm(id="kt_filter_year", name="year", data-control="select2", data-hide-search="true")
+                    option(value="All", selected="selected") All time
+                    option(value="thisyear") This year
+                    option(value="thismonth") This month
+                    option(value="lastmonth") Last month
+                    option(value="last90days") Last 90 days
+                // end::Select
+                // begin::Select
+                .me-4.my-1
+                  select.w-125px.form-select.form-select-solid.form-select-sm(id="kt_filter_orders", name="orders", data-control="select2", data-hide-search="true")
+                    option(value="All", selected="selected") All Orders
+                    option(value="Approved") Approved
+                    option(value="Declined") Declined
+                    option(value="In Progress") In Progress
+                    option(value="In Transit") In Transit
+                // end::Select
+                // begin::Search
+                .d-flex.align-items-center.position-relative.my-1
+                  i.ki-duotone.ki-magnifier.fs-3.position-absolute.ms-3
+                    span.path1
+                    span.path2
+                  input.form-control.form-control-solid.form-select-sm.w-150px.ps-9(type="text", id="kt_filter_search", placeholder="Search Order")
+                // end::Search
+              // begin::Card toolbar
+            // end::Card header
+            // begin::Card body
+            .card-body.pt-0
+              // begin::Table container
+              .table-responsive
+                // begin::Table
+                table.table.table-row-bordered.table-row-dashed.gy-4.align-middle.fw-bold(id="kt_profile_overview_table")
+                  thead.fs-7.text-gray-500.text-uppercase
+                    tr
+                      th.min-w-250px Manager
+                      th.min-w-150px Date
+                      th.min-w-90px Amount
+                      th.min-w-90px Status
+                      th.min-w-50px.text-end Details
+                  tbody.fs-6
+                    tr
+                      td
+                        // begin::User
+                        .d-flex.align-items-center
+                          // begin::Wrapper
+                          .me-5.position-relative
+                            // begin::Avatar
+                            .symbol.symbol-35px.symbol-circle
+                              img(alt="Pic", src="assets/media/avatars/300-6.jpg")
+                            // end::Avatar
+                          // end::Wrapper
+                          // begin::Info
+                          .d-flex.flex-column.justify-content-center
+                            a.fs-6.text-gray-800.text-hover-primary() Emma Smith
+                            .fw-semibold.text-gray-500 smith@kpmg.com
+                          // end::Info
+                        // end::User
+                      td Nov 10, 2023
+                      td $892.00
+                      td
+                        span.badge.badge-light-success.fw-bold.px-4.py-3 Approved
+                      td.text-end
+                        a.btn.btn-light.btn-sm(href="#") View
+                    tr
+                      td
+                        // begin::User
+                        .d-flex.align-items-center
+                          // begin::Wrapper
+                          .me-5.position-relative
+                            // begin::Avatar
+                            .symbol.symbol-35px.symbol-circle
+                              span.symbol-label.bg-light-danger.text-danger.fw-semibold M
+                            // end::Avatar
+                            // begin::Online
+                            .bg-success.position-absolute.h-8px.w-8px.rounded-circle.translate-middle.start-100.top-100.ms-n1.mt-n1
+                            // end::Online
+                          // end::Wrapper
+                          // begin::Info
+                          .d-flex.flex-column.justify-content-center
+                            a.fs-6.text-gray-800.text-hover-primary() Melody Macy
+                            .fw-semibold.text-gray-500 melody@altbox.com
+                          // end::Info
+                        // end::User
+                      td Mar 10, 2023
+                      td $701.00
+                      td
+                        span.badge.badge-light-danger.fw-bold.px-4.py-3 Rejected
+                      td.text-end
+                        a.btn.btn-light.btn-sm(href="#") View
+                    tr
+                      td
+                        // begin::User
+                        .d-flex.align-items-center
+                          // begin::Wrapper
+                          .me-5.position-relative
+                            // begin::Avatar
+                            .symbol.symbol-35px.symbol-circle
+                              img(alt="Pic", src="assets/media/avatars/300-1.jpg")
+                            // end::Avatar
+                          // end::Wrapper
+                          // begin::Info
+                          .d-flex.flex-column.justify-content-center
+                            a.fs-6.text-gray-800.text-hover-primary() Max Smith
+                            .fw-semibold.text-gray-500 max@kt.com
+                          // end::Info
+                        // end::User
+                      td Apr 15, 2023
+                      td $740.00
+                      td
+                        span.badge.badge-light-info.fw-bold.px-4.py-3 In progress
+                      td.text-end
+                        a.btn.btn-light.btn-sm(href="#") View
+                    tr
+                      td
+                        // begin::User
+                        .d-flex.align-items-center
+                          // begin::Wrapper
+                          .me-5.position-relative
+                            // begin::Avatar
+                            .symbol.symbol-35px.symbol-circle
+                              img(alt="Pic", src="assets/media/avatars/300-5.jpg")
+                            // end::Avatar
+                          // end::Wrapper
+                          // begin::Info
+                          .d-flex.flex-column.justify-content-center
+                            a.fs-6.text-gray-800.text-hover-primary() Sean Bean
+                            .fw-semibold.text-gray-500 sean@dellito.com
+                          // end::Info
+                        // end::User
+                      td Oct 25, 2023
+                      td $866.00
+                      td
+                        span.badge.badge-light-warning.fw-bold.px-4.py-3 Pending
+                      td.text-end
+                        a.btn.btn-light.btn-sm(href="#") View
+                    tr
+                      td
+                        // begin::User
+                        .d-flex.align-items-center
+                          // begin::Wrapper
+                          .me-5.position-relative
+                            // begin::Avatar
+                            .symbol.symbol-35px.symbol-circle
+                              img(alt="Pic", src="assets/media/avatars/300-25.jpg")
+                            // end::Avatar
+                          // end::Wrapper
+                          // begin::Info
+                          .d-flex.flex-column.justify-content-center
+                            a.fs-6.text-gray-800.text-hover-primary() Brian Cox
+                            .fw-semibold.text-gray-500 brian@exchange.com
+                          // end::Info
+                        // end::User
+                      td May 05, 2023
+                      td $996.00
+                      td
+                        span.badge.badge-light-danger.fw-bold.px-4.py-3 Rejected
+                      td.text-end
+                        a.btn.btn-light.btn-sm(href="#") View
+                    tr
+                      td
+                        // begin::User
+                        .d-flex.align-items-center
+                          // begin::Wrapper
+                          .me-5.position-relative
+                            // begin::Avatar
+                            .symbol.symbol-35px.symbol-circle
+                              span.symbol-label.bg-light-warning.text-warning.fw-semibold C
+                            // end::Avatar
+                            // begin::Online
+                            .bg-success.position-absolute.h-8px.w-8px.rounded-circle.translate-middle.start-100.top-100.ms-n1.mt-n1
+                            // end::Online
+                          // end::Wrapper
+                          // begin::Info
+                          .d-flex.flex-column.justify-content-center
+                            a.fs-6.text-gray-800.text-hover-primary() Mikaela Collins
+                            .fw-semibold.text-gray-500 mik@pex.com
+                          // end::Info
+                        // end::User
+                      td Jun 24, 2023
+                      td $686.00
+                      td
+                        span.badge.badge-light-info.fw-bold.px-4.py-3 In progress
+                      td.text-end
+                        a.btn.btn-light.btn-sm(href="#") View
+                    tr
+                      td
+                        // begin::User
+                        .d-flex.align-items-center
+                          // begin::Wrapper
+                          .me-5.position-relative
+                            // begin::Avatar
+                            .symbol.symbol-35px.symbol-circle
+                              img(alt="Pic", src="assets/media/avatars/300-9.jpg")
+                            // end::Avatar
+                          // end::Wrapper
+                          // begin::Info
+                          .d-flex.flex-column.justify-content-center
+                            a.fs-6.text-gray-800.text-hover-primary() Francis Mitcham
+                            .fw-semibold.text-gray-500 f.mit@kpmg.com
+                          // end::Info
+                        // end::User
+                      td Jun 24, 2023
+                      td $933.00
+                      td
+                        span.badge.badge-light-success.fw-bold.px-4.py-3 Approved
+                      td.text-end
+                        a.btn.btn-light.btn-sm(href="#") View
+                    tr
+                      td
+                        // begin::User
+                        .d-flex.align-items-center
+                          // begin::Wrapper
+                          .me-5.position-relative
+                            // begin::Avatar
+                            .symbol.symbol-35px.symbol-circle
+                              span.symbol-label.bg-light-danger.text-danger.fw-semibold O
+                            // end::Avatar
+                            // begin::Online
+                            .bg-success.position-absolute.h-8px.w-8px.rounded-circle.translate-middle.start-100.top-100.ms-n1.mt-n1
+                            // end::Online
+                          // end::Wrapper
+                          // begin::Info
+                          .d-flex.flex-column.justify-content-center
+                            a.fs-6.text-gray-800.text-hover-primary() Olivia Wild
+                            .fw-semibold.text-gray-500 olivia@corpmail.com
+                          // end::Info
+                        // end::User
+                      td Apr 15, 2023
+                      td $982.00
+                      td
+                        span.badge.badge-light-danger.fw-bold.px-4.py-3 Rejected
+                      td.text-end
+                        a.btn.btn-light.btn-sm(href="#") View
+                    tr
+                      td
+                        // begin::User
+                        .d-flex.align-items-center
+                          // begin::Wrapper
+                          .me-5.position-relative
+                            // begin::Avatar
+                            .symbol.symbol-35px.symbol-circle
+                              span.symbol-label.bg-light-primary.text-primary.fw-semibold N
+                            // end::Avatar
+                            // begin::Online
+                            .bg-success.position-absolute.h-8px.w-8px.rounded-circle.translate-middle.start-100.top-100.ms-n1.mt-n1
+                            // end::Online
+                          // end::Wrapper
+                          // begin::Info
+                          .d-flex.flex-column.justify-content-center
+                            a.fs-6.text-gray-800.text-hover-primary() Neil Owen
+                            .fw-semibold.text-gray-500 owen.neil@gmail.com
+                          // end::Info
+                        // end::User
+                      td Aug 19, 2023
+                      td $455.00
+                      td
+                        span.badge.badge-light-info.fw-bold.px-4.py-3 In progress
+                      td.text-end
+                        a.btn.btn-light.btn-sm(href="#") View
+                    tr
+                      td
+                        // begin::User
+                        .d-flex.align-items-center
+                          // begin::Wrapper
+                          .me-5.position-relative
+                            // begin::Avatar
+                            .symbol.symbol-35px.symbol-circle
+                              img(alt="Pic", src="assets/media/avatars/300-23.jpg")
+                            // end::Avatar
+                          // end::Wrapper
+                          // begin::Info
+                          .d-flex.flex-column.justify-content-center
+                            a.fs-6.text-gray-800.text-hover-primary() Dan Wilson
+                            .fw-semibold.text-gray-500 dam@consilting.com
+                          // end::Info
+                        // end::User
+                      td Feb 21, 2023
+                      td $995.00
+                      td
+                        span.badge.badge-light-success.fw-bold.px-4.py-3 Approved
+                      td.text-end
+                        a.btn.btn-light.btn-sm(href="#") View
+                    tr
+                      td
+                        // begin::User
+                        .d-flex.align-items-center
+                          // begin::Wrapper
+                          .me-5.position-relative
+                            // begin::Avatar
+                            .symbol.symbol-35px.symbol-circle
+                              span.symbol-label.bg-light-danger.text-danger.fw-semibold E
+                            // end::Avatar
+                            // begin::Online
+                            .bg-success.position-absolute.h-8px.w-8px.rounded-circle.translate-middle.start-100.top-100.ms-n1.mt-n1
+                            // end::Online
+                          // end::Wrapper
+                          // begin::Info
+                          .d-flex.flex-column.justify-content-center
+                            a.fs-6.text-gray-800.text-hover-primary() Emma Bold
+                            .fw-semibold.text-gray-500 emma@intenso.com
+                          // end::Info
+                        // end::User
+                      td Feb 21, 2023
+                      td $950.00
+                      td
+                        span.badge.badge-light-success.fw-bold.px-4.py-3 Approved
+                      td.text-end
+                        a.btn.btn-light.btn-sm(href="#") View
+                    tr
+                      td
+                        // begin::User
+                        .d-flex.align-items-center
+                          // begin::Wrapper
+                          .me-5.position-relative
+                            // begin::Avatar
+                            .symbol.symbol-35px.symbol-circle
+                              img(alt="Pic", src="assets/media/avatars/300-12.jpg")
+                            // end::Avatar
+                          // end::Wrapper
+                          // begin::Info
+                          .d-flex.flex-column.justify-content-center
+                            a.fs-6.text-gray-800.text-hover-primary() Ana Crown
+                            .fw-semibold.text-gray-500 ana.cf@limtel.com
+                          // end::Info
+                        // end::User
+                      td May 05, 2023
+                      td $710.00
+                      td
+                        span.badge.badge-light-danger.fw-bold.px-4.py-3 Rejected
+                      td.text-end
+                        a.btn.btn-light.btn-sm(href="#") View
+                    tr
+                      td
+                        // begin::User
+                        .d-flex.align-items-center
+                          // begin::Wrapper
+                          .me-5.position-relative
+                            // begin::Avatar
+                            .symbol.symbol-35px.symbol-circle
+                              span.symbol-label.bg-light-info.text-info.fw-semibold A
+                            // end::Avatar
+                            // begin::Online
+                            .bg-success.position-absolute.h-8px.w-8px.rounded-circle.translate-middle.start-100.top-100.ms-n1.mt-n1
+                            // end::Online
+                          // end::Wrapper
+                          // begin::Info
+                          .d-flex.flex-column.justify-content-center
+                            a.fs-6.text-gray-800.text-hover-primary() Robert Doe
+                            .fw-semibold.text-gray-500 robert@benko.com
+                          // end::Info
+                        // end::User
+                      td Aug 19, 2023
+                      td $453.00
+                      td
+                        span.badge.badge-light-warning.fw-bold.px-4.py-3 Pending
+                      td.text-end
+                        a.btn.btn-light.btn-sm(href="#") View
+                    tr
+                      td
+                        // begin::User
+                        .d-flex.align-items-center
+                          // begin::Wrapper
+                          .me-5.position-relative
+                            // begin::Avatar
+                            .symbol.symbol-35px.symbol-circle
+                              img(alt="Pic", src="assets/media/avatars/300-13.jpg")
+                            // end::Avatar
+                          // end::Wrapper
+                          // begin::Info
+                          .d-flex.flex-column.justify-content-center
+                            a.fs-6.text-gray-800.text-hover-primary() John Miller
+                            .fw-semibold.text-gray-500 miller@mapple.com
+                          // end::Info
+                        // end::User
+                      td Sep 22, 2023
+                      td $918.00
+                      td
+                        span.badge.badge-light-danger.fw-bold.px-4.py-3 Rejected
+                      td.text-end
+                        a.btn.btn-light.btn-sm(href="#") View
+                    tr
+                      td
+                        // begin::User
+                        .d-flex.align-items-center
+                          // begin::Wrapper
+                          .me-5.position-relative
+                            // begin::Avatar
+                            .symbol.symbol-35px.symbol-circle
+                              span.symbol-label.bg-light-success.text-success.fw-semibold L
+                            // end::Avatar
+                            // begin::Online
+                            .bg-success.position-absolute.h-8px.w-8px.rounded-circle.translate-middle.start-100.top-100.ms-n1.mt-n1
+                            // end::Online
+                          // end::Wrapper
+                          // begin::Info
+                          .d-flex.flex-column.justify-content-center
+                            a.fs-6.text-gray-800.text-hover-primary() Lucy Kunic
+                            .fw-semibold.text-gray-500 lucy.m@fentech.com
+                          // end::Info
+                        // end::User
+                      td Feb 21, 2023
+                      td $604.00
+                      td
+                        span.badge.badge-light-info.fw-bold.px-4.py-3 In progress
+                      td.text-end
+                        a.btn.btn-light.btn-sm(href="#") View
+                    tr
+                      td
+                        // begin::User
+                        .d-flex.align-items-center
+                          // begin::Wrapper
+                          .me-5.position-relative
+                            // begin::Avatar
+                            .symbol.symbol-35px.symbol-circle
+                              img(alt="Pic", src="assets/media/avatars/300-21.jpg")
+                            // end::Avatar
+                            // begin::Online
+                            .bg-success.position-absolute.h-8px.w-8px.rounded-circle.translate-middle.start-100.top-100.ms-n1.mt-n1
+                            // end::Online
+                          // end::Wrapper
+                          // begin::Info
+                          .d-flex.flex-column.justify-content-center
+                            a.fs-6.text-gray-800.text-hover-primary() Ethan Wilder
+                            .fw-semibold.text-gray-500 ethan@loop.com.au
+                          // end::Info
+                        // end::User
+                      td Jul 25, 2023
+                      td $927.00
+                      td
+                        span.badge.badge-light-info.fw-bold.px-4.py-3 In progress
+                      td.text-end
+                        a.btn.btn-light.btn-sm(href="#") View
+                    tr
+                      td
+                        // begin::User
+                        .d-flex.align-items-center
+                          // begin::Wrapper
+                          .me-5.position-relative
+                            // begin::Avatar
+                            .symbol.symbol-35px.symbol-circle
+                              img(alt="Pic", src="assets/media/avatars/300-13.jpg")
+                            // end::Avatar
+                          // end::Wrapper
+                          // begin::Info
+                          .d-flex.flex-column.justify-content-center
+                            a.fs-6.text-gray-800.text-hover-primary() John Miller
+                            .fw-semibold.text-gray-500 miller@mapple.com
+                          // end::Info
+                        // end::User
+                      td Apr 15, 2023
+                      td $953.00
+                      td
+                        span.badge.badge-light-info.fw-bold.px-4.py-3 In progress
+                      td.text-end
+                        a.btn.btn-light.btn-sm(href="#") View
+                    tr
+                      td
+                        // begin::User
+                        .d-flex.align-items-center
+                          // begin::Wrapper
+                          .me-5.position-relative
+                            // begin::Avatar
+                            .symbol.symbol-35px.symbol-circle
+                              img(alt="Pic", src="assets/media/avatars/300-5.jpg")
+                            // end::Avatar
+                          // end::Wrapper
+                          // begin::Info
+                          .d-flex.flex-column.justify-content-center
+                            a.fs-6.text-gray-800.text-hover-primary() Sean Bean
+                            .fw-semibold.text-gray-500 sean@dellito.com
+                          // end::Info
+                        // end::User
+                      td Jun 20, 2023
+                      td $420.00
+                      td
+                        span.badge.badge-light-danger.fw-bold.px-4.py-3 Rejected
+                      td.text-end
+                        a.btn.btn-light.btn-sm(href="#") View
+                    tr
+                      td
+                        // begin::User
+                        .d-flex.align-items-center
+                          // begin::Wrapper
+                          .me-5.position-relative
+                            // begin::Avatar
+                            .symbol.symbol-35px.symbol-circle
+                              span.symbol-label.bg-light-info.text-info.fw-semibold A
+                            // end::Avatar
+                            // begin::Online
+                            .bg-success.position-absolute.h-8px.w-8px.rounded-circle.translate-middle.start-100.top-100.ms-n1.mt-n1
+                            // end::Online
+                          // end::Wrapper
+                          // begin::Info
+                          .d-flex.flex-column.justify-content-center
+                            a.fs-6.text-gray-800.text-hover-primary() Robert Doe
+                            .fw-semibold.text-gray-500 robert@benko.com
+                          // end::Info
+                        // end::User
+                      td May 05, 2023
+                      td $668.00
+                      td
+                        span.badge.badge-light-info.fw-bold.px-4.py-3 In progress
+                      td.text-end
+                        a.btn.btn-light.btn-sm(href="#") View
+                    tr
+                      td
+                        // begin::User
+                        .d-flex.align-items-center
+                          // begin::Wrapper
+                          .me-5.position-relative
+                            // begin::Avatar
+                            .symbol.symbol-35px.symbol-circle
+                              img(alt="Pic", src="assets/media/avatars/300-23.jpg")
+                            // end::Avatar
+                          // end::Wrapper
+                          // begin::Info
+                          .d-flex.flex-column.justify-content-center
+                            a.fs-6.text-gray-800.text-hover-primary() Dan Wilson
+                            .fw-semibold.text-gray-500 dam@consilting.com
+                          // end::Info
+                        // end::User
+                      td May 05, 2023
+                      td $892.00
+                      td
+                        span.badge.badge-light-danger.fw-bold.px-4.py-3 Rejected
+                      td.text-end
+                        a.btn.btn-light.btn-sm(href="#") View
+                    tr
+                      td
+                        // begin::User
+                        .d-flex.align-items-center
+                          // begin::Wrapper
+                          .me-5.position-relative
+                            // begin::Avatar
+                            .symbol.symbol-35px.symbol-circle
+                              img(alt="Pic", src="assets/media/avatars/300-12.jpg")
+                            // end::Avatar
+                          // end::Wrapper
+                          // begin::Info
+                          .d-flex.flex-column.justify-content-center
+                            a.fs-6.text-gray-800.text-hover-primary() Ana Crown
+                            .fw-semibold.text-gray-500 ana.cf@limtel.com
+                          // end::Info
+                        // end::User
+                      td Oct 25, 2023
+                      td $819.00
+                      td
+                        span.badge.badge-light-danger.fw-bold.px-4.py-3 Rejected
+                      td.text-end
+                        a.btn.btn-light.btn-sm(href="#") View
+                    tr
+                      td
+                        // begin::User
+                        .d-flex.align-items-center
+                          // begin::Wrapper
+                          .me-5.position-relative
+                            // begin::Avatar
+                            .symbol.symbol-35px.symbol-circle
+                              span.symbol-label.bg-light-success.text-success.fw-semibold L
+                            // end::Avatar
+                            // begin::Online
+                            .bg-success.position-absolute.h-8px.w-8px.rounded-circle.translate-middle.start-100.top-100.ms-n1.mt-n1
+                            // end::Online
+                          // end::Wrapper
+                          // begin::Info
+                          .d-flex.flex-column.justify-content-center
+                            a.fs-6.text-gray-800.text-hover-primary() Lucy Kunic
+                            .fw-semibold.text-gray-500 lucy.m@fentech.com
+                          // end::Info
+                        // end::User
+                      td Aug 19, 2023
+                      td $734.00
+                      td
+                        span.badge.badge-light-info.fw-bold.px-4.py-3 In progress
+                      td.text-end
+                        a.btn.btn-light.btn-sm(href="#") View
+                    tr
+                      td
+                        // begin::User
+                        .d-flex.align-items-center
+                          // begin::Wrapper
+                          .me-5.position-relative
+                            // begin::Avatar
+                            .symbol.symbol-35px.symbol-circle
+                              span.symbol-label.bg-light-warning.text-warning.fw-semibold C
+                            // end::Avatar
+                            // begin::Online
+                            .bg-success.position-absolute.h-8px.w-8px.rounded-circle.translate-middle.start-100.top-100.ms-n1.mt-n1
+                            // end::Online
+                          // end::Wrapper
+                          // begin::Info
+                          .d-flex.flex-column.justify-content-center
+                            a.fs-6.text-gray-800.text-hover-primary() Mikaela Collins
+                            .fw-semibold.text-gray-500 mik@pex.com
+                          // end::Info
+                        // end::User
+                      td Mar 10, 2023
+                      td $550.00
+                      td
+                        span.badge.badge-light-danger.fw-bold.px-4.py-3 Rejected
+                      td.text-end
+                        a.btn.btn-light.btn-sm(href="#") View
+                    tr
+                      td
+                        // begin::User
+                        .d-flex.align-items-center
+                          // begin::Wrapper
+                          .me-5.position-relative
+                            // begin::Avatar
+                            .symbol.symbol-35px.symbol-circle
+                              img(alt="Pic", src="assets/media/avatars/300-25.jpg")
+                            // end::Avatar
+                          // end::Wrapper
+                          // begin::Info
+                          .d-flex.flex-column.justify-content-center
+                            a.fs-6.text-gray-800.text-hover-primary() Brian Cox
+                            .fw-semibold.text-gray-500 brian@exchange.com
+                          // end::Info
+                        // end::User
+                      td Aug 19, 2023
+                      td $721.00
+                      td
+                        span.badge.badge-light-success.fw-bold.px-4.py-3 Approved
+                      td.text-end
+                        a.btn.btn-light.btn-sm(href="#") View
+                    tr
+                      td
+                        // begin::User
+                        .d-flex.align-items-center
+                          // begin::Wrapper
+                          .me-5.position-relative
+                            // begin::Avatar
+                            .symbol.symbol-35px.symbol-circle
+                              img(alt="Pic", src="assets/media/avatars/300-23.jpg")
+                            // end::Avatar
+                          // end::Wrapper
+                          // begin::Info
+                          .d-flex.flex-column.justify-content-center
+                            a.fs-6.text-gray-800.text-hover-primary() Dan Wilson
+                            .fw-semibold.text-gray-500 dam@consilting.com
+                          // end::Info
+                        // end::User
+                      td May 05, 2023
+                      td $847.00
+                      td
+                        span.badge.badge-light-success.fw-bold.px-4.py-3 Approved
+                      td.text-end
+                        a.btn.btn-light.btn-sm(href="#") View
+                    tr
+                      td
+                        // begin::User
+                        .d-flex.align-items-center
+                          // begin::Wrapper
+                          .me-5.position-relative
+                            // begin::Avatar
+                            .symbol.symbol-35px.symbol-circle
+                              span.symbol-label.bg-light-info.text-info.fw-semibold A
+                            // end::Avatar
+                            // begin::Online
+                            .bg-success.position-absolute.h-8px.w-8px.rounded-circle.translate-middle.start-100.top-100.ms-n1.mt-n1
+                            // end::Online
+                          // end::Wrapper
+                          // begin::Info
+                          .d-flex.flex-column.justify-content-center
+                            a.fs-6.text-gray-800.text-hover-primary() Robert Doe
+                            .fw-semibold.text-gray-500 robert@benko.com
+                          // end::Info
+                        // end::User
+                      td Apr 15, 2023
+                      td $457.00
+                      td
+                        span.badge.badge-light-warning.fw-bold.px-4.py-3 Pending
+                      td.text-end
+                        a.btn.btn-light.btn-sm(href="#") View
+                    tr
+                      td
+                        // begin::User
+                        .d-flex.align-items-center
+                          // begin::Wrapper
+                          .me-5.position-relative
+                            // begin::Avatar
+                            .symbol.symbol-35px.symbol-circle
+                              span.symbol-label.bg-light-danger.text-danger.fw-semibold O
+                            // end::Avatar
+                            // begin::Online
+                            .bg-success.position-absolute.h-8px.w-8px.rounded-circle.translate-middle.start-100.top-100.ms-n1.mt-n1
+                            // end::Online
+                          // end::Wrapper
+                          // begin::Info
+                          .d-flex.flex-column.justify-content-center
+                            a.fs-6.text-gray-800.text-hover-primary() Olivia Wild
+                            .fw-semibold.text-gray-500 olivia@corpmail.com
+                          // end::Info
+                        // end::User
+                      td Jul 25, 2023
+                      td $850.00
+                      td
+                        span.badge.badge-light-danger.fw-bold.px-4.py-3 Rejected
+                      td.text-end
+                        a.btn.btn-light.btn-sm(href="#") View
+                    tr
+                      td
+                        // begin::User
+                        .d-flex.align-items-center
+                          // begin::Wrapper
+                          .me-5.position-relative
+                            // begin::Avatar
+                            .symbol.symbol-35px.symbol-circle
+                              img(alt="Pic", src="assets/media/avatars/300-13.jpg")
+                            // end::Avatar
+                          // end::Wrapper
+                          // begin::Info
+                          .d-flex.flex-column.justify-content-center
+                            a.fs-6.text-gray-800.text-hover-primary() John Miller
+                            .fw-semibold.text-gray-500 miller@mapple.com
+                          // end::Info
+                        // end::User
+                      td May 05, 2023
+                      td $823.00
+                      td
+                        span.badge.badge-light-success.fw-bold.px-4.py-3 Approved
+                      td.text-end
+                        a.btn.btn-light.btn-sm(href="#") View
+                    tr
+                      td
+                        // begin::User
+                        .d-flex.align-items-center
+                          // begin::Wrapper
+                          .me-5.position-relative
+                            // begin::Avatar
+                            .symbol.symbol-35px.symbol-circle
+                              img(alt="Pic", src="assets/media/avatars/300-5.jpg")
+                            // end::Avatar
+                          // end::Wrapper
+                          // begin::Info
+                          .d-flex.flex-column.justify-content-center
+                            a.fs-6.text-gray-800.text-hover-primary() Sean Bean
+                            .fw-semibold.text-gray-500 sean@dellito.com
+                          // end::Info
+                        // end::User
+                      td Feb 21, 2023
+                      td $945.00
+                      td
+                        span.badge.badge-light-danger.fw-bold.px-4.py-3 Rejected
+                      td.text-end
+                        a.btn.btn-light.btn-sm(href="#") View
+                    tr
+                      td
+                        // begin::User
+                        .d-flex.align-items-center
+                          // begin::Wrapper
+                          .me-5.position-relative
+                            // begin::Avatar
+                            .symbol.symbol-35px.symbol-circle
+                              img(alt="Pic", src="assets/media/avatars/300-5.jpg")
+                            // end::Avatar
+                          // end::Wrapper
+                          // begin::Info
+                          .d-flex.flex-column.justify-content-center
+                            a.fs-6.text-gray-800.text-hover-primary() Sean Bean
+                            .fw-semibold.text-gray-500 sean@dellito.com
+                          // end::Info
+                        // end::User
+                      td Jun 24, 2023
+                      td $549.00
+                      td
+                        span.badge.badge-light-success.fw-bold.px-4.py-3 Approved
+                      td.text-end
+                        a.btn.btn-light.btn-sm(href="#") View
+                // end::Table
+              // end::Table container
+            // end::Card body
+          // end::Card
+        // end::Content container
+      // end::Content
+    // end::Content wrapper

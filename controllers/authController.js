@@ -45,7 +45,8 @@ exports.signup = catchAsync(async (req, res, next) => {
     password: req.body.password,
     passwordConfirm: req.body.passwordConfirm,
     passwordChangedAt: req.body.passwordChangedAt,
-    role: req.body.role
+    role: req.body.role,
+    profileImage: req.body.profileImage
   });
 
   // Create JWT Token, Header is created automatically: logs in automatically upon signup
@@ -147,7 +148,6 @@ exports.isLoggedIn = async (req, res, next) => {
 
       // There is a logged in user
       res.locals.user = currentUser;
-      console.log(res.locals.user);
       return next();
     } catch (err) {
       return next();

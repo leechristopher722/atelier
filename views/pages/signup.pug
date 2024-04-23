@@ -1,0 +1,102 @@
+extends ../layouts/auth
+
+block content
+  .d-flex.flex-center.flex-column.flex-lg-row-fluid
+    // begin::Wrapper
+    .w-lg-500px.p-10
+      // begin::Form
+      form.form.w-100(novalidate="novalidate", id="kt_sign_up_form", data-kt-redirect-url="/", action="http://127.0.0.1:8000/api/v1/users/signup")
+        // begin::Heading
+        .text-center.mb-11
+          // begin::Title
+          h1.text-gray-900.fw-bolder.mb-3 Sign Up
+          // end::Title
+          // begin::Subtitle
+          .text-gray-500.fw-semibold.fs-6 Your Social Campaigns
+          // end::Subtitle=
+        // begin::Heading
+        // begin::Login options
+        .row.g-3.mb-9
+          // begin::Col
+          .col-md-6
+            // begin::Google link=
+            a.btn.btn-flex.btn-outline.btn-text-gray-700.btn-active-color-primary.bg-state-light.flex-center.text-nowrap.w-100(href="#")
+              img.h-15px.me-3(alt="Logo", src="assets/media/svg/brand-logos/google-icon.svg")
+              | Sign in with Google
+            // end::Google link=
+          // end::Col
+          // begin::Col
+          .col-md-6
+            // begin::Google link=
+            a.btn.btn-flex.btn-outline.btn-text-gray-700.btn-active-color-primary.bg-state-light.flex-center.text-nowrap.w-100(href="#")
+              img.theme-light-show.h-15px.me-3(alt="Logo", src="assets/media/svg/brand-logos/apple-black.svg")
+              img.theme-dark-show.h-15px.me-3(alt="Logo", src="assets/media/svg/brand-logos/apple-black-dark.svg")
+              | Sign in with Apple
+            // end::Google link=
+          // end::Col
+        // end::Login options
+        // begin::Separator
+        .separator.separator-content.my-14
+          span.w-125px.text-gray-500.fw-semibold.fs-7 Or with email
+        // end::Separator
+        // begin::Input group=
+        .fv-row.mb-8
+          // begin::Email
+          input.form-control.bg-transparent(type="text", placeholder="Email", name="email", id="email", autocomplete="off")
+          // end::Email
+        // begin::Input group
+        .fv-row.mb-8(data-kt-password-meter="true")
+          // begin::Wrapper
+          .mb-1
+            // begin::Input wrapper
+            .position-relative.mb-3
+              input.form-control.bg-transparent(type="password", placeholder="Password", name="password", id="password", autocomplete="off")
+              span.btn.btn-sm.btn-icon.position-absolute.translate-middle.top-50.end-0.me-n2(data-kt-password-meter-control="visibility")
+                i.ki-duotone.ki-eye-slash.fs-2
+                i.ki-duotone.ki-eye.fs-2.d-none
+            // end::Input wrapper
+            // begin::Meter
+            .d-flex.align-items-center.mb-3(data-kt-password-meter-control="highlight")
+              .flex-grow-1.bg-secondary.bg-active-success.rounded.h-5px.me-2
+              .flex-grow-1.bg-secondary.bg-active-success.rounded.h-5px.me-2
+              .flex-grow-1.bg-secondary.bg-active-success.rounded.h-5px.me-2
+              .flex-grow-1.bg-secondary.bg-active-success.rounded.h-5px
+            // end::Meter
+          // end::Wrapper
+          // begin::Hint
+          .text-muted Use 8 or more characters with a mix of letters, numbers &amp; symbols.
+          // end::Hint
+        // end::Input group=
+        // end::Input group=
+        .fv-row.mb-8
+          // begin::Repeat Password
+          input.form-control.bg-transparent(placeholder="Confirm Password", name="confirm_password", id="password-confirm", type="password", autocomplete="off")
+          // end::Repeat Password
+        // end::Input group=
+        // begin::Accept
+        .fv-row.mb-8
+          label.form-check.form-check-inline
+            input.form-check-input(type="checkbox", name="toc", value="1")
+            span.form-check-label.fw-semibold.text-gray-700.fs-base.ms-1
+              | I Accept the
+              a.ms-1.link-primary(href="#") Terms
+        // end::Accept
+        // begin::Submit button
+        .d-grid.mb-10
+          button.btn.btn-primary(type="submit", id="kt_sign_up_submit")
+            // begin::Indicator label
+            span.indicator-label Sign up
+            // end::Indicator label
+            // begin::Indicator progress
+            span.indicator-progress
+              | Please wait...
+              span.spinner-border.spinner-border-sm.align-middle.ms-2
+            // end::Indicator progress
+        // end::Submit button
+        // begin::Sign up
+        .text-gray-500.text-center.fw-semibold.fs-6
+          | Already have an Account? 
+          a.link-primary.fw-semibold(href="/login") Sign in
+        // end::Sign up
+      // end::Form
+    // end::Wrapper

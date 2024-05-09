@@ -396,9 +396,11 @@ html
         // end::Modal content
       // end::Modal dialog
     // end::Modal - Upgrade plan
-    // begin::Modal - New Target
-    include _modalTicket
-    // end::Modal - New Target
+    // begin::Modal - My Custom
+    //- if project
+    //-   include _modalTicket
+    //- //- include _modalUpdateTicket
+    // end::Modal - My Custom
     // begin::Modal - Create Campaign
     .modal.fade(id="kt_modal_create_campaign", tabindex="-1", aria-hidden="true")
       // begin::Modal dialog
@@ -1467,8 +1469,10 @@ html
     script(src="assets/js/custom/utilities/modals/create-campaign.js")
     script(src="assets/js/custom/utilities/modals/users-search.js")
     script(src="assets/js/custom/authentication/sign-out/general.js")
-    // end::Custom Javascript
-    // begin::Custom Javascript(used for this page only)
     script(src="assets/js/custom/utilities/modals/new-target.js")
+    script(src="assets/js/custom/apps/projects/targets/targets.js")
+    script(src="assets/js/widgets.bundle.js")
+    script(src="assets/js/custom/my-custom/ticket-crud.js")
+    script(src="assets/js/custom/my-custom/ticket-update.js")
     // end::Custom Javascript
     // end::Javascript

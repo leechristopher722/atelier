@@ -1,5 +1,6 @@
 const { trusted } = require('mongoose');
 const Project = require('../models/projectModel');
+const Ticket = require('../models/ticketModel');
 const catchAsync = require('../utils/catchAsync');
 
 exports.getProjects = catchAsync(async (req, res) => {
@@ -7,22 +8,21 @@ exports.getProjects = catchAsync(async (req, res) => {
 
   res.status(200).render('pages/index', {
     title: 'Workspace for Developers',
-    projects: projects.map(project => project.toJSON())
+    projects
   });
 });
 
 exports.getProject = catchAsync(async (req, res) => {
   const project = await Project.findOne({ slug: req.params.slug }).populate({
-    path: 'tickets',
-    fields: 'name asignee createdAt'
+    path: 'tickets'
   });
 
   const projects = await Project.find();
 
-  res.status(200).render('pages/overview', {
+  res.status(200).render('pages/project/overview', {
     title: `${project.name}`,
-    projects: projects.map(project => project.toJSON()),
-    project: project.toJSON(),
+    projects,
+    project,
     isOverviewPage: 'active'
   });
 });
@@ -32,12 +32,30 @@ exports.getProjectTickets = catchAsync(async (req, res) => {
     path: 'tickets'
   });
 
+  const groupedTickets = Object.groupBy(
+    project.tickets,
+    ({ status }) => status
+  );
+
+  if (!groupedTickets.created) {
+    groupedTickets.created = [];
+  }
+
+  if (!groupedTickets.in_progress) {
+    groupedTickets.in_progress = [];
+  }
+
+  if (!groupedTickets.completed) {
+    groupedTickets.completed = [];
+  }
+
   const projects = await Project.find();
 
-  res.status(200).render('pages/tickets', {
+  res.status(200).render('pages/project/tickets', {
     title: `${project.name}`,
-    projects: projects.map(project => project.toJSON()),
-    project: project.toJSON(),
+    projects,
+    project,
+    groupedTickets,
     isTicketsPage: 'active'
   });
 });

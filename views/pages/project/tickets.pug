@@ -1,0 +1,399 @@
+extends ../../layouts/base
+
+block content
+  body
+    .d-flex.flex-column.flex-column-fluid
+      // begin::Toolbar
+      .app-toolbar.py-3.py-lg-6(id="kt_app_toolbar")
+      // end::Toolbar
+      // begin::Content
+      .app-content.flex-column-fluid(id="kt_app_content")
+        // begin::Content container
+        .app-container.container-xxl(id="kt_app_content_container")
+          // begin::Navbar
+          include ../../partials/_projectHeader
+          // end::Navbar
+          // begin::Toolbar
+          .d-flex.flex-wrap.flex-stack.pt-10.pb-8
+            // begin::Heading
+            h3.fw-bold.my-2
+              | Project Tickets
+              span.fs-6.text-gray-500.fw-semibold.ms-1 by Recent Updates ↓
+            // end::Heading
+            // begin::Controls
+            .d-flex.flex-wrap.my-1
+              // begin::Tab nav
+              ul.nav.nav-pills.me-5
+                li.nav-item.m-0
+                  a.btn.btn-sm.btn-icon.btn-light.btn-color-muted.btn-active-primary.active.me-3(data-bs-toggle="tab", href="#kt_project_targets_card_pane")
+                    i.ki-duotone.ki-element-plus.fs-1
+                      span.path1
+                      span.path2
+                      span.path3
+                      span.path4
+                      span.path5
+                li.nav-item.m-0
+                  a.btn.btn-sm.btn-icon.btn-light.btn-color-muted.btn-active-primary(data-bs-toggle="tab", href="#kt_project_targets_table_pane")
+                    i.ki-duotone.ki-row-horizontal.fs-2
+                      span.path1
+                      span.path2
+              // end::Tab nav
+              // begin::Wrapper
+              .my-0
+                // begin::Select
+                select.form-select.form-select-sm.border-body.bg-body.w-150px(name="status", data-control="select2", data-hide-search="true")
+                  option(value="1", selected="selected") Recently Updated
+                  option(value="2") Last Month
+                  option(value="3") Last Quarter
+                  option(value="4") Last Year
+                // end::Select
+              // end::Wrapper
+            // end::Controls
+          // end::Toolbar
+          // begin::Tab Content
+          .tab-content
+            // begin::Tab pane
+            .tab-pane.fade.show.active(id="kt_project_targets_card_pane")
+              // begin::Row
+              .row.g-9
+                // begin::Col
+                .col-md-4.col-lg-12.col-xl-4
+                  // begin::Col header
+                  .mb-9
+                    .d-flex.flex-stack
+                      .fw-bold.fs-4
+                        | Created
+                        span.fs-6.text-gray-500.ms-2 #{groupedTickets.created.length}
+                      // begin::Menu
+                      div
+                        button.btn.btn-sm.btn-icon.btn-color-light-dark.btn-active-light-primary(type="button", data-kt-menu-trigger="click", data-kt-menu-placement="bottom-end")
+                          i.ki-duotone.ki-element-plus.fs-2
+                            span.path1
+                            span.path2
+                            span.path3
+                            span.path4
+                            span.path5
+                        // begin::Menu 1
+                        .menu.menu-sub.menu-sub-dropdown.w-250px.w-md-300px(data-kt-menu="true", id="kt_menu_654bb8f62dadb")
+                          // begin::Header
+                          .px-7.py-5
+                            .fs-5.text-gray-900.fw-bold Filter Options
+                          // end::Header
+                          // begin::Menu separator
+                          .separator.border-gray-200
+                          // end::Menu separator
+                          // begin::Form
+                          .px-7.py-5
+                            // begin::Input group
+                            .mb-10
+                              // begin::Label
+                              label.form-label.fw-semibold Status:
+                              // end::Label
+                              // begin::Input
+                              div
+                                select.form-select.form-select-solid(multiple="multiple", data-kt-select2="true", data-close-on-select="false", data-placeholder="Select option", data-dropdown-parent="#kt_menu_654bb8f62dadb", data-allow-clear="true")
+                                  option
+                                  option(value="1") Approved
+                                  option(value="2") Pending
+                                  option(value="2") In Process
+                                  option(value="2") Rejected
+                              // end::Input
+                            // end::Input group
+                            // begin::Input group
+                            .mb-10
+                              // begin::Label
+                              label.form-label.fw-semibold Member Type:
+                              // end::Label
+                              // begin::Options
+                              .d-flex
+                                // begin::Options
+                                label.form-check.form-check-sm.form-check-custom.form-check-solid.me-5
+                                  input.form-check-input(type="checkbox", value="1")
+                                  span.form-check-label Author
+                                // end::Options
+                                // begin::Options
+                                label.form-check.form-check-sm.form-check-custom.form-check-solid
+                                  input.form-check-input(type="checkbox", value="2", checked="checked")
+                                  span.form-check-label Customer
+                                // end::Options
+                              // end::Options
+                            // end::Input group
+                            // begin::Input group
+                            .mb-10
+                              // begin::Label
+                              label.form-label.fw-semibold Notifications:
+                              // end::Label
+                              // begin::Switch
+                              .form-check.form-switch.form-switch-sm.form-check-custom.form-check-solid
+                                input.form-check-input(type="checkbox", name="notifications", checked="checked")
+                                label.form-check-label Enabled
+                              // end::Switch
+                            // end::Input group
+                            // begin::Actions
+                            .d-flex.justify-content-end
+                              button.btn.btn-sm.btn-light.btn-active-light-primary.me-2(type="reset", data-kt-menu-dismiss="true") Reset
+                              button.btn.btn-sm.btn-primary(type="submit", data-kt-menu-dismiss="true") Apply
+                            // end::Actions
+                          // end::Form
+                        // end::Menu 1
+                      // end::Menu
+                    .h-3px.w-100.bg-warning
+                  // end::Col header
+                  each ticket in groupedTickets.created
+                    include ../../partials/_ticketCard
+                  a.btn.btn-primary.er.w-100.fs-6.px-8.py-4(href="#", data-bs-toggle="modal", data-bs-target="#kt_modal_new_target") Create New Ticket
+                // end::Col
+                // begin::Col
+                .col-md-4.col-lg-12.col-xl-4
+                  // begin::Col header
+                  .mb-9
+                    .d-flex.flex-stack
+                      .fw-bold.fs-4
+                        | In Progress
+                        span.fs-6.text-gray-500.ms-2 #{groupedTickets.in_progress.length}
+                      // begin::Menu
+                      div
+                        button.btn.btn-sm.btn-icon.btn-color-light-dark.btn-active-light-primary(type="button", data-kt-menu-trigger="click", data-kt-menu-placement="bottom-end")
+                          i.ki-duotone.ki-element-plus.fs-2
+                            span.path1
+                            span.path2
+                            span.path3
+                            span.path4
+                            span.path5
+                        // begin::Menu 1
+                        .menu.menu-sub.menu-sub-dropdown.w-250px.w-md-300px(data-kt-menu="true", id="kt_menu_654bb8f62db90")
+                          // begin::Header
+                          .px-7.py-5
+                            .fs-5.text-gray-900.fw-bold Filter Options
+                          // end::Header
+                          // begin::Menu separator
+                          .separator.border-gray-200
+                          // end::Menu separator
+                          // begin::Form
+                          .px-7.py-5
+                            // begin::Input group
+                            .mb-10
+                              // begin::Label
+                              label.form-label.fw-semibold Status:
+                              // end::Label
+                              // begin::Input
+                              div
+                                select.form-select.form-select-solid(multiple="multiple", data-kt-select2="true", data-close-on-select="false", data-placeholder="Select option", data-dropdown-parent="#kt_menu_654bb8f62db90", data-allow-clear="true")
+                                  option
+                                  option(value="1") Approved
+                                  option(value="2") Pending
+                                  option(value="2") In Process
+                                  option(value="2") Rejected
+                              // end::Input
+                            // end::Input group
+                            // begin::Input group
+                            .mb-10
+                              // begin::Label
+                              label.form-label.fw-semibold Member Type:
+                              // end::Label
+                              // begin::Options
+                              .d-flex
+                                // begin::Options
+                                label.form-check.form-check-sm.form-check-custom.form-check-solid.me-5
+                                  input.form-check-input(type="checkbox", value="1")
+                                  span.form-check-label Author
+                                // end::Options
+                                // begin::Options
+                                label.form-check.form-check-sm.form-check-custom.form-check-solid
+                                  input.form-check-input(type="checkbox", value="2", checked="checked")
+                                  span.form-check-label Customer
+                                // end::Options
+                              // end::Options
+                            // end::Input group
+                            // begin::Input group
+                            .mb-10
+                              // begin::Label
+                              label.form-label.fw-semibold Notifications:
+                              // end::Label
+                              // begin::Switch
+                              .form-check.form-switch.form-switch-sm.form-check-custom.form-check-solid
+                                input.form-check-input(type="checkbox", name="notifications", checked="checked")
+                                label.form-check-label Enabled
+                              // end::Switch
+                            // end::Input group
+                            // begin::Actions
+                            .d-flex.justify-content-end
+                              button.btn.btn-sm.btn-light.btn-active-light-primary.me-2(type="reset", data-kt-menu-dismiss="true") Reset
+                              button.btn.btn-sm.btn-primary(type="submit", data-kt-menu-dismiss="true") Apply
+                            // end::Actions
+                          // end::Form
+                        // end::Menu 1
+                      // end::Menu
+                    .h-3px.w-100.bg-primary
+                  // end::Col header
+                  each ticket in groupedTickets.in_progress
+                    include ../../partials/_ticketCard.pug
+                  // end::Each
+                // end::Col
+                // begin::Col
+                .col-md-4.col-lg-12.col-xl-4
+                  // begin::Col header
+                  .mb-9
+                    .d-flex.flex-stack
+                      .fw-bold.fs-4
+                        | Completed
+                        span.fs-6.text-gray-500.ms-2 #{groupedTickets.completed.length}
+                      // begin::Menu
+                      div
+                        button.btn.btn-sm.btn-icon.btn-color-light-dark.btn-active-light-primary(type="button", data-kt-menu-trigger="click", data-kt-menu-placement="bottom-end")
+                          i.ki-duotone.ki-element-plus.fs-2
+                            span.path1
+                            span.path2
+                            span.path3
+                            span.path4
+                            span.path5
+                        // begin::Menu 1
+                        .menu.menu-sub.menu-sub-dropdown.w-250px.w-md-300px(data-kt-menu="true", id="kt_menu_654bb8f62dbef")
+                          // begin::Header
+                          .px-7.py-5
+                            .fs-5.text-gray-900.fw-bold Filter Options
+                          // end::Header
+                          // begin::Menu separator
+                          .separator.border-gray-200
+                          // end::Menu separator
+                          // begin::Form
+                          .px-7.py-5
+                            // begin::Input group
+                            .mb-10
+                              // begin::Label
+                              label.form-label.fw-semibold Status:
+                              // end::Label
+                              // begin::Input
+                              div
+                                select.form-select.form-select-solid(multiple="multiple", data-kt-select2="true", data-close-on-select="false", data-placeholder="Select option", data-dropdown-parent="#kt_menu_654bb8f62dbef", data-allow-clear="true")
+                                  option
+                                  option(value="1") Approved
+                                  option(value="2") Pending
+                                  option(value="2") In Process
+                                  option(value="2") Rejected
+                              // end::Input
+                            // end::Input group
+                            // begin::Input group
+                            .mb-10
+                              // begin::Label
+                              label.form-label.fw-semibold Member Type:
+                              // end::Label
+                              // begin::Options
+                              .d-flex
+                                // begin::Options
+                                label.form-check.form-check-sm.form-check-custom.form-check-solid.me-5
+                                  input.form-check-input(type="checkbox", value="1")
+                                  span.form-check-label Author
+                                // end::Options
+                                // begin::Options
+                                label.form-check.form-check-sm.form-check-custom.form-check-solid
+                                  input.form-check-input(type="checkbox", value="2", checked="checked")
+                                  span.form-check-label Customer
+                                // end::Options
+                              // end::Options
+                            // end::Input group
+                            // begin::Input group
+                            .mb-10
+                              // begin::Label
+                              label.form-label.fw-semibold Notifications:
+                              // end::Label
+                              // begin::Switch
+                              .form-check.form-switch.form-switch-sm.form-check-custom.form-check-solid
+                                input.form-check-input(type="checkbox", name="notifications", checked="checked")
+                                label.form-check-label Enabled
+                              // end::Switch
+                            // end::Input group
+                            // begin::Actions
+                            .d-flex.justify-content-end
+                              button.btn.btn-sm.btn-light.btn-active-light-primary.me-2(type="reset", data-kt-menu-dismiss="true") Reset
+                              button.btn.btn-sm.btn-primary(type="submit", data-kt-menu-dismiss="true") Apply
+                            // end::Actions
+                          // end::Form
+                        // end::Menu 1
+                      // end::Menu
+                    .h-3px.w-100.bg-success
+                  // end::Col header
+                  each ticket in groupedTickets.completed
+                    include ../../partials/_ticketCard.pug
+                  // end::Each
+                // end::Col
+              // end::Row
+            // end::Tab pane
+            // begin::Tab pane
+            .tab-pane.fade(id="kt_project_targets_table_pane")
+              .card.card-flush
+                .card-body.pt-3
+                  // begin::Table
+                  table.table.table-row-bordered.table-row-dashed.gy-4.align-middle.fw-bold(id="kt_profile_overview_table")
+                    thead.fs-7.text-gray-500.text-uppercase
+                      tr
+                        th.min-w-250px Target
+                        th.min-w-90px Section
+                        th.min-w-150px Due Date
+                        th.min-w-90px Members
+                        th.min-w-90px Status
+                        th.min-w-50px
+                    tbody.fs-6
+                      each ticket in project.tickets
+                        tr
+                          td.fw-bold
+                            a.text-gray-900.text-hover-primary(href="#") #{ticket.name}
+                          td
+                            each tag in ticket.tags
+                              span.badge.badge-light.fw-semibold.me-auto #{tag} 
+                          td #{ticket.dueDate}
+                          td
+                            .symbol-group.symbol-hover.fs-8
+                              .symbol.symbol-25px.symbol-circle(data-bs-toggle="tooltip", title="Melody Macy")
+                                img(alt="Pic", src="assets/media/avatars/300-2.jpg")
+                              .symbol.symbol-25px.symbol-circle(data-bs-toggle="tooltip", title="John Mixin")
+                                img(alt="Pic", src="assets/media/avatars/300-14.jpg")
+                              .symbol.symbol-25px.symbol-circle(data-bs-toggle="tooltip", title="Susan Redwood")
+                                span.symbol-label.bg-primary.text-inverse-primary.fw-bold S
+                          td
+                            span.badge.badge-light-primary.fw-bold.me-auto #{ticket.status}
+                          td.text-end
+                            a.btn.btn-bg-light.btn-active-color-primary.btn-sm(href="#") View
+                      tr
+                        td.fw-bold
+                          a.text-gray-900.text-hover-primary(href="#") To check User Management
+                        td
+                          span.badge.badge-light.fw-semibold.me-auto Pahse 3.2
+                        td Sep 10, 2020
+                        td
+                          .symbol-group.symbol-hover.fs-8
+                            .symbol.symbol-25px.symbol-circle(data-bs-toggle="tooltip", title="Lucy Matthews")
+                              img(alt="Pic", src="assets/media/avatars/300-21.jpg")
+                            .symbol.symbol-25px.symbol-circle(data-bs-toggle="tooltip", title="Kristen Goodwin")
+                              img(alt="Pic", src="assets/media/avatars/300-9.jpg")
+                            .symbol.symbol-25px.symbol-circle(data-bs-toggle="tooltip", title="Michelle Swanston")
+                              img(alt="Pic", src="assets/media/avatars/300-7.jpg")
+                        td
+                          span.badge.badge-light.fw-bold.me-auto Yet to start
+                        td.text-end
+                          a.btn.btn-bg-light.btn-active-color-primary.btn-sm(href="#") View
+                      tr
+                        td.fw-bold
+                          a.text-gray-900.text-hover-primary(href="#") Create Roles Module
+                        td
+                          span.badge.badge-light.fw-semibold.me-auto Branding
+                        td Jun 22, 2020
+                        td
+                          .symbol-group.symbol-hover.fs-8
+                            .symbol.symbol-25px.symbol-circle(data-bs-toggle="tooltip", title="Michelle Swanston")
+                              img(alt="Pic", src="assets/media/avatars/300-7.jpg")
+                            .symbol.symbol-25px.symbol-circle(data-bs-toggle="tooltip", title="Robin Watterman")
+                              span.symbol-label.bg-success.text-inverse-success.fw-bold R
+                            .symbol.symbol-25px.symbol-circle(data-bs-toggle="tooltip", title="Alan Warden")
+                              span.symbol-label.bg-warning.text-inverse-warning.fw-bold A
+                        td
+                          span.badge.badge-light.fw-bold.me-auto Yet to start
+                        td.text-end
+                          a.btn.btn-bg-light.btn-active-color-primary.btn-sm(href="#") View
+                  // end::Table
+            // end::Tab pane
+          // end::Tab Content
+        // end::Content container
+      // end::Content
+    // end::Content wrapper
+    include ../../partials/_modalTicket

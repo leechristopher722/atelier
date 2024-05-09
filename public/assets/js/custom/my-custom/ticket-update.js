@@ -1,13 +1,13 @@
 'use strict';
 
 // Class definition
-var KTModalNewTarget = (function() {
+function KTModalUpdateTicket(modalEl, ticketId) {
   var submitButton;
   var cancelButton;
   var validator;
   var form;
   var modal;
-  var modalEl;
+  // var modalEl;
 
   // Init form inputs
   var initForm = function() {
@@ -61,24 +61,17 @@ var KTModalNewTarget = (function() {
             }
           }
         },
-        target_due_date: {
+        due_date: {
           validators: {
             notEmpty: {
               message: 'Target due date is required'
             }
           }
         },
-        target_tags: {
+        tags: {
           validators: {
             notEmpty: {
               message: 'Target tags are required'
-            }
-          }
-        },
-        'targets_notifications[]': {
-          validators: {
-            notEmpty: {
-              message: 'Please select at least one communication method'
             }
           }
         }
@@ -128,18 +121,14 @@ var KTModalNewTarget = (function() {
                     tagsArray.push(tagsInput[i].value);
                   }
                   formDataObject['tags'] = tagsArray;
-                } else if (key == 'project_id') {
-                  formDataObject['project'] = value;
                 }
               });
 
-              formDataObject['status'] = 'created';
               // TODO: Implement assignedTo after implementing Project Memebers & Provide options on the ticket modal
-              formDataObject['assignedTo'] = '6627467cd941f1b56aa1f86b';
 
               // Now you can send the form data to your server using an HTTP request (e.g., AJAX)
-              fetch('http://127.0.0.1:8000/api/v1/tickets', {
-                method: 'POST',
+              fetch('http://127.0.0.1:8000/api/v1/tickets/' + ticketId, {
+                method: 'PATCH',
                 body: JSON.stringify(formDataObject), // Convert form data object to JSON string
                 headers: {
                   'Content-Type': 'application/json'
@@ -150,7 +139,7 @@ var KTModalNewTarget = (function() {
                   if (response.ok) {
                     // Show success message. For more info check the plugin's official documentation: https://sweetalert2.github.io/
                     Swal.fire({
-                      text: 'Ticket has been successfully created!',
+                      text: 'Ticket has been successfully updated!',
                       icon: 'success',
                       buttonsStyling: false,
                       confirmButtonText: 'Ok, got it!',
@@ -232,9 +221,9 @@ var KTModalNewTarget = (function() {
 
   return {
     // Public functions
-    init: function() {
+    init: function(modalEl, ticketId) {
       // Elements
-      modalEl = document.querySelector('#kt_modal_new_target');
+      // modalEl = document.querySelector('#kt_modal_update_ticket');
 
       if (!modalEl) {
         return;
@@ -242,17 +231,30 @@ var KTModalNewTarget = (function() {
 
       modal = new bootstrap.Modal(modalEl);
 
-      form = document.querySelector('#kt_modal_new_target_form');
-      submitButton = document.getElementById('kt_modal_new_target_submit');
-      cancelButton = document.getElementById('kt_modal_new_target_cancel');
+      form = document.querySelector('#kt_modal_update_ticket_form_' + ticketId);
+      submitButton = document.getElementById(
+        'kt_modal_update_ticket_submit_' + ticketId
+      );
+      cancelButton = document.getElementById(
+        'kt_modal_update_ticket_cancel_' + ticketId
+      );
 
       initForm();
       handleForm();
     }
   };
-})();
+}
 
 // On document ready
 KTUtil.onDOMContentLoaded(function() {
-  KTModalNewTarget.init();
+  var modalEls = document.querySelectorAll(
+    '[id^="kt_modal_update_ticket_modal_"]'
+  );
+
+  modalEls.forEach(function(el) {
+    var id = el.id;
+    var ticketId = id.replace('kt_modal_update_ticket_modal_', '');
+    var modalInstance = new KTModalUpdateTicket(el, ticketId);
+    modalInstance.init(el, ticketId);
+  });
 });

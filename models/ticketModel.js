@@ -14,24 +14,27 @@ const ticketSchema = new mongoose.Schema(
         'A ticket name must be less than or equal to 100 characters'
       ]
     },
-    slug: String,
     project: {
       type: mongoose.Schema.ObjectId,
       ref: 'Project',
       required: [true, 'A ticket must have a project']
     },
-    assignee: {
+    assignedBy: {
+      type: mongoose.Schema.ObjectId,
+      ref: 'User'
+    },
+    assignedTo: {
       type: mongoose.Schema.ObjectId,
       ref: 'User',
       required: [true, 'A ticket must have an assignee']
     },
-    category: {
-      type: String,
-      enum: {
-        values: ['dev', 'design', 'user experience'],
-        message: 'Ticket categories are either: dev, design, user experience'
-      },
-      required: [true, 'A ticket must have a category']
+    dueDate: {
+      type: Date,
+      requried: [true, 'A ticket must have a due date']
+    },
+    tags: {
+      type: [String],
+      required: [true, 'A ticket must have at least one tag']
     },
     description: {
       type: String,
@@ -44,14 +47,15 @@ const ticketSchema = new mongoose.Schema(
     status: {
       type: String,
       enum: {
-        values: ['created', 'in progress', 'completed'],
+        values: ['created', 'in_progress', 'completed'],
         message: 'Ticket status is either: created, in progress, or completed'
       },
       default: 'created'
     },
     comments: {
       type: String
-    }
+    },
+    slug: String
   },
   {
     strictQuery: true,
@@ -60,7 +64,7 @@ const ticketSchema = new mongoose.Schema(
   }
 );
 
-// TODO: Implement indexing for tickets for imporved read performance
+// TODO: Implement indexing for tickets for improved read performance
 // ticketSchema.index({ project: 1, ... });
 
 // DOCUMENT MIDDLEWARE: runs only before .save() or .create() NOT FOR UPDATES
@@ -72,7 +76,7 @@ ticketSchema.pre('save', function(next) {
 // QUERY MIDDLEWARE: deals w/ queries not documents
 ticketSchema.pre(/^find/, function(next) {
   this.populate({
-    path: 'assignee',
+    path: 'assignedBy',
     select: 'name'
   });
   // .populate({
@@ -83,6 +87,7 @@ ticketSchema.pre(/^find/, function(next) {
 });
 
 ticketSchema.post(/^find/, function(docs, next) {
+  // await this.constructor.groupByStatus(this.project);
   console.log(`Query took ${Date.now() - this.start} milliseconds`);
   next();
 });

@@ -1,0 +1,100 @@
+// begin::Card
+.card.mb-6.mb-xl-9
+  // begin::Card body
+  .card-body
+    // begin::Header
+    .d-flex.flex-stack.mb-3
+      .badges-container
+        each tag in ticket.tags
+          // begin::Badge
+          .badge.badge-warning.mr-1 #{tag} 
+          // end::Badge
+      // begin::Menu
+      div
+        button.btn.btn-sm.btn-icon.btn-color-light-dark.btn-active-light-primary(type="button", data-kt-menu-trigger="click", data-kt-menu-placement="bottom-end")
+          i.ki-duotone.ki-element-plus.fs-2
+            span.path1
+            span.path2
+            span.path3
+            span.path4
+            span.path5
+        // begin::Menu 3
+        .menu.menu-sub.menu-sub-dropdown.menu-column.menu-rounded.menu-gray-800.menu-state-bg-light-primary.fw-semibold.w-200px.py-3(data-kt-menu="true")
+          // begin::Heading
+          .menu-item.px-3
+            .menu-content.text-muted.pb-2.px-3.fs-7.text-uppercase Ticket Settings
+          // end::Heading
+          // begin::Menu item
+          .menu-item.px-3
+            a.menu-link.px-3.delete--ticket(data-value=`${ticket._id}`) Delete Ticket
+          // end::Menu item
+          // begin::Menu item
+          .menu-item.px-3
+            a.menu-link.px-3.update--ticket(data-bs-toggle="modal", data-bs-target=`#kt_modal_update_ticket_modal_${ticket._id}` data-value=`${ticket._id}`) Update Ticket
+          // end::Menu item
+          // begin::Menu item
+          .menu-item.px-3(data-kt-menu-trigger="hover", data-kt-menu-placement="right-end")
+            a.menu-link.px-3(href="#")
+              span.menu-title Mark As
+              span.menu-arrow
+            // begin::Menu sub
+            .menu-sub.menu-sub-dropdown.w-175px.py-4
+              // begin::Menu item
+              .menu-item.px-3
+                a.menu-link.px-3.mark-ticket.created(data-value=`${ticket._id}`) Created
+              // end::Menu item
+              // begin::Menu item
+              .menu-item.px-3
+                a.menu-link.px-3.mark-ticket.in-progress(data-value=`${ticket._id}`) In Progress
+              // end::Menu item
+              // begin::Menu item
+              .menu-item.px-3
+                a.menu-link.px-3.mark-ticket.completed(data-value=`${ticket._id}`) Completed
+              // end::Menu item
+            // end::Menu sub
+          // end::Menu item
+          // begin::Menu item
+          .menu-item.px-3.my-1
+            a.menu-link.px-3(href="#") Settings
+          // end::Menu item
+        // end::Menu 3
+      // end::Menu
+    // end::Header
+    // begin::Title
+    .mb-2
+      a.fs-4.fw-bold.mb-1.text-gray-900.text-hover-primary(href="#") #{ticket.name}
+    // end::Title
+    // begin::Content
+    .fs-6.fw-semibold.text-gray-600.mb-5 #{ticket.description}
+    // end::Content
+    // begin::Footer
+    .d-flex.flex-stack.flex-wrapr
+      // begin::Users
+      .symbol-group.symbol-hover.my-1
+        .symbol.symbol-35px.symbol-circle(data-bs-toggle="tooltip", title="Melody Macy")
+          img(alt="Pic", src="assets/media/avatars/300-2.jpg")
+        .symbol.symbol-35px.symbol-circle(data-bs-toggle="tooltip", title="Harry Mcpherson")
+          img(alt="Pic", src="assets/media/avatars/300-19.jpg")
+        .symbol.symbol-35px.symbol-circle(data-bs-toggle="tooltip", title="Susan Redwood")
+          span.symbol-label.bg-primary.text-inverse-primary.fw-bold S
+      // end::Users
+      // begin::Stats
+      .d-flex.my-1
+        // begin::Stat
+        .border.border-dashed.border-gray-300.rounded.d-flex.align-items-center.py-2.px-3
+          i.ki-duotone.ki-paper-clip.fs-3
+          span.ms-1.fs-7.fw-bold.text-gray-600 6
+        // end::Stat
+        // begin::Stat
+        .border.border-dashed.border-gray-300.d-flex.align-items-center.rounded.py-2.px-3.ms-3
+          i.ki-duotone.ki-message-text-2.fs-3
+            span.path1
+            span.path2
+            span.path3
+          span.ms-1.fs-7.fw-bold.text-gray-600 9
+        // end::Stat
+      // end::Stats
+    // end::Footer
+  // end::Card body
+// end::Card 
+include _modalUpdateTicket

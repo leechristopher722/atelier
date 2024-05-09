@@ -1,42 +1,22 @@
 html
   body
-    // begin::Modal - New Target
-    .modal.fade(id="kt_modal_new_target", tabindex="-1", aria-hidden="true")
-      // begin::Modal dialog
+    .modal.fade(id=`kt_modal_update_ticket_modal_${ticket._id}`, tabindex="-1", aria-hidden="true")
       .modal-dialog.modal-dialog-centered.mw-650px
-        // begin::Modal content
         .modal-content.rounded
-          // begin::Modal header
           .modal-header.pb-0.border-0.justify-content-end
-            // begin::Close
             .btn.btn-sm.btn-icon.btn-active-color-primary(data-bs-dismiss="modal")
               i.ki-duotone.ki-cross.fs-1
                 span.path1
                 span.path2
-            // end::Close
-          // begin::Modal header
-          // begin::Modal body
           .modal-body.scroll-y.px-10.px-lg-15.pt-0.pb-15
-            // begin:Form
-            form.form(id="kt_modal_new_target_form", action="#")
-              // begin::Hidden Input Form Project & User ID
-              input(type="hidden", name="project_id", value=`${project._id}`) 
-              // end::Hidden Input Form Project & User ID              
-              // begin::Heading
+            form.form(id=`kt_modal_update_ticket_form_${ticket._id}`, action="#")
               .mb-13.text-center
-                // begin::Title
-                h1.mb-3 Create New Ticket
-                // end::Title
-                // begin::Description
+                h1.mb-3 Update Ticket
                 .text-muted.fw-semibold.fs-5
                   | If you need more info, please check 
                   a.fw-bold.link-primary(href="#") Project Guidelines
                   | .
-                // end::Description
-              // end::Heading
-              // begin::Input group
               .d-flex.flex-column.mb-8.fv-row
-                // begin::Label
                 label.d-flex.align-items-center.fs-6.fw-semibold.mb-2
                   span.required Ticket Title
                   span.ms-1(data-bs-toggle="tooltip", title="Specify a ticket name for future usage and reference")
@@ -44,12 +24,8 @@ html
                       span.path1
                       span.path2
                       span.path3
-                // end::Label
-                input.form-control.form-control-solid(type="text", placeholder="Enter Ticket Title", name="target_title")
-              // end::Input group
-              // begin::Input group
+                input.form-control.form-control-solid(type="text", value=`${ticket.name}`, name="target_title")
               .row.g-9.mb-8
-                // begin::Col
                 .col-md-6.fv-row
                   label.required.fs-6.fw-semibold.mb-2 Assign To
                   select.form-select.form-select-solid(data-control="select2", data-hide-search="true", data-placeholder="Select a Team Member", name="target_assign")
@@ -59,13 +35,9 @@ html
                     option(value="3") Niel Owen
                     option(value="4") Olivia Wild
                     option(value="5") Sean Bean
-                // end::Col
-                // begin::Col
                 .col-md-6.fv-row
                   label.required.fs-6.fw-semibold.mb-2 Due Date
-                  // begin::Input
                   .position-relative.d-flex.align-items-center
-                    // begin::Icon
                     i.ki-duotone.ki-calendar-8.fs-2.position-absolute.mx-4
                       span.path1
                       span.path2
@@ -73,37 +45,23 @@ html
                       span.path4
                       span.path5
                       span.path6
-                    // end::Icon
-                    // begin::Datepicker
-                    input.form-control.form-control-solid.ps-12(placeholder="Select a date", name="due_date")
-                    // end::Datepicker
-                  // end::Input
-                // end::Col
-              // end::Input group
-              // begin::Input group
+                    input.form-control.form-control-solid.ps-12(value=`${ticket.dueDate}`, name="due_date")
               .d-flex.flex-column.mb-8
                 label.fs-6.fw-semibold.mb-2 Description
-                textarea.form-control.form-control-solid(rows="3", name="target_details", placeholder="Type Ticket Description")
-              // end::Input group
-              // begin::Input group
+                textarea.form-control.form-control-solid(rows="3", name="target_details")= ticket.description
               .d-flex.flex-column.mb-8.fv-row
-                // begin::Label
                 label.d-flex.align-items-center.fs-6.fw-semibold.mb-2
-                  span.required Tags
-                // end::Label
-                input.form-control.form-control-solid(name="tags")
-              // end::Input group
-              // begin::Actions
+                  span.required Tags 
+                    //- i.ki-duotone.ki-information-5.text-gray-500.fs-6
+                    //-   span.path1
+                    //-   span.path2
+                    //-   span.path3
+                - var modifiedTags = `${ticket.tags}`.replace(',', ', ')
+                input.form-control.form-control-solid(value=`${modifiedTags}`, name="tags")
               .text-center
-                button.btn.btn-light.me-3(type="reset", id="kt_modal_new_target_cancel") Cancel
-                button.btn.btn-primary(type="submit", id="kt_modal_new_target_submit")
+                button.btn.btn-light.me-3(type="reset", id=`kt_modal_update_ticket_cancel_${ticket._id}`) Cancel
+                button.btn.btn-primary(type="submit", id=`kt_modal_update_ticket_submit_${ticket._id}` data-value=`${ticket.name}`)
                   span.indicator-label Submit
                   span.indicator-progress
                     | Please wait...
                     span.spinner-border.spinner-border-sm.align-middle.ms-2
-              // end::Actions
-            // end:Form
-          // end::Modal body
-        // end::Modal content
-      // end::Modal dialog
-    // end::Modal - New Target

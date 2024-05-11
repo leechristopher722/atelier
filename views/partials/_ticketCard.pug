@@ -86,15 +86,36 @@
           span.ms-1.fs-7.fw-bold.text-gray-600 6
         // end::Stat
         // begin::Stat
-        .border.border-dashed.border-gray-300.d-flex.align-items-center.rounded.py-2.px-3.ms-3
+        .border.border-dashed.border-gray-300.d-flex.align-items-center.rounded.py-2.px-3.ms-3(data-value=`${user._id}` id=`ticket_comment_view_${ticket._id}`)
           i.ki-duotone.ki-message-text-2.fs-3
             span.path1
             span.path2
             span.path3
-          span.ms-1.fs-7.fw-bold.text-gray-600 9
+          span.ms-1.fs-7.fw-bold.text-gray-600(id=`comment_count_${ticket._id}`) #{ticket.numComments}
         // end::Stat
       // end::Stats
     // end::Footer
   // end::Card body
+  // start::Ticket Comment
+  .d-flex.flex-column.d-none(id=`ticket_comment_container_${ticket._id}`)
+    // start::Ticket Comment Body
+    .card-footer.pt-4
+      // begin::Messages
+      .scroll-y.me-n5.pe-5(style='display: flex; flex-direction: column; max-height: 400px; overflow-y: auto; resize: vertical', id=`ticket_comment_messages_${ticket._id}`)
+      // end::Messages
+    // end::Ticket Comment body
+    // begin::Comment Input Group
+    .card-footer.pt-4
+      .d-flex.flex-stack
+        // begin::Input
+        textarea.form-control.form-control-flush.mb-3(rows="1", data-kt-element="input", placeholder="Add a comment...", id=`ticket_comment_input_${ticket._id}`)
+        // end::Input
+        // begin::Send
+        button.btn.btn-primary(type="button", data-kt-element="send", id=`ticket_comment_send_${ticket._id}`) Save
+        // end::Send
+      // end::Toolbar
+    // end::Comment Input Group
+  // end::Ticket Comment
 // end::Card 
 include _modalUpdateTicket
+

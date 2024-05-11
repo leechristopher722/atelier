@@ -4,11 +4,12 @@ const APIFeatures = require('./../utils/apiFeatures');
 
 exports.getAll = Model =>
   catchAsync(async (req, res, next) => {
-    // To allowe for nested GET tickets on project
+    // To allow for nested GET tickets on project
     let filter = {};
     if (req.params.projectId) filter = { project: req.params.projectId };
+    if (req.params.ticketId) filter = { ticket: req.params.ticketId };
 
-    const features = new APIFeatures(Model.find(), req.query)
+    const features = new APIFeatures(Model.find(filter), req.query)
       .filter()
       .sort()
       .limitFields()

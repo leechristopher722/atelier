@@ -1,0 +1,384 @@
+extends ../../layouts/base
+
+block content
+  body
+    // begin::Content wrapper
+    .d-flex.flex-column.flex-column-fluid
+      // begin::Toolbar
+      .app-toolbar.py-3.py-lg-6(id="kt_app_toolbar")
+        // begin::Toolbar container
+        .app-container.container-xxl.d-flex.flex-stack(id="kt_app_toolbar_container")
+          // begin::Page title
+          .page-title.d-flex.flex-column.justify-content-center.flex-wrap.me-3
+            // begin::Title
+            h1.page-heading.d-flex.text-gray-900.fw-bold.fs-3.flex-column.justify-content-center.my-0 Account Settings
+            // end::Title
+            // begin::Breadcrumb
+            ul.breadcrumb.breadcrumb-separatorless.fw-semibold.fs-7.my-0.pt-1
+              // begin::Item
+              li.breadcrumb-item.text-muted
+                a.text-muted.text-hover-primary(href="index.html") Home
+              // end::Item
+              // begin::Item
+              li.breadcrumb-item
+                span.bullet.bg-gray-500.w-5px.h-2px
+              // end::Item
+              // begin::Item
+              li.breadcrumb-item.text-muted Account
+              // end::Item
+            // end::Breadcrumb
+          // end::Page title
+          // begin::Actions
+          .d-flex.align-items-center.gap-2.gap-lg-3
+            // begin::Filter menu
+            .d-flex
+              select.form-select.form-select-sm.bg-body.border-body.w-175px(name="campaign-type", data-control="select2", data-hide-search="true")
+                option(value="Twitter", selected="selected") Select Campaign
+                option(value="Twitter") Twitter Campaign
+                option(value="Twitter") Facebook Campaign
+                option(value="Twitter") Adword Campaign
+                option(value="Twitter") Carbon Campaign
+              a.btn.btn-icon.btn-sm.btn-success.flex-shrink-0.ms-4(href="#", data-bs-toggle="modal", data-bs-target="#kt_modal_create_campaign")
+                i.ki-duotone.ki-plus.fs-2
+            // end::Filter menu
+            // begin::Secondary button
+            // end::Secondary button
+            // begin::Primary button
+            // end::Primary button
+          // end::Actions
+        // end::Toolbar container
+      // end::Toolbar
+      // begin::Content
+      .app-content.flex-column-fluid(id="kt_app_content")
+        // begin::Content container
+        .app-container.container-xxl(id="kt_app_content_container")
+          // begin::Basic info
+          .card.mb-5.mb-xl-10
+            // begin::Card header
+            .card-header.border-0.cursor-pointer(role="button", data-bs-toggle="collapse", data-bs-target="#kt_account_profile_details", aria-expanded="true", aria-controls="kt_account_profile_details")
+              // begin::Card title
+              .card-title.m-0
+                h3.fw-bold.m-0 Profile Details
+              // end::Card title
+            // begin::Card header
+            // begin::Content
+            .collapse.show(id="kt_account_settings_profile_details")
+              // begin::Form
+              form.form(id="account_update_form")
+                // begin::Card body
+                .card-body.border-top.p-9
+                  // begin::Input group
+                  .row.mb-6
+                    // begin::Label
+                    label.col-lg-4.col-form-label.fw-semibold.fs-6 Profile Image
+                    // end::Label
+                    // begin::Col
+                    .col-lg-8
+                      // begin::Image input
+                      .image-input.image-input-outline(data-kt-image-input="true", style="background-image: url('assets/media/svg/avatars/blank.svg')")
+                        // begin::Preview existing avatar
+                        .image-input-wrapper.w-125px.h-125px(style="background-image: url(assets/media/avatars/300-1.jpg)")
+                        // end::Preview existing avatar
+                        // begin::Label
+                        label.btn.btn-icon.btn-circle.btn-active-color-primary.w-25px.h-25px.bg-body.shadow(data-kt-image-input-action="change", data-bs-toggle="tooltip", title="Change avatar")
+                          i.ki-duotone.ki-pencil.fs-7
+                            span.path1
+                            span.path2
+                          // begin::Inputs
+                          input(type="file", name="avatar", accept=".png, .jpg, .jpeg")
+                          input(type="hidden", name="avatar_remove")
+                          // end::Inputs
+                        // end::Label
+                        // begin::Cancel
+                        span.btn.btn-icon.btn-circle.btn-active-color-primary.w-25px.h-25px.bg-body.shadow(data-kt-image-input-action="cancel", data-bs-toggle="tooltip", title="Cancel avatar")
+                          i.ki-duotone.ki-cross.fs-2
+                            span.path1
+                            span.path2
+                        // end::Cancel
+                        // begin::Remove
+                        span.btn.btn-icon.btn-circle.btn-active-color-primary.w-25px.h-25px.bg-body.shadow(data-kt-image-input-action="remove", data-bs-toggle="tooltip", title="Remove avatar")
+                          i.ki-duotone.ki-cross.fs-2
+                            span.path1
+                            span.path2
+                        // end::Remove
+                      // end::Image input
+                      // begin::Hint
+                      .form-text Allowed file types: png, jpg, jpeg.
+                      // end::Hint
+                    // end::Col
+                  // end::Input group
+                  // begin::Input group
+                  .row.mb-6
+                    // begin::Label
+                    label.col-lg-4.col-form-label.required.fw-semibold.fs-6 Name
+                    // end::Label
+                    // begin::Col
+                    .col-lg-8.fv-row
+                      input.form-control.form-control-lg.form-control-solid(type="text", name="name", placeholder="Name", value=`${user.name}`)
+                    // end::Col
+                  // end::Input group
+                  // begin::Input group
+                  .row.mb-6
+                    // begin::Label
+                    label.col-lg-4.col-form-label.required.fw-semibold.fs-6 Email
+                    // end::Label
+                    // begin::Col
+                    .col-lg-8.fv-row
+                      input.form-control.form-control-lg.form-control-solid(type="text", name="email", placeholder="Email", value=`${user.email}`)
+                    // end::Col
+                  // end::Input group
+                  // begin::Input group
+                  .row.mb-6
+                    // begin::Label
+                    label.col-lg-4.col-form-label.fw-semibold.fs-6 Company
+                    // end::Label
+                    // begin::Col
+                    .col-lg-8.fv-row
+                      input.form-control.form-control-lg.form-control-solid(type="text", name="company", placeholder="Company name", value="")
+                    // end::Col
+                  // end::Input group
+                  // begin::Input group
+                  .row.mb-6
+                    // begin::Label
+                    label.col-lg-4.col-form-label.fw-semibold.fs-6 Job Title
+                    // end::Label
+                    // begin::Col
+                    .col-lg-8.fv-row
+                      input.form-control.form-control-lg.form-control-solid(type="text", name="company", placeholder="Job Title", value="")
+                    // end::Col
+                  // end::Input group
+                // end::Card body
+                // begin::Actions
+                .card-footer.d-flex.justify-content-end.py-6.px-9
+                  button.btn.btn-light.btn-active-light-primary.me-2(type="reset") Discard
+                  button.btn.btn-primary(type="button", id="account_update_submit") Save Changes
+                // end::Actions
+              // end::Form
+            // end::Content
+          // end::Basic info
+          // begin::Sign-in Method
+          .card.mb-5.mb-xl-10
+            // begin::Card header
+            .card-header.border-0.cursor-pointer(role="button", data-bs-toggle="collapse", data-bs-target="#kt_account_signin_method")
+              .card-title.m-0
+                h3.fw-bold.m-0 Sign-in Method
+            // end::Card header
+            // begin::Content
+            .collapse.show(id="kt_account_settings_signin_method")
+              // begin::Card body
+              .card-body.border-top.p-9
+                // begin::Email Address
+                .d-flex.flex-wrap.align-items-center
+                  // begin::Label
+                  div(id="kt_signin_email")
+                    .fs-6.fw-bold.mb-1 Email Address
+                    .fw-semibold.text-gray-600 support@keenthemes.com
+                  // end::Label
+                  // begin::Edit
+                  .flex-row-fluid.d-none(id="kt_signin_email_edit")
+                    // begin::Form
+                    form.form(id="kt_signin_change_email", novalidate="novalidate")
+                      .row.mb-6
+                        .col-lg-6.mb-4.mb-lg-0
+                          .fv-row.mb-0
+                            label.form-label.fs-6.fw-bold.mb-3(for="emailaddress") Enter New Email Address
+                            input#emailaddress.form-control.form-control-lg.form-control-solid(type="email", placeholder="Email Address", name="emailaddress", value="support@keenthemes.com")
+                        .col-lg-6
+                          .fv-row.mb-0
+                            label.form-label.fs-6.fw-bold.mb-3(for="confirmemailpassword") Confirm Password
+                            input#confirmemailpassword.form-control.form-control-lg.form-control-solid(type="password", name="confirmemailpassword")
+                      .d-flex
+                        button.btn.btn-primary.me-2.px-6(id="kt_signin_submit", type="button") Update Email
+                        button.btn.btn-color-gray-500.btn-active-light-primary.px-6(id="kt_signin_cancel", type="button") Cancel
+                    // end::Form
+                  // end::Edit
+                  // begin::Action
+                  .ms-auto(id="kt_signin_email_button")
+                    button.btn.btn-light.btn-active-light-primary Change Email
+                  // end::Action
+                // end::Email Address
+                // begin::Separator
+                .separator.separator-dashed.my-6
+                // end::Separator
+                // begin::Password
+                .d-flex.flex-wrap.align-items-center.mb-10
+                  // begin::Label
+                  div(id="kt_signin_password")
+                    .fs-6.fw-bold.mb-1 Password
+                    .fw-semibold.text-gray-600 ************
+                  // end::Label
+                  // begin::Edit
+                  .flex-row-fluid.d-none(id="kt_signin_password_edit")
+                    // begin::Form
+                    form.form(id="kt_signin_change_password", novalidate="novalidate")
+                      .row.mb-1
+                        .col-lg-4
+                          .fv-row.mb-0
+                            label.form-label.fs-6.fw-bold.mb-3(for="currentpassword") Current Password
+                            input#currentpassword.form-control.form-control-lg.form-control-solid(type="password", name="currentpassword")
+                        .col-lg-4
+                          .fv-row.mb-0
+                            label.form-label.fs-6.fw-bold.mb-3(for="newpassword") New Password
+                            input#newpassword.form-control.form-control-lg.form-control-solid(type="password", name="newpassword")
+                        .col-lg-4
+                          .fv-row.mb-0
+                            label.form-label.fs-6.fw-bold.mb-3(for="confirmpassword") Confirm New Password
+                            input#confirmpassword.form-control.form-control-lg.form-control-solid(type="password", name="confirmpassword")
+                      .form-text.mb-5 Password must be at least 8 character and contain symbols
+                      .d-flex
+                        button.btn.btn-primary.me-2.px-6(id="kt_password_submit", type="button") Update Password
+                        button.btn.btn-color-gray-500.btn-active-light-primary.px-6(id="kt_password_cancel", type="button") Cancel
+                    // end::Form
+                  // end::Edit
+                  // begin::Action
+                  .ms-auto(id="kt_signin_password_button")
+                    button.btn.btn-light.btn-active-light-primary Reset Password
+                  // end::Action
+                // end::Password
+                // begin::Notice
+                .notice.d-flex.bg-light-primary.rounded.border-primary.border.border-dashed.p-6
+                  // begin::Icon
+                  i.ki-duotone.ki-shield-tick.fs-2tx.text-primary.me-4
+                    span.path1
+                    span.path2
+                  // end::Icon
+                  // begin::Wrapper
+                  .d-flex.flex-stack.flex-grow-1.flex-wrap.flex-md-nowrap
+                    // begin::Content
+                    .mb-3.mb-md-0.fw-semibold
+                      h4.text-gray-900.fw-bold Secure Your Account
+                      .fs-6.text-gray-700.pe-7 Two-factor authentication adds an extra layer of security to your account. To log in, in addition you&apos;ll need to provide a 6 digit code
+                    // end::Content
+                    // begin::Action
+                    a.btn.btn-primary.px-6.align-self-center.text-nowrap(href="#", data-bs-toggle="modal", data-bs-target="#kt_modal_two_factor_authentication") Enable
+                    // end::Action
+                  // end::Wrapper
+                // end::Notice
+              // end::Card body
+            // end::Content
+          // end::Sign-in Method
+          // begin::Connected Accounts
+          .card.mb-5.mb-xl-10
+            // begin::Card header
+            .card-header.border-0.cursor-pointer(role="button", data-bs-toggle="collapse", data-bs-target="#kt_account_connected_accounts", aria-expanded="true", aria-controls="kt_account_connected_accounts")
+              .card-title.m-0
+                h3.fw-bold.m-0 Connected Accounts
+            // end::Card header
+            // begin::Content
+            .collapse.show(id="kt_account_settings_connected_accounts")
+              // begin::Card body
+              .card-body.border-top.p-9
+                // begin::Notice
+                .notice.d-flex.bg-light-primary.rounded.border-primary.border.border-dashed.mb-9.p-6
+                  // begin::Icon
+                  i.ki-duotone.ki-design-1.fs-2tx.text-primary.me-4
+                  // end::Icon
+                  // begin::Wrapper
+                  .d-flex.flex-stack.flex-grow-1
+                    // begin::Content
+                    .fw-semibold
+                      .fs-6.text-gray-700
+                        | Two-factor authentication adds an extra layer of security to your account. To log in, in you&apos;ll need to provide a 4 digit amazing code.
+                        a.fw-bold(href="#") Learn More
+                    // end::Content
+                  // end::Wrapper
+                // end::Notice
+                // begin::Items
+                .py-2
+                  // begin::Item
+                  .d-flex.flex-stack
+                    .d-flex
+                      img.w-30px.me-6(src="assets/media/svg/brand-logos/google-icon.svg")
+                      .d-flex.flex-column
+                        a.fs-5.text-gray-900.text-hover-primary.fw-bold(href="#") Google
+                        .fs-6.fw-semibold.text-gray-500 Plan properly your workflow
+                    .d-flex.justify-content-end
+                      .form-check.form-check-solid.form-check-custom.form-switch
+                        input#googleswitch.form-check-input.w-45px.h-30px(type="checkbox", checked="checked")
+                        label.form-check-label(for="googleswitch")
+                  // end::Item
+                  .separator.separator-dashed.my-5
+                  // begin::Item
+                  .d-flex.flex-stack
+                    .d-flex
+                      img.w-30px.me-6(src="assets/media/svg/brand-logos/github.svg")
+                      .d-flex.flex-column
+                        a.fs-5.text-gray-900.text-hover-primary.fw-bold(href="#") Github
+                        .fs-6.fw-semibold.text-gray-500 Keep eye on on your Repositories
+                    .d-flex.justify-content-end
+                      .form-check.form-check-solid.form-check-custom.form-switch
+                        input#githubswitch.form-check-input.w-45px.h-30px(type="checkbox", checked="checked")
+                        label.form-check-label(for="githubswitch")
+                  // end::Item
+                  .separator.separator-dashed.my-5
+                  // begin::Item
+                  .d-flex.flex-stack
+                    .d-flex
+                      img.w-30px.me-6(src="assets/media/svg/brand-logos/slack-icon.svg")
+                      .d-flex.flex-column
+                        a.fs-5.text-gray-900.text-hover-primary.fw-bold(href="#") Slack
+                        .fs-6.fw-semibold.text-gray-500 Integrate Projects Discussions
+                    .d-flex.justify-content-end
+                      .form-check.form-check-solid.form-check-custom.form-switch
+                        input#slackswitch.form-check-input.w-45px.h-30px(type="checkbox")
+                        label.form-check-label(for="slackswitch")
+                  // end::Item
+                // end::Items
+              // end::Card body
+              // begin::Card footer
+              .card-footer.d-flex.justify-content-end.py-6.px-9
+                button.btn.btn-light.btn-active-light-primary.me-2 Discard
+                button.btn.btn-primary Save Changes
+              // end::Card footer
+            // end::Content
+          // end::Connected Accounts
+          // begin::Deactivate Account
+          .card
+            // begin::Card header
+            .card-header.border-0.cursor-pointer(role="button", data-bs-toggle="collapse", data-bs-target="#kt_account_deactivate", aria-expanded="true", aria-controls="kt_account_deactivate")
+              .card-title.m-0
+                h3.fw-bold.m-0 Deactivate Account
+            // end::Card header
+            // begin::Content
+            .collapse.show(id="kt_account_settings_deactivate")
+              // begin::Form
+              form.form(id="kt_account_deactivate_form")
+                // begin::Card body
+                .card-body.border-top.p-9
+                  // begin::Notice
+                  .notice.d-flex.bg-light-warning.rounded.border-warning.border.border-dashed.mb-9.p-6
+                    // begin::Icon
+                    i.ki-duotone.ki-information.fs-2tx.text-warning.me-4
+                      span.path1
+                      span.path2
+                      span.path3
+                    // end::Icon
+                    // begin::Wrapper
+                    .d-flex.flex-stack.flex-grow-1
+                      // begin::Content
+                      .fw-semibold
+                        h4.text-gray-900.fw-bold You Are Deactivating Your Account
+                        .fs-6.text-gray-700
+                          | For extra security, this requires you to confirm your email or phone number when you reset your password.
+                          br
+                          a.fw-bold(href="#") Learn more
+                      // end::Content
+                    // end::Wrapper
+                  // end::Notice
+                  // begin::Form input row
+                  .form-check.form-check-solid.fv-row
+                    input#deactivate.form-check-input(name="deactivate", type="checkbox")
+                    label.form-check-label.fw-semibold.ps-2.fs-6(for="deactivate") I confirm my account deactivation
+                  // end::Form input row
+                // end::Card body
+                // begin::Card footer
+                .card-footer.d-flex.justify-content-end.py-6.px-9
+                  button.btn.btn-danger.fw-semibold(id="kt_account_deactivate_account_submit", type="submit") Deactivate Account
+                // end::Card footer
+              // end::Form
+            // end::Content
+          // end::Deactivate Account
+        // end::Content container
+      // end::Content
+    // end::Content wrapper
+

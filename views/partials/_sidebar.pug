@@ -40,7 +40,7 @@ html
                     // begin:Menu item
                     .menu-item
                       // begin:Menu link
-                      a.menu-link.active(href="apps/projects/project.html")
+                      a(class=`menu-link ${isOverviewPage}` href=`projects/${project.name.toLowerCase()}`)
                         span.menu-bullet
                           span.bullet.bullet-dot
                         span.menu-title Overview
@@ -49,34 +49,25 @@ html
                     // begin:Menu item
                     .menu-item
                       // begin:Menu link
-                      a.menu-link(href="apps/projects/targets.html")
+                      a(class=`menu-link ${isTicketsPage}` href=`projects/${project.name.toLowerCase()}/tickets`)
                         span.menu-bullet
                           span.bullet.bullet-dot
-                        span.menu-title Targets
+                        span.menu-title Tickets
                       // end:Menu link
                     // end:Menu item
                     // begin:Menu item
                     .menu-item
                       // begin:Menu link
-                      a.menu-link(href="apps/projects/budget.html")
+                      a(class=`menu-link ${isMembersPage}` href=`projects/${project.name.toLowerCase()}/members`)
                         span.menu-bullet
                           span.bullet.bullet-dot
-                        span.menu-title Budget
+                        span.menu-title Members
                       // end:Menu link
                     // end:Menu item
                     // begin:Menu item
                     .menu-item
                       // begin:Menu link
-                      a.menu-link(href="apps/projects/users.html")
-                        span.menu-bullet
-                          span.bullet.bullet-dot
-                        span.menu-title Users
-                      // end:Menu link
-                    // end:Menu item
-                    // begin:Menu item
-                    .menu-item
-                      // begin:Menu link
-                      a.menu-link(href="apps/projects/files.html")
+                      a(class=`menu-link ${isFilesPage}` href=`projects/${project.name.toLowerCase()}/files`)
                         span.menu-bullet
                           span.bullet.bullet-dot
                         span.menu-title Files
@@ -85,16 +76,7 @@ html
                     // begin:Menu item
                     .menu-item
                       // begin:Menu link
-                      a.menu-link(href="apps/projects/activity.html")
-                        span.menu-bullet
-                          span.bullet.bullet-dot
-                        span.menu-title Activity
-                      // end:Menu link
-                    // end:Menu item
-                    // begin:Menu item
-                    .menu-item
-                      // begin:Menu link
-                      a.menu-link(href="apps/projects/settings.html")
+                      a(class=`menu-link ${isSettingsPage}` href=`projects/${project.name.toLowerCase()}/settings`)
                         span.menu-bullet
                           span.bullet.bullet-dot
                         span.menu-title Settings
@@ -626,50 +608,6 @@ html
                 // begin:Menu link
                 span.menu-link
                   span.menu-icon
-                    i.ki-duotone.ki-sms.fs-2
-                      span.path1
-                      span.path2
-                  span.menu-title Inbox
-                  span.menu-arrow
-                // end:Menu link
-                // begin:Menu sub
-                .menu-sub.menu-sub-accordion
-                  // begin:Menu item
-                  .menu-item
-                    // begin:Menu link
-                    a.menu-link(href="apps/inbox/listing.html")
-                      span.menu-bullet
-                        span.bullet.bullet-dot
-                      span.menu-title Messages
-                      span.menu-badge
-                        span.badge.badge-success 3
-                    // end:Menu link
-                  // end:Menu item
-                  // begin:Menu item
-                  .menu-item
-                    // begin:Menu link
-                    a.menu-link(href="apps/inbox/compose.html")
-                      span.menu-bullet
-                        span.bullet.bullet-dot
-                      span.menu-title Compose
-                    // end:Menu link
-                  // end:Menu item
-                  // begin:Menu item
-                  .menu-item
-                    // begin:Menu link
-                    a.menu-link(href="apps/inbox/reply.html")
-                      span.menu-bullet
-                        span.bullet.bullet-dot
-                      span.menu-title View &amp; Reply
-                    // end:Menu link
-                  // end:Menu item
-                // end:Menu sub
-              // end:Menu item
-              // begin:Menu item
-              .menu-item.menu-accordion(data-kt-menu-trigger="click")
-                // begin:Menu link
-                span.menu-link
-                  span.menu-icon
                     i.ki-duotone.ki-message-text-2.fs-2
                       span.path1
                       span.path2
@@ -707,21 +645,6 @@ html
                     // end:Menu link
                   // end:Menu item
                 // end:Menu sub
-              // end:Menu item
-              // begin:Menu item
-              .menu-item
-                // begin:Menu link
-                a.menu-link(href="apps/calendar.html")
-                  span.menu-icon
-                    i.ki-duotone.ki-calendar-8.fs-2
-                      span.path1
-                      span.path2
-                      span.path3
-                      span.path4
-                      span.path5
-                      span.path6
-                  span.menu-title Calendar
-                // end:Menu link
               // end:Menu item
             // end::Menu
           // end::Scroll wrapper

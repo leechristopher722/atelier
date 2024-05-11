@@ -67,18 +67,11 @@ const projectSchema = new mongoose.Schema(
       type: Boolean,
       default: false
     },
-    difficulty: {
-      type: String,
-      enum: {
-        values: ['easy', 'medium', 'hard'],
-        message: 'Difficulty is either: easy, medium, hard'
-      }
-    },
     status: {
       type: String,
       enum: {
         values: ['Planning', 'In Progress', 'Completed'],
-        message: 'Ticket status is either: Planning, In Progress, or Completed'
+        message: 'Project status is either: Planning, In Progress, or Completed'
       },
       default: 'Planning'
     }

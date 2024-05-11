@@ -1470,9 +1470,12 @@ html
     script(src="assets/js/custom/utilities/modals/users-search.js")
     script(src="assets/js/custom/authentication/sign-out/general.js")
     script(src="assets/js/custom/utilities/modals/new-target.js")
-    script(src="assets/js/custom/apps/projects/targets/targets.js")
+    - if (isTicketsPage)
+      script(src="assets/js/custom/apps/projects/targets/targets.js")
     script(src="assets/js/widgets.bundle.js")
     script(src="assets/js/custom/my-custom/ticket-crud.js")
     script(src="assets/js/custom/my-custom/ticket-update.js")
+    script(src="assets/js/custom/my-custom/account-update.js")
+    script(src="assets/js/custom/my-custom/ticket-comment.js")
     // end::Custom Javascript
     // end::Javascript

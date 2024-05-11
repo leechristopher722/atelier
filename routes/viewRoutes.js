@@ -12,14 +12,16 @@ router.get('/reset-password', viewController.getResetPasswordForm);
 // TODO: Implement reset forgot password
 // router.get('/new-password/:token', viewController.getNewPasswordForm);
 
+router.get('/me', authController.protect, viewController.getAccount);
+
 router.get('/', viewController.redirectToLogin, viewController.getProjects);
 router.get(
-  '/projects/:slug',
+  '/projects/:projectSlug',
   viewController.redirectToLogin,
   viewController.getProject
 );
 router.get(
-  '/projects/:slug/tickets',
+  '/projects/:projectSlug/tickets',
   viewController.redirectToLogin,
   viewController.getProjectTickets
 );

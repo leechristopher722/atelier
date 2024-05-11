@@ -13,7 +13,9 @@ exports.getProjects = catchAsync(async (req, res) => {
 });
 
 exports.getProject = catchAsync(async (req, res) => {
-  const project = await Project.findOne({ slug: req.params.slug }).populate({
+  const project = await Project.findOne({
+    slug: req.params.projectSlug
+  }).populate({
     path: 'tickets'
   });
 
@@ -28,7 +30,9 @@ exports.getProject = catchAsync(async (req, res) => {
 });
 
 exports.getProjectTickets = catchAsync(async (req, res) => {
-  const project = await Project.findOne({ slug: req.params.slug }).populate({
+  const project = await Project.findOne({
+    slug: req.params.projectSlug
+  }).populate({
     path: 'tickets'
   });
 
@@ -96,3 +100,12 @@ exports.redirectToLogin = (req, res, next) => {
   }
   next();
 };
+
+exports.getAccount = catchAsync(async (req, res) => {
+  const projects = await Project.find();
+
+  res.status(200).render('pages/account/settings', {
+    title: 'My Account',
+    projects
+  });
+});

@@ -1,8 +1,11 @@
 const express = require('express');
 const ticketController = require('../controllers/ticketController');
 const authController = require('./../controllers/authController');
+const commentRouter = require('./commentRoutes');
 
 const router = express.Router({ mergeParams: true });
+
+router.use('/:ticketId/comments', commentRouter);
 
 router.use(authController.protect);
 

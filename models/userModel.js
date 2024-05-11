@@ -7,10 +7,7 @@ const userSchema = new mongoose.Schema({
   name: {
     type: String,
     trim: true,
-    maxLength: [
-      40,
-      'A project name must be less than or equal to 40 characters'
-    ]
+    maxLength: [40, 'A user name must be less than or equal to 40 characters']
     // External Library for validator
     // validate: [
     //   validator.isAlpha,

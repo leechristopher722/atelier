@@ -7,7 +7,6 @@ function KTModalUpdateTicket(modalEl, ticketId) {
   var validator;
   var form;
   var modal;
-  // var modalEl;
 
   // Init form inputs
   var initForm = function() {

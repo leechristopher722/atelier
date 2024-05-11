@@ -6,7 +6,6 @@ const helmet = require('helmet');
 const mongoSanitize = require('express-mongo-sanitize');
 const xssCleaner = require('./utils/xssCleaner');
 const hpp = require('hpp');
-// const expressHandlebars = require('express-handlebars');
 const cookieParser = require('cookie-parser');
 
 const AppError = require('./utils/appError');
@@ -15,22 +14,12 @@ const projectRouter = require('./routes/projectRoutes');
 const userRouter = require('./routes/userRoutes');
 const ticketRouter = require('./routes/ticketRoutes');
 const viewRouter = require('./routes/viewRoutes');
+const commentRouter = require('./routes/commentRoutes');
 
 const app = express();
 
 app.set('view engine', 'pug');
 app.set('views', path.join(__dirname, 'views'));
-
-// var hbs = expressHandlebars.create({
-//   extname: 'hbs',
-//   defaultLayout: 'main',
-//   layoutsDir: `${__dirname}/views/layouts`,
-//   partialsDir: `${__dirname}/views/partials`
-// });
-
-// app.engine('hbs', hbs.engine);
-// app.set('view engine', 'hbs');
-// app.set('views', path.join(__dirname, 'views'));
 
 // 1) Global Middlewares - order matters a lot
 // Set Security HTTP headers
@@ -88,6 +77,7 @@ app.use('/', viewRouter);
 app.use('/api/v1/projects', projectRouter);
 app.use('/api/v1/users', userRouter);
 app.use('/api/v1/tickets', ticketRouter);
+app.use('/api/v1/comments', commentRouter);
 
 app.all('*', (req, res, next) => {
   // Argument passed into next() is always an error

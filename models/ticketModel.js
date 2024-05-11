@@ -52,8 +52,9 @@ const ticketSchema = new mongoose.Schema(
       },
       default: 'created'
     },
-    comments: {
-      type: String
+    numComments: {
+      type: Number,
+      default: 0
     },
     slug: String
   },
@@ -77,6 +78,10 @@ ticketSchema.pre('save', function(next) {
 ticketSchema.pre(/^find/, function(next) {
   this.populate({
     path: 'assignedBy',
+    select: 'name'
+  });
+  this.populate({
+    path: 'assignedTo',
     select: 'name'
   });
   // .populate({

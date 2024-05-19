@@ -1,7 +1,5 @@
-// 'use strict';
-
 // Class definition
-function KTModalUpdateTicket(modalEl, ticketId) {
+export function KTModalUpdateTicket(modalEl, ticketId) {
   let submitButton;
   let cancelButton;
   let validator;
@@ -137,7 +135,7 @@ function KTModalUpdateTicket(modalEl, ticketId) {
               });
 
               // Now you can send the form data to your server using an HTTP request (e.g., AJAX)
-              fetch(`http://127.0.0.1:8000/api/v1/tickets/${ticketId}`, {
+              fetch(`/api/v1/tickets/${ticketId}`, {
                 method: 'PATCH',
                 body: JSON.stringify(formDataObject), // Convert form data object to JSON string
                 headers: {
@@ -261,16 +259,3 @@ function KTModalUpdateTicket(modalEl, ticketId) {
     }
   };
 }
-
-// On document ready
-KTUtil.onDOMContentLoaded(function() {
-  const modalEls = document.querySelectorAll(
-    '[id^="kt_modal_update_ticket_modal_"]'
-  );
-
-  modalEls.forEach(el => {
-    const ticketId = el.id.replace('kt_modal_update_ticket_modal_', '');
-    const modalInstance = new KTModalUpdateTicket(el, ticketId);
-    modalInstance.init();
-  });
-});

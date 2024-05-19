@@ -1,14 +1,12 @@
-'use strict';
-
 // Class definition
-var KTAccountSettingsProfileDetails = (function() {
-  // Private variables
-  var form;
-  var submitButton;
-  var validation;
+export const accountSettings = (function() {
+  // Private letiables
+  let form;
+  let submitButton;
+  let validation;
 
   // Private functions
-  var initValidation = function() {
+  const initValidation = function() {
     // Init form validation rules. For more info check the FormValidation plugin's official documentation:https://formvalidation.io/
     validation = FormValidation.formValidation(form, {
       fields: {
@@ -33,7 +31,7 @@ var KTAccountSettingsProfileDetails = (function() {
       plugins: {
         trigger: new FormValidation.plugins.Trigger(),
         submitButton: new FormValidation.plugins.SubmitButton(),
-        //defaultSubmit: new FormValidation.plugins.DefaultSubmit(), // Uncomment this line to enable normal button submit after form validation
+        // defaultSubmit: new FormValidation.plugins.DefaultSubmit(), // Uncomment this line to enable normal button submit after form validation
         bootstrap: new FormValidation.plugins.Bootstrap5({
           rowSelector: '.fv-row',
           eleInvalidClass: '',
@@ -43,19 +41,19 @@ var KTAccountSettingsProfileDetails = (function() {
     });
   };
 
-  var handleForm = function() {
+  const handleForm = function() {
     submitButton.addEventListener('click', function(e) {
       e.preventDefault();
 
       validation.validate().then(function(status) {
-        if (status == 'Valid') {
-          var formData = new FormData(form);
-          var body = {};
+        if (status === 'Valid') {
+          const formData = new FormData(form);
+          const body = {};
           formData.forEach(function(value, key) {
             body[key] = value;
           });
 
-          fetch('http://127.0.0.1:8000/api/v1/users/updateMe', {
+          fetch('/api/v1/users/updateMe', {
             method: 'PATCH',
             body: JSON.stringify(body),
             headers: {
@@ -92,17 +90,15 @@ var KTAccountSettingsProfileDetails = (function() {
     });
   };
 
-  var handleChangePassword = function(e) {
-    var passwordValidation;
-
+  const handleChangePassword = function() {
     // form elements
-    var passwordForm = document.getElementById('update_password');
+    const passwordForm = document.getElementById('update_password');
 
     if (!passwordForm) {
       return;
     }
 
-    passwordValidation = FormValidation.formValidation(passwordForm, {
+    const passwordValidation = FormValidation.formValidation(passwordForm, {
       fields: {
         currentpassword: {
           validators: {
@@ -140,7 +136,7 @@ var KTAccountSettingsProfileDetails = (function() {
       },
 
       plugins: {
-        //Learn more: https://formvalidation.io/guide/plugins
+        // Learn more: https://formvalidation.io/guide/plugins
         trigger: new FormValidation.plugins.Trigger(),
         bootstrap: new FormValidation.plugins.Bootstrap5({
           rowSelector: '.fv-row'
@@ -150,14 +146,13 @@ var KTAccountSettingsProfileDetails = (function() {
 
     passwordForm
       .querySelector('#password_submit')
-      .addEventListener('click', function(e) {
-        e.preventDefault();
-        console.log('click');
+      .addEventListener('click', function(err) {
+        err.preventDefault();
 
         passwordValidation.validate().then(function(status) {
-          if (status == 'Valid') {
-            var passwordFormData = new FormData(passwordForm);
-            var inputData = {};
+          if (status === 'Valid') {
+            const passwordFormData = new FormData(passwordForm);
+            const inputData = {};
 
             passwordFormData.forEach(function(value, key) {
               if (key === 'currentpassword') {
@@ -171,7 +166,7 @@ var KTAccountSettingsProfileDetails = (function() {
               }
             });
 
-            fetch('http://127.0.0.1:8000/api/v1/users/updatePassword', {
+            fetch('/api/v1/users/updatePassword', {
               method: 'PATCH',
               body: JSON.stringify(inputData),
               headers: {
@@ -239,8 +234,3 @@ var KTAccountSettingsProfileDetails = (function() {
     }
   };
 })();
-
-// On document ready
-KTUtil.onDOMContentLoaded(function() {
-  KTAccountSettingsProfileDetails.init();
-});

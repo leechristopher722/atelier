@@ -1,6 +1,4 @@
-const { trusted } = require('mongoose');
 const Project = require('../models/projectModel');
-const Ticket = require('../models/ticketModel');
 const catchAsync = require('../utils/catchAsync');
 
 exports.getProjects = catchAsync(async (req, res) => {

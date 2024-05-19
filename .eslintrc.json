@@ -26,6 +26,7 @@
     "no-param-reassign": "off",
     "consistent-return": "off",
     "no-return-await": "off",
+    "no-underscore-dangle": "off",
     "prefer-destructuring": ["error", { "object": true, "array": false }],
     "no-unused-vars": ["error", { "argsIgnorePattern": "req|res|next|val" }]
   }

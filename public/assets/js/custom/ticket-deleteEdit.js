@@ -1,7 +1,4 @@
-const deleteTicketBtns = document.querySelectorAll('.delete--ticket');
-const markTicketBtns = document.querySelectorAll('.mark-ticket');
-
-const markTicketAs = el => {
+export const markTicketAs = el => {
   const ticketId = el.dataset.value;
 
   const body = {};
@@ -14,7 +11,7 @@ const markTicketAs = el => {
     body['status'] = 'completed';
   }
 
-  fetch(`http://127.0.0.1:8000/api/v1/tickets/${ticketId}`, {
+  fetch(`/api/v1/tickets/${ticketId}`, {
     method: 'PATCH',
     body: JSON.stringify(body),
     headers: {
@@ -48,10 +45,10 @@ const markTicketAs = el => {
     });
 };
 
-const deleteTicket = el => {
+export const deleteTicket = el => {
   const ticketId = el.dataset.value;
 
-  fetch(`http://127.0.0.1:8000/api/v1/tickets/${ticketId}`, {
+  fetch(`/api/v1/tickets/${ticketId}`, {
     method: 'DELETE',
     headers: {
       'Content-Type': 'application/json'
@@ -87,14 +84,3 @@ const deleteTicket = el => {
     });
 };
 
-if (deleteTicketBtns) {
-  deleteTicketBtns.forEach(el =>
-    el.addEventListener('click', () => deleteTicket(el))
-  );
-}
-
-if (markTicketBtns) {
-  markTicketBtns.forEach(el =>
-    el.addEventListener('click', () => markTicketAs(el))
-  );
-}

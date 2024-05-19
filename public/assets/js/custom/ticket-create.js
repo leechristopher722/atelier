@@ -1,18 +1,16 @@
-'use strict';
-
 // Class definition
-var KTModalNewTarget = (function() {
-  var submitButton;
-  var cancelButton;
-  var validator;
-  var form;
-  var modal;
-  var modalEl;
+export const KTModalNewTarget = (function() {
+  let submitButton;
+  let cancelButton;
+  let validator;
+  let form;
+  let modal;
+  let modalEl;
 
   // Init form inputs
-  var initForm = function() {
+  const initForm = function() {
     // Tags. For more info, please visit the official plugin site: https://yaireo.github.io/tagify/
-    var tags = new Tagify(form.querySelector('[name="tags"]'), {
+    const tags = new Tagify(form.querySelector('[name="tags"]'), {
       whitelist: ['Development', 'Bug', 'High', 'Medium', 'Low'],
       maxTags: 5,
       dropdown: {
@@ -27,7 +25,7 @@ var KTModalNewTarget = (function() {
     });
 
     // Due date. For more info, please visit the official plugin site: https://flatpickr.js.org/
-    var due_date = $(form.querySelector('[name="due_date"]'));
+    const due_date = $(form.querySelector('[name="due_date"]'));
     due_date.flatpickr({
       altInput: true,
       enableTime: true,
@@ -42,7 +40,7 @@ var KTModalNewTarget = (function() {
   };
 
   // Handle form validation and submittion
-  var handleForm = function() {
+  const handleForm = function() {
     // Stepper custom navigation
 
     // Init form validation rules. For more info check the FormValidation plugin's official documentation:https://formvalidation.io/
@@ -103,16 +101,15 @@ var KTModalNewTarget = (function() {
         validator.validate().then(function(status) {
           console.log('validated!');
 
-          if (status == 'Valid') {
+          if (status === 'Valid') {
             submitButton.setAttribute('data-kt-indicator', 'on');
 
             // Disable button to avoid multiple click
             submitButton.disabled = true;
 
             setTimeout(function() {
-              //form.submit(); // Submit form
-              var formData = new FormData(form); // Create FormData object from form
-              var formDataObject = {}; // Create an empty object to store form data as key-value pairs
+              const formData = new FormData(form); // Create FormData object from form
+              const formDataObject = {}; // Create an empty object to store form data as key-value pairs
 
               // Loop through FormData entries and populate formDataObject
               formData.forEach(function(value, key) {
@@ -123,9 +120,9 @@ var KTModalNewTarget = (function() {
                 } else if (key === 'due_date') {
                   formDataObject['dueDate'] = new Date(value);
                 } else if (key === 'tags') {
-                  var tagsArray = [];
+                  const tagsArray = [];
                   const tagsInput = JSON.parse(value);
-                  for (var i = 0; i < tagsInput.length; i++) {
+                  for (let i = 0; i < tagsInput.length; i++) {
                     tagsArray.push(tagsInput[i].value);
                   }
                   formDataObject['tags'] = tagsArray;
@@ -143,7 +140,7 @@ var KTModalNewTarget = (function() {
               formDataObject['status'] = 'created';
 
               // Now you can send the form data to your server using an HTTP request (e.g., AJAX)
-              fetch('http://127.0.0.1:8000/api/v1/tickets', {
+              fetch('/api/v1/tickets', {
                 method: 'POST',
                 body: JSON.stringify(formDataObject), // Convert form data object to JSON string
                 headers: {
@@ -256,8 +253,3 @@ var KTModalNewTarget = (function() {
     }
   };
 })();
-
-// On document ready
-KTUtil.onDOMContentLoaded(function() {
-  KTModalNewTarget.init();
-});

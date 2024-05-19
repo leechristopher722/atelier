@@ -1,14 +1,12 @@
-'use strict';
-
 // Class definition
-function TicketComment(ticketId) {
-  var commentContainer;
-  var commentInput;
-  var commentSubmitBtn;
-  var commentMessages;
-  var commentOpenBtn;
+export function TicketComment(ticketId) {
+  let commentContainer;
+  let commentInput;
+  let commentSubmitBtn;
+  let commentMessages;
+  let commentOpenBtn;
 
-  var firstOpen;
+  let firstOpen;
 
   // Function to scroll to the bottom of the comment body
   function scrollToBottom() {
@@ -29,7 +27,7 @@ function TicketComment(ticketId) {
   }
 
   const fetchData = () => {
-    fetch(`http://127.0.0.1:8000/api/v1/tickets/${ticketId}/comments`, {
+    fetch(`/api/v1/tickets/${ticketId}/comments`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json'
@@ -104,7 +102,7 @@ function TicketComment(ticketId) {
   };
 
   // Private functions
-  var initSettings = function() {
+  const initSettings = function() {
     // toggle UI
     commentOpenBtn.addEventListener('click', function() {
       commentContainer.classList.toggle('d-none');
@@ -118,13 +116,13 @@ function TicketComment(ticketId) {
     // commentMessages.addEventListener('input', scrollToBottom);
   };
 
-  var handleCommentInput = function() {
+  const handleCommentInput = function() {
     commentSubmitBtn.addEventListener('click', function(e) {
       e.preventDefault();
 
-      var body = { content: commentInput.value };
+      const body = { content: commentInput.value };
 
-      fetch(`http://127.0.0.1:8000/api/v1/tickets/${ticketId}/comments`, {
+      fetch(`/api/v1/tickets/${ticketId}/comments`, {
         method: 'POST',
         body: JSON.stringify(body),
         headers: {
@@ -153,7 +151,7 @@ function TicketComment(ticketId) {
           </div>`;
           commentMessages.appendChild(listItem);
           commentInput.value = '';
-          var commentCount = document.getElementById(
+          const commentCount = document.getElementById(
             `comment_count_${ticketId}`
           );
           commentCount.textContent = Number(commentCount.textContent) + 1;
@@ -176,40 +174,25 @@ function TicketComment(ticketId) {
 
   // Public methods
   return {
-    init: function(button, ticketId) {
+    init: function(button) {
       commentContainer = document.getElementById(
-        'ticket_comment_container_' + ticketId
+        `ticket_comment_container_${ticketId}`
       );
       commentInput = document.getElementById(
-        'ticket_comment_input_' + ticketId
+        `ticket_comment_input_${ticketId}`
       );
       commentSubmitBtn = document.getElementById(
-        'ticket_comment_send_' + ticketId
+        `ticket_comment_send_${ticketId}`
       );
       commentMessages = document.getElementById(
-        'ticket_comment_messages_' + ticketId
+        `ticket_comment_messages_${ticketId}`
       );
       commentOpenBtn = button;
 
       firstOpen = true;
-      ticketId = ticketId;
 
       initSettings();
       handleCommentInput();
     }
   };
 }
-
-// On document ready
-KTUtil.onDOMContentLoaded(function() {
-  var commentOpenBtns = document.querySelectorAll(
-    '[id^="ticket_comment_view_"]'
-  );
-
-  commentOpenBtns.forEach(function(el) {
-    var id = el.id;
-    var ticketId = id.replace('ticket_comment_view_', '');
-    var ticketCommentInstance = new TicketComment(ticketId);
-    ticketCommentInstance.init(el, ticketId);
-  });
-});

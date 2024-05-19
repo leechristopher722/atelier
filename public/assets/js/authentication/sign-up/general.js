@@ -256,7 +256,7 @@ var KTSignupGeneral = (function() {
 
           // Check axios library docs: https://axios-http.com/docs/intro
           axios
-            .post('http://127.0.0.1:8000/api/v1/users/signup', inputData)
+            .post('/api/v1/users/signup', inputData)
             .then(function(response) {
               if (response) {
                 form.reset();

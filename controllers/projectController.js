@@ -1,7 +1,7 @@
 const Project = require('./../models/projectModel');
 const catchAsync = require('./../utils/catchAsync');
 const factory = require('./handlerFactory');
-const User = require('./../models/userModel');
+// const User = require('./../models/userModel');
 const AppError = require('./../utils/appError');
 const emailToId = require('./../utils/emailToId');
 

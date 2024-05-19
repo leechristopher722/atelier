@@ -24,17 +24,28 @@ html
                       span.path1
                       span.path2
                       span.path3
-                input.form-control.form-control-solid(type="text", value=`${ticket.name}`, name="target_title")
+                input.form-control.form-control-solid(type="text", value=ticket.name, name="target_title")
               .row.g-9.mb-8
                 .col-md-6.fv-row
-                  label.required.fs-6.fw-semibold.mb-2 Assign To
-                  select.form-select.form-select-solid(data-control="select2", data-hide-search="true", data-placeholder="Select a Team Member", name="target_assign")
-                    option(value="0") Select user...
-                    option(value="1") Karina Clark
-                    option(value="2") Robert Doe
-                    option(value="3") Niel Owen
-                    option(value="4") Olivia Wild
-                    option(value="5") Sean Bean
+                  label.fs-6.fw-semibold.mb-2 Created By                 
+                  a.d-flex.align-items-center.p-3.rounded.bg-state-light.bg-state-opacity-50.mb-1(href="#")
+                    .symbol.symbol-35px.symbol-circle.me-5
+                      img(alt="Pic", src="assets/media/avatars/300-1.jpg")
+                    .fw-semibold
+                      span.fs-6.text-gray-800.me-2 #{ticket.assignedBy.name}
+                      span.badge.badge-light Software Enginer
+                .col-md-6.fv-row
+                  label.required.fs-6.fw-semibold.mb-2 Status
+                  select.form-select.form-select-solid(data-control="select2", data-hide-search="true", data-placeholder="Set project status", name="target_status")
+                    option(value='created' selected=ticket.status==='created') Created
+                    option(value='in_progress' selected=ticket.status==='in_progress') In Progress
+                    option(value='in_progress' selected=ticket.status==='completed') Completed
+              .row.g-9.mb-8
+                .col-md-6.fv-row
+                  label.required.fs-6.fw-semibold.mb-2 Assign To                  
+                  select.form-select.form-select-solid(data-control="select2", data-hide-search="true", data-placeholder="Select a Team Member", name="target_assign", multiple)
+                    each member in project.members
+                      option(value=member._id selected=ticket.assignedTo.some(assigned => assigned._id.toString() === member._id.toString())) #{member.name}
                 .col-md-6.fv-row
                   label.required.fs-6.fw-semibold.mb-2 Due Date
                   .position-relative.d-flex.align-items-center
@@ -45,23 +56,19 @@ html
                       span.path4
                       span.path5
                       span.path6
-                    input.form-control.form-control-solid.ps-12(value=`${ticket.dueDate}`, name="due_date")
+                    input.form-control.form-control-solid.ps-12(value=ticket.dueDate, name="due_date")
               .d-flex.flex-column.mb-8
                 label.fs-6.fw-semibold.mb-2 Description
                 textarea.form-control.form-control-solid(rows="3", name="target_details")= ticket.description
               .d-flex.flex-column.mb-8.fv-row
                 label.d-flex.align-items-center.fs-6.fw-semibold.mb-2
                   span.required Tags 
-                    //- i.ki-duotone.ki-information-5.text-gray-500.fs-6
-                    //-   span.path1
-                    //-   span.path2
-                    //-   span.path3
                 - var modifiedTags = `${ticket.tags}`.replace(',', ', ')
-                input.form-control.form-control-solid(value=`${modifiedTags}`, name="tags")
+                input.form-control.form-control-solid(value=modifiedTags, name="tags")
               .text-center
                 button.btn.btn-light.me-3(type="reset", id=`kt_modal_update_ticket_cancel_${ticket._id}`) Cancel
-                button.btn.btn-primary(type="submit", id=`kt_modal_update_ticket_submit_${ticket._id}` data-value=`${ticket.name}`)
-                  span.indicator-label Submit
+                button.btn.btn-primary(type="submit", id=`kt_modal_update_ticket_submit_${ticket._id}` data-value=ticket.name)
+                  span.indicator-label Save
                   span.indicator-progress
                     | Please wait...
                     span.spinner-border.spinner-border-sm.align-middle.ms-2

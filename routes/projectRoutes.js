@@ -21,7 +21,7 @@ router
 router
   .route('/:id')
   .get(projectController.getProject)
-  .patch(projectController.updateProject)
+  .patch(projectController.editMembers, projectController.updateProject)
   .delete(
     authController.restrictTo('admin', 'project manager'),
     projectController.deleteProject

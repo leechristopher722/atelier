@@ -12,8 +12,165 @@ block content
         // begin::Content container
         .app-container.container-xxl(id="kt_app_content_container")
           // begin::Navbar
-          include ../../partials/_projectHeader
-          // end::Navbar
+          .card.mb-6.mb-xl-9
+            .card-body.pt-9.pb-0
+              // begin::Details
+              .d-flex.flex-wrap.flex-sm-nowrap.mb-6
+                // begin::Image
+                .d-flex.flex-center.flex-shrink-0.bg-light.rounded.w-100px.h-100px.w-lg-150px.h-lg-150px.me-7.mb-4
+                  img.mw-50px.mw-lg-75px(src=`assets/media/svg/brand-logos/${project.name}.svg`, alt="image")
+                // end::Image
+                // begin::Wrapper
+                .flex-grow-1
+                  // begin::Head
+                  .d-flex.justify-content-between.align-items-start.flex-wrap.mb-2
+                    // begin::Details
+                    .d-flex.flex-column
+                      // begin::Status
+                      .d-flex.align-items-center.mb-1
+                        a.text-gray-800.text-hover-primary.fs-2.fw-bold.me-3(href="#") #{project.name}
+                        span.badge.badge-light-success.me-auto #{project.status}
+                      // end::Status
+                      // begin::Description
+                      .d-flex.flex-wrap.fw-semibold.mb-4.fs-5.text-gray-500 #{project.summary}
+                      // end::Description
+                    // end::Details
+                    // begin::Actions
+                    .d-flex.mb-4
+                      a.btn.btn-sm.btn-bg-light.btn-active-color-primary.me-3(href="#", data-bs-toggle="modal", data-bs-target="#kt_modal_users_search") Add Member
+                      a.btn.btn-sm.btn-primary.me-3(href="#", data-bs-toggle="modal", data-bs-target="#kt_modal_new_target") Add Ticket
+                      // begin::Menu
+                      .me-0
+                        button.btn.btn-sm.btn-icon.btn-bg-light.btn-active-color-primary(data-kt-menu-trigger="click", data-kt-menu-placement="bottom-end")
+                          i.ki-solid.ki-dots-horizontal.fs-2x
+                        // begin::Menu 3
+                        .menu.menu-sub.menu-sub-dropdown.menu-column.menu-rounded.menu-gray-800.menu-state-bg-light-primary.fw-semibold.w-200px.py-3(data-kt-menu="true")
+                          // begin::Heading
+                          .menu-item.px-3
+                            .menu-content.text-muted.pb-2.px-3.fs-7.text-uppercase Payments
+                          // end::Heading
+                          // begin::Menu item
+                          .menu-item.px-3
+                            a.menu-link.px-3(href="#") Create Invoice
+                          // end::Menu item
+                          // begin::Menu item
+                          .menu-item.px-3
+                            a.menu-link.flex-stack.px-3(href="#")
+                              | Create Payment
+                              span.ms-2(data-bs-toggle="tooltip", title="Specify a target name for future usage and reference")
+                                i.ki-duotone.ki-information.fs-6
+                                  span.path1
+                                  span.path2
+                                  span.path3
+                          // end::Menu item
+                          // begin::Menu item
+                          .menu-item.px-3
+                            a.menu-link.px-3(href="#") Generate Bill
+                          // end::Menu item
+                          // begin::Menu item
+                          .menu-item.px-3(data-kt-menu-trigger="hover", data-kt-menu-placement="right-end")
+                            a.menu-link.px-3(href="#")
+                              span.menu-title Subscription
+                              span.menu-arrow
+                            // begin::Menu sub
+                            .menu-sub.menu-sub-dropdown.w-175px.py-4
+                              // begin::Menu item
+                              .menu-item.px-3
+                                a.menu-link.px-3(href="#") Plans
+                              // end::Menu item
+                              // begin::Menu item
+                              .menu-item.px-3
+                                a.menu-link.px-3(href="#") Billing
+                              // end::Menu item
+                              // begin::Menu item
+                              .menu-item.px-3
+                                a.menu-link.px-3(href="#") Statements
+                              // end::Menu item
+                              // begin::Menu separator
+                              .separator.my-2
+                              // end::Menu separator
+                              // begin::Menu item
+                              .menu-item.px-3
+                                .menu-content.px-3
+                                  // begin::Switch
+                                  label.form-check.form-switch.form-check-custom.form-check-solid
+                                    // begin::Input
+                                    input.form-check-input.w-30px.h-20px(type="checkbox", value="1", checked="checked", name="notifications")
+                                    // end::Input
+                                    // end::Label
+                                    span.form-check-label.text-muted.fs-6 Recuring
+                                    // end::Label
+                                  // end::Switch
+                              // end::Menu item
+                            // end::Menu sub
+                          // end::Menu item
+                          // begin::Menu item
+                          .menu-item.px-3.my-1
+                            a.menu-link.px-3(href="#") Settings
+                          // end::Menu item
+                        // end::Menu 3
+                      // end::Menu
+                    // end::Actions
+                  // end::Head
+                  // begin::Info
+                  .d-flex.flex-wrap.justify-content-start
+                    // begin::Stats
+                    .d-flex.flex-wrap
+                      // begin::Stat
+                      .border.border-gray-300.border-dashed.rounded.min-w-125px.py-3.px-4.me-6.mb-3
+                        // begin::Number
+                        .d-flex.align-items-center
+                          .fs-4.fw-bold #{project.createdAtClean}
+                        // end::Number
+                        // begin::Label
+                        .fw-semibold.fs-6.text-gray-500 Start Date
+                        // end::Label
+                      // end::Stat
+                      // begin::Stat
+                      .border.border-gray-300.border-dashed.rounded.min-w-125px.py-3.px-4.me-6.mb-3
+                        // begin::Number
+                        .d-flex.align-items-center
+                          i.ki-duotone.ki-arrow-down.fs-3.text-danger.me-2
+                            span.path1
+                            span.path2
+                          .fs-4.fw-bold(data-kt-countup="true", data-kt-countup-value="75") 0
+                        // end::Number
+                        // begin::Label
+                        .fw-semibold.fs-6.text-gray-500 Open Tasks
+                        // end::Label
+                      // end::Stat
+                      // begin::Stat
+                      .border.border-gray-300.border-dashed.rounded.min-w-125px.py-3.px-4.me-6.mb-3
+                        // begin::Number
+                        .d-flex.align-items-center
+                          i.ki-duotone.ki-arrow-up.fs-3.text-success.me-2
+                            span.path1
+                            span.path2
+                          .fs-4.fw-bold(data-kt-countup="true", data-kt-countup-value="15000", data-kt-countup-prefix="$") 0
+                        // end::Number
+                        // begin::Label
+                        .fw-semibold.fs-6.text-gray-500 Budget Spent
+                        // end::Label
+                      // end::Stat
+                    // end::Stats
+                    // begin::Users
+                    .symbol-group.symbol-hover.mb-3
+                      each member in project.members
+                        .symbol.symbol-35px.symbol-circle(data-bs-toggle="tooltip", title=`${member.name}`)
+                          - if (member.profileImage) 
+                            img(alt="Pic", src=`assets/media/avatars/${member.profileImage}.jpg`)
+                          - else
+                            - var firstChar = member.name.charAt(0).toUpperCase()
+                            span.symbol-label.bg-primary.text-inverse-primary.fw-bold #{firstChar}
+                      // begin::All users
+                      a.symbol.symbol-35px.symbol-circle(href="#", data-bs-toggle="modal", data-bs-target="#kt_modal_view_users")
+                        span.symbol-label.bg-dark.text-inverse-dark.fs-8.fw-bold(data-bs-toggle="tooltip", data-bs-trigger="hover", title="View more users") +42
+                      // end::All users
+                    // end::Users
+                  // end::Info
+                // end::Wrapper
+              // end::Details
+          // end::Navbar          
           // begin::Row
           .row.gx-6.gx-xl-9
             // begin::Col

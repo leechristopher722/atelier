@@ -144,38 +144,13 @@ html
               // end::Stats
               // begin::Users
               .symbol-group.symbol-hover.mb-3
-                // begin::User
-                .symbol.symbol-35px.symbol-circle(data-bs-toggle="tooltip", title="Alan Warden")
-                  span.symbol-label.bg-warning.text-inverse-warning.fw-bold A
-                // end::User
-                // begin::User
-                .symbol.symbol-35px.symbol-circle(data-bs-toggle="tooltip", title="Michael Eberon")
-                  img(alt="Pic", src="assets/media/avatars/300-11.jpg")
-                // end::User
-                // begin::User
-                .symbol.symbol-35px.symbol-circle(data-bs-toggle="tooltip", title="Michelle Swanston")
-                  img(alt="Pic", src="assets/media/avatars/300-7.jpg")
-                // end::User
-                // begin::User
-                .symbol.symbol-35px.symbol-circle(data-bs-toggle="tooltip", title="Francis Mitcham")
-                  img(alt="Pic", src="assets/media/avatars/300-20.jpg")
-                // end::User
-                // begin::User
-                .symbol.symbol-35px.symbol-circle(data-bs-toggle="tooltip", title="Susan Redwood")
-                  span.symbol-label.bg-primary.text-inverse-primary.fw-bold S
-                // end::User
-                // begin::User
-                .symbol.symbol-35px.symbol-circle(data-bs-toggle="tooltip", title="Melody Macy")
-                  img(alt="Pic", src="assets/media/avatars/300-2.jpg")
-                // end::User
-                // begin::User
-                .symbol.symbol-35px.symbol-circle(data-bs-toggle="tooltip", title="Perry Matthew")
-                  span.symbol-label.bg-info.text-inverse-info.fw-bold P
-                // end::User
-                // begin::User
-                .symbol.symbol-35px.symbol-circle(data-bs-toggle="tooltip", title="Barry Walter")
-                  img(alt="Pic", src="assets/media/avatars/300-12.jpg")
-                // end::User
+                each member in project.members
+                  .symbol.symbol-35px.symbol-circle(data-bs-toggle="tooltip", title=`${member.name}`)
+                    - if (member.profileImage) 
+                      img(alt="Pic", src=`assets/media/avatars/${member.profileImage}.jpg`)
+                    - else
+                      - var firstChar = member.name.charAt(0).toUpperCase()
+                      span.symbol-label.bg-primary.text-inverse-primary.fw-bold #{firstChar}
                 // begin::All users
                 a.symbol.symbol-35px.symbol-circle(href="#", data-bs-toggle="modal", data-bs-target="#kt_modal_view_users")
                   span.symbol-label.bg-dark.text-inverse-dark.fs-8.fw-bold(data-bs-toggle="tooltip", data-bs-trigger="hover", title="View more users") +42
@@ -184,28 +159,4 @@ html
             // end::Info
           // end::Wrapper
         // end::Details
-        .separator
-        // begin::Nav
-        ul.nav.nav-stretch.nav-line-tabs.nav-line-tabs-2x.border-transparent.fs-5.fw-bold
-          // begin::Nav item
-          li.nav-item
-            a(class=`nav-link text-active-primary py-5 me-6 ${isOverviewPage}`, href=`/projects/${project.slug}`) Overview
-          // end::Nav item
-          // begin::Nav item
-          li.nav-item
-            a(class=`nav-link text-active-primary py-5 me-6 ${isTicketsPage}`, href=`/projects/${project.slug}/tickets`) Tickets
-          // end::Nav item
-          // begin::Nav item
-          li.nav-item
-            a(class=`nav-link text-active-primary py-5 me-6 ${isMembersPage}`, href=`/projects/${project.slug}/members`) Memebers
-          // end::Nav item
-          // begin::Nav item
-          li.nav-item
-            a(class=`nav-link text-active-primary py-5 me-6 ${isFilesPage}`, href=`apps/projects/files.html`) Files
-          // end::Nav item
-          // begin::Nav item
-          li.nav-item
-            a(class=`nav-link text-active-primary py-5 me-6 ${isSettingsPage}`, href=`apps/projects/settings.html`) Settings
-          // end::Nav item
-        // end::Nav
     // end::Navbar

@@ -114,7 +114,7 @@ block content
                     // end::Label
                     // begin::Col
                     .col-lg-8.fv-row
-                      input.form-control.form-control-lg.form-control-solid(type="text", name="name", placeholder="Name", value=`${user.name}`)
+                      input.form-control.form-control-lg.form-control-solid(type="text", name="name", placeholder="Name", value=user.name)
                     // end::Col
                   // end::Input group
                   // begin::Input group
@@ -124,7 +124,7 @@ block content
                     // end::Label
                     // begin::Col
                     .col-lg-8.fv-row
-                      input.form-control.form-control-lg.form-control-solid(type="text", name="email", placeholder="Email", value=`${user.email}`)
+                      input.form-control.form-control-lg.form-control-solid(type="text", name="email", placeholder="Email", value=user.email)
                     // end::Col
                   // end::Input group
                   // begin::Input group
@@ -156,84 +156,39 @@ block content
               // end::Form
             // end::Content
           // end::Basic info
-          // begin::Sign-in Method
+          // begin::Reset Password
           .card.mb-5.mb-xl-10
             // begin::Card header
             .card-header.border-0.cursor-pointer(role="button", data-bs-toggle="collapse", data-bs-target="#kt_account_signin_method")
               .card-title.m-0
-                h3.fw-bold.m-0 Sign-in Method
+                h3.fw-bold.m-0 Reset Password
             // end::Card header
             // begin::Content
-            .collapse.show(id="kt_account_settings_signin_method")
+            .collapse.show
               // begin::Card body
               .card-body.border-top.p-9
-                // begin::Email Address
-                .d-flex.flex-wrap.align-items-center
-                  // begin::Label
-                  div(id="kt_signin_email")
-                    .fs-6.fw-bold.mb-1 Email Address
-                    .fw-semibold.text-gray-600 support@keenthemes.com
-                  // end::Label
-                  // begin::Edit
-                  .flex-row-fluid.d-none(id="kt_signin_email_edit")
-                    // begin::Form
-                    form.form(id="kt_signin_change_email", novalidate="novalidate")
-                      .row.mb-6
-                        .col-lg-6.mb-4.mb-lg-0
-                          .fv-row.mb-0
-                            label.form-label.fs-6.fw-bold.mb-3(for="emailaddress") Enter New Email Address
-                            input#emailaddress.form-control.form-control-lg.form-control-solid(type="email", placeholder="Email Address", name="emailaddress", value="support@keenthemes.com")
-                        .col-lg-6
-                          .fv-row.mb-0
-                            label.form-label.fs-6.fw-bold.mb-3(for="confirmemailpassword") Confirm Password
-                            input#confirmemailpassword.form-control.form-control-lg.form-control-solid(type="password", name="confirmemailpassword")
-                      .d-flex
-                        button.btn.btn-primary.me-2.px-6(id="kt_signin_submit", type="button") Update Email
-                        button.btn.btn-color-gray-500.btn-active-light-primary.px-6(id="kt_signin_cancel", type="button") Cancel
-                    // end::Form
-                  // end::Edit
-                  // begin::Action
-                  .ms-auto(id="kt_signin_email_button")
-                    button.btn.btn-light.btn-active-light-primary Change Email
-                  // end::Action
-                // end::Email Address
-                // begin::Separator
-                .separator.separator-dashed.my-6
-                // end::Separator
-                // begin::Password
-                .d-flex.flex-wrap.align-items-center.mb-10
-                  // begin::Label
-                  div(id="kt_signin_password")
-                    .fs-6.fw-bold.mb-1 Password
-                    .fw-semibold.text-gray-600 ************
-                  // end::Label
-                  // begin::Edit
-                  .flex-row-fluid.d-none(id="kt_signin_password_edit")
-                    // begin::Form
-                    form.form(id="kt_signin_change_password", novalidate="novalidate")
-                      .row.mb-1
-                        .col-lg-4
-                          .fv-row.mb-0
-                            label.form-label.fs-6.fw-bold.mb-3(for="currentpassword") Current Password
-                            input#currentpassword.form-control.form-control-lg.form-control-solid(type="password", name="currentpassword")
-                        .col-lg-4
-                          .fv-row.mb-0
-                            label.form-label.fs-6.fw-bold.mb-3(for="newpassword") New Password
-                            input#newpassword.form-control.form-control-lg.form-control-solid(type="password", name="newpassword")
-                        .col-lg-4
-                          .fv-row.mb-0
-                            label.form-label.fs-6.fw-bold.mb-3(for="confirmpassword") Confirm New Password
-                            input#confirmpassword.form-control.form-control-lg.form-control-solid(type="password", name="confirmpassword")
-                      .form-text.mb-5 Password must be at least 8 character and contain symbols
-                      .d-flex
-                        button.btn.btn-primary.me-2.px-6(id="kt_password_submit", type="button") Update Password
-                        button.btn.btn-color-gray-500.btn-active-light-primary.px-6(id="kt_password_cancel", type="button") Cancel
-                    // end::Form
-                  // end::Edit
-                  // begin::Action
-                  .ms-auto(id="kt_signin_password_button")
-                    button.btn.btn-light.btn-active-light-primary Reset Password
-                  // end::Action
+                // begin::Password                  
+                .flex-row-fluid
+                  // begin::Form
+                  form.form(id="update_password", novalidate="novalidate")
+                    .row.mb-1
+                      .col-lg-4
+                        .fv-row.mb-0
+                          label.form-label.fs-6.fw-bold.mb-3 Current Password
+                          input#currentpassword.form-control.form-control-lg.form-control-solid(name='currentpassword' type="password")
+                      .col-lg-4
+                        .fv-row.mb-0
+                          label.form-label.fs-6.fw-bold.mb-3 New Password
+                          input#newpassword.form-control.form-control-lg.form-control-solid(name='newpassword' type="password")
+                      .col-lg-4
+                        .fv-row.mb-0
+                          label.form-label.fs-6.fw-bold.mb-3 Confirm New Password
+                          input#confirmpassword.form-control.form-control-lg.form-control-solid(name='confirmpassword' type="password")
+                    .form-text.mb-5 Password must be at least 8 characters
+                    .d-flex.justify-content-end.py-6.px-9
+                      button.btn.btn-color-gray-500.btn-active-light-primary.me-2(id="kt_password_cancel", type="button") Cancel
+                      button.btn.btn-primary(id="password_submit", type="button") Update Password
+                  // end::Form
                 // end::Password
                 // begin::Notice
                 .notice.d-flex.bg-light-primary.rounded.border-primary.border.border-dashed.p-6

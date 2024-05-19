@@ -1,9 +1,9 @@
 // begin::Card
-.card.mb-6.mb-xl-9
+.card.mb-3.mb-xl-3
   // begin::Card body
-  .card-body
+  .card-body-ticket
     // begin::Header
-    .d-flex.flex-stack.mb-3
+    .d-flex.flex-stack.mb-1
       .badges-container
         each tag in ticket.tags
           // begin::Badge
@@ -22,15 +22,11 @@
         .menu.menu-sub.menu-sub-dropdown.menu-column.menu-rounded.menu-gray-800.menu-state-bg-light-primary.fw-semibold.w-200px.py-3(data-kt-menu="true")
           // begin::Heading
           .menu-item.px-3
-            .menu-content.text-muted.pb-2.px-3.fs-7.text-uppercase Ticket Settings
+            .menu-content.text-muted.pb-2.px-3.fs-7.text-uppercase Actions
           // end::Heading
           // begin::Menu item
           .menu-item.px-3
-            a.menu-link.px-3.delete--ticket(data-value=`${ticket._id}`) Delete Ticket
-          // end::Menu item
-          // begin::Menu item
-          .menu-item.px-3
-            a.menu-link.px-3.update--ticket(data-bs-toggle="modal", data-bs-target=`#kt_modal_update_ticket_modal_${ticket._id}` data-value=`${ticket._id}`) Update Ticket
+            a.menu-link.px-3.update--ticket(data-bs-toggle="modal", data-bs-target=`#kt_modal_update_ticket_modal_${ticket._id}` data-value=`${ticket._id}`) View/Edit Ticket
           // end::Menu item
           // begin::Menu item
           .menu-item.px-3(data-kt-menu-trigger="hover", data-kt-menu-placement="right-end")
@@ -54,29 +50,34 @@
             // end::Menu sub
           // end::Menu item
           // begin::Menu item
-          .menu-item.px-3.my-1
-            a.menu-link.px-3(href="#") Settings
+          .menu-item.px-3
+            a.menu-link.px-3.delete--ticket(data-value=`${ticket._id}`) Delete Ticket
           // end::Menu item
         // end::Menu 3
       // end::Menu
     // end::Header
     // begin::Title
-    .mb-2
+    .mb-1
       a.fs-4.fw-bold.mb-1.text-gray-900.text-hover-primary(href="#") #{ticket.name}
     // end::Title
     // begin::Content
-    .fs-6.fw-semibold.text-gray-600.mb-5 #{ticket.description}
+    .fs-6.fw-semibold.text-gray-600.mb-3 #{ticket.description}
     // end::Content
     // begin::Footer
     .d-flex.flex-stack.flex-wrapr
       // begin::Users
       .symbol-group.symbol-hover.my-1
-        .symbol.symbol-35px.symbol-circle(data-bs-toggle="tooltip", title="Melody Macy")
-          img(alt="Pic", src="assets/media/avatars/300-2.jpg")
-        .symbol.symbol-35px.symbol-circle(data-bs-toggle="tooltip", title="Harry Mcpherson")
-          img(alt="Pic", src="assets/media/avatars/300-19.jpg")
-        .symbol.symbol-35px.symbol-circle(data-bs-toggle="tooltip", title="Susan Redwood")
-          span.symbol-label.bg-primary.text-inverse-primary.fw-bold S
+        .symbol.symbol-35px.symbol-circle(data-bs-toggle="tooltip", title=ticket.assignedBy.name)
+          if (ticket.assignedBy.profileImage) 
+            img(alt="Pic", src=`assets/media/avatars/${ticket.assignedBy.profileImage}.jpg`)
+          else
+            span.symbol-label.bg-primary.text-inverse-primary.fw-bold= ticket.assignedBy.name.charAt(0).toUpperCase()
+        each assignee in ticket.assignedTo
+          .symbol.symbol-35px.symbol-circle(data-bs-toggle="tooltip", title=assignee.name)
+            if (assignee.profileImage) 
+              img(alt="Pic", src=`assets/media/avatars/${assignee.profileImage}.jpg`)
+            else
+              span.symbol-label.bg-primary.text-inverse-primary.fw-bold= assignee.name.charAt(0).toUpperCase()
       // end::Users
       // begin::Stats
       .d-flex.my-1
@@ -99,16 +100,16 @@
   // start::Ticket Comment
   .d-flex.flex-column.d-none(id=`ticket_comment_container_${ticket._id}`)
     // start::Ticket Comment Body
-    .card-footer.pt-4
+    .card-footer-ticket.pt-4
       // begin::Messages
       .scroll-y.me-n5.pe-5(style='display: flex; flex-direction: column; max-height: 400px; overflow-y: auto; resize: vertical', id=`ticket_comment_messages_${ticket._id}`)
       // end::Messages
     // end::Ticket Comment body
     // begin::Comment Input Group
-    .card-footer.pt-4
+    .card-footer-ticket.pt-4
       .d-flex.flex-stack
         // begin::Input
-        textarea.form-control.form-control-flush.mb-3(rows="1", data-kt-element="input", placeholder="Add a comment...", id=`ticket_comment_input_${ticket._id}`)
+        textarea.form-control.form-control-flush(rows="1", data-kt-element="input", placeholder="Add a comment...", id=`ticket_comment_input_${ticket._id}`)
         // end::Input
         // begin::Send
         button.btn.btn-primary(type="button", data-kt-element="send", id=`ticket_comment_send_${ticket._id}`) Save

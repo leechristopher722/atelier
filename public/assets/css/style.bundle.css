@@ -36513,6 +36513,19 @@ h6,
   padding: 2rem 2.25rem;
   color: var(--bs-card-color);
 }
+
+.card .card-body-ticket {
+  padding: 1.5rem 1.6875rem;
+  color: var(--bs-card-color);
+}
+
+.card .card-footer-ticket {
+  padding: 1rem 1.6875rem;
+  color: var(--bs-card-cap-color);
+  background-color: var(--bs-card-cap-bg);
+  border-top: 1px solid var(--bs-card-border-color);
+}
+
 .card .card-footer {
   padding: 2rem 2.25rem;
   color: var(--bs-card-cap-color);
@@ -53950,8 +53963,8 @@ body,
     margin-bottom: 0px;
   }
   :root {
-    --bs-app-sidebar-width: 265px;
-    --bs-app-sidebar-width-actual: 265px;
+    --bs-app-sidebar-width: 230px;
+    --bs-app-sidebar-width-actual: 230px;
     --bs-app-sidebar-gap-start: 0px;
     --bs-app-sidebar-gap-end: 0px;
     --bs-app-sidebar-gap-top: 0px;

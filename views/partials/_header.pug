@@ -31,46 +31,40 @@ html
                   span.menu-arrow.d-lg-none
                 // end:Menu link
                 // begin:Menu sub
-                .menu-sub.menu-sub-lg-down-accordion.menu-sub-lg-dropdown.p-0.w-100.w-lg-600px
+                .menu-sub.menu-sub-lg-down-accordion.menu-sub-lg-dropdown.p-0.w-50.w-lg-300px
                   // begin:Dashboards menu
-                  .menu-state-bg.menu-extended.overflow-hidden.overflow-lg-visible.py-2.py-lg-6(data-kt-menu-dismiss="true")
+                  .menu-state-bg.menu-extended.overflow-hidden.overflow-lg-visible.py-2.py-lg-4(data-kt-menu-dismiss="true")
                     // begin:Row
                     .row.px-lg-5
                       // begin:Col
-                      .col-lg-6.py-1
-                        // begin:Menu item
-                        .menu-item.p-0.m-0
-                          // begin:Menu link
-                          a.menu-link(href="/")
-                            span.menu-custom-icon.d-flex.flex-center.flex-shrink-0.rounded.w-40px.h-40px.me-3
-                              i.ki-duotone.ki-abstract-26.text-primary.fs-1
-                                span.path1
-                                span.path2
-                                span.path3
-                                span.path4
-                            span.d-flex.flex-column
-                              span.fs-6.fw-semibold.text-gray-800 Dashboard
-                              span.fs-7.fw-semibold.text-muted View all projects
-                          // end:Menu link
-                        // end:Menu item
-                      // end:Col
-                      each project in projects
-                        // begin:Col
-                        .col-lg-6.py-1
+                      .col-lg-12.py-1
+                        each project in projects  
                           // begin:Menu item
                           .menu-item.p-0.m-0
                             // begin:Menu link
                             a.menu-link(href=`projects/${project.slug}`)
                               span.menu-custom-icon.d-flex.flex-center.flex-shrink-0.rounded.w-40px.h-40px.me-3
-                                i.ki-duotone.ki-abstract-33.text-primary.fs-1
-                                  span.path1
-                                  span.path2
+                                img.p-3(src=`assets/media/svg/brand-logos/${project.name}.svg`, alt="image", style="max-width: 100%; max-height: 100%;")
                               span.d-flex.flex-column
                                 span.fs-6.fw-semibold.text-gray-800 #{project.name}
                                 span.fs-7.fw-semibold.text-muted #{project.summary}
                             // end:Menu link
                           // end:Menu item
-                        // end:Col  
+                        .separator.my-4
+                        // begin:Menu item
+                        .menu-item.p-0.m-0
+                          // begin:Menu link
+                          a.menu-link(href="/")
+                            span.fs-6.fw-semibold.text-gray-800 View all projects
+                          // end:Menu link
+                        // end:Menu item
+                        .menu-item.p-0.m-0
+                          // begin:Menu link
+                          a.menu-link(href="#", data-bs-toggle="modal", data-bs-target="#kt_modal_create_campaign")
+                            span.fs-6.fw-semibold.text-gray-800 Create new project
+                          // end:Menu link
+                        // end:Menu item
+                      // end:Col  
                     // end:Row
                   // end:Dashboards menu
                 // end:Menu sub

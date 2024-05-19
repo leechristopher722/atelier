@@ -70,10 +70,10 @@ const projectSchema = new mongoose.Schema(
     status: {
       type: String,
       enum: {
-        values: ['Planning', 'In Progress', 'Completed'],
-        message: 'Project status is either: Planning, In Progress, or Completed'
+        values: ['Created', 'In Progress', 'Completed'],
+        message: 'Project status is either: Created, In Progress, or Completed'
       },
-      default: 'Planning'
+      default: 'Created'
     }
   },
   {
@@ -127,6 +127,7 @@ projectSchema.pre(/^find/, function(next) {
   // Works on all funciton that starts with find
   // projectSchema.pre('find', function(next) {
   this.find({ isSecret: { $ne: true } });
+  this.sort({ createdAt: -1 });
 
   this.start = Date.now();
   next();
@@ -141,14 +142,15 @@ projectSchema.pre(/^find/, function(next) {
   next();
 });
 
-projectSchema.post(/^find/, function(docs, next) {
-  console.log(`Query took ${Date.now() - this.start} milliseconds`);
-  next();
-});
+// projectSchema.post(/^find/, function(docs, next) {
+//   console.log(`Query took ${Date.now() - this.start} milliseconds`);
+//   next();
+// });
 
 // AGGREGATION MDIDLEWARE: removing secret project in aggregation pipeline
 projectSchema.pre('aggregate', function(next) {
-  this.pipeline().unshift({ $match: { isSecret: { $ne: true } } }); // Aggregation pipeline object (array)
+  // Aggregation pipeline object (array)
+  this.pipeline().unshift({ $match: { isSecret: { $ne: true } } });
   next();
 });
 

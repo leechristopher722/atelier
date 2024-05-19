@@ -11,7 +11,7 @@ block content
           // begin::Page title
           .page-title.d-flex.flex-column.justify-content-center.flex-wrap.me-3
             // begin::Title
-            h1.page-heading.d-flex.text-gray-900.fw-bold.fs-3.flex-column.justify-content-center.my-0 My Projects
+            h1.page-heading.d-flex.text-gray-900.fw-bold.fs-3.flex-column.justify-content-center.my-0 Projects Overview
             // end::Title
             // begin::Breadcrumb
             ul.breadcrumb.breadcrumb-separatorless.fw-semibold.fs-7.my-0.pt-1
@@ -30,21 +30,7 @@ block content
           // end::Page title
           // begin::Actions
           .d-flex.align-items-center.gap-2.gap-lg-3
-            // begin::Filter menu
-            .d-flex
-              select.form-select.form-select-sm.bg-body.border-body.w-175px(name="campaign-type", data-control="select2", data-hide-search="true")
-                option(value="Twitter", selected="selected") Select Campaign
-                option(value="Twitter") Twitter Campaign
-                option(value="Twitter") Facebook Campaign
-                option(value="Twitter") Adword Campaign
-                option(value="Twitter") Carbon Campaign
-              a.btn.btn-icon.btn-sm.btn-success.flex-shrink-0.ms-4(href="#", data-bs-toggle="modal", data-bs-target="#kt_modal_create_campaign")
-                i.ki-duotone.ki-plus.fs-2
-            // end::Filter menu
-            // begin::Secondary button
-            // end::Secondary button
-            // begin::Primary button
-            // end::Primary button
+            a.btn.btn-primary.btn-sm.btn-success.flex-shrink-0.ms-4(href="#", data-bs-toggle="modal", data-bs-target="#kt_modal_create_campaign") Create Project
           // end::Actions
         // end::Toolbar container
       // end::Toolbar
@@ -61,7 +47,7 @@ block content
                 .card-body.p-9
                   // begin::Heading
                   .fs-2hx.fw-bold 237
-                  .fs-4.fw-semibold.text-gray-500.mb-7 Current Projects
+                  .fs-4.fw-semibold.text-gray-500.mb-7 Tickets Assigned
                   // end::Heading
                   // begin::Wrapper
                   .d-flex.flex-wrap
@@ -74,7 +60,7 @@ block content
                       // begin::Label
                       .d-flex.fs-6.fw-semibold.align-items-center.mb-3
                         .bullet.bg-primary.me-3
-                        .text-gray-500 Active
+                        .text-gray-500 In Progress
                         .ms-auto.fw-bold.text-gray-700 30
                       // end::Label
                       // begin::Label
@@ -129,7 +115,7 @@ block content
                 .card-body.p-9
                   // begin::Heading
                   .fs-2hx.fw-bold 49
-                  .fs-4.fw-semibold.text-gray-500.mb-7 Our Clients
+                  .fs-4.fw-semibold.text-gray-500.mb-7 Team Members
                   // end::Heading
                   // begin::Users group
                   .symbol-group.symbol-hover.mb-9
@@ -154,7 +140,7 @@ block content
                   // end::Users group
                   // begin::Actions
                   .d-flex
-                    a.btn.btn-primary.btn-sm.me-3(href="#", data-bs-toggle="modal", data-bs-target="#kt_modal_view_users") All Clients
+                    a.btn.btn-primary.btn-sm.me-3(href="#", data-bs-toggle="modal", data-bs-target="#kt_modal_view_users") All Members
                     a.btn.btn-light.btn-sm(href="#", data-bs-toggle="modal", data-bs-target="#kt_modal_users_search") Invite New
                   // end::Actions
               // end::Clients
@@ -163,7 +149,7 @@ block content
           .d-flex.flex-wrap.flex-stack.my-5
             // begin::Heading
             h2.fs-2.fw-semibold.my-2
-              | Projects
+              | My Projects
               span.fs-6.text-gray-500.ms-1 by Status
             // end::Heading
             // begin::Controls
@@ -172,7 +158,7 @@ block content
               .m-0
                 // begin::Select
                 select.form-select.form-select-sm.bg-body.border-body.fw-bold.w-125px(name="status", data-control="select2", data-hide-search="true")
-                  option(value="Active", selected="selected") Active
+                  option(value="Active", selected="selected") All
                   option(value="Approved") In Progress
                   option(value="Declined") To Do
                   option(value="In Progress") Completed
@@ -198,7 +184,8 @@ block content
                     // end::Card Title
                     // begin::Card toolbar
                     .card-toolbar
-                      span.badge.badge-light-primary.fw-bold.me-auto.px-4.py-3 #{project.status}
+                      span.badge(
+                        class=`${project.status === 'Created' ? 'badge-light-warning' : project.status === 'Completed' ? 'badge-light-success' : 'badge-light-primary'} fw-bold me-auto px-4 py-3`) #{project.status}
                     // end::Card toolbar
                   // end:: Card header
                   // begin:: Card body
@@ -247,7 +234,7 @@ block content
           // end::Row
           // begin::Pagination
           .d-flex.flex-stack.flex-wrap.pt-10
-            .fs-6.fw-semibold.text-gray-700 Showing 1 to 10 of 50 entries
+            .fs-6.fw-semibold.text-gray-700 Showing 1 to 3 of 3 entries
             // begin::Pages
             ul.pagination
               li.page-item.previous
@@ -255,16 +242,6 @@ block content
                   i.previous
               li.page-item.active
                 a.page-link(href="#") 1
-              li.page-item
-                a.page-link(href="#") 2
-              li.page-item
-                a.page-link(href="#") 3
-              li.page-item
-                a.page-link(href="#") 4
-              li.page-item
-                a.page-link(href="#") 5
-              li.page-item
-                a.page-link(href="#") 6
               li.page-item.next
                 a.page-link(href="#")
                   i.next

@@ -1,0 +1,639 @@
+// begin::Modal - Users Search
+.modal.fade(id="kt_modal_users_search", tabindex="-1", aria-hidden="true")
+  // begin::Modal dialog
+  .modal-dialog.modal-dialog-centered.mw-650px
+    // begin::Modal content
+    .modal-content
+      // begin::Modal header
+      .modal-header.pb-0.border-0.justify-content-end
+        // begin::Close
+        .btn.btn-sm.btn-icon.btn-active-color-primary(data-bs-dismiss="modal")
+          i.ki-duotone.ki-cross.fs-1
+            span.path1
+            span.path2
+        // end::Close
+      // begin::Modal header
+      // begin::Modal body
+      .modal-body.scroll-y.mx-5.mx-xl-18.pt-0.pb-15
+        // begin::Content
+        .text-center.mb-13
+          h1.mb-3 Search Users
+          .text-muted.fw-semibold.fs-5 Invite Collaborators To Your Project
+        // end::Content
+        // begin::Search
+        div(id="kt_modal_users_search_handler", data-kt-search-keypress="true", data-kt-search-min-length="2", data-kt-search-enter="enter", data-kt-search-layout="inline")
+          // begin::Form
+          form.w-100.position-relative.mb-5(data-kt-search-element="form", autocomplete="off")
+            // begin::Hidden input(Added to disable form autocomplete)
+            input(type="hidden")
+            // end::Hidden input
+            // begin::Icon
+            i.ki-duotone.ki-magnifier.fs-2.fs-lg-1.text-gray-500.position-absolute.top-50.ms-5.translate-middle-y
+              span.path1
+              span.path2
+            // end::Icon
+            // begin::Input
+            input.form-control.form-control-lg.form-control-solid.px-15(type="text", name="search", placeholder="Search by name or email...", data-kt-search-element="input")
+            // end::Input
+            // begin::Spinner
+            span.position-absolute.top-50.end-0.translate-middle-y.lh-0.d-none.me-5(data-kt-search-element="spinner")
+              span.spinner-border.h-15px.w-15px.align-middle.text-muted
+            // end::Spinner
+            // begin::Reset
+            span.btn.btn-flush.btn-active-color-primary.position-absolute.top-50.end-0.translate-middle-y.lh-0.me-5.d-none(data-kt-search-element="clear")
+              i.ki-duotone.ki-cross.fs-2.fs-lg-1.me-0
+                span.path1
+                span.path2
+            // end::Reset
+          // end::Form
+          // begin::Wrapper
+          .py-5
+            // begin::Suggestions
+            div(data-kt-search-element="suggestions")
+              // begin::Heading
+              h3.fw-semibold.mb-5 Current Members:
+              // end::Heading
+              // begin::Users
+              .mh-375px.scroll-y.me-n7.pe-7
+                each member in project.members
+                  // begin::User
+                  a.d-flex.align-items-center.p-3.rounded.bg-state-light.bg-state-opacity-50.mb-1(href="#")
+                    // begin::Avatar
+                    .symbol.symbol-35px.symbol-circle.me-5
+                      img(alt="Pic", src=`assets/media/avatars/${member.profileImage}.jpg`)
+                    // end::Avatar
+                    // begin::Info
+                    .fw-semibold
+                      span.fs-6.text-gray-800.me-2 #{member.name}
+                      span.badge.badge-light Art Director
+                    // end::Info
+                  // end::User
+                // begin::User
+                a.d-flex.align-items-center.p-3.rounded.bg-state-light.bg-state-opacity-50.mb-1(href="#")
+                  // begin::Avatar
+                  .symbol.symbol-35px.symbol-circle.me-5
+                    span.symbol-label.bg-light-danger.text-danger.fw-semibold M
+                  // end::Avatar
+                  // begin::Info
+                  .fw-semibold
+                    span.fs-6.text-gray-800.me-2 Melody Macy
+                    span.badge.badge-light Marketing Analytic
+                  // end::Info
+                // end::User
+                // begin::User
+                a.d-flex.align-items-center.p-3.rounded.bg-state-light.bg-state-opacity-50.mb-1(href="#")
+                  // begin::Avatar
+                  .symbol.symbol-35px.symbol-circle.me-5
+                    img(alt="Pic", src="assets/media/avatars/300-1.jpg")
+                  // end::Avatar
+                  // begin::Info
+                  .fw-semibold
+                    span.fs-6.text-gray-800.me-2 Max Smith
+                    span.badge.badge-light Software Enginer
+                  // end::Info
+                // end::User
+                // begin::User
+                a.d-flex.align-items-center.p-3.rounded.bg-state-light.bg-state-opacity-50.mb-1(href="#")
+                  // begin::Avatar
+                  .symbol.symbol-35px.symbol-circle.me-5
+                    img(alt="Pic", src="assets/media/avatars/300-5.jpg")
+                  // end::Avatar
+                  // begin::Info
+                  .fw-semibold
+                    span.fs-6.text-gray-800.me-2 Sean Bean
+                    span.badge.badge-light Web Developer
+                  // end::Info
+                // end::User
+                // begin::User
+                a.d-flex.align-items-center.p-3.rounded.bg-state-light.bg-state-opacity-50.mb-1(href="#")
+                  // begin::Avatar
+                  .symbol.symbol-35px.symbol-circle.me-5
+                    img(alt="Pic", src="assets/media/avatars/300-25.jpg")
+                  // end::Avatar
+                  // begin::Info
+                  .fw-semibold
+                    span.fs-6.text-gray-800.me-2 Brian Cox
+                    span.badge.badge-light UI/UX Designer
+                  // end::Info
+                // end::User
+              // end::Users
+            // end::Suggestions
+            // begin::Results(add d-none to below element to hide the users list by default)
+            .d-none(data-kt-search-element="results")
+              // begin::Users
+              .mh-375px.scroll-y.me-n7.pe-7
+                // begin::User
+                .rounded.d-flex.flex-stack.bg-active-lighten.p-4(data-user-id="0")
+                  // begin::Details
+                  .d-flex.align-items-center
+                    // begin::Checkbox
+                    label.form-check.form-check-custom.form-check-solid.me-5
+                      input.form-check-input(type="checkbox", name="users", data-kt-check="true", data-kt-check-target="[data-user-id='0']", value="0")
+                    // end::Checkbox
+                    // begin::Avatar
+                    .symbol.symbol-35px.symbol-circle
+                      img(alt="Pic", src="assets/media/avatars/300-6.jpg")
+                    // end::Avatar
+                    // begin::Details
+                    .ms-5
+                      a.fs-5.fw-bold.text-gray-900.text-hover-primary.mb-2(href="#") Emma Smith
+                      .fw-semibold.text-muted smith@kpmg.com
+                    // end::Details
+                  // end::Details
+                  // begin::Access menu
+                  .ms-2.w-100px
+                    select.form-select.form-select-solid.form-select-sm(data-control="select2", data-hide-search="true")
+                      option(value="1") Guest
+                      option(value="2", selected="selected") Owner
+                      option(value="3") Can Edit
+                  // end::Access menu
+                // end::User
+                // begin::Separator
+                .border-bottom.border-gray-300.border-bottom-dashed
+                // end::Separator
+                // begin::User
+                .rounded.d-flex.flex-stack.bg-active-lighten.p-4(data-user-id="1")
+                  // begin::Details
+                  .d-flex.align-items-center
+                    // begin::Checkbox
+                    label.form-check.form-check-custom.form-check-solid.me-5
+                      input.form-check-input(type="checkbox", name="users", data-kt-check="true", data-kt-check-target="[data-user-id='1']", value="1")
+                    // end::Checkbox
+                    // begin::Avatar
+                    .symbol.symbol-35px.symbol-circle
+                      span.symbol-label.bg-light-danger.text-danger.fw-semibold M
+                    // end::Avatar
+                    // begin::Details
+                    .ms-5
+                      a.fs-5.fw-bold.text-gray-900.text-hover-primary.mb-2(href="#") Melody Macy
+                      .fw-semibold.text-muted melody@altbox.com
+                    // end::Details
+                  // end::Details
+                  // begin::Access menu
+                  .ms-2.w-100px
+                    select.form-select.form-select-solid.form-select-sm(data-control="select2", data-hide-search="true")
+                      option(value="1", selected="selected") Guest
+                      option(value="2") Owner
+                      option(value="3") Can Edit
+                  // end::Access menu
+                // end::User
+                // begin::Separator
+                .border-bottom.border-gray-300.border-bottom-dashed
+                // end::Separator
+                // begin::User
+                .rounded.d-flex.flex-stack.bg-active-lighten.p-4(data-user-id="2")
+                  // begin::Details
+                  .d-flex.align-items-center
+                    // begin::Checkbox
+                    label.form-check.form-check-custom.form-check-solid.me-5
+                      input.form-check-input(type="checkbox", name="users", data-kt-check="true", data-kt-check-target="[data-user-id='2']", value="2")
+                    // end::Checkbox
+                    // begin::Avatar
+                    .symbol.symbol-35px.symbol-circle
+                      img(alt="Pic", src="assets/media/avatars/300-1.jpg")
+                    // end::Avatar
+                    // begin::Details
+                    .ms-5
+                      a.fs-5.fw-bold.text-gray-900.text-hover-primary.mb-2(href="#") Max Smith
+                      .fw-semibold.text-muted max@kt.com
+                    // end::Details
+                  // end::Details
+                  // begin::Access menu
+                  .ms-2.w-100px
+                    select.form-select.form-select-solid.form-select-sm(data-control="select2", data-hide-search="true")
+                      option(value="1") Guest
+                      option(value="2") Owner
+                      option(value="3", selected="selected") Can Edit
+                  // end::Access menu
+                // end::User
+                // begin::Separator
+                .border-bottom.border-gray-300.border-bottom-dashed
+                // end::Separator
+                // begin::User
+                .rounded.d-flex.flex-stack.bg-active-lighten.p-4(data-user-id="3")
+                  // begin::Details
+                  .d-flex.align-items-center
+                    // begin::Checkbox
+                    label.form-check.form-check-custom.form-check-solid.me-5
+                      input.form-check-input(type="checkbox", name="users", data-kt-check="true", data-kt-check-target="[data-user-id='3']", value="3")
+                    // end::Checkbox
+                    // begin::Avatar
+                    .symbol.symbol-35px.symbol-circle
+                      img(alt="Pic", src="assets/media/avatars/300-5.jpg")
+                    // end::Avatar
+                    // begin::Details
+                    .ms-5
+                      a.fs-5.fw-bold.text-gray-900.text-hover-primary.mb-2(href="#") Sean Bean
+                      .fw-semibold.text-muted sean@dellito.com
+                    // end::Details
+                  // end::Details
+                  // begin::Access menu
+                  .ms-2.w-100px
+                    select.form-select.form-select-solid.form-select-sm(data-control="select2", data-hide-search="true")
+                      option(value="1") Guest
+                      option(value="2", selected="selected") Owner
+                      option(value="3") Can Edit
+                  // end::Access menu
+                // end::User
+                // begin::Separator
+                .border-bottom.border-gray-300.border-bottom-dashed
+                // end::Separator
+                // begin::User
+                .rounded.d-flex.flex-stack.bg-active-lighten.p-4(data-user-id="4")
+                  // begin::Details
+                  .d-flex.align-items-center
+                    // begin::Checkbox
+                    label.form-check.form-check-custom.form-check-solid.me-5
+                      input.form-check-input(type="checkbox", name="users", data-kt-check="true", data-kt-check-target="[data-user-id='4']", value="4")
+                    // end::Checkbox
+                    // begin::Avatar
+                    .symbol.symbol-35px.symbol-circle
+                      img(alt="Pic", src="assets/media/avatars/300-25.jpg")
+                    // end::Avatar
+                    // begin::Details
+                    .ms-5
+                      a.fs-5.fw-bold.text-gray-900.text-hover-primary.mb-2(href="#") Brian Cox
+                      .fw-semibold.text-muted brian@exchange.com
+                    // end::Details
+                  // end::Details
+                  // begin::Access menu
+                  .ms-2.w-100px
+                    select.form-select.form-select-solid.form-select-sm(data-control="select2", data-hide-search="true")
+                      option(value="1") Guest
+                      option(value="2") Owner
+                      option(value="3", selected="selected") Can Edit
+                  // end::Access menu
+                // end::User
+                // begin::Separator
+                .border-bottom.border-gray-300.border-bottom-dashed
+                // end::Separator
+                // begin::User
+                .rounded.d-flex.flex-stack.bg-active-lighten.p-4(data-user-id="5")
+                  // begin::Details
+                  .d-flex.align-items-center
+                    // begin::Checkbox
+                    label.form-check.form-check-custom.form-check-solid.me-5
+                      input.form-check-input(type="checkbox", name="users", data-kt-check="true", data-kt-check-target="[data-user-id='5']", value="5")
+                    // end::Checkbox
+                    // begin::Avatar
+                    .symbol.symbol-35px.symbol-circle
+                      span.symbol-label.bg-light-warning.text-warning.fw-semibold C
+                    // end::Avatar
+                    // begin::Details
+                    .ms-5
+                      a.fs-5.fw-bold.text-gray-900.text-hover-primary.mb-2(href="#") Mikaela Collins
+                      .fw-semibold.text-muted mik@pex.com
+                    // end::Details
+                  // end::Details
+                  // begin::Access menu
+                  .ms-2.w-100px
+                    select.form-select.form-select-solid.form-select-sm(data-control="select2", data-hide-search="true")
+                      option(value="1") Guest
+                      option(value="2", selected="selected") Owner
+                      option(value="3") Can Edit
+                  // end::Access menu
+                // end::User
+                // begin::Separator
+                .border-bottom.border-gray-300.border-bottom-dashed
+                // end::Separator
+                // begin::User
+                .rounded.d-flex.flex-stack.bg-active-lighten.p-4(data-user-id="6")
+                  // begin::Details
+                  .d-flex.align-items-center
+                    // begin::Checkbox
+                    label.form-check.form-check-custom.form-check-solid.me-5
+                      input.form-check-input(type="checkbox", name="users", data-kt-check="true", data-kt-check-target="[data-user-id='6']", value="6")
+                    // end::Checkbox
+                    // begin::Avatar
+                    .symbol.symbol-35px.symbol-circle
+                      img(alt="Pic", src="assets/media/avatars/300-9.jpg")
+                    // end::Avatar
+                    // begin::Details
+                    .ms-5
+                      a.fs-5.fw-bold.text-gray-900.text-hover-primary.mb-2(href="#") Francis Mitcham
+                      .fw-semibold.text-muted f.mit@kpmg.com
+                    // end::Details
+                  // end::Details
+                  // begin::Access menu
+                  .ms-2.w-100px
+                    select.form-select.form-select-solid.form-select-sm(data-control="select2", data-hide-search="true")
+                      option(value="1") Guest
+                      option(value="2") Owner
+                      option(value="3", selected="selected") Can Edit
+                  // end::Access menu
+                // end::User
+                // begin::Separator
+                .border-bottom.border-gray-300.border-bottom-dashed
+                // end::Separator
+                // begin::User
+                .rounded.d-flex.flex-stack.bg-active-lighten.p-4(data-user-id="7")
+                  // begin::Details
+                  .d-flex.align-items-center
+                    // begin::Checkbox
+                    label.form-check.form-check-custom.form-check-solid.me-5
+                      input.form-check-input(type="checkbox", name="users", data-kt-check="true", data-kt-check-target="[data-user-id='7']", value="7")
+                    // end::Checkbox
+                    // begin::Avatar
+                    .symbol.symbol-35px.symbol-circle
+                      span.symbol-label.bg-light-danger.text-danger.fw-semibold O
+                    // end::Avatar
+                    // begin::Details
+                    .ms-5
+                      a.fs-5.fw-bold.text-gray-900.text-hover-primary.mb-2(href="#") Olivia Wild
+                      .fw-semibold.text-muted olivia@corpmail.com
+                    // end::Details
+                  // end::Details
+                  // begin::Access menu
+                  .ms-2.w-100px
+                    select.form-select.form-select-solid.form-select-sm(data-control="select2", data-hide-search="true")
+                      option(value="1") Guest
+                      option(value="2", selected="selected") Owner
+                      option(value="3") Can Edit
+                  // end::Access menu
+                // end::User
+                // begin::Separator
+                .border-bottom.border-gray-300.border-bottom-dashed
+                // end::Separator
+                // begin::User
+                .rounded.d-flex.flex-stack.bg-active-lighten.p-4(data-user-id="8")
+                  // begin::Details
+                  .d-flex.align-items-center
+                    // begin::Checkbox
+                    label.form-check.form-check-custom.form-check-solid.me-5
+                      input.form-check-input(type="checkbox", name="users", data-kt-check="true", data-kt-check-target="[data-user-id='8']", value="8")
+                    // end::Checkbox
+                    // begin::Avatar
+                    .symbol.symbol-35px.symbol-circle
+                      span.symbol-label.bg-light-primary.text-primary.fw-semibold N
+                    // end::Avatar
+                    // begin::Details
+                    .ms-5
+                      a.fs-5.fw-bold.text-gray-900.text-hover-primary.mb-2(href="#") Neil Owen
+                      .fw-semibold.text-muted owen.neil@gmail.com
+                    // end::Details
+                  // end::Details
+                  // begin::Access menu
+                  .ms-2.w-100px
+                    select.form-select.form-select-solid.form-select-sm(data-control="select2", data-hide-search="true")
+                      option(value="1", selected="selected") Guest
+                      option(value="2") Owner
+                      option(value="3") Can Edit
+                  // end::Access menu
+                // end::User
+                // begin::Separator
+                .border-bottom.border-gray-300.border-bottom-dashed
+                // end::Separator
+                // begin::User
+                .rounded.d-flex.flex-stack.bg-active-lighten.p-4(data-user-id="9")
+                  // begin::Details
+                  .d-flex.align-items-center
+                    // begin::Checkbox
+                    label.form-check.form-check-custom.form-check-solid.me-5
+                      input.form-check-input(type="checkbox", name="users", data-kt-check="true", data-kt-check-target="[data-user-id='9']", value="9")
+                    // end::Checkbox
+                    // begin::Avatar
+                    .symbol.symbol-35px.symbol-circle
+                      img(alt="Pic", src="assets/media/avatars/300-23.jpg")
+                    // end::Avatar
+                    // begin::Details
+                    .ms-5
+                      a.fs-5.fw-bold.text-gray-900.text-hover-primary.mb-2(href="#") Dan Wilson
+                      .fw-semibold.text-muted dam@consilting.com
+                    // end::Details
+                  // end::Details
+                  // begin::Access menu
+                  .ms-2.w-100px
+                    select.form-select.form-select-solid.form-select-sm(data-control="select2", data-hide-search="true")
+                      option(value="1") Guest
+                      option(value="2") Owner
+                      option(value="3", selected="selected") Can Edit
+                  // end::Access menu
+                // end::User
+                // begin::Separator
+                .border-bottom.border-gray-300.border-bottom-dashed
+                // end::Separator
+                // begin::User
+                .rounded.d-flex.flex-stack.bg-active-lighten.p-4(data-user-id="10")
+                  // begin::Details
+                  .d-flex.align-items-center
+                    // begin::Checkbox
+                    label.form-check.form-check-custom.form-check-solid.me-5
+                      input.form-check-input(type="checkbox", name="users", data-kt-check="true", data-kt-check-target="[data-user-id='10']", value="10")
+                    // end::Checkbox
+                    // begin::Avatar
+                    .symbol.symbol-35px.symbol-circle
+                      span.symbol-label.bg-light-danger.text-danger.fw-semibold E
+                    // end::Avatar
+                    // begin::Details
+                    .ms-5
+                      a.fs-5.fw-bold.text-gray-900.text-hover-primary.mb-2(href="#") Emma Bold
+                      .fw-semibold.text-muted emma@intenso.com
+                    // end::Details
+                  // end::Details
+                  // begin::Access menu
+                  .ms-2.w-100px
+                    select.form-select.form-select-solid.form-select-sm(data-control="select2", data-hide-search="true")
+                      option(value="1") Guest
+                      option(value="2", selected="selected") Owner
+                      option(value="3") Can Edit
+                  // end::Access menu
+                // end::User
+                // begin::Separator
+                .border-bottom.border-gray-300.border-bottom-dashed
+                // end::Separator
+                // begin::User
+                .rounded.d-flex.flex-stack.bg-active-lighten.p-4(data-user-id="11")
+                  // begin::Details
+                  .d-flex.align-items-center
+                    // begin::Checkbox
+                    label.form-check.form-check-custom.form-check-solid.me-5
+                      input.form-check-input(type="checkbox", name="users", data-kt-check="true", data-kt-check-target="[data-user-id='11']", value="11")
+                    // end::Checkbox
+                    // begin::Avatar
+                    .symbol.symbol-35px.symbol-circle
+                      img(alt="Pic", src="assets/media/avatars/300-12.jpg")
+                    // end::Avatar
+                    // begin::Details
+                    .ms-5
+                      a.fs-5.fw-bold.text-gray-900.text-hover-primary.mb-2(href="#") Ana Crown
+                      .fw-semibold.text-muted ana.cf@limtel.com
+                    // end::Details
+                  // end::Details
+                  // begin::Access menu
+                  .ms-2.w-100px
+                    select.form-select.form-select-solid.form-select-sm(data-control="select2", data-hide-search="true")
+                      option(value="1", selected="selected") Guest
+                      option(value="2") Owner
+                      option(value="3") Can Edit
+                  // end::Access menu
+                // end::User
+                // begin::Separator
+                .border-bottom.border-gray-300.border-bottom-dashed
+                // end::Separator
+                // begin::User
+                .rounded.d-flex.flex-stack.bg-active-lighten.p-4(data-user-id="12")
+                  // begin::Details
+                  .d-flex.align-items-center
+                    // begin::Checkbox
+                    label.form-check.form-check-custom.form-check-solid.me-5
+                      input.form-check-input(type="checkbox", name="users", data-kt-check="true", data-kt-check-target="[data-user-id='12']", value="12")
+                    // end::Checkbox
+                    // begin::Avatar
+                    .symbol.symbol-35px.symbol-circle
+                      span.symbol-label.bg-light-info.text-info.fw-semibold A
+                    // end::Avatar
+                    // begin::Details
+                    .ms-5
+                      a.fs-5.fw-bold.text-gray-900.text-hover-primary.mb-2(href="#") Robert Doe
+                      .fw-semibold.text-muted robert@benko.com
+                    // end::Details
+                  // end::Details
+                  // begin::Access menu
+                  .ms-2.w-100px
+                    select.form-select.form-select-solid.form-select-sm(data-control="select2", data-hide-search="true")
+                      option(value="1") Guest
+                      option(value="2") Owner
+                      option(value="3", selected="selected") Can Edit
+                  // end::Access menu
+                // end::User
+                // begin::Separator
+                .border-bottom.border-gray-300.border-bottom-dashed
+                // end::Separator
+                // begin::User
+                .rounded.d-flex.flex-stack.bg-active-lighten.p-4(data-user-id="13")
+                  // begin::Details
+                  .d-flex.align-items-center
+                    // begin::Checkbox
+                    label.form-check.form-check-custom.form-check-solid.me-5
+                      input.form-check-input(type="checkbox", name="users", data-kt-check="true", data-kt-check-target="[data-user-id='13']", value="13")
+                    // end::Checkbox
+                    // begin::Avatar
+                    .symbol.symbol-35px.symbol-circle
+                      img(alt="Pic", src="assets/media/avatars/300-13.jpg")
+                    // end::Avatar
+                    // begin::Details
+                    .ms-5
+                      a.fs-5.fw-bold.text-gray-900.text-hover-primary.mb-2(href="#") John Miller
+                      .fw-semibold.text-muted miller@mapple.com
+                    // end::Details
+                  // end::Details
+                  // begin::Access menu
+                  .ms-2.w-100px
+                    select.form-select.form-select-solid.form-select-sm(data-control="select2", data-hide-search="true")
+                      option(value="1") Guest
+                      option(value="2") Owner
+                      option(value="3", selected="selected") Can Edit
+                  // end::Access menu
+                // end::User
+                // begin::Separator
+                .border-bottom.border-gray-300.border-bottom-dashed
+                // end::Separator
+                // begin::User
+                .rounded.d-flex.flex-stack.bg-active-lighten.p-4(data-user-id="14")
+                  // begin::Details
+                  .d-flex.align-items-center
+                    // begin::Checkbox
+                    label.form-check.form-check-custom.form-check-solid.me-5
+                      input.form-check-input(type="checkbox", name="users", data-kt-check="true", data-kt-check-target="[data-user-id='14']", value="14")
+                    // end::Checkbox
+                    // begin::Avatar
+                    .symbol.symbol-35px.symbol-circle
+                      span.symbol-label.bg-light-success.text-success.fw-semibold L
+                    // end::Avatar
+                    // begin::Details
+                    .ms-5
+                      a.fs-5.fw-bold.text-gray-900.text-hover-primary.mb-2(href="#") Lucy Kunic
+                      .fw-semibold.text-muted lucy.m@fentech.com
+                    // end::Details
+                  // end::Details
+                  // begin::Access menu
+                  .ms-2.w-100px
+                    select.form-select.form-select-solid.form-select-sm(data-control="select2", data-hide-search="true")
+                      option(value="1") Guest
+                      option(value="2", selected="selected") Owner
+                      option(value="3") Can Edit
+                  // end::Access menu
+                // end::User
+                // begin::Separator
+                .border-bottom.border-gray-300.border-bottom-dashed
+                // end::Separator
+                // begin::User
+                .rounded.d-flex.flex-stack.bg-active-lighten.p-4(data-user-id="15")
+                  // begin::Details
+                  .d-flex.align-items-center
+                    // begin::Checkbox
+                    label.form-check.form-check-custom.form-check-solid.me-5
+                      input.form-check-input(type="checkbox", name="users", data-kt-check="true", data-kt-check-target="[data-user-id='15']", value="15")
+                    // end::Checkbox
+                    // begin::Avatar
+                    .symbol.symbol-35px.symbol-circle
+                      img(alt="Pic", src="assets/media/avatars/300-21.jpg")
+                    // end::Avatar
+                    // begin::Details
+                    .ms-5
+                      a.fs-5.fw-bold.text-gray-900.text-hover-primary.mb-2(href="#") Ethan Wilder
+                      .fw-semibold.text-muted ethan@loop.com.au
+                    // end::Details
+                  // end::Details
+                  // begin::Access menu
+                  .ms-2.w-100px
+                    select.form-select.form-select-solid.form-select-sm(data-control="select2", data-hide-search="true")
+                      option(value="1", selected="selected") Guest
+                      option(value="2") Owner
+                      option(value="3") Can Edit
+                  // end::Access menu
+                // end::User
+                // begin::Separator
+                .border-bottom.border-gray-300.border-bottom-dashed
+                // end::Separator
+                // begin::User
+                .rounded.d-flex.flex-stack.bg-active-lighten.p-4(data-user-id="16")
+                  // begin::Details
+                  .d-flex.align-items-center
+                    // begin::Checkbox
+                    label.form-check.form-check-custom.form-check-solid.me-5
+                      input.form-check-input(type="checkbox", name="users", data-kt-check="true", data-kt-check-target="[data-user-id='16']", value="16")
+                    // end::Checkbox
+                    // begin::Avatar
+                    .symbol.symbol-35px.symbol-circle
+                      img(alt="Pic", src="assets/media/avatars/300-9.jpg")
+                    // end::Avatar
+                    // begin::Details
+                    .ms-5
+                      a.fs-5.fw-bold.text-gray-900.text-hover-primary.mb-2(href="#") Francis Mitcham
+                      .fw-semibold.text-muted f.mit@kpmg.com
+                    // end::Details
+                  // end::Details
+                  // begin::Access menu
+                  .ms-2.w-100px
+                    select.form-select.form-select-solid.form-select-sm(data-control="select2", data-hide-search="true")
+                      option(value="1") Guest
+                      option(value="2") Owner
+                      option(value="3", selected="selected") Can Edit
+                  // end::Access menu
+                // end::User
+              // end::Users
+              // begin::Actions
+              .d-flex.flex-center.mt-15
+                button.btn.btn-active-light.me-3(type="reset", id="kt_modal_users_search_reset", data-bs-dismiss="modal") Cancel
+                button.btn.btn-primary(type="submit", id="kt_modal_users_search_submit") Add Selected Users
+              // end::Actions
+            // end::Results
+            // begin::Empty
+            .text-center.d-none(data-kt-search-element="empty")
+              // begin::Message
+              .fw-semibold.py-10
+                .text-gray-600.fs-3.mb-2 No users found
+                .text-muted.fs-6 Try to search by username, full name or email...
+              // end::Message
+              // begin::Illustration
+              .text-center.px-5
+                img.w-100.h-200px.h-sm-325px(src="assets/media/illustrations/sketchy-1/1.png")
+              // end::Illustration
+            // end::Empty
+          // end::Wrapper
+        // end::Search
+      // end::Modal body
+    // end::Modal content
+  // end::Modal dialog
+// end::Modal - Users Search

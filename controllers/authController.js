@@ -260,7 +260,6 @@ exports.updatePassword = catchAsync(async (req, res, next) => {
   currentUser.password = req.body.newPassword;
   currentUser.passwordConfirm = req.body.newPasswordConfirm;
   await currentUser.save(); // Not use findByIdAndUpdate bc it won't run validators & document middlewares
-
   // 4) Log user in, send JWT
   createSendToken(currentUser, 200, res);
 });

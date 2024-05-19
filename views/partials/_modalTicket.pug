@@ -52,13 +52,9 @@ html
                 // begin::Col
                 .col-md-6.fv-row
                   label.required.fs-6.fw-semibold.mb-2 Assign To
-                  select.form-select.form-select-solid(data-control="select2", data-hide-search="true", data-placeholder="Select a Team Member", name="target_assign")
-                    option(value="0") Select user...
-                    option(value="1") Karina Clark
-                    option(value="2") Robert Doe
-                    option(value="3") Niel Owen
-                    option(value="4") Olivia Wild
-                    option(value="5") Sean Bean
+                  select.form-select.form-select-solid(data-control="select2", data-hide-search="true", data-placeholder="Select a Team Member", name="target_assign", multiple)
+                    each member in project.members
+                      option(value=member._id) #{member.name}
                 // end::Col
                 // begin::Col
                 .col-md-6.fv-row

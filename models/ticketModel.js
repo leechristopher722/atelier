@@ -23,11 +23,13 @@ const ticketSchema = new mongoose.Schema(
       type: mongoose.Schema.ObjectId,
       ref: 'User'
     },
-    assignedTo: {
-      type: mongoose.Schema.ObjectId,
-      ref: 'User',
-      required: [true, 'A ticket must have an assignee']
-    },
+    assignedTo: [
+      {
+        type: mongoose.Schema.ObjectId,
+        ref: 'User',
+        required: [true, 'A ticket must have an assignee']
+      }
+    ],
     dueDate: {
       type: Date,
       requried: [true, 'A ticket must have a due date']
@@ -77,13 +79,10 @@ ticketSchema.pre('save', function(next) {
 // QUERY MIDDLEWARE: deals w/ queries not documents
 ticketSchema.pre(/^find/, function(next) {
   this.populate({
-    path: 'assignedBy',
-    select: 'name'
+    path: 'assignedBy assignedTo',
+    select: 'name profileImage email'
   });
-  this.populate({
-    path: 'assignedTo',
-    select: 'name'
-  });
+
   // .populate({
   //   path: 'project',
   //   select: '-members name'
@@ -91,11 +90,11 @@ ticketSchema.pre(/^find/, function(next) {
   next();
 });
 
-ticketSchema.post(/^find/, function(docs, next) {
-  // await this.constructor.groupByStatus(this.project);
-  console.log(`Query took ${Date.now() - this.start} milliseconds`);
-  next();
-});
+// ticketSchema.post(/^find/, function(docs, next) {
+//   // await this.constructor.groupByStatus(this.project);
+//   console.log(`Query took ${Date.now() - this.start} milliseconds`);
+//   next();
+// });
 
 ticketSchema.statics.calcNumTickets = async function(projectId) {
   const stats = await this.aggregate([

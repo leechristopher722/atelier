@@ -1,96 +1,96 @@
+import axios from 'axios';
+
 // Class definition
-export const accountSettings = (function() {
+export const accountSettings = (function () {
   // Private letiables
   let form;
   let submitButton;
   let validation;
 
   // Private functions
-  const initValidation = function() {
+  const initValidation = function () {
     // Init form validation rules. For more info check the FormValidation plugin's official documentation:https://formvalidation.io/
     validation = FormValidation.formValidation(form, {
       fields: {
         name: {
           validators: {
             notEmpty: {
-              message: 'Name is required'
-            }
-          }
+              message: 'Name is required',
+            },
+          },
         },
         email: {
           validators: {
             notEmpty: {
-              message: 'Email is required'
+              message: 'Email is required',
             },
             emailAddress: {
-              message: 'The value is not a valid email address'
-            }
-          }
-        }
+              message: 'The value is not a valid email address',
+            },
+          },
+        },
       },
       plugins: {
         trigger: new FormValidation.plugins.Trigger(),
         submitButton: new FormValidation.plugins.SubmitButton(),
-        // defaultSubmit: new FormValidation.plugins.DefaultSubmit(), // Uncomment this line to enable normal button submit after form validation
         bootstrap: new FormValidation.plugins.Bootstrap5({
           rowSelector: '.fv-row',
           eleInvalidClass: '',
-          eleValidClass: ''
-        })
-      }
+          eleValidClass: '',
+        }),
+      },
     });
   };
 
-  const handleForm = function() {
-    submitButton.addEventListener('click', function(e) {
+  const handleForm = function () {
+    submitButton.addEventListener('click', function (e) {
       e.preventDefault();
 
-      validation.validate().then(function(status) {
+      validation.validate().then(async function (status) {
         if (status === 'Valid') {
-          const formData = new FormData(form);
-          const body = {};
-          formData.forEach(function(value, key) {
-            body[key] = value;
-          });
+          const formData = new FormData();
+          formData.append('name', form.querySelector('[name="name"]').value);
+          formData.append('email', form.querySelector('[name="email"]').value);
+          if (form.querySelector('[name="avatar_remove"]').value) {
+            formData.append('photo', 'blank.png');
+          } else {
+            formData.append(
+              'photo',
+              form.querySelector('[name="photo"]').files[0],
+            );
+          }
 
-          fetch('/api/v1/users/updateMe', {
+          const res = await axios({
             method: 'PATCH',
-            body: JSON.stringify(body),
-            headers: {
-              'Content-Type': 'application/json'
-            }
-          }).then(function(response) {
-            if (response.ok) {
-              swal.fire({
-                text: "Thank you! You've updated your basic info",
-                icon: 'success',
-                buttonsStyling: false,
-                confirmButtonText: 'Ok, got it!',
-                customClass: {
-                  confirmButton: 'btn fw-bold btn-light-primary'
-                }
-              });
-
-              location.reload(true);
-            }
+            url: '/api/v1/users/updateMe',
+            data: formData,
           });
+
+          if (res.data.status === 'success') {
+            swal.fire({
+              text: "Thank you! You've updated your basic info",
+              icon: 'success',
+              showConfirmButton: false,
+            });
+
+            location.reload(true);
+          }
         } else {
           swal.fire({
-            text:
-              'Sorry, looks like there are some errors detected, please try again.',
+            text: 'Sorry, looks like there are some errors detected, please try again.',
             icon: 'error',
             buttonsStyling: false,
             confirmButtonText: 'Ok, got it!',
             customClass: {
-              confirmButton: 'btn fw-bold btn-light-primary'
-            }
+              confirmButton: 'btn fw-bold btn-light-primary',
+            },
           });
         }
       });
     });
   };
 
-  const handleChangePassword = function() {
+  const handleChangePassword = function () {
     // form elements
     const passwordForm = document.getElementById('update_password');
 
@@ -103,58 +103,58 @@ export const accountSettings = (function() {
         currentpassword: {
           validators: {
             notEmpty: {
-              message: 'Current Password is required'
-            }
-          }
+              message: 'Current Password is required',
+            },
+          },
         },
 
         newpassword: {
           validators: {
             notEmpty: {
-              message: 'New Password is required'
+              message: 'New Password is required',
             },
             stringLength: {
               min: 8,
-              message: 'Password must be at least 8 characters'
-            }
-          }
+              message: 'Password must be at least 8 characters',
+            },
+          },
         },
 
         confirmpassword: {
           validators: {
             notEmpty: {
-              message: 'Confirm Password is required'
+              message: 'Confirm Password is required',
             },
             identical: {
-              compare: function() {
+              compare: function () {
                 return passwordForm.querySelector('[name="newpassword"]').value;
               },
-              message: 'The password and its confirm are not the same'
-            }
-          }
-        }
+              message: 'The password and its confirm are not the same',
+            },
+          },
+        },
       },
 
       plugins: {
         // Learn more: https://formvalidation.io/guide/plugins
         trigger: new FormValidation.plugins.Trigger(),
         bootstrap: new FormValidation.plugins.Bootstrap5({
-          rowSelector: '.fv-row'
-        })
-      }
+          rowSelector: '.fv-row',
+        }),
+      },
     });
 
     passwordForm
       .querySelector('#password_submit')
-      .addEventListener('click', function(err) {
+      .addEventListener('click', function (err) {
         err.preventDefault();
 
-        passwordValidation.validate().then(function(status) {
+        passwordValidation.validate().then(function (status) {
           if (status === 'Valid') {
             const passwordFormData = new FormData(passwordForm);
             const inputData = {};
 
-            passwordFormData.forEach(function(value, key) {
+            passwordFormData.forEach(function (value, key) {
               if (key === 'currentpassword') {
                 inputData['currentPassword'] = value;
               }
@@ -170,10 +170,10 @@ export const accountSettings = (function() {
               method: 'PATCH',
               body: JSON.stringify(inputData),
               headers: {
-                'Content-Type': 'application/json'
-              }
+                'Content-Type': 'application/json',
+              },
             })
-              .then(function(response) {
+              .then(function (response) {
                 if (response.ok) {
                   swal.fire({
                     text: 'Your password has successfully been reset.',
@@ -181,36 +181,34 @@ export const accountSettings = (function() {
                     buttonsStyling: false,
                     confirmButtonText: 'Ok, got it!',
                     customClass: {
-                      confirmButton: 'btn font-weight-bold btn-light-primary'
-                    }
+                      confirmButton: 'btn font-weight-bold btn-light-primary',
+                    },
                   });
                 } else {
                   swal.fire({
-                    text:
-                      'Sorry, looks like there are some errors detected, please try again.',
+                    text: 'Sorry, looks like there are some errors detected, please try again.',
                     icon: 'error',
                     buttonsStyling: false,
                     confirmButtonText: 'Ok, got it!',
                     customClass: {
-                      confirmButton: 'btn font-weight-bold btn-light-primary'
-                    }
+                      confirmButton: 'btn font-weight-bold btn-light-primary',
+                    },
                   });
                 }
               })
-              .then(function() {
+              .then(function () {
                 passwordForm.reset();
                 passwordValidation.resetForm(); // Reset formvalidation --- more info: https://formvalidation.io/guide/api/reset-form/
               });
           } else {
             swal.fire({
-              text:
-                'Sorry, looks like there are some errors detected, please try again.',
+              text: 'Sorry, looks like there are some errors detected, please try again.',
               icon: 'error',
               buttonsStyling: false,
               confirmButtonText: 'Ok, got it!',
               customClass: {
-                confirmButton: 'btn font-weight-bold btn-light-primary'
-              }
+                confirmButton: 'btn font-weight-bold btn-light-primary',
+              },
             });
           }
         });
@@ -219,7 +217,7 @@ export const accountSettings = (function() {
 
   // Public methods
   return {
-    init: function() {
+    init: function () {
       form = document.getElementById('account_update_form');
 
       if (!form) {
@@ -231,6 +229,6 @@ export const accountSettings = (function() {
       initValidation();
       handleForm();
       handleChangePassword();
-    }
+    },
   };
 })();

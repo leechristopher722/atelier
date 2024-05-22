@@ -60,12 +60,12 @@
                   a.d-flex.align-items-center.p-3.rounded.bg-state-light.bg-state-opacity-50.mb-1(href="#")
                     // begin::Avatar
                     .symbol.symbol-35px.symbol-circle.me-5
-                      //- img(alt="Pic", src=`assets/media/avatars/${member.profileImage}.jpg`)
+                      img(alt="Pic", src=`assets/media/avatars/${member.account.photo}`)
                     // end::Avatar
                     // begin::Info
                     .fw-semibold
-                      span.fs-6.text-gray-800.me-2 #{member.name}
-                      span.badge.badge-light Art Director
+                      span.fs-6.text-gray-800.me-2 #{member.account.name}
+                      span.badge.badge-light #{member.access}
                     // end::Info
                   // end::User
                 // begin::User

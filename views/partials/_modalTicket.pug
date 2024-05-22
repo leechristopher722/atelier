@@ -30,7 +30,7 @@ html
                 // begin::Description
                 .text-muted.fw-semibold.fs-5
                   | If you need more info, please check 
-                  a.fw-bold.link-primary(href="#") Project Guidelines
+                  a.fw-bold.link-primary(href=`/projects/${project.slug}`) Project Guidelines
                   | .
                 // end::Description
               // end::Heading
@@ -54,7 +54,7 @@ html
                   label.required.fs-6.fw-semibold.mb-2 Assign To
                   select.form-select.form-select-solid(data-control="select2", data-hide-search="true", data-placeholder="Select a Team Member", name="target_assign", multiple)
                     each member in project.members
-                      option(value=member._id) #{member.name}
+                      option(value=member.account._id) #{member.account.name}
                 // end::Col
                 // begin::Col
                 .col-md-6.fv-row

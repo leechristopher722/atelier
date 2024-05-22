@@ -1,13 +1,13 @@
 'use strict';
 
 // Class Definition
-var KTAuthResetPassword = (function() {
+var KTAuthResetPassword = (function () {
   // Elements
   var form;
   var submitButton;
   var validator;
 
-  var handleForm = function(e) {
+  var handleForm = function (e) {
     // Init form validation rules. For more info check the FormValidation plugin's official documentation:https://formvalidation.io/
     validator = FormValidation.formValidation(form, {
       fields: {
@@ -15,33 +15,33 @@ var KTAuthResetPassword = (function() {
           validators: {
             regexp: {
               regexp: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
-              message: 'The value is not a valid email address'
+              message: 'The value is not a valid email address',
             },
             notEmpty: {
-              message: 'Email address is required'
-            }
-          }
-        }
+              message: 'Email address is required',
+            },
+          },
+        },
       },
       plugins: {
         trigger: new FormValidation.plugins.Trigger(),
         bootstrap: new FormValidation.plugins.Bootstrap5({
           rowSelector: '.fv-row',
           eleInvalidClass: '', // comment to enable invalid state icons
-          eleValidClass: '' // comment to enable valid state icons
-        })
-      }
+          eleValidClass: '', // comment to enable valid state icons
+        }),
+      },
     });
   };
 
-  var handleSubmitAjax = function(e) {
+  var handleSubmitAjax = function (e) {
     // Handle form submit
-    submitButton.addEventListener('click', function(e) {
+    submitButton.addEventListener('click', function (e) {
       // Prevent button default action
       e.preventDefault();
 
       // Validate form
-      validator.validate().then(function(status) {
+      validator.validate().then(function (status) {
         if (status == 'Valid') {
           // Show loading indication
           submitButton.setAttribute('data-kt-indicator', 'on');
@@ -50,16 +50,16 @@ var KTAuthResetPassword = (function() {
           submitButton.disabled = true;
 
           var inputData = {
-            email: document.getElementById('email').value
+            email: document.getElementById('email').value,
           };
 
           // Check axios library docs: https://axios-http.com/docs/intro
           axios
             .post(
               submitButton.closest('form').getAttribute('action'),
-              inputData
+              inputData,
             )
-            .then(function(response) {
+            .then(function (response) {
               if (response) {
                 form.reset();
 
@@ -70,8 +70,8 @@ var KTAuthResetPassword = (function() {
                   buttonsStyling: false,
                   confirmButtonText: 'Ok, got it!',
                   customClass: {
-                    confirmButton: 'btn btn-primary'
-                  }
+                    confirmButton: 'btn btn-primary',
+                  },
                 });
 
                 const redirectUrl = form.getAttribute('data-kt-redirect-url');
@@ -87,21 +87,20 @@ var KTAuthResetPassword = (function() {
                   buttonsStyling: false,
                   confirmButtonText: 'Ok, got it!',
                   customClass: {
-                    confirmButton: 'btn btn-primary'
-                  }
+                    confirmButton: 'btn btn-primary',
+                  },
                 });
               }
             })
-            .catch(function(error) {
+            .catch(function (error) {
               Swal.fire({
-                text:
-                  'Sorry, looks like there are some errors detected, please try again.',
+                text: 'Sorry, looks like there are some errors detected, please try again.',
                 icon: 'error',
                 buttonsStyling: false,
                 confirmButtonText: 'Ok, got it!',
                 customClass: {
-                  confirmButton: 'btn btn-primary'
-                }
+                  confirmButton: 'btn btn-primary',
+                },
               });
             })
             .then(() => {
@@ -114,21 +113,20 @@ var KTAuthResetPassword = (function() {
         } else {
           // Show error popup. For more info check the plugin's official documentation: https://sweetalert2.github.io/
           Swal.fire({
-            text:
-              'Sorry, looks like there are some errors detected, please try again.',
+            text: 'Sorry, looks like there are some errors detected, please try again.',
             icon: 'error',
             buttonsStyling: false,
             confirmButtonText: 'Ok, got it!',
             customClass: {
-              confirmButton: 'btn btn-primary'
-            }
+              confirmButton: 'btn btn-primary',
+            },
           });
         }
       });
     });
   };
 
-  var isValidUrl = function(url) {
+  var isValidUrl = function (url) {
     try {
       new URL(url);
       return true;
@@ -140,8 +138,13 @@ var KTAuthResetPassword = (function() {
   // Public Functions
   return {
     // public functions
-    init: function() {
+    init: function () {
       form = document.querySelector('#kt_password_reset_form');
+
+      if (!form) {
+        return;
+      }
+
       submitButton = document.querySelector('#kt_password_reset_submit');
 
       handleForm();
@@ -151,11 +154,11 @@ var KTAuthResetPassword = (function() {
       } else {
         handleSubmitDemo(); // used for demo purposes only
       }
-    }
+    },
   };
 })();
 
 // On document ready
-KTUtil.onDOMContentLoaded(function() {
+KTUtil.onDOMContentLoaded(function () {
   KTAuthResetPassword.init();
 });

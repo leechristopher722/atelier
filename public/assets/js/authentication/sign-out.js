@@ -1,6 +1,4 @@
-const logoutButton = document.querySelector('#logout_button');
-
-const logout = () => {
+export const logout = () => {
   axios
     .get('/api/v1/users/logout')
     .then(res => {
@@ -10,7 +8,3 @@ const logout = () => {
       console.log(err);
     });
 };
-
-if (logoutButton) {
-  logoutButton.addEventListener('click', logout);
-}

@@ -6,15 +6,15 @@ exports.getProjects = catchAsync(async (req, res) => {
 
   res.status(200).render('pages/index', {
     title: 'Workspace for Developers',
-    projects
+    projects,
   });
 });
 
 exports.getProject = catchAsync(async (req, res) => {
   const project = await Project.findOne({
-    slug: req.params.projectSlug
+    slug: req.params.projectSlug,
   }).populate({
-    path: 'tickets'
+    path: 'tickets',
   });
 
   const projects = await Project.find();
@@ -23,20 +23,20 @@ exports.getProject = catchAsync(async (req, res) => {
     title: `${project.name}`,
     projects,
     project,
-    isOverviewPage: 'active'
+    isOverviewPage: 'active',
   });
 });
 
 exports.getProjectTickets = catchAsync(async (req, res) => {
   const project = await Project.findOne({
-    slug: req.params.projectSlug
+    slug: req.params.projectSlug,
   }).populate({
-    path: 'tickets'
+    path: 'tickets',
   });
 
   const groupedTickets = Object.groupBy(
     project.tickets,
-    ({ status }) => status
+    ({ status }) => status,
   );
 
   if (!groupedTickets.created) {
@@ -58,7 +58,37 @@ exports.getProjectTickets = catchAsync(async (req, res) => {
     projects,
     project,
     groupedTickets,
-    isTicketsPage: 'active'
+    isTicketsPage: 'active',
+  });
+});
+
+exports.getProjectMembers = catchAsync(async (req, res) => {
+  const project = await Project.findOne({
+    slug: req.params.projectSlug,
+  });
+
+  const projects = await Project.find();
+
+  res.status(200).render('pages/project/members', {
+    title: `${project.name}`,
+    projects,
+    project,
+    isMembersPage: 'active',
+  });
+});
+
+exports.getProjectSettings = catchAsync(async (req, res) => {
+  const project = await Project.findOne({
+    slug: req.params.projectSlug,
+  });
+
+  const projects = await Project.find();
+
+  res.status(200).render('pages/project/settings', {
+    title: `${project.name}`,
+    projects,
+    project,
+    isSettingsPage: 'active',
   });
 });
 
@@ -67,7 +97,7 @@ exports.getLoginForm = (req, res) => {
     return res.redirect('/');
   }
   res.status(200).render('pages/login', {
-    title: 'Login to your account'
+    title: 'Login to your account',
   });
 };
 
@@ -76,19 +106,19 @@ exports.getSignupForm = (req, res) => {
     return res.redirect('/');
   }
   res.status(200).render('pages/signup', {
-    title: 'Create new account'
+    title: 'Create new account',
   });
 };
 
 exports.getResetPasswordForm = (req, res) => {
   res.status(200).render('pages/reset-password', {
-    title: 'Reset Password'
+    title: 'Reset Password',
   });
 };
 
 exports.getNewPasswordForm = (req, res) => {
   res.status(200).render('pages/new-password', {
-    title: 'New Password'
+    title: 'New Password',
   });
 };
 
@@ -102,8 +132,8 @@ exports.redirectToLogin = (req, res, next) => {
 exports.getAccount = catchAsync(async (req, res) => {
   const projects = await Project.find();
 
-  res.status(200).render('pages/account/settings', {
+  res.status(200).render('pages/account', {
     title: 'My Account',
-    projects
+    projects,
   });
 });

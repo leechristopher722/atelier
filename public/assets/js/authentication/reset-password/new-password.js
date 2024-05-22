@@ -1,83 +1,83 @@
 'use strict';
 
 // Class Definition
-var KTAuthNewPassword = (function() {
+var KTAuthNewPassword = (function () {
   // Elements
   var form;
   var submitButton;
   var validator;
   var passwordMeter;
 
-  var handleForm = function(e) {
+  var handleForm = function (e) {
     // Init form validation rules. For more info check the FormValidation plugin's official documentation:https://formvalidation.io/
     validator = FormValidation.formValidation(form, {
       fields: {
         password: {
           validators: {
             notEmpty: {
-              message: 'The password is required'
+              message: 'The password is required',
             },
             callback: {
               message: 'Please enter valid password',
-              callback: function(input) {
+              callback: function (input) {
                 if (input.value.length > 0) {
                   return validatePassword();
                 }
-              }
-            }
-          }
+              },
+            },
+          },
         },
         'confirm-password': {
           validators: {
             notEmpty: {
-              message: 'The password confirmation is required'
+              message: 'The password confirmation is required',
             },
             identical: {
-              compare: function() {
+              compare: function () {
                 return form.querySelector('[name="password"]').value;
               },
-              message: 'The password and its confirm are not the same'
-            }
-          }
+              message: 'The password and its confirm are not the same',
+            },
+          },
         },
         toc: {
           validators: {
             notEmpty: {
-              message: 'You must accept the terms and conditions'
-            }
-          }
-        }
+              message: 'You must accept the terms and conditions',
+            },
+          },
+        },
       },
       plugins: {
         trigger: new FormValidation.plugins.Trigger({
           event: {
-            password: false
-          }
+            password: false,
+          },
         }),
         bootstrap: new FormValidation.plugins.Bootstrap5({
           rowSelector: '.fv-row',
           eleInvalidClass: '', // comment to enable invalid state icons
-          eleValidClass: '' // comment to enable valid state icons
-        })
-      }
+          eleValidClass: '', // comment to enable valid state icons
+        }),
+      },
     });
 
     form
       .querySelector('input[name="password"]')
-      .addEventListener('input', function() {
+      .addEventListener('input', function () {
         if (this.value.length > 0) {
           validator.updateFieldStatus('password', 'NotValidated');
         }
       });
   };
 
-  var handleSubmitDemo = function(e) {
-    submitButton.addEventListener('click', function(e) {
+  var handleSubmitDemo = function (e) {
+    submitButton.addEventListener('click', function (e) {
       e.preventDefault();
 
       validator.revalidateField('password');
 
-      validator.validate().then(function(status) {
+      validator.validate().then(function (status) {
         if (status == 'Valid') {
           // Show loading indication
           submitButton.setAttribute('data-kt-indicator', 'on');
@@ -86,7 +86,7 @@ var KTAuthNewPassword = (function() {
           submitButton.disabled = true;
 
           // Simulate ajax request
-          setTimeout(function() {
+          setTimeout(function () {
             // Hide loading indication
             submitButton.removeAttribute('data-kt-indicator');
 
@@ -100,9 +100,9 @@ var KTAuthNewPassword = (function() {
               buttonsStyling: false,
               confirmButtonText: 'Ok, got it!',
               customClass: {
-                confirmButton: 'btn btn-primary'
-              }
-            }).then(function(result) {
+                confirmButton: 'btn btn-primary',
+              },
+            }).then(function (result) {
               if (result.isConfirmed) {
                 form.querySelector('[name="password"]').value = '';
                 form.querySelector('[name="confirm-password"]').value = '';
@@ -119,30 +119,29 @@ var KTAuthNewPassword = (function() {
         } else {
           // Show error popup. For more info check the plugin's official documentation: https://sweetalert2.github.io/
           Swal.fire({
-            text:
-              'Sorry, looks like there are some errors detected, please try again.',
+            text: 'Sorry, looks like there are some errors detected, please try again.',
             icon: 'error',
             buttonsStyling: false,
             confirmButtonText: 'Ok, got it!',
             customClass: {
-              confirmButton: 'btn btn-primary'
-            }
+              confirmButton: 'btn btn-primary',
+            },
           });
         }
       });
     });
   };
 
-  var handleSubmitAjax = function(e) {
+  var handleSubmitAjax = function (e) {
     // Handle form submit
-    submitButton.addEventListener('click', function(e) {
+    submitButton.addEventListener('click', function (e) {
       // Prevent button default action
       e.preventDefault();
 
       validator.revalidateField('password');
 
       // Validate form
-      validator.validate().then(function(status) {
+      validator.validate().then(function (status) {
         if (status == 'Valid') {
           // Show loading indication
           submitButton.setAttribute('data-kt-indicator', 'on');
@@ -154,9 +153,9 @@ var KTAuthNewPassword = (function() {
           axios
             .post(
               submitButton.closest('form').getAttribute('action'),
-              new FormData(form)
+              new FormData(form),
             )
-            .then(function(response) {
+            .then(function (response) {
               if (response) {
                 form.reset();
 
@@ -173,21 +172,20 @@ var KTAuthNewPassword = (function() {
                   buttonsStyling: false,
                   confirmButtonText: 'Ok, got it!',
                   customClass: {
-                    confirmButton: 'btn btn-primary'
-                  }
+                    confirmButton: 'btn btn-primary',
+                  },
                 });
               }
             })
-            .catch(function(error) {
+            .catch(function (error) {
               Swal.fire({
-                text:
-                  'Sorry, looks like there are some errors detected, please try again.',
+                text: 'Sorry, looks like there are some errors detected, please try again.',
                 icon: 'error',
                 buttonsStyling: false,
                 confirmButtonText: 'Ok, got it!',
                 customClass: {
-                  confirmButton: 'btn btn-primary'
-                }
+                  confirmButton: 'btn btn-primary',
+                },
               });
             })
             .then(() => {
@@ -200,25 +198,24 @@ var KTAuthNewPassword = (function() {
         } else {
           // Show error popup. For more info check the plugin's official documentation: https://sweetalert2.github.io/
           Swal.fire({
-            text:
-              'Sorry, looks like there are some errors detected, please try again.',
+            text: 'Sorry, looks like there are some errors detected, please try again.',
             icon: 'error',
             buttonsStyling: false,
             confirmButtonText: 'Ok, got it!',
             customClass: {
-              confirmButton: 'btn btn-primary'
-            }
+              confirmButton: 'btn btn-primary',
+            },
           });
         }
       });
     });
   };
 
-  var validatePassword = function() {
+  var validatePassword = function () {
     return passwordMeter.getScore() > 50;
   };
 
-  var isValidUrl = function(url) {
+  var isValidUrl = function (url) {
     try {
       new URL(url);
       return true;
@@ -230,11 +227,16 @@ var KTAuthNewPassword = (function() {
   // Public Functions
   return {
     // public functions
-    init: function() {
+    init: function () {
       form = document.querySelector('#kt_new_password_form');
+
+      if (!form) {
+        return;
+      }
+
       submitButton = document.querySelector('#kt_new_password_submit');
       passwordMeter = KTPasswordMeter.getInstance(
-        form.querySelector('[data-kt-password-meter="true"]')
+        form.querySelector('[data-kt-password-meter="true"]'),
       );
 
       handleForm();
@@ -244,11 +246,11 @@ var KTAuthNewPassword = (function() {
       } else {
         handleSubmitDemo(); // used for demo purposes only
       }
-    }
+    },
   };
 })();
 
 // On document ready
-KTUtil.onDOMContentLoaded(function() {
+KTUtil.onDOMContentLoaded(function () {
   KTAuthNewPassword.init();
 });

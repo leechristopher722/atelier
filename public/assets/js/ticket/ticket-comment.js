@@ -1,5 +1,5 @@
 // Class definition
-export function TicketComment(ticketId) {
+export const TicketComment = function(ticketId) {
   let commentContainer;
   let commentInput;
   let commentSubmitBtn;
@@ -195,4 +195,4 @@ export function TicketComment(ticketId) {
       handleCommentInput();
     }
   };
-}
+};

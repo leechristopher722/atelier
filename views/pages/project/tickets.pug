@@ -3,48 +3,58 @@ extends ../../layouts/base
 block content
   body
     .d-flex.flex-column.flex-column-fluid
+      // begin::Toolbar
+      .app-toolbar.py-3.py-lg-6(id="kt_app_toolbar")
+        // begin::Toolbar container
+        .app-container.container-xxl.d-flex.flex-stack(id="kt_app_toolbar_container")
+          // begin::Page title
+          .page-title.d-flex.flex-column.justify-content-center.flex-wrap.me-3
+            // begin::Title
+            h1.page-heading.d-flex.text-gray-900.fw-bold.fs-3.flex-column.justify-content-center.my-0 Project Tickets
+            // end::Title
+            // begin::Breadcrumb
+            ul.breadcrumb.fw-semibold.fs-7.my-0.pt-1
+              // begin::Item
+              li.breadcrumb-item.text-muted
+                a.text-muted.text-hover-primary(href="/") Home
+              // end::Item
+              // begin::Item
+              li.breadcrumb-item.text-muted
+                a.text-muted.text-hover-primary(href="/") Projects
+              // end::Item
+              // begin::Item
+              li.breadcrumb-item.text-muted
+                a.text-muted.text-hover-primary(href=`/projects/${project.slug}`) #{project.name}
+              // end::Item
+              // begin::Item
+              li.breadcrumb-item.text-muted Tickets
+              // end::Item
+            // end::Breadcrumb
+          // end::Page title
+          // begin::Controls
+          .d-flex.flex-wrap.my-1
+            // begin::Tab nav
+            ul.nav.nav-pills.me-5
+              li.nav-item.m-0
+                a.btn.btn-sm.btn-icon.btn-light.btn-color-muted.btn-active-primary.active.me-3(data-bs-toggle="tab", href="#kt_project_targets_card_pane")
+                  i.ki-duotone.ki-element-plus.fs-1
+                    span.path1
+                    span.path2
+                    span.path3
+                    span.path4
+                    span.path5
+              li.nav-item.m-0
+                a.btn.btn-sm.btn-icon.btn-light.btn-color-muted.btn-active-primary(data-bs-toggle="tab", href="#kt_project_targets_table_pane")
+                  i.ki-duotone.ki-row-horizontal.fs-2
+                    span.path1
+                    span.path2
+            // end::Tab nav
+            a.btn.btn-sm.btn-primary.me-3(href="#", data-bs-toggle="modal", data-bs-target="#kt_modal_new_target") Create New Ticket
+          // end::Controls
       // begin::Content
       .app-content.flex-column-fluid(id="kt_app_content")
         // begin::Content container
         .app-container.container-xxl(id="kt_app_content_container")
-          // begin::Toolbar
-          .d-flex.flex-wrap.flex-stack.pt-10.pb-8
-            // begin::Heading
-            h3.fw-bold.my-2
-              | Project Tickets
-              // begin::Breadcrumb
-              ul.breadcrumb.fw-semibold.fs-7.my-0.pt-1
-                li.breadcrumb-item.text-muted
-                  a.text-muted.text-hover-primary(href="/")
-                    | Projects
-                li.breadcrumb-item.text-muted
-                  a.text-muted.text-hover-primary(href=`/projects/${project.slug}`)
-                    | #{project.name}
-                li.breadcrumb-item.text-muted
-                    | Tickets
-              // end::Breadcrumb
-            // end::Heading
-            // begin::Controls
-            .d-flex.flex-wrap.my-1
-              // begin::Tab nav
-              ul.nav.nav-pills.me-5
-                li.nav-item.m-0
-                  a.btn.btn-sm.btn-icon.btn-light.btn-color-muted.btn-active-primary.active.me-3(data-bs-toggle="tab", href="#kt_project_targets_card_pane")
-                    i.ki-duotone.ki-element-plus.fs-1
-                      span.path1
-                      span.path2
-                      span.path3
-                      span.path4
-                      span.path5
-                li.nav-item.m-0
-                  a.btn.btn-sm.btn-icon.btn-light.btn-color-muted.btn-active-primary(data-bs-toggle="tab", href="#kt_project_targets_table_pane")
-                    i.ki-duotone.ki-row-horizontal.fs-2
-                      span.path1
-                      span.path2
-              // end::Tab nav
-              a.btn.btn-sm.btn-primary.me-3(href="#", data-bs-toggle="modal", data-bs-target="#kt_modal_new_target") Create New Ticket
-            // end::Controls
-          // end::Toolbar
           // begin::Tab Content
           .tab-content
             // begin::Tab pane
@@ -391,4 +401,3 @@ block content
         // end::Content container
       // end::Content
     // end::Content wrapper
-    include ../../partials/_modalTicket

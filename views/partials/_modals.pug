@@ -1447,16 +1447,5 @@ html
     // end::Modal - Invite Friend
     if project
       include _modalUserSearch
+      include _modalTicket
     // end::Modals  
-    // begin::Javascript
-    script.
-      var hostUrl = "assets/";
-    // begin::Global Javascript Bundle(mandatory for all pages)
-    script(src="assets/plugins/global/plugins.bundle.js")
-    script(src="assets/js/scripts.bundle.js")
-    script(src="assets/js/bundle.js")
-    // end::Global Javascript Bundle
-    // begin::Custom Javascript(used for this page only)
-    script(src="assets/js/authentication/sign-out/general.js")
-    // end::Custom Javascript
-    // end::Javascript

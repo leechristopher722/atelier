@@ -145,12 +145,8 @@ html
               // begin::Users
               .symbol-group.symbol-hover.mb-3
                 each member in project.members
-                  .symbol.symbol-35px.symbol-circle(data-bs-toggle="tooltip", title=`${member.name}`)
-                    - if (member.profileImage) 
-                      img(alt="Pic", src=`assets/media/avatars/${member.profileImage}.jpg`)
-                    - else
-                      - var firstChar = member.name.charAt(0).toUpperCase()
-                      span.symbol-label.bg-primary.text-inverse-primary.fw-bold #{firstChar}
+                  .symbol.symbol-35px.symbol-circle(data-bs-toggle="tooltip", title=`${member.account.name}`)
+                    img(alt="Pic", src=`assets/media/avatars/${member.account.photo}`)
                 // begin::All users
                 a.symbol.symbol-35px.symbol-circle(href="#", data-bs-toggle="modal", data-bs-target="#kt_modal_view_users")
                   span.symbol-label.bg-dark.text-inverse-dark.fs-8.fw-bold(data-bs-toggle="tooltip", data-bs-trigger="hover", title="View more users") +42

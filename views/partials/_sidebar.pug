@@ -8,80 +8,59 @@ html
         a(href="/")
           img.h-40px.app-sidebar-logo-default(alt="Logo", src="assets/media/logos/atelier.svg")
         // end::Logo image
-        // begin::Sidebar toggle
-        .app-sidebar-toggle.btn.btn-icon.btn-sm.h-30px.w-30px.rotate(id="kt_app_sidebar_toggle", data-kt-toggle="true", data-kt-toggle-state="active", data-kt-toggle-target="body", data-kt-toggle-name="app-sidebar-minimize")
-          i.ki-duotone.ki-double-left.fs-2.rotate-180
-            span.path1
-            span.path2
-        // end::Sidebar toggle
+        //- // begin::Sidebar toggle
+        //- .app-sidebar-toggle.btn.btn-icon.btn-sm.h-30px.w-30px.rotate(id="kt_app_sidebar_toggle", data-kt-toggle="true", data-kt-toggle-state="active", data-kt-toggle-target="body", data-kt-toggle-name="app-sidebar-minimize")
+        //-   i.ki-duotone.ki-double-left.fs-2.rotate-180
+        //-     span.path1
+        //-     span.path2
+        //- // end::Sidebar toggle
       // end::Logo
       // begin::sidebar menu
       .app-sidebar-menu.overflow-hidden.flex-column-fluid
         // begin::Menu wrapper
         .app-sidebar-wrapper(id="kt_app_sidebar_menu_wrapper")
           // begin::Scroll wrapper
-          .hover-scroll-y.my-5.mx-3(id="kt_app_sidebar_menu_scroll", data-kt-scroll="true", data-kt-scroll-activate="true", data-kt-scroll-height="auto", data-kt-scroll-dependencies="#kt_app_sidebar_logo, #kt_app_sidebar_footer", data-kt-scroll-wrappers="#kt_app_sidebar_menu", data-kt-scroll-offset="5px", data-kt-scroll-save-state="true")
+          .hover-scroll-y.my-3.mx-3(id="kt_app_sidebar_menu_scroll", data-kt-scroll="true", data-kt-scroll-activate="true", data-kt-scroll-height="auto", data-kt-scroll-dependencies="#kt_app_sidebar_logo, #kt_app_sidebar_footer", data-kt-scroll-wrappers="#kt_app_sidebar_menu", data-kt-scroll-offset="5px", data-kt-scroll-save-state="true")
             // begin::Menu
-            .menu.menu-column.menu-rounded.menu-sub-indention.fw-semibold(id="#kt_app_sidebar_menu", data-kt-menu="true", data-kt-menu-expand="false")
+            .menu.menu-column.menu-rounded.menu-sub-indention.fw-medium(id="#kt_app_sidebar_menu", data-kt-menu="true", data-kt-menu-expand="false")
               if project
+                .menu-item
+                  .menu-content
+                    span.custom-heading.fw-semibold.fs-3 #{project.name}
                 // begin:Menu item
-                .menu-item.here.show.menu-accordion(data-kt-menu-trigger="click")
+                .menu-item
                   // begin:Menu link
-                  span.menu-link
+                  a(class=`menu-link ${isOverviewPage}` href=`projects/${project.slug}`)
                     span.menu-icon
-                      i.ki-duotone.ki-abstract-41.fs-2
+                      i.ki-duotone.ki-abstract-28.fs-2
                         span.path1
                         span.path2
-                    span.menu-title #{project.name}
+                    span.menu-title Overview
                   // end:Menu link
-                  // begin:Menu sub
-                  .menu-sub.menu-sub-accordion
-                    // begin:Menu item
-                    .menu-item
-                      // begin:Menu link
-                      a(class=`menu-link ${isOverviewPage}` href=`projects/${project.name.toLowerCase()}`)
-                        span.menu-bullet
-                          span.bullet.bullet-dot
-                        span.menu-title Overview
-                      // end:Menu link
-                    // end:Menu item
-                    // begin:Menu item
-                    .menu-item
-                      // begin:Menu link
-                      a(class=`menu-link ${isTicketsPage}` href=`projects/${project.name.toLowerCase()}/tickets`)
-                        span.menu-bullet
-                          span.bullet.bullet-dot
-                        span.menu-title Tickets
-                      // end:Menu link
-                    // end:Menu item
-                    // begin:Menu item
-                    .menu-item
-                      // begin:Menu link
-                      a(class=`menu-link ${isMembersPage}` href=`projects/${project.name.toLowerCase()}/members`)
-                        span.menu-bullet
-                          span.bullet.bullet-dot
-                        span.menu-title Members
-                      // end:Menu link
-                    // end:Menu item
-                    // begin:Menu item
-                    .menu-item
-                      // begin:Menu link
-                      a(class=`menu-link ${isFilesPage}` href=`projects/${project.name.toLowerCase()}/files`)
-                        span.menu-bullet
-                          span.bullet.bullet-dot
-                        span.menu-title Files
-                      // end:Menu link
-                    // end:Menu item
-                    // begin:Menu item
-                    .menu-item
-                      // begin:Menu link
-                      a(class=`menu-link ${isSettingsPage}` href=`projects/${project.name.toLowerCase()}/settings`)
-                        span.menu-bullet
-                          span.bullet.bullet-dot
-                        span.menu-title Settings
-                      // end:Menu link
-                    // end:Menu item
-                  // end:Menu sub
+                  // begin:Menu link
+                  a(class=`menu-link ${isTicketsPage}` href=`projects/${project.slug}/tickets`)
+                    span.menu-icon
+                      i.ki-duotone.ki-questionnaire-tablet.fs-2
+                        span.path1
+                        span.path2
+                    span.menu-title Tickets
+                  // end:Menu link
+                  // begin:Menu link
+                  a(class=`menu-link ${isMembersPage}` href=`projects/${project.slug}/members`)
+                    span.menu-icon
+                      i.ki-duotone.ki-user.fs-2
+                        span.path1
+                        span.path2
+                    span.menu-title  Members
+                  // end:Menu link
+                  // begin:Menu link
+                  a(class=`menu-link ${isSettingsPage}` href=`projects/${project.slug}/settings`)
+                    span.menu-icon
+                      i.ki-duotone.ki-gear.fs-2
+                        span.path1
+                        span.path2
+                    span.menu-title Settings
+                  // end:Menu link
                 // end:Menu item
               else if projects
                 // begin:Menu item
@@ -109,542 +88,542 @@ html
                       // end:Menu item
                   // end:Menu sub
                 // end:Menu item
-              // begin:Menu item
-              .menu-item.menu-accordion(data-kt-menu-trigger="click")
-                // begin:Menu link
-                span.menu-link
-                  span.menu-icon
-                    i.ki-duotone.ki-address-book.fs-2
-                      span.path1
-                      span.path2
-                      span.path3
-                  span.menu-title User Profile
-                  span.menu-arrow
-                // end:Menu link
-                // begin:Menu sub
-                .menu-sub.menu-sub-accordion
-                  // begin:Menu item
-                  .menu-item
-                    // begin:Menu link
-                    a.menu-link(href="pages/user-profile/overview.html")
-                      span.menu-bullet
-                        span.bullet.bullet-dot
-                      span.menu-title Overview
-                    // end:Menu link
-                  // end:Menu item
-                  // begin:Menu item
-                  .menu-item
-                    // begin:Menu link
-                    a.menu-link(href="pages/user-profile/projects.html")
-                      span.menu-bullet
-                        span.bullet.bullet-dot
-                      span.menu-title Projects
-                    // end:Menu link
-                  // end:Menu item
-                  // begin:Menu item
-                  .menu-item
-                    // begin:Menu link
-                    a.menu-link(href="pages/user-profile/campaigns.html")
-                      span.menu-bullet
-                        span.bullet.bullet-dot
-                      span.menu-title Campaigns
-                    // end:Menu link
-                  // end:Menu item
-                  // begin:Menu item
-                  .menu-item
-                    // begin:Menu link
-                    a.menu-link(href="pages/user-profile/documents.html")
-                      span.menu-bullet
-                        span.bullet.bullet-dot
-                      span.menu-title Documents
-                    // end:Menu link
-                  // end:Menu item
-                  // begin:Menu item
-                  .menu-item
-                    // begin:Menu link
-                    a.menu-link(href="pages/user-profile/followers.html")
-                      span.menu-bullet
-                        span.bullet.bullet-dot
-                      span.menu-title Followers
-                    // end:Menu link
-                  // end:Menu item
-                  // begin:Menu item
-                  .menu-item
-                    // begin:Menu link
-                    a.menu-link(href="pages/user-profile/activity.html")
-                      span.menu-bullet
-                        span.bullet.bullet-dot
-                      span.menu-title Activity
-                    // end:Menu link
-                  // end:Menu item
-                // end:Menu sub
-              // end:Menu item
-              // begin:Menu item
-              .menu-item.menu-accordion(data-kt-menu-trigger="click")
-                // begin:Menu link
-                span.menu-link
-                  span.menu-icon
-                    i.ki-duotone.ki-educare.fs-2
-                      span.path1
-                      span.path2
-                      span.path3
-                      span.path4
-                  span.menu-title Account
-                  span.menu-arrow
-                // end:Menu link
-                // begin:Menu sub
-                .menu-sub.menu-sub-accordion
-                  // begin:Menu item
-                  .menu-item
-                    // begin:Menu link
-                    a.menu-link(href="account/overview.html")
-                      span.menu-bullet
-                        span.bullet.bullet-dot
-                      span.menu-title Overview
-                    // end:Menu link
-                  // end:Menu item
-                  // begin:Menu item
-                  .menu-item
-                    // begin:Menu link
-                    a.menu-link(href="account/settings.html")
-                      span.menu-bullet
-                        span.bullet.bullet-dot
-                      span.menu-title Settings
-                    // end:Menu link
-                  // end:Menu item
-                  // begin:Menu item
-                  .menu-item
-                    // begin:Menu link
-                    a.menu-link(href="account/security.html")
-                      span.menu-bullet
-                        span.bullet.bullet-dot
-                      span.menu-title Security
-                    // end:Menu link
-                  // end:Menu item
-                  // begin:Menu item
-                  .menu-item
-                    // begin:Menu link
-                    a.menu-link(href="account/activity.html")
-                      span.menu-bullet
-                        span.bullet.bullet-dot
-                      span.menu-title Activity
-                    // end:Menu link
-                  // end:Menu item
-                  // begin:Menu item
-                  .menu-item
-                    // begin:Menu link
-                    a.menu-link(href="account/billing.html")
-                      span.menu-bullet
-                        span.bullet.bullet-dot
-                      span.menu-title Billing
-                    // end:Menu link
-                  // end:Menu item
-                  // begin:Menu item
-                  .menu-item
-                    // begin:Menu link
-                    a.menu-link(href="account/statements.html")
-                      span.menu-bullet
-                        span.bullet.bullet-dot
-                      span.menu-title Statements
-                    // end:Menu link
-                  // end:Menu item
-                  // begin:Menu item
-                  .menu-item
-                    // begin:Menu link
-                    a.menu-link(href="account/referrals.html")
-                      span.menu-bullet
-                        span.bullet.bullet-dot
-                      span.menu-title Referrals
-                    // end:Menu link
-                  // end:Menu item
-                  // begin:Menu item
-                  .menu-item
-                    // begin:Menu link
-                    a.menu-link(href="account/api-keys.html")
-                      span.menu-bullet
-                        span.bullet.bullet-dot
-                      span.menu-title API Keys
-                    // end:Menu link
-                  // end:Menu item
-                  // begin:Menu item
-                  .menu-item
-                    // begin:Menu link
-                    a.menu-link(href="account/logs.html")
-                      span.menu-bullet
-                        span.bullet.bullet-dot
-                      span.menu-title Logs
-                    // end:Menu link
-                  // end:Menu item
-                // end:Menu sub
-              // end:Menu item
-              // begin:Menu item
-              .menu-item.menu-accordion(data-kt-menu-trigger="click")
-                // begin:Menu link
-                span.menu-link
-                  span.menu-icon
-                    i.ki-duotone.ki-user.fs-2
-                      span.path1
-                      span.path2
-                  span.menu-title Authentication
-                  span.menu-arrow
-                // end:Menu link
-                // begin:Menu sub
-                .menu-sub.menu-sub-accordion
-                  // begin:Menu item
-                  .menu-item.menu-accordion(data-kt-menu-trigger="click")
-                    // begin:Menu link
-                    span.menu-link
-                      span.menu-bullet
-                        span.bullet.bullet-dot
-                      span.menu-title Corporate
-                      span.menu-arrow
-                    // end:Menu link
-                    // begin:Menu sub
-                    .menu-sub.menu-sub-accordion.menu-active-bg
-                      // begin:Menu item
-                      .menu-item
-                        // begin:Menu link
-                        a.menu-link(href="authentication/layouts/corporate/sign-in.html")
-                          span.menu-bullet
-                            span.bullet.bullet-dot
-                          span.menu-title Sign-In
-                        // end:Menu link
-                      // end:Menu item
-                      // begin:Menu item
-                      .menu-item
-                        // begin:Menu link
-                        a.menu-link(href="authentication/layouts/corporate/sign-up.html")
-                          span.menu-bullet
-                            span.bullet.bullet-dot
-                          span.menu-title Sign-Up
-                        // end:Menu link
-                      // end:Menu item
-                      // begin:Menu item
-                      .menu-item
-                        // begin:Menu link
-                        a.menu-link(href="authentication/layouts/corporate/two-factor.html")
-                          span.menu-bullet
-                            span.bullet.bullet-dot
-                          span.menu-title Two-Factor
-                        // end:Menu link
-                      // end:Menu item
-                      // begin:Menu item
-                      .menu-item
-                        // begin:Menu link
-                        a.menu-link(href="authentication/layouts/corporate/reset-password.html")
-                          span.menu-bullet
-                            span.bullet.bullet-dot
-                          span.menu-title Reset Password
-                        // end:Menu link
-                      // end:Menu item
-                      // begin:Menu item
-                      .menu-item
-                        // begin:Menu link
-                        a.menu-link(href="authentication/layouts/corporate/new-password.html")
-                          span.menu-bullet
-                            span.bullet.bullet-dot
-                          span.menu-title New Password
-                        // end:Menu link
-                      // end:Menu item
-                      // begin:Menu item
-                      .menu-item
-                        // begin:Menu link
-                        a.menu-link(href="authentication/extended/multi-steps-sign-up.html")
-                          span.menu-bullet
-                            span.bullet.bullet-dot
-                          span.menu-title Multi-Steps Sign-Up
-                        // end:Menu link
-                      // end:Menu item
-                      // begin:Menu item
-                      .menu-item
-                        // begin:Menu link
-                        a.menu-link(href="authentication/extended/two-factor-auth.html")
-                          span.menu-bullet
-                            span.bullet.bullet-dot
-                          span.menu-title Two Factor Auth
-                        // end:Menu link
-                      // end:Menu item
-                    // end:Menu sub
-                  // end:Menu item
-                  // begin:Menu item
-                  .menu-item.menu-accordion(data-kt-menu-trigger="click")
-                    // begin:Menu link
-                    span.menu-link
-                      span.menu-bullet
-                        span.bullet.bullet-dot
-                      span.menu-title Email Templates
-                      span.menu-arrow
-                    // end:Menu link
-                    // begin:Menu sub
-                    .menu-sub.menu-sub-accordion.menu-active-bg
-                      // begin:Menu item
-                      .menu-item
-                        // begin:Menu link
-                        a.menu-link(href="authentication/email/welcome-message.html")
-                          span.menu-bullet
-                            span.bullet.bullet-dot
-                          span.menu-title Welcome Message
-                        // end:Menu link
-                      // end:Menu item
-                      // begin:Menu item
-                      .menu-item
-                        // begin:Menu link
-                        a.menu-link(href="authentication/email/reset-password.html")
-                          span.menu-bullet
-                            span.bullet.bullet-dot
-                          span.menu-title Reset Password
-                        // end:Menu link
-                      // end:Menu item
-                      // begin:Menu item
-                      .menu-item
-                        // begin:Menu link
-                        a.menu-link(href="authentication/email/subscription-confirmed.html")
-                          span.menu-bullet
-                            span.bullet.bullet-dot
-                          span.menu-title Subscription Confirmed
-                        // end:Menu link
-                      // end:Menu item
-                      // begin:Menu item
-                      .menu-item
-                        // begin:Menu link
-                        a.menu-link(href="authentication/email/card-declined.html")
-                          span.menu-bullet
-                            span.bullet.bullet-dot
-                          span.menu-title Credit Card Declined
-                        // end:Menu link
-                      // end:Menu item
-                      // begin:Menu item
-                      .menu-item
-                        // begin:Menu link
-                        a.menu-link(href="authentication/email/promo-1.html")
-                          span.menu-bullet
-                            span.bullet.bullet-dot
-                          span.menu-title Promo 1
-                        // end:Menu link
-                      // end:Menu item
-                      // begin:Menu item
-                      .menu-item
-                        // begin:Menu link
-                        a.menu-link(href="authentication/email/promo-2.html")
-                          span.menu-bullet
-                            span.bullet.bullet-dot
-                          span.menu-title Promo 2
-                        // end:Menu link
-                      // end:Menu item
-                      // begin:Menu item
-                      .menu-item
-                        // begin:Menu link
-                        a.menu-link(href="authentication/email/promo-3.html")
-                          span.menu-bullet
-                            span.bullet.bullet-dot
-                          span.menu-title Promo 3
-                        // end:Menu link
-                      // end:Menu item
-                    // end:Menu sub
-                  // end:Menu item
-                  // begin:Menu item
-                  .menu-item
-                    // begin:Menu link
-                    a.menu-link(href="authentication/general/welcome.html")
-                      span.menu-bullet
-                        span.bullet.bullet-dot
-                      span.menu-title Welcome Message
-                    // end:Menu link
-                  // end:Menu item
-                  // begin:Menu item
-                  .menu-item
-                    // begin:Menu link
-                    a.menu-link(href="authentication/general/verify-email.html")
-                      span.menu-bullet
-                        span.bullet.bullet-dot
-                      span.menu-title Verify Email
-                    // end:Menu link
-                  // end:Menu item
-                  // begin:Menu item
-                  .menu-item
-                    // begin:Menu link
-                    a.menu-link(href="authentication/general/coming-soon.html")
-                      span.menu-bullet
-                        span.bullet.bullet-dot
-                      span.menu-title Coming Soon
-                    // end:Menu link
-                  // end:Menu item
-                  // begin:Menu item
-                  .menu-item
-                    // begin:Menu link
-                    a.menu-link(href="authentication/general/password-confirmation.html")
-                      span.menu-bullet
-                        span.bullet.bullet-dot
-                      span.menu-title Password Confirmation
-                    // end:Menu link
-                  // end:Menu item
-                  // begin:Menu item
-                  .menu-item
-                    // begin:Menu link
-                    a.menu-link(href="authentication/general/account-deactivated.html")
-                      span.menu-bullet
-                        span.bullet.bullet-dot
-                      span.menu-title Account Deactivation
-                    // end:Menu link
-                  // end:Menu item
-                  // begin:Menu item
-                  .menu-item
-                    // begin:Menu link
-                    a.menu-link(href="authentication/general/error-404.html")
-                      span.menu-bullet
-                        span.bullet.bullet-dot
-                      span.menu-title Error 404
-                    // end:Menu link
-                  // end:Menu item
-                  // begin:Menu item
-                  .menu-item
-                    // begin:Menu link
-                    a.menu-link(href="authentication/general/error-500.html")
-                      span.menu-bullet
-                        span.bullet.bullet-dot
-                      span.menu-title Error 500
-                    // end:Menu link
-                  // end:Menu item
-                  // begin:Menu item
-                  .menu-item
-                    // begin:Menu link
-                    a.menu-link(href="authentication/general/maintenance.html")
-                      span.menu-bullet
-                        span.bullet.bullet-dot
-                      span.menu-title Maintenance
-                    // end:Menu link
-                  // end:Menu item
-                // end:Menu sub
-              // end:Menu item
-              // begin:Menu item
-              .menu-item.menu-accordion(data-kt-menu-trigger="click")
-                // begin:Menu link
-                span.menu-link
-                  span.menu-icon
-                    i.ki-duotone.ki-abstract-28.fs-2
-                      span.path1
-                      span.path2
-                  span.menu-title User Management
-                  span.menu-arrow
-                // end:Menu link
-                // begin:Menu sub
-                .menu-sub.menu-sub-accordion
-                  // begin:Menu item
-                  .menu-item.menu-accordion.mb-1(data-kt-menu-trigger="click")
-                    // begin:Menu link
-                    span.menu-link
-                      span.menu-bullet
-                        span.bullet.bullet-dot
-                      span.menu-title Users
-                      span.menu-arrow
-                    // end:Menu link
-                    // begin:Menu sub
-                    .menu-sub.menu-sub-accordion
-                      // begin:Menu item
-                      .menu-item
-                        // begin:Menu link
-                        a.menu-link(href="apps/user-management/users/list.html")
-                          span.menu-bullet
-                            span.bullet.bullet-dot
-                          span.menu-title Users List
-                        // end:Menu link
-                      // end:Menu item
-                      // begin:Menu item
-                      .menu-item
-                        // begin:Menu link
-                        a.menu-link(href="apps/user-management/users/view.html")
-                          span.menu-bullet
-                            span.bullet.bullet-dot
-                          span.menu-title View User
-                        // end:Menu link
-                      // end:Menu item
-                    // end:Menu sub
-                  // end:Menu item
-                  // begin:Menu item
-                  .menu-item.menu-accordion(data-kt-menu-trigger="click")
-                    // begin:Menu link
-                    span.menu-link
-                      span.menu-bullet
-                        span.bullet.bullet-dot
-                      span.menu-title Roles
-                      span.menu-arrow
-                    // end:Menu link
-                    // begin:Menu sub
-                    .menu-sub.menu-sub-accordion
-                      // begin:Menu item
-                      .menu-item
-                        // begin:Menu link
-                        a.menu-link(href="apps/user-management/roles/list.html")
-                          span.menu-bullet
-                            span.bullet.bullet-dot
-                          span.menu-title Roles List
-                        // end:Menu link
-                      // end:Menu item
-                      // begin:Menu item
-                      .menu-item
-                        // begin:Menu link
-                        a.menu-link(href="apps/user-management/roles/view.html")
-                          span.menu-bullet
-                            span.bullet.bullet-dot
-                          span.menu-title View Role
-                        // end:Menu link
-                      // end:Menu item
-                    // end:Menu sub
-                  // end:Menu item
-                  // begin:Menu item
-                  .menu-item
-                    // begin:Menu link
-                    a.menu-link(href="apps/user-management/permissions.html")
-                      span.menu-bullet
-                        span.bullet.bullet-dot
-                      span.menu-title Permissions
-                    // end:Menu link
-                  // end:Menu item
-                // end:Menu sub
-              // end:Menu item
-              // begin:Menu item
-              .menu-item.menu-accordion(data-kt-menu-trigger="click")
-                // begin:Menu link
-                span.menu-link
-                  span.menu-icon
-                    i.ki-duotone.ki-message-text-2.fs-2
-                      span.path1
-                      span.path2
-                      span.path3
-                  span.menu-title Chat
-                  span.menu-arrow
-                // end:Menu link
-                // begin:Menu sub
-                .menu-sub.menu-sub-accordion
-                  // begin:Menu item
-                  .menu-item
-                    // begin:Menu link
-                    a.menu-link(href="apps/chat/private.html")
-                      span.menu-bullet
-                        span.bullet.bullet-dot
-                      span.menu-title Private Chat
-                    // end:Menu link
-                  // end:Menu item
-                  // begin:Menu item
-                  .menu-item
-                    // begin:Menu link
-                    a.menu-link(href="apps/chat/group.html")
-                      span.menu-bullet
-                        span.bullet.bullet-dot
-                      span.menu-title Group Chat
-                    // end:Menu link
-                  // end:Menu item
-                  // begin:Menu item
-                  .menu-item
-                    // begin:Menu link
-                    a.menu-link(href="apps/chat/drawer.html")
-                      span.menu-bullet
-                        span.bullet.bullet-dot
-                      span.menu-title Drawer Chat
-                    // end:Menu link
-                  // end:Menu item
-                // end:Menu sub
-              // end:Menu item
+              //- // begin:Menu item
+              //- .menu-item.menu-accordion(data-kt-menu-trigger="click")
+              //-   // begin:Menu link
+              //-   span.menu-link
+              //-     span.menu-icon
+              //-       i.ki-duotone.ki-address-book.fs-2
+              //-         span.path1
+              //-         span.path2
+              //-         span.path3
+              //-     span.menu-title User Profile
+              //-     span.menu-arrow
+              //-   // end:Menu link
+              //-   // begin:Menu sub
+              //-   .menu-sub.menu-sub-accordion
+              //-     // begin:Menu item
+              //-     .menu-item
+              //-       // begin:Menu link
+              //-       a.menu-link(href="pages/user-profile/overview.html")
+              //-         span.menu-bullet
+              //-           span.bullet.bullet-dot
+              //-         span.menu-title Overview
+              //-       // end:Menu link
+              //-     // end:Menu item
+              //-     // begin:Menu item
+              //-     .menu-item
+              //-       // begin:Menu link
+              //-       a.menu-link(href="pages/user-profile/projects.html")
+              //-         span.menu-bullet
+              //-           span.bullet.bullet-dot
+              //-         span.menu-title Projects
+              //-       // end:Menu link
+              //-     // end:Menu item
+              //-     // begin:Menu item
+              //-     .menu-item
+              //-       // begin:Menu link
+              //-       a.menu-link(href="pages/user-profile/campaigns.html")
+              //-         span.menu-bullet
+              //-           span.bullet.bullet-dot
+              //-         span.menu-title Campaigns
+              //-       // end:Menu link
+              //-     // end:Menu item
+              //-     // begin:Menu item
+              //-     .menu-item
+              //-       // begin:Menu link
+              //-       a.menu-link(href="pages/user-profile/documents.html")
+              //-         span.menu-bullet
+              //-           span.bullet.bullet-dot
+              //-         span.menu-title Documents
+              //-       // end:Menu link
+              //-     // end:Menu item
+              //-     // begin:Menu item
+              //-     .menu-item
+              //-       // begin:Menu link
+              //-       a.menu-link(href="pages/user-profile/followers.html")
+              //-         span.menu-bullet
+              //-           span.bullet.bullet-dot
+              //-         span.menu-title Followers
+              //-       // end:Menu link
+              //-     // end:Menu item
+              //-     // begin:Menu item
+              //-     .menu-item
+              //-       // begin:Menu link
+              //-       a.menu-link(href="pages/user-profile/activity.html")
+              //-         span.menu-bullet
+              //-           span.bullet.bullet-dot
+              //-         span.menu-title Activity
+              //-       // end:Menu link
+              //-     // end:Menu item
+              //-   // end:Menu sub
+              //- // end:Menu item
+              //- // begin:Menu item
+              //- .menu-item.menu-accordion(data-kt-menu-trigger="click")
+              //-   // begin:Menu link
+              //-   span.menu-link
+              //-     span.menu-icon
+              //-       i.ki-duotone.ki-educare.fs-2
+              //-         span.path1
+              //-         span.path2
+              //-         span.path3
+              //-         span.path4
+              //-     span.menu-title Account
+              //-     span.menu-arrow
+              //-   // end:Menu link
+              //-   // begin:Menu sub
+              //-   .menu-sub.menu-sub-accordion
+              //-     // begin:Menu item
+              //-     .menu-item
+              //-       // begin:Menu link
+              //-       a.menu-link(href="account/overview.html")
+              //-         span.menu-bullet
+              //-           span.bullet.bullet-dot
+              //-         span.menu-title Overview
+              //-       // end:Menu link
+              //-     // end:Menu item
+              //-     // begin:Menu item
+              //-     .menu-item
+              //-       // begin:Menu link
+              //-       a.menu-link(href="account/settings.html")
+              //-         span.menu-bullet
+              //-           span.bullet.bullet-dot
+              //-         span.menu-title Settings
+              //-       // end:Menu link
+              //-     // end:Menu item
+              //-     // begin:Menu item
+              //-     .menu-item
+              //-       // begin:Menu link
+              //-       a.menu-link(href="account/security.html")
+              //-         span.menu-bullet
+              //-           span.bullet.bullet-dot
+              //-         span.menu-title Security
+              //-       // end:Menu link
+              //-     // end:Menu item
+              //-     // begin:Menu item
+              //-     .menu-item
+              //-       // begin:Menu link
+              //-       a.menu-link(href="account/activity.html")
+              //-         span.menu-bullet
+              //-           span.bullet.bullet-dot
+              //-         span.menu-title Activity
+              //-       // end:Menu link
+              //-     // end:Menu item
+              //-     // begin:Menu item
+              //-     .menu-item
+              //-       // begin:Menu link
+              //-       a.menu-link(href="account/billing.html")
+              //-         span.menu-bullet
+              //-           span.bullet.bullet-dot
+              //-         span.menu-title Billing
+              //-       // end:Menu link
+              //-     // end:Menu item
+              //-     // begin:Menu item
+              //-     .menu-item
+              //-       // begin:Menu link
+              //-       a.menu-link(href="account/statements.html")
+              //-         span.menu-bullet
+              //-           span.bullet.bullet-dot
+              //-         span.menu-title Statements
+              //-       // end:Menu link
+              //-     // end:Menu item
+              //-     // begin:Menu item
+              //-     .menu-item
+              //-       // begin:Menu link
+              //-       a.menu-link(href="account/referrals.html")
+              //-         span.menu-bullet
+              //-           span.bullet.bullet-dot
+              //-         span.menu-title Referrals
+              //-       // end:Menu link
+              //-     // end:Menu item
+              //-     // begin:Menu item
+              //-     .menu-item
+              //-       // begin:Menu link
+              //-       a.menu-link(href="account/api-keys.html")
+              //-         span.menu-bullet
+              //-           span.bullet.bullet-dot
+              //-         span.menu-title API Keys
+              //-       // end:Menu link
+              //-     // end:Menu item
+              //-     // begin:Menu item
+              //-     .menu-item
+              //-       // begin:Menu link
+              //-       a.menu-link(href="account/logs.html")
+              //-         span.menu-bullet
+              //-           span.bullet.bullet-dot
+              //-         span.menu-title Logs
+              //-       // end:Menu link
+              //-     // end:Menu item
+              //-   // end:Menu sub
+              //- // end:Menu item
+              //- // begin:Menu item
+              //- .menu-item.menu-accordion(data-kt-menu-trigger="click")
+              //-   // begin:Menu link
+              //-   span.menu-link
+              //-     span.menu-icon
+              //-       i.ki-duotone.ki-user.fs-2
+              //-         span.path1
+              //-         span.path2
+              //-     span.menu-title Authentication
+              //-     span.menu-arrow
+              //-   // end:Menu link
+              //-   // begin:Menu sub
+              //-   .menu-sub.menu-sub-accordion
+              //-     // begin:Menu item
+              //-     .menu-item.menu-accordion(data-kt-menu-trigger="click")
+              //-       // begin:Menu link
+              //-       span.menu-link
+              //-         span.menu-bullet
+              //-           span.bullet.bullet-dot
+              //-         span.menu-title Corporate
+              //-         span.menu-arrow
+              //-       // end:Menu link
+              //-       // begin:Menu sub
+              //-       .menu-sub.menu-sub-accordion.menu-active-bg
+              //-         // begin:Menu item
+              //-         .menu-item
+              //-           // begin:Menu link
+              //-           a.menu-link(href="authentication/layouts/corporate/sign-in.html")
+              //-             span.menu-bullet
+              //-               span.bullet.bullet-dot
+              //-             span.menu-title Sign-In
+              //-           // end:Menu link
+              //-         // end:Menu item
+              //-         // begin:Menu item
+              //-         .menu-item
+              //-           // begin:Menu link
+              //-           a.menu-link(href="authentication/layouts/corporate/sign-up.html")
+              //-             span.menu-bullet
+              //-               span.bullet.bullet-dot
+              //-             span.menu-title Sign-Up
+              //-           // end:Menu link
+              //-         // end:Menu item
+              //-         // begin:Menu item
+              //-         .menu-item
+              //-           // begin:Menu link
+              //-           a.menu-link(href="authentication/layouts/corporate/two-factor.html")
+              //-             span.menu-bullet
+              //-               span.bullet.bullet-dot
+              //-             span.menu-title Two-Factor
+              //-           // end:Menu link
+              //-         // end:Menu item
+              //-         // begin:Menu item
+              //-         .menu-item
+              //-           // begin:Menu link
+              //-           a.menu-link(href="authentication/layouts/corporate/reset-password.html")
+              //-             span.menu-bullet
+              //-               span.bullet.bullet-dot
+              //-             span.menu-title Reset Password
+              //-           // end:Menu link
+              //-         // end:Menu item
+              //-         // begin:Menu item
+              //-         .menu-item
+              //-           // begin:Menu link
+              //-           a.menu-link(href="authentication/layouts/corporate/new-password.html")
+              //-             span.menu-bullet
+              //-               span.bullet.bullet-dot
+              //-             span.menu-title New Password
+              //-           // end:Menu link
+              //-         // end:Menu item
+              //-         // begin:Menu item
+              //-         .menu-item
+              //-           // begin:Menu link
+              //-           a.menu-link(href="authentication/extended/multi-steps-sign-up.html")
+              //-             span.menu-bullet
+              //-               span.bullet.bullet-dot
+              //-             span.menu-title Multi-Steps Sign-Up
+              //-           // end:Menu link
+              //-         // end:Menu item
+              //-         // begin:Menu item
+              //-         .menu-item
+              //-           // begin:Menu link
+              //-           a.menu-link(href="authentication/extended/two-factor-auth.html")
+              //-             span.menu-bullet
+              //-               span.bullet.bullet-dot
+              //-             span.menu-title Two Factor Auth
+              //-           // end:Menu link
+              //-         // end:Menu item
+              //-       // end:Menu sub
+              //-     // end:Menu item
+              //-     // begin:Menu item
+              //-     .menu-item.menu-accordion(data-kt-menu-trigger="click")
+              //-       // begin:Menu link
+              //-       span.menu-link
+              //-         span.menu-bullet
+              //-           span.bullet.bullet-dot
+              //-         span.menu-title Email Templates
+              //-         span.menu-arrow
+              //-       // end:Menu link
+              //-       // begin:Menu sub
+              //-       .menu-sub.menu-sub-accordion.menu-active-bg
+              //-         // begin:Menu item
+              //-         .menu-item
+              //-           // begin:Menu link
+              //-           a.menu-link(href="authentication/email/welcome-message.html")
+              //-             span.menu-bullet
+              //-               span.bullet.bullet-dot
+              //-             span.menu-title Welcome Message
+              //-           // end:Menu link
+              //-         // end:Menu item
+              //-         // begin:Menu item
+              //-         .menu-item
+              //-           // begin:Menu link
+              //-           a.menu-link(href="authentication/email/reset-password.html")
+              //-             span.menu-bullet
+              //-               span.bullet.bullet-dot
+              //-             span.menu-title Reset Password
+              //-           // end:Menu link
+              //-         // end:Menu item
+              //-         // begin:Menu item
+              //-         .menu-item
+              //-           // begin:Menu link
+              //-           a.menu-link(href="authentication/email/subscription-confirmed.html")
+              //-             span.menu-bullet
+              //-               span.bullet.bullet-dot
+              //-             span.menu-title Subscription Confirmed
+              //-           // end:Menu link
+              //-         // end:Menu item
+              //-         // begin:Menu item
+              //-         .menu-item
+              //-           // begin:Menu link
+              //-           a.menu-link(href="authentication/email/card-declined.html")
+              //-             span.menu-bullet
+              //-               span.bullet.bullet-dot
+              //-             span.menu-title Credit Card Declined
+              //-           // end:Menu link
+              //-         // end:Menu item
+              //-         // begin:Menu item
+              //-         .menu-item
+              //-           // begin:Menu link
+              //-           a.menu-link(href="authentication/email/promo-1.html")
+              //-             span.menu-bullet
+              //-               span.bullet.bullet-dot
+              //-             span.menu-title Promo 1
+              //-           // end:Menu link
+              //-         // end:Menu item
+              //-         // begin:Menu item
+              //-         .menu-item
+              //-           // begin:Menu link
+              //-           a.menu-link(href="authentication/email/promo-2.html")
+              //-             span.menu-bullet
+              //-               span.bullet.bullet-dot
+              //-             span.menu-title Promo 2
+              //-           // end:Menu link
+              //-         // end:Menu item
+              //-         // begin:Menu item
+              //-         .menu-item
+              //-           // begin:Menu link
+              //-           a.menu-link(href="authentication/email/promo-3.html")
+              //-             span.menu-bullet
+              //-               span.bullet.bullet-dot
+              //-             span.menu-title Promo 3
+              //-           // end:Menu link
+              //-         // end:Menu item
+              //-       // end:Menu sub
+              //-     // end:Menu item
+              //-     // begin:Menu item
+              //-     .menu-item
+              //-       // begin:Menu link
+              //-       a.menu-link(href="authentication/general/welcome.html")
+              //-         span.menu-bullet
+              //-           span.bullet.bullet-dot
+              //-         span.menu-title Welcome Message
+              //-       // end:Menu link
+              //-     // end:Menu item
+              //-     // begin:Menu item
+              //-     .menu-item
+              //-       // begin:Menu link
+              //-       a.menu-link(href="authentication/general/verify-email.html")
+              //-         span.menu-bullet
+              //-           span.bullet.bullet-dot
+              //-         span.menu-title Verify Email
+              //-       // end:Menu link
+              //-     // end:Menu item
+              //-     // begin:Menu item
+              //-     .menu-item
+              //-       // begin:Menu link
+              //-       a.menu-link(href="authentication/general/coming-soon.html")
+              //-         span.menu-bullet
+              //-           span.bullet.bullet-dot
+              //-         span.menu-title Coming Soon
+              //-       // end:Menu link
+              //-     // end:Menu item
+              //-     // begin:Menu item
+              //-     .menu-item
+              //-       // begin:Menu link
+              //-       a.menu-link(href="authentication/general/password-confirmation.html")
+              //-         span.menu-bullet
+              //-           span.bullet.bullet-dot
+              //-         span.menu-title Password Confirmation
+              //-       // end:Menu link
+              //-     // end:Menu item
+              //-     // begin:Menu item
+              //-     .menu-item
+              //-       // begin:Menu link
+              //-       a.menu-link(href="authentication/general/account-deactivated.html")
+              //-         span.menu-bullet
+              //-           span.bullet.bullet-dot
+              //-         span.menu-title Account Deactivation
+              //-       // end:Menu link
+              //-     // end:Menu item
+              //-     // begin:Menu item
+              //-     .menu-item
+              //-       // begin:Menu link
+              //-       a.menu-link(href="authentication/general/error-404.html")
+              //-         span.menu-bullet
+              //-           span.bullet.bullet-dot
+              //-         span.menu-title Error 404
+              //-       // end:Menu link
+              //-     // end:Menu item
+              //-     // begin:Menu item
+              //-     .menu-item
+              //-       // begin:Menu link
+              //-       a.menu-link(href="authentication/general/error-500.html")
+              //-         span.menu-bullet
+              //-           span.bullet.bullet-dot
+              //-         span.menu-title Error 500
+              //-       // end:Menu link
+              //-     // end:Menu item
+              //-     // begin:Menu item
+              //-     .menu-item
+              //-       // begin:Menu link
+              //-       a.menu-link(href="authentication/general/maintenance.html")
+              //-         span.menu-bullet
+              //-           span.bullet.bullet-dot
+              //-         span.menu-title Maintenance
+              //-       // end:Menu link
+              //-     // end:Menu item
+              //-   // end:Menu sub
+              //- // end:Menu item
+              //- // begin:Menu item
+              //- .menu-item.menu-accordion(data-kt-menu-trigger="click")
+              //-   // begin:Menu link
+              //-   span.menu-link
+              //-     span.menu-icon
+              //-       i.ki-duotone.ki-abstract-28.fs-2
+              //-         span.path1
+              //-         span.path2
+              //-     span.menu-title User Management
+              //-     span.menu-arrow
+              //-   // end:Menu link
+              //-   // begin:Menu sub
+              //-   .menu-sub.menu-sub-accordion
+              //-     // begin:Menu item
+              //-     .menu-item.menu-accordion.mb-1(data-kt-menu-trigger="click")
+              //-       // begin:Menu link
+              //-       span.menu-link
+              //-         span.menu-bullet
+              //-           span.bullet.bullet-dot
+              //-         span.menu-title Users
+              //-         span.menu-arrow
+              //-       // end:Menu link
+              //-       // begin:Menu sub
+              //-       .menu-sub.menu-sub-accordion
+              //-         // begin:Menu item
+              //-         .menu-item
+              //-           // begin:Menu link
+              //-           a.menu-link(href="apps/user-management/users/list.html")
+              //-             span.menu-bullet
+              //-               span.bullet.bullet-dot
+              //-             span.menu-title Users List
+              //-           // end:Menu link
+              //-         // end:Menu item
+              //-         // begin:Menu item
+              //-         .menu-item
+              //-           // begin:Menu link
+              //-           a.menu-link(href="apps/user-management/users/view.html")
+              //-             span.menu-bullet
+              //-               span.bullet.bullet-dot
+              //-             span.menu-title View User
+              //-           // end:Menu link
+              //-         // end:Menu item
+              //-       // end:Menu sub
+              //-     // end:Menu item
+              //-     // begin:Menu item
+              //-     .menu-item.menu-accordion(data-kt-menu-trigger="click")
+              //-       // begin:Menu link
+              //-       span.menu-link
+              //-         span.menu-bullet
+              //-           span.bullet.bullet-dot
+              //-         span.menu-title Roles
+              //-         span.menu-arrow
+              //-       // end:Menu link
+              //-       // begin:Menu sub
+              //-       .menu-sub.menu-sub-accordion
+              //-         // begin:Menu item
+              //-         .menu-item
+              //-           // begin:Menu link
+              //-           a.menu-link(href="apps/user-management/roles/list.html")
+              //-             span.menu-bullet
+              //-               span.bullet.bullet-dot
+              //-             span.menu-title Roles List
+              //-           // end:Menu link
+              //-         // end:Menu item
+              //-         // begin:Menu item
+              //-         .menu-item
+              //-           // begin:Menu link
+              //-           a.menu-link(href="apps/user-management/roles/view.html")
+              //-             span.menu-bullet
+              //-               span.bullet.bullet-dot
+              //-             span.menu-title View Role
+              //-           // end:Menu link
+              //-         // end:Menu item
+              //-       // end:Menu sub
+              //-     // end:Menu item
+              //-     // begin:Menu item
+              //-     .menu-item
+              //-       // begin:Menu link
+              //-       a.menu-link(href="apps/user-management/permissions.html")
+              //-         span.menu-bullet
+              //-           span.bullet.bullet-dot
+              //-         span.menu-title Permissions
+              //-       // end:Menu link
+              //-     // end:Menu item
+              //-   // end:Menu sub
+              //- // end:Menu item
+              //- // begin:Menu item
+              //- .menu-item.menu-accordion(data-kt-menu-trigger="click")
+              //-   // begin:Menu link
+              //-   span.menu-link
+              //-     span.menu-icon
+              //-       i.ki-duotone.ki-message-text-2.fs-2
+              //-         span.path1
+              //-         span.path2
+              //-         span.path3
+              //-     span.menu-title Chat
+              //-     span.menu-arrow
+              //-   // end:Menu link
+              //-   // begin:Menu sub
+              //-   .menu-sub.menu-sub-accordion
+              //-     // begin:Menu item
+              //-     .menu-item
+              //-       // begin:Menu link
+              //-       a.menu-link(href="apps/chat/private.html")
+              //-         span.menu-bullet
+              //-           span.bullet.bullet-dot
+              //-         span.menu-title Private Chat
+              //-       // end:Menu link
+              //-     // end:Menu item
+              //-     // begin:Menu item
+              //-     .menu-item
+              //-       // begin:Menu link
+              //-       a.menu-link(href="apps/chat/group.html")
+              //-         span.menu-bullet
+              //-           span.bullet.bullet-dot
+              //-         span.menu-title Group Chat
+              //-       // end:Menu link
+              //-     // end:Menu item
+              //-     // begin:Menu item
+              //-     .menu-item
+              //-       // begin:Menu link
+              //-       a.menu-link(href="apps/chat/drawer.html")
+              //-         span.menu-bullet
+              //-           span.bullet.bullet-dot
+              //-         span.menu-title Drawer Chat
+              //-       // end:Menu link
+              //-     // end:Menu item
+              //-   // end:Menu sub
+              //- // end:Menu item
             // end::Menu
           // end::Scroll wrapper
         // end::Menu wrapper

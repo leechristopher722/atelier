@@ -1919,11 +1919,7 @@ html
             .app-navbar-item.ms-2.ms-1.ms-lg-3(id="kt_header_user_menu_toggle")
               // begin::Menu wrapper
               .cursor-pointer.symbol.symbol-35px.symbol-md-40px(data-kt-menu-trigger="{default: 'click', lg: 'hover'}", data-kt-menu-attach="parent", data-kt-menu-placement="bottom-end")
-                - if (user.profileImage)
-                  img(src=`assets/media/avatars/${user.profileImage}.jpg`)
-                - else
-                  - var firstChar = user.name.charAt(0).toUpperCase()
-                  span.symbol-label.bg-primary.text-inverse-primary.fw-bold.fs-2 #{firstChar}
+                img(src=`assets/media/avatars/${user.photo}`, alt='Profile Image')
               // begin::User account menu
               .menu.menu-sub.menu-sub-dropdown.menu-column.menu-rounded.menu-gray-800.menu-state-bg.menu-state-color.fw-semibold.py-4.fs-6.w-275px(data-kt-menu="true")
                 // begin::Menu item
@@ -1931,11 +1927,7 @@ html
                   .menu-content.d-flex.align-items-center.px-3
                     // begin::Avatar
                     .symbol.symbol-50px.me-5
-                      - if (user.profileImage)
-                        img(alt='Logo' src=`assets/media/avatars/${user.profileImage}.jpg`)
-                      - else
-                        - var firstChar = user.name.charAt(0).toUpperCase()
-                        span.symbol-label.bg-primary.text-inverse-primary.fw-bold.fs-1 #{firstChar}
+                      img(src=`assets/media/avatars/${user.photo}`, alt='Profile Image')
                     // end::Avatar
                     // begin::Username
                     .d-flex.flex-column

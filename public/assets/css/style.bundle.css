@@ -197,6 +197,10 @@
   margin-right: 5px;
 }
 
+.custom-heading {
+  color: var(--bs-primary-inverse)
+}
+
 body {
   margin: 0;
   font-family: var(--bs-body-font-family);

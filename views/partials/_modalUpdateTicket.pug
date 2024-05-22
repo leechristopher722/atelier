@@ -14,7 +14,7 @@ html
                 h1.mb-3 Update Ticket
                 .text-muted.fw-semibold.fs-5
                   | If you need more info, please check 
-                  a.fw-bold.link-primary(href="#") Project Guidelines
+                  a.fw-bold.link-primary(href=`/projects/${project.slug}`) Project Guidelines
                   | .
               .d-flex.flex-column.mb-8.fv-row
                 label.d-flex.align-items-center.fs-6.fw-semibold.mb-2
@@ -30,7 +30,7 @@ html
                   label.fs-6.fw-semibold.mb-2 Created By                 
                   a.d-flex.align-items-center.p-3.rounded.bg-state-light.bg-state-opacity-50.mb-1(href="#")
                     .symbol.symbol-35px.symbol-circle.me-5
-                      img(alt="Pic", src="assets/media/avatars/300-1.jpg")
+                      img(alt="Pic", src=`assets/media/avatars/${ticket.assignedBy.photo}`)
                     .fw-semibold
                       span.fs-6.text-gray-800.me-2 #{ticket.assignedBy.name}
                       span.badge.badge-light Software Enginer
@@ -45,7 +45,7 @@ html
                   label.required.fs-6.fw-semibold.mb-2 Assign To                  
                   select.form-select.form-select-solid(data-control="select2", data-hide-search="true", data-placeholder="Select a Team Member", name="target_assign", multiple)
                     each member in project.members
-                      option(value=member._id selected=ticket.assignedTo.some(assigned => assigned._id.toString() === member._id.toString())) #{member.name}
+                      option(value=member.account._id selected=ticket.assignedTo.some(assigned => assigned._id.toString() === member.account._id.toString())) #{member.account.name}
                 .col-md-6.fv-row
                   label.required.fs-6.fw-semibold.mb-2 Due Date
                   .position-relative.d-flex.align-items-center

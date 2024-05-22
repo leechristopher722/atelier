@@ -10,12 +10,12 @@ const projectSchema = new mongoose.Schema(
       trim: true,
       maxLength: [
         30,
-        'A project name must be less than or equal to 30 characters'
+        'A project name must be less than or equal to 30 characters',
       ],
       minLength: [
         3,
-        'A project name must be more than or equal to 3 characters'
-      ]
+        'A project name must be more than or equal to 3 characters',
+      ],
       // External Library for validator
       // validate: [
       //   validator.isAlpha,
@@ -26,25 +26,35 @@ const projectSchema = new mongoose.Schema(
     summary: {
       type: String,
       trim: true,
-      reuqired: [true, 'A project must have a summary']
+      reuqired: [true, 'A project must have a summary'],
     },
     description: {
       type: String,
-      trim: true
+      trim: true,
     },
     members: [
       {
-        type: mongoose.Schema.ObjectId,
-        ref: 'User'
-      }
+        account: {
+          type: mongoose.Schema.ObjectId,
+          ref: 'User',
+        },
+        access: {
+          type: String,
+          enum: {
+            values: ['Administrator', 'Member', 'Viewer'],
+            message: 'Member role is either: Administrator, Member, or Viewer',
+          },
+          default: 'Member',
+        },
+      },
     ],
     numTickets: {
       type: Number,
-      default: 0
+      default: 0,
     },
     createdAt: {
       type: Date,
-      default: Date.now()
+      default: Date.now(),
     },
     // price: {
     //   type: Number,
@@ -65,33 +75,33 @@ const projectSchema = new mongoose.Schema(
     // },
     isSecret: {
       type: Boolean,
-      default: false
+      default: false,
     },
     status: {
       type: String,
       enum: {
         values: ['Created', 'In Progress', 'Completed'],
-        message: 'Project status is either: Created, In Progress, or Completed'
+        message: 'Project status is either: Created, In Progress, or Completed',
       },
-      default: 'Created'
-    }
+      default: 'Created',
+    },
   },
   {
     strictQuery: true,
     toJSON: { virtuals: true },
-    toObject: { virtuals: true }
-  }
+    toObject: { virtuals: true },
+  },
 );
 
 projectSchema.index({ slug: 1 });
 
 // Virtual Property: For simple data that does not need to be stored in the DB
 // Separating business logic from the database in the model, and having little in controller.
-projectSchema.virtual('createdAtClean').get(function() {
+projectSchema.virtual('createdAtClean').get(function () {
   return new Date(this.createdAt).toLocaleDateString('en-US', {
     year: 'numeric',
     month: 'short',
-    day: 'numeric'
+    day: 'numeric',
   });
 });
 
@@ -99,11 +109,11 @@ projectSchema.virtual('createdAtClean').get(function() {
 projectSchema.virtual('tickets', {
   ref: 'Ticket',
   foreignField: 'project',
-  localField: '_id'
+  localField: '_id',
 });
 
 // DOCUMENT MIDDLEWARE: runs only before .save() or .create() NOT FOR UPDATES
-projectSchema.pre('save', function(next) {
+projectSchema.pre('save', function (next) {
   // console.log(this); // Shows how data is stored to DB right before .save()
   this.slug = slugify(this.name, { lower: true });
   next();
@@ -123,7 +133,7 @@ projectSchema.pre('save', function(next) {
 // });
 
 // QUERY MIDDLEWARE: deals w/ queries not documents
-projectSchema.pre(/^find/, function(next) {
+projectSchema.pre(/^find/, function (next) {
   // Works on all funciton that starts with find
   // projectSchema.pre('find', function(next) {
   this.find({ isSecret: { $ne: true } });
@@ -134,10 +144,10 @@ projectSchema.pre(/^find/, function(next) {
 });
 
 // Populate Members of the project with query middleware
-projectSchema.pre(/^find/, function(next) {
+projectSchema.pre(/^find/, function (next) {
   this.populate({
-    path: 'members',
-    select: '-__v -passwordChangedAt'
+    path: 'members.account',
+    select: '-__v -passwordChangedAt',
   });
   next();
 });
@@ -148,7 +158,7 @@ projectSchema.pre(/^find/, function(next) {
 // });
 
 // AGGREGATION MDIDLEWARE: removing secret project in aggregation pipeline
-projectSchema.pre('aggregate', function(next) {
+projectSchema.pre('aggregate', function (next) {
   // Aggregation pipeline object (array)
   this.pipeline().unshift({ $match: { isSecret: { $ne: true } } });
   next();

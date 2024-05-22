@@ -1,0 +1,176 @@
+extends ../../layouts/base
+
+block content
+  body
+    .d-flex.flex-column.flex-column-fluid
+      // begin::Toolbar
+      .app-toolbar.py-3.py-lg-6(id="kt_app_toolbar")
+        // begin::Toolbar container
+        .app-container.container-xxl.d-flex.flex-stack(id="kt_app_toolbar_container")
+          // begin::Page title
+          .page-title.d-flex.flex-column.justify-content-center.flex-wrap.me-3
+            // begin::Title
+            h1.page-heading.d-flex.text-gray-900.fw-bold.fs-3.flex-column.justify-content-center.my-0 Project Settings
+            // end::Title
+            // begin::Breadcrumb
+            ul.breadcrumb.fw-semibold.fs-7.my-0.pt-1
+              // begin::Item
+              li.breadcrumb-item.text-muted
+                a.text-muted.text-hover-primary(href="/") Home
+              // end::Item
+              // begin::Item
+              li.breadcrumb-item.text-muted
+                a.text-muted.text-hover-primary(href="/") Projects
+              // end::Item
+              // begin::Item
+              li.breadcrumb-item.text-muted
+                a.text-muted.text-hover-primary(href=`/projects/${project.slug}`) #{project.name}
+              // end::Item
+              // begin::Item
+              li.breadcrumb-item.text-muted Settings
+              // end::Item
+            // end::Breadcrumb
+          // end::Page title
+        // end::Toolbar container
+      // end::Toolbar
+      // begin::Content
+      .app-content.flex-column-fluid(id="kt_app_content")
+        // begin::Content container
+        .app-container.container-xxl(id="kt_app_content_container")
+          // begin::Card
+          .card
+            // begin::Form
+            form.form(id="kt_project_settings_form")
+              // begin::Card body
+              .card-body.p-9
+                // begin::Row
+                .row.mb-5
+                  // begin::Col
+                  .col-xl-3
+                    .fs-6.fw-semibold.mt-2.mb-3 Project Logo
+                  // end::Col
+                  // begin::Col
+                  .col-lg-8
+                    // begin::Image input
+                    .image-input.image-input-outline(data-kt-image-input="true", style="background-image: url('assets/media/svg/avatars/blank.svg')")
+                      // begin::Preview existing avatar
+                      .image-input-wrapper.w-125px.h-125px.bgi-position-center(style="background-size: 75%; background-image: url('assets/media/svg/brand-logos/volicity-9.svg')")
+                      // end::Preview existing avatar
+                      // begin::Label
+                      label.btn.btn-icon.btn-circle.btn-active-color-primary.w-25px.h-25px.bg-white.shadow(data-kt-image-input-action="change", data-bs-toggle="tooltip", title="Change avatar")
+                        i.ki-duotone.ki-pencil.fs-7
+                          span.path1
+                          span.path2
+                        // begin::Inputs
+                        input(type="file", name="avatar", accept=".png, .jpg, .jpeg")
+                        input(type="hidden", name="avatar_remove")
+                        // end::Inputs
+                      // end::Label
+                      // begin::Cancel
+                      span.btn.btn-icon.btn-circle.btn-active-color-primary.w-25px.h-25px.bg-white.shadow(data-kt-image-input-action="cancel", data-bs-toggle="tooltip", title="Cancel avatar")
+                        i.ki-duotone.ki-cross.fs-2
+                          span.path1
+                          span.path2
+                      // end::Cancel
+                      // begin::Remove
+                      span.btn.btn-icon.btn-circle.btn-active-color-primary.w-25px.h-25px.bg-white.shadow(data-kt-image-input-action="remove", data-bs-toggle="tooltip", title="Remove avatar")
+                        i.ki-duotone.ki-cross.fs-2
+                          span.path1
+                          span.path2
+                      // end::Remove
+                    // end::Image input
+                    // begin::Hint
+                    .form-text Allowed file types: png, jpg, jpeg.
+                    // end::Hint
+                  // end::Col
+                // end::Row
+                // begin::Row
+                .row.mb-8
+                  // begin::Col
+                  .col-xl-3
+                    .fs-6.fw-semibold.mt-2.mb-3 Project Name
+                  // end::Col
+                  // begin::Col
+                  .col-xl-9.fv-row
+                    input.form-control.form-control-solid(type="text", name="name", value="9 Degree Award")
+                // end::Row
+                // begin::Row
+                .row.mb-8
+                  // begin::Col
+                  .col-xl-3
+                    .fs-6.fw-semibold.mt-2.mb-3 Project Type
+                  // end::Col
+                  // begin::Col
+                  .col-xl-9.fv-row
+                    input.form-control.form-control-solid(type="text", name="type", value="Client Relationship")
+                // end::Row
+                // begin::Row
+                .row.mb-8
+                  // begin::Col
+                  .col-xl-3
+                    .fs-6.fw-semibold.mt-2.mb-3 Project Description
+                  // end::Col
+                  // begin::Col
+                  .col-xl-9.fv-row
+                    textarea.form-control.form-control-solid.h-100px(name="description") Organize your thoughts with an outline. Here’s the outlining strategy I use. I promise it works like a charm. Not only will it make writing your blog post easier, it’ll help you make your message
+                  // begin::Col
+                // end::Row
+                // begin::Row
+                .row.mb-8
+                  // begin::Col
+                  .col-xl-3
+                    .fs-6.fw-semibold.mt-2.mb-3 Due Date
+                  // end::Col
+                  // begin::Col
+                  .col-xl-9.fv-row
+                    .position-relative.d-flex.align-items-center
+                      i.ki-duotone.ki-calendar-8.position-absolute.ms-4.mb-1.fs-2
+                        span.path1
+                        span.path2
+                        span.path3
+                        span.path4
+                        span.path5
+                        span.path6
+                      input.form-control.form-control-solid.ps-12(name="date", placeholder="Pick a date", id="kt_datepicker_1")
+                  // begin::Col
+                // end::Row
+                // begin::Row
+                .row.mb-8
+                  // begin::Col
+                  .col-xl-3
+                    .fs-6.fw-semibold.mt-2.mb-3 Notifications
+                  // end::Col
+                  // begin::Col
+                  .col-xl-9
+                    .d-flex.fw-semibold.h-100
+                      .form-check.form-check-custom.form-check-solid.me-9
+                        input#email.form-check-input(type="checkbox")
+                        label.form-check-label.ms-3(for="email") Email
+                      .form-check.form-check-custom.form-check-solid
+                        input#phone.form-check-input(type="checkbox", checked="checked")
+                        label.form-check-label.ms-3(for="phone") Phone
+                  // end::Col
+                // end::Row
+                // begin::Row
+                .row
+                  // begin::Col
+                  .col-xl-3
+                    .fs-6.fw-semibold.mt-2.mb-3 Status
+                  // end::Col
+                  // begin::Col
+                  .col-xl-9
+                    .form-check.form-switch.form-check-custom.form-check-solid
+                      input#status.form-check-input(type="checkbox", name="status", checked="checked")
+                      label.form-check-label.fw-semibold.text-gray-500.ms-3(for="status") Active
+                  // end::Col
+                // end::Row
+              // end::Card body
+              // begin::Card footer
+              .card-footer.d-flex.justify-content-end.py-6.px-9
+                button.btn.btn-light.btn-active-light-primary.me-2(type="reset") Discard
+                button.btn.btn-primary(type="submit", id="kt_project_settings_submit") Save Changes
+              // end::Card footer
+            // end:Form
+          // end::Card
+        // end::Content container
+      // end::Content

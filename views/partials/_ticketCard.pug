@@ -7,17 +7,19 @@
       .badges-container
         each tag in ticket.tags
           // begin::Badge
-          .badge.badge-warning.mr-1 #{tag} 
+          if tag === 'Medium'
+            .badge.badge-warning.mr-1 #{tag} 
+          else if tag === 'High'
+            .badge.badge-danger.mr-1 #{tag} 
+          else if tag === 'Low'
+            .badge.badge-success.mr-1 #{tag} 
+          else 
+            .badge.badge-secondary.mr-1 #{tag} 
           // end::Badge
       // begin::Menu
-      div
-        button.btn.btn-sm.btn-icon.btn-color-light-dark.btn-active-light-primary(type="button", data-kt-menu-trigger="click", data-kt-menu-placement="bottom-end")
-          i.ki-duotone.ki-element-plus.fs-2
-            span.path1
-            span.path2
-            span.path3
-            span.path4
-            span.path5
+      .me-0
+        button.btn.btn-sm.btn-icon.btn-bg-light.btn-active-color-primary(data-kt-menu-trigger="click", data-kt-menu-placement="bottom-end")
+          i.ki-solid.ki-dots-horizontal.fs-2x
         // begin::Menu 3
         .menu.menu-sub.menu-sub-dropdown.menu-column.menu-rounded.menu-gray-800.menu-state-bg-light-primary.fw-semibold.w-200px.py-3(data-kt-menu="true")
           // begin::Heading
@@ -68,24 +70,14 @@
       // begin::Users
       .symbol-group.symbol-hover.my-1
         .symbol.symbol-35px.symbol-circle(data-bs-toggle="tooltip", title=ticket.assignedBy.name)
-          if (ticket.assignedBy.profileImage) 
-            img(alt="Pic", src=`assets/media/avatars/${ticket.assignedBy.profileImage}.jpg`)
-          else
-            span.symbol-label.bg-primary.text-inverse-primary.fw-bold= ticket.assignedBy.name.charAt(0).toUpperCase()
+          img(alt="Pic", src=`assets/media/avatars/${ticket.assignedBy.photo}`)
         each assignee in ticket.assignedTo
-          .symbol.symbol-35px.symbol-circle(data-bs-toggle="tooltip", title=assignee.name)
-            if (assignee.profileImage) 
-              img(alt="Pic", src=`assets/media/avatars/${assignee.profileImage}.jpg`)
-            else
-              span.symbol-label.bg-primary.text-inverse-primary.fw-bold= assignee.name.charAt(0).toUpperCase()
+          if (ticket.assignedBy.email !== assignee.email)
+            .symbol.symbol-35px.symbol-circle(data-bs-toggle="tooltip", title=assignee.name)
+              img(alt="Pic", src=`assets/media/avatars/${assignee.photo}`)
       // end::Users
       // begin::Stats
       .d-flex.my-1
-        // begin::Stat
-        .border.border-dashed.border-gray-300.rounded.d-flex.align-items-center.py-2.px-3
-          i.ki-duotone.ki-paper-clip.fs-3
-          span.ms-1.fs-7.fw-bold.text-gray-600 6
-        // end::Stat
         // begin::Stat
         .border.border-dashed.border-gray-300.d-flex.align-items-center.rounded.py-2.px-3.ms-3(data-value=`${user._id}` id=`ticket_comment_view_${ticket._id}`)
           i.ki-duotone.ki-message-text-2.fs-3

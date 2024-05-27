@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 // Class definition
 var AddProjectMember = (function () {
   let submitButton;

@@ -9,9 +9,24 @@ class APIFeatures {
 
     // 1) Filtering
     let queryStr = JSON.stringify(queryObj);
-    queryStr = queryStr.replace(/\b(gte|gt|lte|lt)\b/g, match => `$${match}`);
+    queryStr = queryStr.replace(/\b(gte|gt|lte|lt)\b/g, (match) => `$${match}`);
 
-    this.query = this.query.find(JSON.parse(queryStr));
+    // Parse the query string back to an object
+    const parsedQuery = JSON.parse(queryStr);
+
+    // 2) Adding custom filtering for name or email starting with a certain value
+    if (parsedQuery.search) {
+      const searchValue = parsedQuery.search;
+      delete parsedQuery.search;
+
+      // Add regex condition for name and email
+      parsedQuery.$or = [
+        { name: { $regex: `^${searchValue}`, $options: 'i' } },
+        { email: { $regex: `^${searchValue}`, $options: 'i' } },
+      ];
+    }
+
+    this.query = this.query.find(parsedQuery);
 
     return this;
   }

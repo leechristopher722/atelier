@@ -1,5 +1,5 @@
 // Class definition
-export const TicketComment = function(ticketId) {
+export const TicketComment = function (ticketId) {
   let commentContainer;
   let commentInput;
   let commentSubmitBtn;
@@ -16,12 +16,12 @@ export const TicketComment = function(ticketId) {
   function formatDateTime(date) {
     const formattedDate = date.toLocaleDateString(undefined, {
       month: 'short',
-      day: '2-digit'
+      day: '2-digit',
     });
     const formattedTime = date.toLocaleTimeString(undefined, {
       hour: '2-digit',
       minute: '2-digit',
-      hour12: false
+      hour12: false,
     });
     return `${formattedDate} ${formattedTime}`;
   }
@@ -30,22 +30,22 @@ export const TicketComment = function(ticketId) {
     fetch(`/api/v1/tickets/${ticketId}/comments`, {
       method: 'GET',
       headers: {
-        'Content-Type': 'application/json'
-      }
+        'Content-Type': 'application/json',
+      },
     })
-      .then(response => {
+      .then((response) => {
         if (!response.ok) {
           throw new Error('Network response was not ok');
         }
         return response.json();
       })
-      .then(resData => {
+      .then((resData) => {
         commentMessages.innerHTML = ''; // Clear previous content
-        resData.data.data.forEach(item => {
+        resData.data.data.forEach((item) => {
           const listItem = document.createElement('div');
 
           const commentCreatedDateTime = formatDateTime(
-            new Date(item.createdAt)
+            new Date(item.createdAt),
           );
 
           if (commentOpenBtn.dataset.value === item.createdBy._id) {
@@ -58,7 +58,7 @@ export const TicketComment = function(ticketId) {
                             <a class="fs-5 fw-bold text-gray-900 text-hover-primary ms-1" href="#">You</a>
                         </div>
                         <div class="symbol symbol-35px symbol-circle">
-                            <img alt="Pic" src="assets/media/avatars/300-1.jpg">
+                            <img alt="Pic" src="assets/media/avatars/${item.createdBy.photo}">
                         </div>
                     </div>
                     <div class="p-5 rounded bg-light-primary text-gray-900 fw-semibold mw-lg-400px text-end" data-kt-element="message-text">${item.content}</div>
@@ -73,7 +73,7 @@ export const TicketComment = function(ticketId) {
 								<div class="d-flex align-items-center mb-2">
 									<!--begin::Avatar-->
 									<div class="symbol symbol-35px symbol-circle">
-										<img alt="Pic" src="assets/media/avatars/300-25.jpg" />
+										<img alt="Pic" src="assets/media/avatars/${item.createdBy.photo}" />
 									</div>
 									<!--end::Avatar-->
 									<!--begin::Details-->
@@ -96,15 +96,15 @@ export const TicketComment = function(ticketId) {
         });
         scrollToBottom();
       })
-      .catch(error => {
+      .catch((error) => {
         console.error('Error fetching data:', error);
       });
   };
 
   // Private functions
-  const initSettings = function() {
+  const initSettings = function () {
     // toggle UI
-    commentOpenBtn.addEventListener('click', function() {
+    commentOpenBtn.addEventListener('click', function () {
       commentContainer.classList.toggle('d-none');
       if (firstOpen && !commentContainer.classList.contains('d-none')) {
         firstOpen = false;
@@ -116,8 +116,8 @@ export const TicketComment = function(ticketId) {
     // commentMessages.addEventListener('input', scrollToBottom);
   };
 
-  const handleCommentInput = function() {
-    commentSubmitBtn.addEventListener('click', function(e) {
+  const handleCommentInput = function () {
+    commentSubmitBtn.addEventListener('click', function (e) {
       e.preventDefault();
 
       const body = { content: commentInput.value };
@@ -126,9 +126,9 @@ export const TicketComment = function(ticketId) {
         method: 'POST',
         body: JSON.stringify(body),
         headers: {
-          'Content-Type': 'application/json'
-        }
-      }).then(function(response) {
+          'Content-Type': 'application/json',
+        },
+      }).then(function (response) {
         if (response.ok) {
           const listItem = document.createElement('div');
 
@@ -152,20 +152,19 @@ export const TicketComment = function(ticketId) {
           commentMessages.appendChild(listItem);
           commentInput.value = '';
           const commentCount = document.getElementById(
-            `comment_count_${ticketId}`
+            `comment_count_${ticketId}`,
           );
           commentCount.textContent = Number(commentCount.textContent) + 1;
           scrollToBottom();
         } else {
           swal.fire({
-            text:
-              'Error occurred while saving your comment. Please try again next time.',
+            text: 'Error occurred while saving your comment. Please try again next time.',
             icon: 'error',
             buttonsStyling: false,
             confirmButtonText: 'Ok, got it!',
             customClass: {
-              confirmButton: 'btn fw-bold btn-light-primary'
-            }
+              confirmButton: 'btn fw-bold btn-light-primary',
+            },
           });
         }
       });
@@ -174,18 +173,18 @@ export const TicketComment = function(ticketId) {
 
   // Public methods
   return {
-    init: function(button) {
+    init: function (button) {
       commentContainer = document.getElementById(
-        `ticket_comment_container_${ticketId}`
+        `ticket_comment_container_${ticketId}`,
       );
       commentInput = document.getElementById(
-        `ticket_comment_input_${ticketId}`
+        `ticket_comment_input_${ticketId}`,
       );
       commentSubmitBtn = document.getElementById(
-        `ticket_comment_send_${ticketId}`
+        `ticket_comment_send_${ticketId}`,
       );
       commentMessages = document.getElementById(
-        `ticket_comment_messages_${ticketId}`
+        `ticket_comment_messages_${ticketId}`,
       );
       commentOpenBtn = button;
 
@@ -193,6 +192,6 @@ export const TicketComment = function(ticketId) {
 
       initSettings();
       handleCommentInput();
-    }
+    },
   };
 };

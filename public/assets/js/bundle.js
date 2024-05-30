@@ -3183,7 +3183,7 @@
                             <a class="fs-5 fw-bold text-gray-900 text-hover-primary ms-1" href="#">You</a>
                         </div>
                         <div class="symbol symbol-35px symbol-circle">
-                            <img alt="Pic" src="assets/media/avatars/300-1.jpg">
+                            <img alt="Pic" src="assets/media/avatars/${item.createdBy.photo}">
                         </div>
                     </div>
                     <div class="p-5 rounded bg-light-primary text-gray-900 fw-semibold mw-lg-400px text-end" data-kt-element="message-text">${item.content}</div>
@@ -3198,7 +3198,7 @@
 								<div class="d-flex align-items-center mb-2">
 									<!--begin::Avatar-->
 									<div class="symbol symbol-35px symbol-circle">
-										<img alt="Pic" src="assets/media/avatars/300-25.jpg" />
+										<img alt="Pic" src="assets/media/avatars/${item.createdBy.photo}" />
 									</div>
 									<!--end::Avatar-->
 									<!--begin::Details-->

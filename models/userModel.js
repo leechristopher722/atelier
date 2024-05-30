@@ -8,13 +8,7 @@ const userSchema = new mongoose.Schema({
     type: String,
     trim: true,
     maxLength: [40, 'A user name must be less than or equal to 40 characters'],
-    // External Library for validator
-    // validate: [
-    //   validator.isAlpha,
-    //   'A project name must only contain alphabets'
-    // ]
   },
-  photo: String,
   email: {
     type: String,
     required: [true, 'Please provide your email'],

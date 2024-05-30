@@ -60,8 +60,6 @@ block content
                     // end::Details
                     // begin::Actions
                     .d-flex.mb-4
-                      a.btn.btn-sm.btn-bg-light.btn-active-color-primary.me-3(href="#", data-bs-toggle="modal", data-bs-target="#kt_modal_users_search") Add Member
-                      a.btn.btn-sm.btn-primary.me-3(href="#", data-bs-toggle="modal", data-bs-target="#kt_modal_new_target") Add Ticket
                       // begin::Menu
                       .me-0
                         button.btn.btn-sm.btn-icon.btn-bg-light.btn-active-color-primary(data-kt-menu-trigger="click", data-kt-menu-placement="bottom-end")
@@ -74,11 +72,11 @@ block content
                           // end::Heading
                           // begin::Menu item
                           .menu-item.px-3
-                            a.menu-link.px-3(href="#") Manage Members
+                            a.menu-link.px-3(href=`/projects/${project.slug}/tickets`) Manage Tickets
                           // end::Menu item
                           // begin::Menu item
                           .menu-item.px-3
-                            a.menu-link.px-3(href="#") Manage Files
+                            a.menu-link.px-3(href=`/projects/${project.slug}/members`) Manage Members
                           // end::Menu item
                           // begin::Menu item
                           .menu-item.px-3(data-kt-menu-trigger="hover", data-kt-menu-placement="right-end")
@@ -103,7 +101,7 @@ block content
                           // end::Menu item
                           // begin::Menu item
                           .menu-item.px-3.my-1
-                            a.menu-link.px-3(href="#") Settings
+                            a.menu-link.px-3(href=`/projects/${project.slug}/settings`) Settings
                           // end::Menu item
                         // end::Menu 3
                       // end::Menu
@@ -237,7 +235,7 @@ block content
                   // end::Card title
                   // begin::Card toolbar
                   .card-toolbar
-                    a.btn.btn-bg-light.btn-active-color-primary.btn-sm(href="#") View All
+                    a.btn.btn-bg-light.btn-active-color-primary.btn-sm(href="#") Manage Members
                   // end::Card toolbar
                 // end::Card toolbar
                 // begin::Card body

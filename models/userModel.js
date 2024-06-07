@@ -52,6 +52,14 @@ const userSchema = new mongoose.Schema({
   },
 });
 
+// Virtual populate
+userSchema.virtual('projects', {
+  ref: 'Project',
+  foreignField: 'members.account',
+  localField: '_id',
+  justOne: false,
+});
+
 // Document Middleware
 userSchema.pre('save', async function (next) {
   // Only run this function if password was actually modified

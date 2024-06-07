@@ -1,8 +1,23 @@
 const Project = require('../models/projectModel');
 const catchAsync = require('../utils/catchAsync');
 
-exports.getProjects = catchAsync(async (req, res) => {
+exports.getAllProjects = catchAsync(async (req, res) => {
   const projects = await Project.find();
+
+  res.status(200).render('pages/index', {
+    title: 'Workspace for Developers',
+    projects,
+  });
+});
+
+exports.getUserProjects = catchAsync(async (req, res) => {
+  const projects = await Project.aggregate([
+    {
+      $match: {
+        'members.account': res.locals.user._id,
+      },
+    },
+  ]);
 
   res.status(200).render('pages/index', {
     title: 'Workspace for Developers',
@@ -17,12 +32,42 @@ exports.getProject = catchAsync(async (req, res) => {
     path: 'tickets',
   });
 
-  const projects = await Project.find();
+  const groupedTickets = Object.groupBy(
+    project.tickets,
+    ({ status }) => status,
+  );
+
+  if (!groupedTickets.created) {
+    groupedTickets.created = [];
+  }
+
+  if (!groupedTickets.in_progress) {
+    groupedTickets.in_progress = [];
+  }
+
+  if (!groupedTickets.completed) {
+    groupedTickets.completed = [];
+  }
+
+  const projects = await Project.aggregate([
+    {
+      $match: {
+        'members.account': res.locals.user._id,
+      },
+    },
+    {
+      $project: {
+        name: 1,
+        slug: 1,
+      },
+    },
+  ]);
 
   res.status(200).render('pages/project/overview', {
     title: `${project.name}`,
     projects,
     project,
+    groupedTickets,
     isOverviewPage: 'active',
   });
 });
@@ -51,7 +96,19 @@ exports.getProjectTickets = catchAsync(async (req, res) => {
     groupedTickets.completed = [];
   }
 
-  const projects = await Project.find();
+  const projects = await Project.aggregate([
+    {
+      $match: {
+        'members.account': res.locals.user._id,
+      },
+    },
+    {
+      $project: {
+        name: 1,
+        slug: 1,
+      },
+    },
+  ]);
 
   res.status(200).render('pages/project/tickets', {
     title: `${project.name}`,
@@ -67,7 +124,19 @@ exports.getProjectMembers = catchAsync(async (req, res) => {
     slug: req.params.projectSlug,
   });
 
-  const projects = await Project.find();
+  const projects = await Project.aggregate([
+    {
+      $match: {
+        'members.account': res.locals.user._id,
+      },
+    },
+    {
+      $project: {
+        name: 1,
+        slug: 1,
+      },
+    },
+  ]);
 
   res.status(200).render('pages/project/members', {
     title: `${project.name}`,
@@ -82,7 +151,19 @@ exports.getProjectSettings = catchAsync(async (req, res) => {
     slug: req.params.projectSlug,
   });
 
-  const projects = await Project.find();
+  const projects = await Project.aggregate([
+    {
+      $match: {
+        'members.account': res.locals.user._id,
+      },
+    },
+    {
+      $project: {
+        name: 1,
+        slug: 1,
+      },
+    },
+  ]);
 
   res.status(200).render('pages/project/settings', {
     title: `${project.name}`,
@@ -130,8 +211,19 @@ exports.redirectToLogin = (req, res, next) => {
 };
 
 exports.getAccount = catchAsync(async (req, res) => {
-  const projects = await Project.find();
-
+  const projects = await Project.aggregate([
+    {
+      $match: {
+        'members.account': res.locals.user._id,
+      },
+    },
+    {
+      $project: {
+        name: 1,
+        slug: 1,
+      },
+    },
+  ]);
   res.status(200).render('pages/account', {
     title: 'My Account',
     projects,

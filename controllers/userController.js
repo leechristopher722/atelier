@@ -1,8 +1,9 @@
-const User = require('./../models/userModel');
 const multer = require('multer');
 const sharp = require('sharp');
-const catchAsync = require('./../utils/catchAsync');
-const AppError = require('./../utils/appError');
+const mongoose = require('mongoose');
+const User = require('../models/userModel');
+const catchAsync = require('../utils/catchAsync');
+const AppError = require('../utils/appError');
 const factory = require('./handlerFactory');
 
 // const multerStorage = multer.diskStorage({
@@ -48,6 +49,45 @@ exports.resizeUserPhoto = catchAsync(async (req, res, next) => {
     .jpeg({ quality: 90 })
     .toFile(`public/assets/media/avatars/${req.file.filename}`);
   next();
+});
+
+exports.getUserWithProjects = catchAsync(async (req, res, next) => {
+  const userId = new mongoose.Types.ObjectId(req.params.id);
+
+  const userWithProjects = await User.aggregate([
+    { $match: { _id: userId } },
+    {
+      $lookup: {
+        from: 'projects',
+        localField: '_id',
+        foreignField: 'members.account',
+        as: 'projects',
+      },
+    },
+    {
+      $project: {
+        password: 0,
+        passwordConfirm: 0,
+        passwordChangedAt: 0,
+        passwordResetToken: 0,
+        passwordResetExpires: 0,
+        active: 0,
+      },
+    },
+  ]);
+
+  if (!userWithProjects.length) {
+    return next(new AppError('No user found with that ID', 404));
+  }
+
+  const user = userWithProjects[0];
+
+  res.status(200).json({
+    status: 'success',
+    data: {
+      user,
+    },
+  });
 });
 
 exports.getAllUsers = factory.getAll(User);

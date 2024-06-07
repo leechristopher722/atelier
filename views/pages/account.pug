@@ -14,38 +14,16 @@ block content
             h1.page-heading.d-flex.text-gray-900.fw-bold.fs-3.flex-column.justify-content-center.my-0 Account Settings
             // end::Title
             // begin::Breadcrumb
-            ul.breadcrumb.breadcrumb-separatorless.fw-semibold.fs-7.my-0.pt-1
+            ul.breadcrumb.fw-semibold.fs-7.my-0.pt-1
               // begin::Item
               li.breadcrumb-item.text-muted
-                a.text-muted.text-hover-primary(href="index.html") Home
-              // end::Item
-              // begin::Item
-              li.breadcrumb-item
-                span.bullet.bg-gray-500.w-5px.h-2px
+                a.text-muted.text-hover-primary(href="/") Home
               // end::Item
               // begin::Item
               li.breadcrumb-item.text-muted Account
               // end::Item
-            // end::Breadcrumb
+              // end::Breadcrumb
           // end::Page title
-          // begin::Actions
-          .d-flex.align-items-center.gap-2.gap-lg-3
-            // begin::Filter menu
-            .d-flex
-              select.form-select.form-select-sm.bg-body.border-body.w-175px(name="campaign-type", data-control="select2", data-hide-search="true")
-                option(value="Twitter", selected="selected") Select Campaign
-                option(value="Twitter") Twitter Campaign
-                option(value="Twitter") Facebook Campaign
-                option(value="Twitter") Adword Campaign
-                option(value="Twitter") Carbon Campaign
-              a.btn.btn-icon.btn-sm.btn-success.flex-shrink-0.ms-4(href="#", data-bs-toggle="modal", data-bs-target="#kt_modal_create_campaign")
-                i.ki-duotone.ki-plus.fs-2
-            // end::Filter menu
-            // begin::Secondary button
-            // end::Secondary button
-            // begin::Primary button
-            // end::Primary button
-          // end::Actions
         // end::Toolbar container
       // end::Toolbar
       // begin::Content
@@ -180,103 +158,9 @@ block content
                       button.btn.btn-primary(id="password_submit", type="button") Update Password
                   // end::Form
                 // end::Password
-                // begin::Notice
-                .notice.d-flex.bg-light-primary.rounded.border-primary.border.border-dashed.p-6
-                  // begin::Icon
-                  i.ki-duotone.ki-shield-tick.fs-2tx.text-primary.me-4
-                    span.path1
-                    span.path2
-                  // end::Icon
-                  // begin::Wrapper
-                  .d-flex.flex-stack.flex-grow-1.flex-wrap.flex-md-nowrap
-                    // begin::Content
-                    .mb-3.mb-md-0.fw-semibold
-                      h4.text-gray-900.fw-bold Secure Your Account
-                      .fs-6.text-gray-700.pe-7 Two-factor authentication adds an extra layer of security to your account. To log in, in addition you&apos;ll need to provide a 6 digit code
-                    // end::Content
-                    // begin::Action
-                    a.btn.btn-primary.px-6.align-self-center.text-nowrap(href="#", data-bs-toggle="modal", data-bs-target="#kt_modal_two_factor_authentication") Enable
-                    // end::Action
-                  // end::Wrapper
-                // end::Notice
               // end::Card body
             // end::Content
           // end::Sign-in Method
-          // begin::Connected Accounts
-          .card.mb-5.mb-xl-10
-            // begin::Card header
-            .card-header.border-0.cursor-pointer(role="button", data-bs-toggle="collapse", data-bs-target="#kt_account_connected_accounts", aria-expanded="true", aria-controls="kt_account_connected_accounts")
-              .card-title.m-0
-                h3.fw-bold.m-0 Connected Accounts
-            // end::Card header
-            // begin::Content
-            .collapse.show(id="kt_account_settings_connected_accounts")
-              // begin::Card body
-              .card-body.border-top.p-9
-                // begin::Notice
-                .notice.d-flex.bg-light-primary.rounded.border-primary.border.border-dashed.mb-9.p-6
-                  // begin::Icon
-                  i.ki-duotone.ki-design-1.fs-2tx.text-primary.me-4
-                  // end::Icon
-                  // begin::Wrapper
-                  .d-flex.flex-stack.flex-grow-1
-                    // begin::Content
-                    .fw-semibold
-                      .fs-6.text-gray-700
-                        | Two-factor authentication adds an extra layer of security to your account. To log in, in you&apos;ll need to provide a 4 digit amazing code.
-                        a.fw-bold(href="#") Learn More
-                    // end::Content
-                  // end::Wrapper
-                // end::Notice
-                // begin::Items
-                .py-2
-                  // begin::Item
-                  .d-flex.flex-stack
-                    .d-flex
-                      img.w-30px.me-6(src="assets/media/svg/brand-logos/google-icon.svg")
-                      .d-flex.flex-column
-                        a.fs-5.text-gray-900.text-hover-primary.fw-bold(href="#") Google
-                        .fs-6.fw-semibold.text-gray-500 Plan properly your workflow
-                    .d-flex.justify-content-end
-                      .form-check.form-check-solid.form-check-custom.form-switch
-                        input#googleswitch.form-check-input.w-45px.h-30px(type="checkbox", checked="checked")
-                        label.form-check-label(for="googleswitch")
-                  // end::Item
-                  .separator.separator-dashed.my-5
-                  // begin::Item
-                  .d-flex.flex-stack
-                    .d-flex
-                      img.w-30px.me-6(src="assets/media/svg/brand-logos/github.svg")
-                      .d-flex.flex-column
-                        a.fs-5.text-gray-900.text-hover-primary.fw-bold(href="#") Github
-                        .fs-6.fw-semibold.text-gray-500 Keep eye on on your Repositories
-                    .d-flex.justify-content-end
-                      .form-check.form-check-solid.form-check-custom.form-switch
-                        input#githubswitch.form-check-input.w-45px.h-30px(type="checkbox", checked="checked")
-                        label.form-check-label(for="githubswitch")
-                  // end::Item
-                  .separator.separator-dashed.my-5
-                  // begin::Item
-                  .d-flex.flex-stack
-                    .d-flex
-                      img.w-30px.me-6(src="assets/media/svg/brand-logos/slack-icon.svg")
-                      .d-flex.flex-column
-                        a.fs-5.text-gray-900.text-hover-primary.fw-bold(href="#") Slack
-                        .fs-6.fw-semibold.text-gray-500 Integrate Projects Discussions
-                    .d-flex.justify-content-end
-                      .form-check.form-check-solid.form-check-custom.form-switch
-                        input#slackswitch.form-check-input.w-45px.h-30px(type="checkbox")
-                        label.form-check-label(for="slackswitch")
-                  // end::Item
-                // end::Items
-              // end::Card body
-              // begin::Card footer
-              .card-footer.d-flex.justify-content-end.py-6.px-9
-                button.btn.btn-light.btn-active-light-primary.me-2 Discard
-                button.btn.btn-primary Save Changes
-              // end::Card footer
-            // end::Content
-          // end::Connected Accounts
           // begin::Deactivate Account
           .card
             // begin::Card header

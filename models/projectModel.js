@@ -41,7 +41,7 @@ const projectSchema = new mongoose.Schema(
         access: {
           type: String,
           enum: {
-            values: ['Administrator', 'Member', 'Viewer'],
+            values: ['Admin', 'Member', 'Viewer'],
             message: 'Member role is either: Administrator, Member, or Viewer',
           },
           default: 'Member',
@@ -124,7 +124,7 @@ projectSchema.pre(/^find/, function (next) {
 projectSchema.pre(/^find/, function (next) {
   this.populate({
     path: 'members.account',
-    select: '-__v -passwordChangedAt',
+    select: 'name photo email role',
   });
   next();
 });
@@ -133,6 +133,43 @@ projectSchema.pre(/^find/, function (next) {
 projectSchema.pre('aggregate', function (next) {
   // Aggregation pipeline object (array)
   this.pipeline().unshift({ $match: { isSecret: { $ne: true } } });
+  next();
+});
+
+// Editing project members
+projectSchema.pre('findOneAndUpdate', function (next) {
+  const update = this.getUpdate();
+
+  if (update.addMembers) {
+    this._update.$push = { members: { $each: update.addMembers } };
+    delete this._update.addMembers;
+  }
+
+  if (update.removeMembers) {
+    this._update.$pull = {
+      members: { account: { $in: update.removeMembers } },
+    };
+    delete this._update.removeMembers;
+  }
+
+  if (update.updateMemberAccess) {
+    const userId = update.updateMemberAccess.account;
+    const newAccess = update.updateMemberAccess.access;
+
+    // Find the member and update the access
+    this._update = {
+      $set: {
+        'members.$[elem].access': newAccess,
+      },
+    };
+
+    // Use arrayFilters to specify which array element to update
+    this.options.arrayFilters = [{ 'elem.account': userId }];
+
+    // Remove the custom updateMemberAccess field to prevent it from being applied directly
+    delete this._update.updateMemberAccess;
+  }
+
   next();
 });
 

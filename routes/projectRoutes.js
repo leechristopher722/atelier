@@ -1,6 +1,6 @@
 const express = require('express');
 const projectController = require('../controllers/projectController');
-const authController = require('./../controllers/authController');
+const authController = require('../controllers/authController');
 const ticketRouter = require('./ticketRoutes');
 
 const router = express.Router();
@@ -15,16 +15,16 @@ router.route('/project-stats').get(projectController.getProjectStats);
 
 router
   .route('/')
-  .get(projectController.getAllProjects)
+  .get(projectController.getAllProjectsForUser)
   .post(projectController.createProject);
 
 router
   .route('/:id')
   .get(projectController.getProject)
-  .patch(projectController.editMembers, projectController.updateProject)
+  .patch(projectController.updateProject)
   .delete(
     authController.restrictTo('admin', 'project manager'),
-    projectController.deleteProject
+    projectController.deleteProject,
   );
 
 module.exports = router;

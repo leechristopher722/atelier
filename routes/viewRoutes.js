@@ -15,7 +15,8 @@ router.get('/signup', viewController.getSignupForm);
 
 router.get('/me', authController.protect, viewController.getAccount);
 
-router.get('/', viewController.redirectToLogin, viewController.getProjects);
+// TODO:Implement GET ALL PROJECTS FOR ADMIN
+router.get('/', viewController.redirectToLogin, viewController.getUserProjects);
 router.get(
   '/projects/:projectSlug',
   viewController.redirectToLogin,

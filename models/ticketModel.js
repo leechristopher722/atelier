@@ -82,19 +82,8 @@ ticketSchema.pre(/^find/, function (next) {
     path: 'assignedBy assignedTo',
     select: 'name photo email',
   });
-
-  // .populate({
-  //   path: 'project',
-  //   select: '-members name'
-  // });
   next();
 });
-
-// ticketSchema.post(/^find/, function(docs, next) {
-//   // await this.constructor.groupByStatus(this.project);
-//   console.log(`Query took ${Date.now() - this.start} milliseconds`);
-//   next();
-// });
 
 ticketSchema.statics.calcNumTickets = async function (projectId) {
   const stats = await this.aggregate([

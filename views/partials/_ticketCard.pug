@@ -5,17 +5,14 @@
     // begin::Header
     .d-flex.flex-stack.mb-1
       .badges-container
+        if ticket.priority === 'Medium'
+          .badge.badge-warning.mr-1 Medium
+        else if  ticket.priority === 'High'
+          .badge.badge-danger.mr-1 High
+        else
+          .badge.badge-success.mr-1 Low
         each tag in ticket.tags
-          // begin::Badge
-          if tag === 'Medium'
-            .badge.badge-warning.mr-1 #{tag} 
-          else if tag === 'High'
-            .badge.badge-danger.mr-1 #{tag} 
-          else if tag === 'Low'
-            .badge.badge-success.mr-1 #{tag} 
-          else 
-            .badge.badge-secondary.mr-1 #{tag} 
-          // end::Badge
+          .badge.badge-secondary.mr-1 #{tag} 
       // begin::Menu
       .me-0
         button.btn.btn-sm.btn-icon.btn-bg-light.btn-active-color-primary(data-kt-menu-trigger="click", data-kt-menu-placement="bottom-end")
@@ -60,11 +57,8 @@
     // end::Header
     // begin::Title
     .mb-1
-      a.fs-4.fw-bold.mb-1.text-gray-900.text-hover-primary(href="#") #{ticket.name}
+      a.fs-4.fw-bold.mb-1.text-gray-900.text-hover-primary(data-bs-toggle="modal", data-bs-target=`#kt_modal_update_ticket_modal_${ticket._id}` data-value=`${ticket._id}`) #{ticket.name}
     // end::Title
-    // begin::Content
-    .fs-6.fw-semibold.text-gray-600.mb-3 #{ticket.description}
-    // end::Content
     // begin::Footer
     .d-flex.flex-stack.flex-wrapr
       // begin::Users
@@ -78,8 +72,22 @@
       // end::Users
       // begin::Stats
       .d-flex.my-1
+        - const now = new Date()
+        - const dueDateClean = ticket.dueDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric'})
+        if now <= ticket.dueDate || ticket.status === 'completed'
+          .border.border-dashed.border-gray-300.d-flex.align-items-center.rounded.py-2.px-3.ms-3
+            i.ki-duotone.ki-time.fs-3
+              span.path1
+              span.path2
+            span.ms-1.fs-7.fw-bold.text-gray-600= dueDateClean
+        else
+          .border.border-dashed.border-danger.d-flex.align-items-center.rounded.py-2.px-3.ms-3
+            i.ki-duotone.ki-time.text-danger.fs-3
+              span.path1
+              span.path2
+            span.ms-1.fs-7.fw-bold.text-danger= dueDateClean
         // begin::Stat
-        .border.border-dashed.border-gray-300.d-flex.align-items-center.rounded.py-2.px-3.ms-3(data-value=`${user._id}` id=`ticket_comment_view_${ticket._id}`)
+        .btn.btn-outline.btn-outline-dashed.d-flex.align-items-center.py-2.px-3.ms-3(data-value=`${user._id}` id=`ticket_comment_view_${ticket._id}`)
           i.ki-duotone.ki-message-text-2.fs-3
             span.path1
             span.path2

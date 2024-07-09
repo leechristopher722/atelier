@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 // Class definition
 export const TicketComment = function (ticketId) {
   let commentContainer;
@@ -50,42 +52,38 @@ export const TicketComment = function (ticketId) {
 
           if (commentOpenBtn.dataset.value === item.createdBy._id) {
             listItem.innerHTML = `
-            <div class="d-flex justify-content-end mb-5">
+            <div class="d-flex justify-content-end mb-4">
                 <div class="d-flex flex-column align-items-end">
-                    <div class="d-flex align-items-center mb-2">
-                        <div class="me-3">
-                            <span class="text-muted fs-7 mb-1">${commentCreatedDateTime}</span>
-                            <a class="fs-5 fw-bold text-gray-900 text-hover-primary ms-1" href="#">You</a>
-                        </div>
-                        <div class="symbol symbol-35px symbol-circle">
-                            <img alt="Pic" src="assets/media/avatars/${item.createdBy.photo}">
-                        </div>
-                    </div>
-                    <div class="p-5 rounded bg-light-primary text-gray-900 fw-semibold mw-lg-400px text-end" data-kt-element="message-text">${item.content}</div>
+                  <div class="d-flex align-items-end mb-1">
+                      <span class="text-muted fs-7 mb-1 me-3 flex-shrink-0">${commentCreatedDateTime}</span>
+                      <div class="px-5 py-3 rounded bg-light-primary text-gray-900 fw-semibold mw-lg-400px text-end" data-kt-element="message-text">${item.content}</div>
+                  </div>
                 </div>
             </div>`;
           } else {
             listItem.innerHTML = `<!--begin::Message(in)-->
-						<div class="d-flex justify-content-start mb-5">
+						<div class="d-flex justify-content-start mb-4">
 							<!--begin::Wrapper-->
 							<div class="d-flex flex-column align-items-start">
 								<!--begin::User-->
 								<div class="d-flex align-items-center mb-2">
 									<!--begin::Avatar-->
-									<div class="symbol symbol-35px symbol-circle">
+									<div class="symbol symbol-25px symbol-circle">
 										<img alt="Pic" src="assets/media/avatars/${item.createdBy.photo}" />
 									</div>
 									<!--end::Avatar-->
 									<!--begin::Details-->
-									<div class="ms-3">
-										<a href="#" class="fs-5 fw-bold text-gray-900 text-hover-primary me-1">${item.createdBy.name}</a>
-										<span class="text-muted fs-7 mb-1">${commentCreatedDateTime}</span>
+									<div class="ms-2">
+										<div class="fs-5 fw-bold text-gray-900 me-1">${item.createdBy.name}</div>
 									</div>
 									<!--end::Details-->
 								</div>
 								<!--end::User-->
 								<!--begin::Text-->
-								<div class="p-5 rounded bg-light-info text-gray-900 fw-semibold mw-lg-400px text-start" data-kt-element="message-text">${item.content}</div>
+                <div class="d-flex align-items-end mb-1">
+                  <div class="px-5 py-3 rounded bg-light-info text-gray-900 fw-semibold mw-lg-400px text-start" data-kt-element="message-text">${item.content}</div>
+                  <span class="text-muted fs-7 mb-1 ms-3 flex-shrink-0">${commentCreatedDateTime}</span>
+                </div>
 								<!--end::Text-->
 							</div>
 							<!--end::Wrapper-->
@@ -111,9 +109,6 @@ export const TicketComment = function (ticketId) {
         fetchData();
       }
     });
-
-    // TODO: Call scrollToBottom initially and whenever the content changes
-    // commentMessages.addEventListener('input', scrollToBottom);
   };
 
   const handleCommentInput = function () {
@@ -135,20 +130,14 @@ export const TicketComment = function (ticketId) {
           const createdDateTime = formatDateTime(new Date());
 
           listItem.innerHTML = `
-          <div class="d-flex justify-content-end mb-10">
-              <div class="d-flex flex-column align-items-end">
-                  <div class="d-flex align-items-center mb-2">
-                      <div class="me-3">
-                          <span class="text-muted fs-7 mb-1">${createdDateTime}</span>
-                          <a class="fs-5 fw-bold text-gray-900 text-hover-primary ms-1" href="#">You</a>
-                      </div>
-                      <div class="symbol symbol-35px symbol-circle">
-                          <img alt="Pic" src="assets/media/avatars/300-1.jpg">
-                      </div>
+            <div class="d-flex justify-content-end mb-4">
+                <div class="d-flex flex-column align-items-end">
+                  <div class="d-flex align-items-end mb-1">
+                      <span class="text-muted fs-7 mb-1 me-3 flex-shrink-0">${createdDateTime}</span>
+                      <div class="px-5 py-3 rounded bg-light-primary text-gray-900 fw-semibold mw-lg-400px text-end" data-kt-element="message-text">${body.content}</div>
                   </div>
-                  <div class="p-5 rounded bg-light-primary text-gray-900 fw-semibold mw-lg-400px text-end" data-kt-element="message-text">${body.content}</div>
-              </div>
-          </div>`;
+                </div>
+            </div>`;
           commentMessages.appendChild(listItem);
           commentInput.value = '';
           const commentCount = document.getElementById(

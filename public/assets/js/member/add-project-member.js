@@ -1,7 +1,7 @@
 /* eslint-disable */
 
 // Class definition
-var KTModalUserSearch = (function () {
+export const ModalUserSearch = (function () {
   // Private variables
   var element;
   var searchElement;
@@ -272,8 +272,3 @@ var KTModalUserSearch = (function () {
     },
   };
 })();
-
-// On document ready
-KTUtil.onDOMContentLoaded(function () {
-  KTModalUserSearch.init();
-});

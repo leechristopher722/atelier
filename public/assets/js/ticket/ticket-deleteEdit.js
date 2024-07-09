@@ -1,4 +1,6 @@
-export const markTicketAs = el => {
+/* eslint-disable */
+
+export const markTicketAs = (el) => {
   const ticketId = el.dataset.value;
 
   const body = {};
@@ -15,10 +17,10 @@ export const markTicketAs = el => {
     method: 'PATCH',
     body: JSON.stringify(body),
     headers: {
-      'Content-Type': 'application/json'
-    }
+      'Content-Type': 'application/json',
+    },
   })
-    .then(function(response) {
+    .then(function (response) {
       // Handle response from server
       if (response.ok) {
         // Show success message. For more info check the plugin's official documentation: https://sweetalert2.github.io/
@@ -28,9 +30,9 @@ export const markTicketAs = el => {
           buttonsStyling: false,
           confirmButtonText: 'Ok, got it!',
           customClass: {
-            confirmButton: 'btn btn-primary'
-          }
-        }).then(function() {
+            confirmButton: 'btn btn-primary',
+          },
+        }).then(function () {
           // Handle success
           location.reload(true);
         });
@@ -39,22 +41,22 @@ export const markTicketAs = el => {
         // Optionally, you can handle error response here
       }
     })
-    .catch(function(error) {
+    .catch(function (error) {
       // Handle network or other errors
       console.error('Error:', error);
     });
 };
 
-export const deleteTicket = el => {
+export const deleteTicket = (el) => {
   const ticketId = el.dataset.value;
 
   fetch(`/api/v1/tickets/${ticketId}`, {
     method: 'DELETE',
     headers: {
-      'Content-Type': 'application/json'
-    }
+      'Content-Type': 'application/json',
+    },
   })
-    .then(function(response) {
+    .then(function (response) {
       // Handle response from server
       if (response.ok) {
         // Show success message. For more info check the plugin's official documentation: https://sweetalert2.github.io/
@@ -64,9 +66,9 @@ export const deleteTicket = el => {
           buttonsStyling: false,
           confirmButtonText: 'Ok, got it!',
           customClass: {
-            confirmButton: 'btn btn-primary'
-          }
-        }).then(function(result) {
+            confirmButton: 'btn btn-primary',
+          },
+        }).then(function (result) {
           if (result.isConfirmed) {
             modal.hide();
           }
@@ -78,9 +80,8 @@ export const deleteTicket = el => {
         // Optionally, you can handle error response here
       }
     })
-    .catch(function(error) {
+    .catch(function (error) {
       // Handle network or other errors
       console.error('Error:', error);
     });
 };
-

@@ -26,7 +26,7 @@ block content
           // end::Page title
           // begin::Actions
           .d-flex.align-items-center.gap-2.gap-lg-3
-            a.btn.btn-primary.btn-sm.btn-success.flex-shrink-0.ms-4(href="#", data-bs-toggle="modal", data-bs-target="#kt_modal_create_campaign") Create Project
+            a.btn.btn-primary.btn-sm.btn-success.flex-shrink-0.ms-4(href="#", data-bs-toggle="modal", data-bs-target="#modal_create_project") Create Project
           // end::Actions
         // end::Toolbar container
       // end::Toolbar
@@ -34,134 +34,6 @@ block content
       .app-content.flex-column-fluid(id="kt_app_content")
         // begin::Content container
         .app-container.container-xxl(id="kt_app_content_container")
-          // begin::Stats
-          .row.gx-6.gx-xl-9
-            .col-lg-6.col-xxl-4
-              // begin::Card
-              .card.h-100
-                // begin::Card body
-                .card-body.p-9
-                  // begin::Heading
-                  .fs-2hx.fw-bold 237
-                  .fs-4.fw-semibold.text-gray-500.mb-7 Tickets Assigned
-                  // end::Heading
-                  // begin::Wrapper
-                  .d-flex.flex-wrap
-                    // begin::Chart
-                    .d-flex.flex-center.h-100px.w-100px.me-9.mb-5
-                      canvas(id="kt_project_list_chart")
-                    // end::Chart
-                    // begin::Labels
-                    .d-flex.flex-column.justify-content-center.flex-row-fluid.pe-11.mb-5
-                      // begin::Label
-                      .d-flex.fs-6.fw-semibold.align-items-center.mb-3
-                        .bullet.bg-primary.me-3
-                        .text-gray-500 In Progress
-                        .ms-auto.fw-bold.text-gray-700 30
-                      // end::Label
-                      // begin::Label
-                      .d-flex.fs-6.fw-semibold.align-items-center.mb-3
-                        .bullet.bg-success.me-3
-                        .text-gray-500 Completed
-                        .ms-auto.fw-bold.text-gray-700 45
-                      // end::Label
-                      // begin::Label
-                      .d-flex.fs-6.fw-semibold.align-items-center
-                        .bullet.bg-gray-300.me-3
-                        .text-gray-500 Yet to start
-                        .ms-auto.fw-bold.text-gray-700 25
-                      // end::Label
-                    // end::Labels
-                  // end::Wrapper
-                // end::Card body
-              // end::Card
-            .col-lg-6.col-xxl-4
-              // begin::Budget
-              .card.h-100
-                .card-body.p-9
-                  .fs-2hx.fw-bold $3,290.00
-                  .fs-4.fw-semibold.text-gray-500.mb-7 Project Finance
-                  .fs-6.d-flex.justify-content-between.mb-4
-                    .fw-semibold Avg. Project Budget
-                    .d-flex.fw-bold
-                      i.ki-duotone.ki-arrow-up-right.fs-3.me-1.text-success
-                        span.path1
-                        span.path2
-                      | $6,570
-                  .separator.separator-dashed
-                  .fs-6.d-flex.justify-content-between.my-4
-                    .fw-semibold Lowest Project Check
-                    .d-flex.fw-bold
-                      i.ki-duotone.ki-arrow-down-left.fs-3.me-1.text-danger
-                        span.path1
-                        span.path2
-                      | $408
-                  .separator.separator-dashed
-                  .fs-6.d-flex.justify-content-between.mt-4
-                    .fw-semibold Ambassador Page
-                    .d-flex.fw-bold
-                      i.ki-duotone.ki-arrow-up-right.fs-3.me-1.text-success
-                        span.path1
-                        span.path2
-                      | $920
-              // end::Budget
-            .col-lg-6.col-xxl-4
-              // begin::Clients
-              .card.h-100
-                .card-body.p-9
-                  // begin::Heading
-                  .fs-2hx.fw-bold 49
-                  .fs-4.fw-semibold.text-gray-500.mb-7 Team Members
-                  // end::Heading
-                  // begin::Users group
-                  .symbol-group.symbol-hover.mb-9
-                    .symbol.symbol-35px.symbol-circle(data-bs-toggle="tooltip", title="Alan Warden")
-                      span.symbol-label.bg-warning.text-inverse-warning.fw-bold A
-                    .symbol.symbol-35px.symbol-circle(data-bs-toggle="tooltip", title="Michael Eberon")
-                      img(alt="Pic", src="assets/media/avatars/300-11.jpg")
-                    .symbol.symbol-35px.symbol-circle(data-bs-toggle="tooltip", title="Michelle Swanston")
-                      img(alt="Pic", src="assets/media/avatars/300-7.jpg")
-                    .symbol.symbol-35px.symbol-circle(data-bs-toggle="tooltip", title="Francis Mitcham")
-                      img(alt="Pic", src="assets/media/avatars/300-20.jpg")
-                    .symbol.symbol-35px.symbol-circle(data-bs-toggle="tooltip", title="Susan Redwood")
-                      span.symbol-label.bg-primary.text-inverse-primary.fw-bold S
-                    .symbol.symbol-35px.symbol-circle(data-bs-toggle="tooltip", title="Melody Macy")
-                      img(alt="Pic", src="assets/media/avatars/300-2.jpg")
-                    .symbol.symbol-35px.symbol-circle(data-bs-toggle="tooltip", title="Perry Matthew")
-                      span.symbol-label.bg-info.text-inverse-info.fw-bold P
-                    .symbol.symbol-35px.symbol-circle(data-bs-toggle="tooltip", title="Barry Walter")
-                      img(alt="Pic", src="assets/media/avatars/300-12.jpg")
-                    a.symbol.symbol-35px.symbol-circle(href="#", data-bs-toggle="modal", data-bs-target="#kt_modal_view_users")
-                      span.symbol-label.bg-dark.text-gray-300.fs-8.fw-bold +42
-                  // end::Users group
-                  // begin::Actions
-                  .d-flex
-                    a.btn.btn-primary.btn-sm.me-3(href="#", data-bs-toggle="modal", data-bs-target="#kt_modal_view_users") All Members
-                    a.btn.btn-light.btn-sm(href="#", data-bs-toggle="modal", data-bs-target="#kt_modal_users_search") Invite New
-                  // end::Actions
-              // end::Clients
-          // end::Stats
-          // begin::Toolbar
-          .d-flex.flex-wrap.flex-stack.my-5
-            // begin::Heading
-            h2.fs-2.fw-semibold.my-2
-              | My Projects
-              span.fs-6.text-gray-500.ms-1 by Status
-            // end::Heading
-            // begin::Controls
-            .d-flex.flex-wrap.my-1
-              // begin::Select wrapper
-              .m-0
-                // begin::Select
-                select.form-select.form-select-sm.bg-body.border-body.fw-bold.w-125px(name="status", data-control="select2", data-hide-search="true")
-                  option(value="Active", selected="selected") All
-                  option(value="Approved") In Progress
-                  option(value="Declined") To Do
-                  option(value="In Progress") Completed
-                // end::Select
-              // end::Select wrapper
-            // end::Controls
-          // end::Toolbar
           // begin::Row
           .row.g-6.g-xl-9
             each project in projects
@@ -175,7 +47,7 @@ block content
                     .card-title.m-0
                       // begin::Avatar
                       .symbol.symbol-50px.w-50px.bg-light
-                        img.p-3(src=`assets/media/svg/brand-logos/${project.name}.svg`, alt="image")
+                        img.p-3(src=`assets/media/projects/${project.logo}`, alt="image")
                       // end::Avatar
                     // end::Card Title
                     // begin::Card toolbar
@@ -196,53 +68,45 @@ block content
                     .d-flex.flex-wrap.mb-5
                       // begin::Start
                       .border.border-gray-300.border-dashed.rounded.min-w-125px.py-3.px-4.me-7.mb-3
-                        .fs-6.text-gray-800.fw-bold #{project.createdAtClean}
+                        .fs-6.text-gray-800.fw-bold= project.startDate.toLocaleDateString('en-US', {year: 'numeric', month: 'short', day: 'numeric'})
                         .fw-semibold.text-gray-500 Start Date
                       // end::Sarts
-                      // begin::Budget
+                      // begin::Due
                       .border.border-gray-300.border-dashed.rounded.min-w-125px.py-3.px-4.mb-3
-                        .fs-6.text-gray-800.fw-bold $284,900.00
-                        .fw-semibold.text-gray-500 Budget
-                      // end::Budget
+                        .fs-6.text-gray-800.fw-bold= project.dueDate.toLocaleDateString('en-US', {year: 'numeric', month: 'short', day: 'numeric'})
+                        .fw-semibold.text-gray-500 Due Date
+                      // end::Due
                     // end::Info
-                    // begin::Progress
-                    .h-4px.w-100.bg-light.mb-5(data-bs-toggle="tooltip", title="This project 50% completed")
-                      .bg-primary.rounded.h-4px(role="progressbar", style="width: 50%", aria-valuenow="50", aria-valuemin="0", aria-valuemax="100")
-                    // end::Progress
                     // begin::Users
                     .symbol-group.symbol-hover
-                      // begin::User
-                      .symbol.symbol-35px.symbol-circle(data-bs-toggle="tooltip", title="Emma Smith")
-                        img(alt="Pic", src="assets/media/avatars/300-6.jpg")
-                      // begin::User
-                      // begin::User
-                      .symbol.symbol-35px.symbol-circle(data-bs-toggle="tooltip", title="Rudy Stone")
-                        img(alt="Pic", src="assets/media/avatars/300-1.jpg")
-                      // begin::User
-                      // begin::User
-                      .symbol.symbol-35px.symbol-circle(data-bs-toggle="tooltip", title="Susan Redwood")
-                        span.symbol-label.bg-primary.text-inverse-primary.fw-bold S
-                      // begin::User
+                      each member, index in project.members
+                        if index === 4
+                          - break
+                        .symbol.symbol-35px.symbol-circle(data-bs-toggle="tooltip", title=`${member.account.name}`)
+                          img(alt=`${member.account.name} Profile Image`, src=`assets/media/avatars/${member.account.photo}`)
+                      if project.members.length - 4 > 0
+                        .symbol.symbol-35px.symbol-circle
+                          span.symbol-label.bg-dark.text-inverse-dark.fs-8.fw-bold(data-bs-toggle="tooltip", data-bs-trigger="hover", title="View all members") +#{project.members.length - 4}
                     // end::Users
                   // end:: Card body
                 // end::Card
               // end::Col
           // end::Row
-          // begin::Pagination
-          .d-flex.flex-stack.flex-wrap.pt-10
-            .fs-6.fw-semibold.text-gray-700 Showing 1 to 3 of 3 entries
-            // begin::Pages
-            ul.pagination
-              li.page-item.previous
-                a.page-link(href="#")
-                  i.previous
-              li.page-item.active
-                a.page-link(href="#") 1
-              li.page-item.next
-                a.page-link(href="#")
-                  i.next
-            // end::Pages
-          // end::Pagination
+          //- // begin::Pagination
+          //- .d-flex.flex-stack.flex-wrap.pt-10
+          //-   .fs-6.fw-semibold.text-gray-700 Showing 1 to 3 of 3 entries
+          //-   // begin::Pages
+          //-   ul.pagination
+          //-     li.page-item.previous
+          //-       a.page-link(href="#")
+          //-         i.previous
+          //-     li.page-item.active
+          //-       a.page-link(href="#") 1
+          //-     li.page-item.next
+          //-       a.page-link(href="#")
+          //-         i.next
+          //-   // end::Pages
+          //- // end::Pagination
           // begin::Modals
           // begin::Modal - View Users
           .modal.fade(id="kt_modal_view_users", tabindex="-1", aria-hidden="true")

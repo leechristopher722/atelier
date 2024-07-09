@@ -20,7 +20,7 @@ html
             // begin:Form
             form.form(id="kt_modal_new_target_form", action="#")
               // begin::Hidden Input Form Project & User ID
-              input(type="hidden", name="project_id", value=`${project._id}`) 
+              input(type="hidden", name="project", value=`${project._id}`) 
               // end::Hidden Input Form Project & User ID              
               // begin::Heading
               .mb-13.text-center
@@ -39,14 +39,14 @@ html
                       span.path2
                       span.path3
                 // end::Label
-                input.form-control.form-control-solid(type="text", placeholder="Enter Ticket Title", name="target_title")
+                input.form-control.form-control-solid(type="text", placeholder="Enter Ticket Title", name="name")
               // end::Input group
               // begin::Input group
               .row.g-9.mb-8
                 // begin::Col
                 .col-md-6.fv-row
                   label.required.fs-6.fw-semibold.mb-2 Assign To
-                  select.form-select.form-select-solid(data-control="select2", data-hide-search="true", data-placeholder="Select a Team Member", name="target_assign", multiple)
+                  select.form-select.form-select-solid(data-control="select2", data-hide-search="true", data-placeholder="Select a Team Member", name="assignedTo", multiple)
                     each member in project.members
                       option(value=member.account._id) #{member.account.name}
                 // end::Col
@@ -65,15 +65,34 @@ html
                       span.path6
                     // end::Icon
                     // begin::Datepicker
-                    input.form-control.form-control-solid.ps-12(placeholder="Select a date", name="due_date")
+                    input.form-control.form-control-solid.ps-12(placeholder="Select a date", name="dueDate")
                     // end::Datepicker
                   // end::Input
                 // end::Col
               // end::Input group
               // begin::Input group
+              .row.g-9.mb-8
+                // begin::Col
+                .col-md-6.fv-row
+                  label.required.fs-6.fw-semibold.mb-2 Priority
+                  select.form-select.form-select-solid(data-control="select2", data-hide-search="true", name="priority")
+                    option(value='High') High
+                    option(value='Medium', selected) Medium
+                    option(value='Low') Low
+                // end::Col
+                // begin::Col
+                .col-md-6.fv-row
+                  label.required.fs-6.fw-semibold.mb-2 Status
+                  select.form-select.form-select-solid(data-control="select2", data-hide-search="true", name="status")
+                    option(value='created', selected) Created
+                    option(value='in_progress') In Progress
+                    option(value='completed') Completed
+                // end::Col
+              // end::Input group
+              // begin::Input group
               .d-flex.flex-column.mb-8
                 label.fs-6.fw-semibold.mb-2 Description
-                textarea.form-control.form-control-solid(rows="3", name="target_details", placeholder="Type Ticket Description")
+                textarea.form-control.form-control-solid(rows="3", name="description", placeholder="Type Ticket Description")
               // end::Input group
               // begin::Input group
               .d-flex.flex-column.mb-8.fv-row

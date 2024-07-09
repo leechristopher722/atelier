@@ -11,8 +11,7 @@ html
           .modal-body.scroll-y.px-10.px-lg-15.pt-0.pb-15
             form.form(id=`kt_modal_update_ticket_form_${ticket._id}`, action="#")
               .mb-13.text-center
-                h1.mb-3 Update Ticket
-
+                h1.mb-3 Ticket Details
               .d-flex.flex-column.mb-8.fv-row
                 label.d-flex.align-items-center.fs-6.fw-semibold.mb-2
                   span.required Ticket Title
@@ -21,26 +20,26 @@ html
                       span.path1
                       span.path2
                       span.path3
-                input.form-control.form-control-solid(type="text", value=ticket.name, name="target_title")
+                input.form-control.form-control-solid(type="text", value=ticket.name, name="name")
               .row.g-9.mb-8
+                // begin::Col
                 .col-md-6.fv-row
-                  label.fs-6.fw-semibold.mb-2 Created By                 
-                  a.d-flex.align-items-center.p-3.rounded.bg-state-light.bg-state-opacity-50.mb-1(href="#")
-                    .symbol.symbol-35px.symbol-circle.me-5
-                      img(alt="Pic", src=`assets/media/avatars/${ticket.assignedBy.photo}`)
-                    .fw-semibold
-                      span.fs-6.text-gray-800.me-2 #{ticket.assignedBy.name}
-                      span.badge.badge-light Software Enginer
+                  label.required.fs-6.fw-semibold.mb-2 Priority
+                  select.form-select.form-select-solid(data-control="select2", data-hide-search="true", name="priority")
+                    option(value='High', selected=ticket.priority==='High') High
+                    option(value='Medium', selected=ticket.priority==='Medium') Medium
+                    option(value='Low', selected=ticket.priority==='Low') Low
+                // end::Col
                 .col-md-6.fv-row
                   label.required.fs-6.fw-semibold.mb-2 Status
-                  select.form-select.form-select-solid(data-control="select2", data-hide-search="true", data-placeholder="Set project status", name="target_status")
+                  select.form-select.form-select-solid(data-control="select2", data-hide-search="true", name="status")
                     option(value='created' selected=ticket.status==='created') Created
                     option(value='in_progress' selected=ticket.status==='in_progress') In Progress
-                    option(value='in_progress' selected=ticket.status==='completed') Completed
+                    option(value='completed' selected=ticket.status==='completed') Completed
               .row.g-9.mb-8
                 .col-md-6.fv-row
                   label.required.fs-6.fw-semibold.mb-2 Assign To                  
-                  select.form-select.form-select-solid(data-control="select2", data-hide-search="true", data-placeholder="Select a Team Member", name="target_assign", multiple)
+                  select.form-select.form-select-solid(data-control="select2", data-hide-search="true", data-placeholder="Select a Team Member", name="assignedTo", multiple)
                     each member in project.members
                       option(value=member.account._id selected=ticket.assignedTo.some(assigned => assigned._id.toString() === member.account._id.toString())) #{member.account.name}
                 .col-md-6.fv-row
@@ -53,10 +52,10 @@ html
                       span.path4
                       span.path5
                       span.path6
-                    input.form-control.form-control-solid.ps-12(value=ticket.dueDate, name="due_date")
+                    input.form-control.form-control-solid.ps-12(value=ticket.dueDate, name="dueDate")
               .d-flex.flex-column.mb-8
                 label.fs-6.fw-semibold.mb-2 Description
-                textarea.form-control.form-control-solid(rows="3", name="target_details")= ticket.description
+                textarea.form-control.form-control-solid(rows="3", name="description")= ticket.description
               .d-flex.flex-column.mb-8.fv-row
                 label.d-flex.align-items-center.fs-6.fw-semibold.mb-2
                   span.required Tags 

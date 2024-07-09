@@ -2,15 +2,14 @@ const jwt = require('jsonwebtoken');
 const { promisify } = require('util');
 const crypto = require('crypto');
 const catchAsync = require('../utils/catchAsync');
-const AppError = require('./../utils/appError');
-const sendEmail = require('./../utils/email');
+const AppError = require('../utils/appError');
+const sendEmail = require('../utils/email');
 const User = require('../models/userModel');
 
-const signToken = (id) => {
-  return jwt.sign({ id }, process.env.JWT_SECRET, {
+const signToken = (id) =>
+  jwt.sign({ id }, process.env.JWT_SECRET, {
     expiresIn: process.env.JWT_EXPIRES_IN,
   });
-};
 
 const createSendToken = (user, statusCode, res) => {
   const token = signToken(user._id);

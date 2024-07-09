@@ -40,7 +40,8 @@ block content
           // begin::Card
           .card
             // begin::Form
-            form.form(id="kt_project_settings_form")
+            form.form(id="project_settings_form")
+              input(type="hidden", id='projectId', value=project.id)
               // begin::Card body
               .card-body.p-9
                 // begin::Row
@@ -52,9 +53,9 @@ block content
                   // begin::Col
                   .col-lg-8
                     // begin::Image input
-                    .image-input.image-input-outline(data-kt-image-input="true", style="background-image: url('assets/media/svg/avatars/blank.svg')")
+                    .image-input.image-input-outline(data-kt-image-input="true", style="background-image: url('assets/media/projects/blank.svg')")
                       // begin::Preview existing avatar
-                      .image-input-wrapper.w-125px.h-125px.bgi-position-center(style="background-size: 75%; background-image: url('assets/media/svg/brand-logos/volicity-9.svg')")
+                      .image-input-wrapper.w-125px.h-125px.bgi-position-center(style=`background-size: 75%; background-image: url('assets/media/projects/${project.logo}')`)
                       // end::Preview existing avatar
                       // begin::Label
                       label.btn.btn-icon.btn-circle.btn-active-color-primary.w-25px.h-25px.bg-white.shadow(data-kt-image-input-action="change", data-bs-toggle="tooltip", title="Change avatar")
@@ -62,8 +63,8 @@ block content
                           span.path1
                           span.path2
                         // begin::Inputs
-                        input(type="file", name="avatar", accept=".png, .jpg, .jpeg")
-                        input(type="hidden", name="avatar_remove")
+                        input(type="file", name="logo", accept=".svg")
+                        input(type="hidden", name="logo_remove")
                         // end::Inputs
                       // end::Label
                       // begin::Cancel
@@ -80,7 +81,7 @@ block content
                       // end::Remove
                     // end::Image input
                     // begin::Hint
-                    .form-text Allowed file types: png, jpg, jpeg.
+                    .form-text Allowed file type: svg.
                     // end::Hint
                   // end::Col
                 // end::Row
@@ -88,21 +89,21 @@ block content
                 .row.mb-8
                   // begin::Col
                   .col-xl-3
-                    .fs-6.fw-semibold.mt-2.mb-3 Project Name
+                    .fs-6.fw-semibold.mt-2.mb-3.required Project Name
                   // end::Col
                   // begin::Col
                   .col-xl-9.fv-row
-                    input.form-control.form-control-solid(type="text", name="name", value="9 Degree Award")
+                    input.form-control.form-control-solid(type="text", name="name", value=`${project.name}`)
                 // end::Row
                 // begin::Row
                 .row.mb-8
                   // begin::Col
                   .col-xl-3
-                    .fs-6.fw-semibold.mt-2.mb-3 Project Type
+                    .fs-6.fw-semibold.mt-2.mb-3.required Project Summary
                   // end::Col
                   // begin::Col
                   .col-xl-9.fv-row
-                    input.form-control.form-control-solid(type="text", name="type", value="Client Relationship")
+                    input.form-control.form-control-solid(type="text", name="summary", value=`${project.summary}`)
                 // end::Row
                 // begin::Row
                 .row.mb-8
@@ -112,14 +113,14 @@ block content
                   // end::Col
                   // begin::Col
                   .col-xl-9.fv-row
-                    textarea.form-control.form-control-solid.h-100px(name="description") Organize your thoughts with an outline. Here’s the outlining strategy I use. I promise it works like a charm. Not only will it make writing your blog post easier, it’ll help you make your message
+                    textarea.form-control.form-control-solid.h-100px(name="description") #{project.description}
                   // begin::Col
                 // end::Row
                 // begin::Row
                 .row.mb-8
                   // begin::Col
                   .col-xl-3
-                    .fs-6.fw-semibold.mt-2.mb-3 Due Date
+                    .fs-6.fw-semibold.mt-2.mb-3.required Start Date 
                   // end::Col
                   // begin::Col
                   .col-xl-9.fv-row
@@ -131,44 +132,49 @@ block content
                         span.path4
                         span.path5
                         span.path6
-                      input.form-control.form-control-solid.ps-12(name="date", placeholder="Pick a date", id="kt_datepicker_1")
+                      input.form-control.form-control-solid.ps-12(name="start_date", placeholder="Pick a date", value=project.startDate)
                   // begin::Col
                 // end::Row
                 // begin::Row
                 .row.mb-8
                   // begin::Col
                   .col-xl-3
-                    .fs-6.fw-semibold.mt-2.mb-3 Notifications
+                    .fs-6.fw-semibold.mt-2.mb-3.required Due Date
                   // end::Col
                   // begin::Col
-                  .col-xl-9
-                    .d-flex.fw-semibold.h-100
-                      .form-check.form-check-custom.form-check-solid.me-9
-                        input#email.form-check-input(type="checkbox")
-                        label.form-check-label.ms-3(for="email") Email
-                      .form-check.form-check-custom.form-check-solid
-                        input#phone.form-check-input(type="checkbox", checked="checked")
-                        label.form-check-label.ms-3(for="phone") Phone
-                  // end::Col
+                  .col-xl-9.fv-row
+                    .position-relative.d-flex.align-items-center
+                      i.ki-duotone.ki-calendar-8.position-absolute.ms-4.mb-1.fs-2
+                        span.path1
+                        span.path2
+                        span.path3
+                        span.path4
+                        span.path5
+                        span.path6
+                      input.form-control.form-control-solid.ps-12(name="due_date", placeholder="Pick a date", value=project.dueDate)
+                  // begin::Col
                 // end::Row
+
                 // begin::Row
                 .row
                   // begin::Col
                   .col-xl-3
-                    .fs-6.fw-semibold.mt-2.mb-3 Status
+                    .fs-6.fw-semibold.mt-2.mb-3.required Status
                   // end::Col
                   // begin::Col
                   .col-xl-9
-                    .form-check.form-switch.form-check-custom.form-check-solid
-                      input#status.form-check-input(type="checkbox", name="status", checked="checked")
-                      label.form-check-label.fw-semibold.text-gray-500.ms-3(for="status") Active
+                    select.form-select.form-select-solid.w-250px(data-control="select2" name="status" data-placeholder="Select current status" data-hide-search="true" data-dropdown-css-class="w-250px")
+                      option
+                      option(value='Created' selected=project.status==='Created') Created
+                      option(value='In Progress' selected=project.status==='In Progress') In Progress
+                      option(value='Completed' selected=project.status==='Completed') Completed
                   // end::Col
                 // end::Row
               // end::Card body
               // begin::Card footer
               .card-footer.d-flex.justify-content-end.py-6.px-9
                 button.btn.btn-light.btn-active-light-primary.me-2(type="reset") Discard
-                button.btn.btn-primary(type="submit", id="kt_project_settings_submit") Save Changes
+                button.btn.btn-primary(type="submit", id="project_settings_submit") Save Changes
               // end::Card footer
             // end:Form
           // end::Card

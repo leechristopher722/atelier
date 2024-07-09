@@ -41,7 +41,7 @@ block content
               .d-flex.flex-wrap.flex-sm-nowrap.mb-6
                 // begin::Image
                 .d-flex.flex-center.flex-shrink-0.bg-light.rounded.w-100px.h-100px.w-lg-150px.h-lg-150px.me-7.mb-4
-                  img.mw-50px.mw-lg-75px(src=`assets/media/svg/brand-logos/${project.name}.svg`, alt="image")
+                  img.mw-50px.mw-lg-75px(src=`assets/media/projects/${project.logo}`, alt="image")
                 // end::Image
                 // begin::Wrapper
                 .flex-grow-1
@@ -79,29 +79,8 @@ block content
                             a.menu-link.px-3(href=`/projects/${project.slug}/members`) Manage Members
                           // end::Menu item
                           // begin::Menu item
-                          .menu-item.px-3(data-kt-menu-trigger="hover", data-kt-menu-placement="right-end")
-                            a.menu-link.px-3(href="#")
-                              span.menu-title Change Status
-                              span.menu-arrow
-                            // begin::Menu sub
-                            .menu-sub.menu-sub-dropdown.w-175px.py-4
-                              // begin::Menu item
-                              .menu-item.px-3
-                                a.menu-link.px-3(href="#") Planning
-                              // end::Menu item
-                              // begin::Menu item
-                              .menu-item.px-3
-                                a.menu-link.px-3(href="#") In Progress
-                              // end::Menu item
-                              // begin::Menu item
-                              .menu-item.px-3
-                                a.menu-link.px-3(href="#") Completed
-                              // end::Menu item
-                            // end::Menu sub
-                          // end::Menu item
-                          // begin::Menu item
                           .menu-item.px-3.my-1
-                            a.menu-link.px-3(href=`/projects/${project.slug}/settings`) Settings
+                            a.menu-link.px-3(href=`/projects/${project.slug}/settings`) Go to Settings
                           // end::Menu item
                         // end::Menu 3
                       // end::Menu
@@ -115,7 +94,7 @@ block content
                       .border.border-gray-300.border-dashed.rounded.min-w-125px.py-3.px-4.me-6.mb-3
                         // begin::Number
                         .d-flex.align-items-center
-                          .fs-4.fw-bold #{project.createdAtClean}
+                          .fs-4.fw-bold= project.startDate.toLocaleDateString('en-US', {year: 'numeric', month: 'short', day: 'numeric'})
                         // end::Number
                         // begin::Label
                         .fw-semibold.fs-6.text-gray-500 Start Date
@@ -125,29 +104,12 @@ block content
                       .border.border-gray-300.border-dashed.rounded.min-w-125px.py-3.px-4.me-6.mb-3
                         // begin::Number
                         .d-flex.align-items-center
-                          i.ki-duotone.ki-arrow-down.fs-3.text-danger.me-2
-                            span.path1
-                            span.path2
-                          .fs-4.fw-bold(data-kt-countup="true", data-kt-countup-value="75") 0
+                          .fs-4.fw-bold= project.dueDate.toLocaleDateString('en-US', {year: 'numeric', month: 'short', day: 'numeric'})
                         // end::Number
                         // begin::Label
-                        .fw-semibold.fs-6.text-gray-500 Open Tasks
+                        .fw-semibold.fs-6.text-gray-500 Due Date
                         // end::Label
                       // end::Stat
-                      // begin::Stat
-                      .border.border-gray-300.border-dashed.rounded.min-w-125px.py-3.px-4.me-6.mb-3
-                        // begin::Number
-                        .d-flex.align-items-center
-                          i.ki-duotone.ki-arrow-up.fs-3.text-success.me-2
-                            span.path1
-                            span.path2
-                          .fs-4.fw-bold(data-kt-countup="true", data-kt-countup-value="15000", data-kt-countup-prefix="$") 0
-                        // end::Number
-                        // begin::Label
-                        .fw-semibold.fs-6.text-gray-500 Budget Spent
-                        // end::Label
-                      // end::Stat
-                    // end::Stats
                     // begin::Users
                     .symbol-group.symbol-hover.mb-3
                       each member, index in project.members
@@ -172,6 +134,16 @@ block content
             .col-lg-6
               // begin::Summary
               .card.card-flush.h-lg-100
+                - 
+                  const groupedTickets = {created: [], in_progress: [], completed: [], overdue: []};
+
+                  project.tickets.forEach((ticket) => {
+                    if (ticket.dueDate < Date.now() && ticket.status !== 'completed') {
+                      groupedTickets['overdue'].push(ticket)
+                    } else {
+                      groupedTickets[ticket.status].push(ticket);
+                    }
+                  });
                 // begin::Card header
                 .card-header.mt-6
                   // begin::Card title
@@ -185,41 +157,41 @@ block content
                   // end::Card toolbar
                 // end::Card header
                 // begin::Card body
-                .card-body.p-9.pt-5
+                .card-body.p-9.pt-5.align-items-center
                   // begin::Wrapper
-                  .d-flex.flex-wrap
+                  .d-flex.flex-wrap.h-100
                     // begin::Chart
-                    .position-relative.d-flex.flex-center.h-175px.w-175px.me-15.mb-7
+                    .position-relative.d-flex.flex-center.mt-10.me-15.h-225px.w-225px
                       .position-absolute.translate-middle.start-50.top-50.d-flex.flex-column.flex-center
                         span.fs-2qx.fw-bold #{project.tickets.length}
                         span.fs-6.fw-semibold.text-gray-500 Total Tickets
-                      canvas(id="project_overview_chart")
+                      canvas(id="project_overview_chart" data-created=`${groupedTickets.created.length}` data-overdue=`${groupedTickets.overdue.length}` data-inprogress=`${groupedTickets.in_progress.length}` data-completed=`${groupedTickets.completed.length}`)
                     // end::Chart
                     // begin::Labels
                     .d-flex.flex-column.justify-content-center.flex-row-fluid.pe-11.mb-5
                       // begin::Label
                       .d-flex.fs-6.fw-semibold.align-items-center.mb-3
+                        .bullet.bg-gray-300.me-3
+                        .text-gray-500 Created
+                        .ms-auto.fw-bold.text-gray-70= groupedTickets.created.length
+                      // end::Label
+                      // begin::Label
+                      .d-flex.fs-6.fw-semibold.align-items-center.mb-3
                         .bullet.bg-primary.me-3
                         .text-gray-500 In Progress
-                        .ms-auto.fw-bold.text-gray-700 #{groupedTickets.in_progress.length}
+                        .ms-auto.fw-bold.text-gray-700= groupedTickets.in_progress.length
                       // end::Label
                       // begin::Label
                       .d-flex.fs-6.fw-semibold.align-items-center.mb-3
                         .bullet.bg-success.me-3
                         .text-gray-500 Completed
-                        .ms-auto.fw-bold.text-gray-700 #{groupedTickets.completed.length}
+                        .ms-auto.fw-bold.text-gray-700= groupedTickets.completed.length
                       // end::Label
                       // begin::Label
                       .d-flex.fs-6.fw-semibold.align-items-center.mb-3
                         .bullet.bg-danger.me-3
                         .text-gray-500 Overdue
-                        .ms-auto.fw-bold.text-gray-700 0
-                      // end::Label
-                      // begin::Label
-                      .d-flex.fs-6.fw-semibold.align-items-center
-                        .bullet.bg-gray-300.me-3
-                        .text-gray-500 Created
-                        .ms-auto.fw-bold.text-gray-700 #{groupedTickets.created.length}
+                        .ms-auto.fw-bold.text-gray-700= groupedTickets.overdue.length
                       // end::Label
                     // end::Labels
                   // end::Wrapper
@@ -243,31 +215,34 @@ block content
                   // end::Card toolbar
                 // end::Card toolbar
                 // begin::Card body
-                .card-body.d-flex.flex-column.p-9.pt-3.mb-9
-                  each member in project.members
-                    // begin::Item
-                    .d-flex.align-items-center.mb-5
-                      // begin::Avatar
-                      .me-5.position-relative
-                        // begin::Image
-                        .symbol.symbol-35px.symbol-circle
-                          img(alt="Pic", src=`assets/media/avatars/${member.account.photo}`)
-                        // end::Image
-                      // end::Avatar
-                      // begin::Details
-                      .fw-semibold
-                        a.fs-5.fw-bold.text-gray-900.text-hover-primary #{member.account.name}
-                        .text-gray-500 #{member.account.email}
-                      // end::Details
-                      // begin::Badge
-                      .badge.badge-light.ms-auto #{member.access}
-                      // end::Badge
-                    // end::Item
+                .card-body.d-flex.flex-column.p-9.pt-3.mb-6
+                  .scroll-y.me-n5.pe-5(style='max-height: 280px; overflow-y: auto')
+                    each member in project.members
+                      // begin::Item
+                      .d-flex.align-items-center.mb-5
+                        // begin::Avatar
+                        .me-5.position-relative
+                          // begin::Image
+                          .symbol.symbol-35px.symbol-circle
+                            img(alt="Pic", src=`assets/media/avatars/${member.account.photo}`)
+                          // end::Image
+                        // end::Avatar
+                        // begin::Details
+                        .fw-semibold
+                          a.fs-5.fw-bold.text-gray-900.text-hover-primary #{member.account.name}
+                          .text-gray-500 #{member.account.email}
+                        // end::Details
+                        // begin::Badge
+                        .badge.badge-light.ms-auto #{member.access}
+                        // end::Badge
+                      // end::Item
                 // end::Card body
               // end::Card
             // end::Col
             // begin::Col
             .col-lg-6
+              - const userTickets = project.tickets.filter((ticket) => ticket.status !== 'completed' && ticket.assignedTo.some((userTicket) => userTicket._id.toString() === user._id.toString()));
+              - const displayTickets = userTickets.slice(0, 5)
               // begin::Tasks
               .card.card-flush.h-lg-100
                 // begin::Card header
@@ -275,166 +250,35 @@ block content
                   // begin::Card title
                   .card-title.flex-column
                     h3.fw-bold.mb-1 My Tickets
-                    .fs-6.text-gray-500 Total 25 tickets for #{project.name}
+                    .fs-6.text-gray-500 #{userTickets.length} incompleted tickets for #{project.name}
                   // end::Card title
                   // begin::Card toolbar
                   .card-toolbar
-                    a.btn.btn-bg-light.btn-active-color-primary.btn-sm(href="#") View All
+                    a.btn.btn-bg-light.btn-active-color-primary.btn-sm(href=`/projects/${project.slug}/tickets`) View All
                   // end::Card toolbar
                 // end::Card header
                 // begin::Card body
                 .card-body.d-flex.flex-column.mb-9.p-9.pt-3
-                  // begin::Item
-                  .d-flex.align-items-center.position-relative.mb-7
-                    // begin::Label
-                    .position-absolute.top-0.start-0.rounded.h-100.bg-secondary.w-4px
-                    // end::Label
-                    // begin::Details
-                    .fw-semibold.ps-6
-                      a.fs-6.fw-bold.text-gray-900.text-hover-primary(href="#") 9 Degree Porject Estimation
-                      // begin::Info
-                      .text-gray-500
-                        | Due in 1 week 
-                        a(href="#") Neil Owen
-                      // end::Info
-                    // end::Details
-                  // end::Item
-                  // begin::Item
-                  .d-flex.align-items-center.position-relative.mb-7
-                    // begin::Label
-                    .position-absolute.top-0.start-0.rounded.h-100.bg-secondary.w-4px
-                    // end::Label
-                    // begin::Details
-                    .fw-semibold.ps-6
-                      a.fs-6.fw-bold.text-gray-900.text-hover-primary(href="#") 9 Degree Porject Estimation
-                      // begin::Info
-                      .text-gray-500
-                        | Due in 1 week 
-                        a(href="#") Neil Owen
-                      // end::Info
-                    // end::Details
-                  // end::Item
-                  // begin::Item
-                  .d-flex.align-items-center.position-relative.mb-7
-                    // begin::Label
-                    .position-absolute.top-0.start-0.rounded.h-100.bg-secondary.w-4px
-                    // end::Label
-                    // begin::Details
-                    .fw-semibold.ps-6
-                      a.fs-6.fw-bold.text-gray-900.text-hover-primary(href="#") 9 Degree Porject Estimation
-                      // begin::Info
-                      .text-gray-500
-                        | Due in 1 week 
-                        a(href="#") Neil Owen
-                      // end::Info
-                    // end::Details
-                  // end::Item
-                  // begin::Item
-                  .d-flex.align-items-center.position-relative.mb-7
-                    // begin::Label
-                    .position-absolute.top-0.start-0.rounded.h-100.bg-secondary.w-4px
-                    // end::Label
-                    // begin::Details
-                    .fw-semibold.ps-6
-                      a.fs-6.fw-bold.text-gray-900.text-hover-primary(href="#") 9 Degree Porject Estimation
-                      // begin::Info
-                      .text-gray-500
-                        | Due in 1 week 
-                        a(href="#") Neil Owen
-                      // end::Info
-                    // end::Details
-                  // end::Item
-                  // begin::Item
-                  .d-flex.align-items-center.position-relative
-                    // begin::Label
-                    .position-absolute.top-0.start-0.rounded.h-100.bg-secondary.w-4px
-                    // end::Label
-                    // begin::Checkbox
-                    .form-check.form-check-custom.form-check-solid.ms-6.me-4
-                      input.form-check-input(type="checkbox")
-                    // end::Checkbox
-                    // begin::Details
-                    .fw-semibold
-                      a.fs-6.fw-bold.text-gray-900.text-hover-primary(href="#") Mivy App R&amp;D, Meeting with clients
-                      // begin::Info
-                      .text-gray-500
-                        | Due in 2 weeks
-                        a(href="#") Sean Bean
-                      // end::Info
-                    // end::Details
-                    // begin::Menu
-                    button.btn.btn-clean.btn-sm.btn-icon.btn-icon-primary.btn-active-light-primary.ms-auto(type="button", data-kt-menu-trigger="click", data-kt-menu-placement="bottom-end")
-                      i.ki-duotone.ki-element-plus.fs-3
-                        span.path1
-                        span.path2
-                        span.path3
-                        span.path4
-                        span.path5
-                    // begin::Menu 1
-                    .menu.menu-sub.menu-sub-dropdown.w-250px.w-md-300px(data-kt-menu="true", id="kt_menu_654bb8f96ffcd")
-                      // begin::Header
-                      .px-7.py-5
-                        .fs-5.text-gray-900.fw-bold Filter Options
-                      // end::Header
-                      // begin::Menu separator
-                      .separator.border-gray-200
-                      // end::Menu separator
-                      // begin::Form
-                      .px-7.py-5
-                        // begin::Input group
-                        .mb-10
-                          // begin::Label
-                          label.form-label.fw-semibold Status:
-                          // end::Label
-                          // begin::Input
-                          div
-                            select.form-select.form-select-solid(multiple="multiple", data-kt-select2="true", data-close-on-select="false", data-placeholder="Select option", data-dropdown-parent="#kt_menu_654bb8f96ffcd", data-allow-clear="true")
-                              option
-                              option(value="1") Approved
-                              option(value="2") Pending
-                              option(value="2") In Process
-                              option(value="2") Rejected
-                          // end::Input
-                        // end::Input group
-                        // begin::Input group
-                        .mb-10
-                          // begin::Label
-                          label.form-label.fw-semibold Member Type:
-                          // end::Label
-                          // begin::Options
-                          .d-flex
-                            // begin::Options
-                            label.form-check.form-check-sm.form-check-custom.form-check-solid.me-5
-                              input.form-check-input(type="checkbox", value="1")
-                              span.form-check-label Author
-                            // end::Options
-                            // begin::Options
-                            label.form-check.form-check-sm.form-check-custom.form-check-solid
-                              input.form-check-input(type="checkbox", value="2", checked="checked")
-                              span.form-check-label Customer
-                            // end::Options
-                          // end::Options
-                        // end::Input group
-                        // begin::Input group
-                        .mb-10
-                          // begin::Label
-                          label.form-label.fw-semibold Notifications:
-                          // end::Label
-                          // begin::Switch
-                          .form-check.form-switch.form-switch-sm.form-check-custom.form-check-solid
-                            input.form-check-input(type="checkbox", name="notifications", checked="checked")
-                            label.form-check-label Enabled
-                          // end::Switch
-                        // end::Input group
-                        // begin::Actions
-                        .d-flex.justify-content-end
-                          button.btn.btn-sm.btn-light.btn-active-light-primary.me-2(type="reset", data-kt-menu-dismiss="true") Reset
-                          button.btn.btn-sm.btn-primary(type="submit", data-kt-menu-dismiss="true") Apply
-                        // end::Actions
-                      // end::Form
-                    // end::Menu 1
-                    // end::Menu
-                  // end::Item
+                  for ticket in displayTickets
+                    // begin::Item
+                    .d-flex.align-items-center.position-relative.mb-7
+                      // begin::Label
+                      .position-absolute.top-0.start-0.rounded.h-100.bg-secondary.w-4px
+                      // end::Label
+                      // begin::Details
+                      .fw-semibold.ps-6
+                        .fs-6.fw-bold.text-gray-900= ticket.name
+                        // begin::Info
+                        .text-gray-500 Due by #{ticket.dueDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year:'numeric'})}
+                        // end::Info
+                      // end::Details
+                      if ticket.priority === 'Medium'
+                        .badge.badge-light-warning.ms-auto Medium
+                      else if  ticket.priority === 'High'
+                        .badge.badge-light-danger.ms-auto High
+                      else
+                        .badge.badge-light-success.ms-auto Low
+                    // end::Item
                 // end::Card body
               // end::Tasks
             // end::Col
@@ -451,357 +295,13 @@ block content
                   // end::Card title
                   // begin::Card toolbar
                   .card-toolbar
-                    a.btn.btn-bg-light.btn-active-color-primary.btn-sm(href="#") Settings
+                    a.btn.btn-bg-light.btn-active-color-primary.btn-sm(href=`/projects/${project.slug}/settings`) Go to Settings
                   // end::Card toolbar
                 // end::Card header
                 // begin::Card body
                 .card-body.p-9.pt-3
                   // begin::Files
                   .d-flex.flex-column.mb-9
-                    // begin::File
-                    .d-flex.align-items-center.mb-5
-                      // begin::Icon
-                      .symbol.symbol-30px.me-5
-                        img(alt="Icon", src="assets/media/svg/files/pdf.svg")
-                      // end::Icon
-                      // begin::Details
-                      .fw-semibold
-                        a.fs-6.fw-bold.text-gray-900.text-hover-primary(href="#") Project tech requirements
-                        .text-gray-500
-                          | 2 days ago
-                          a(href="#") Karina Clark
-                      // end::Details
-                      // begin::Menu
-                      button.btn.btn-clean.btn-sm.btn-icon.btn-icon-primary.btn-active-light-primary.ms-auto(type="button", data-kt-menu-trigger="click", data-kt-menu-placement="bottom-end")
-                        i.ki-duotone.ki-element-plus.fs-3
-                          span.path1
-                          span.path2
-                          span.path3
-                          span.path4
-                          span.path5
-                      // begin::Menu 1
-                      .menu.menu-sub.menu-sub-dropdown.w-250px.w-md-300px(data-kt-menu="true", id="kt_menu_654bb8f96fec2")
-                        // begin::Header
-                        .px-7.py-5
-                          .fs-5.text-gray-900.fw-bold Filter Options
-                        // end::Header
-                        // begin::Menu separator
-                        .separator.border-gray-200
-                        // end::Menu separator
-                        // begin::Form
-                        .px-7.py-5
-                          // begin::Input group
-                          .mb-10
-                            // begin::Label
-                            label.form-label.fw-semibold Status:
-                            // end::Label
-                            // begin::Input
-                            div
-                              select.form-select.form-select-solid(multiple="multiple", data-kt-select2="true", data-close-on-select="false", data-placeholder="Select option", data-dropdown-parent="#kt_menu_654bb8f96fec2", data-allow-clear="true")
-                                option
-                                option(value="1") Approved
-                                option(value="2") Pending
-                                option(value="2") In Process
-                                option(value="2") Rejected
-                            // end::Input
-                          // end::Input group
-                          // begin::Input group
-                          .mb-10
-                            // begin::Label
-                            label.form-label.fw-semibold Member Type:
-                            // end::Label
-                            // begin::Options
-                            .d-flex
-                              // begin::Options
-                              label.form-check.form-check-sm.form-check-custom.form-check-solid.me-5
-                                input.form-check-input(type="checkbox", value="1")
-                                span.form-check-label Author
-                              // end::Options
-                              // begin::Options
-                              label.form-check.form-check-sm.form-check-custom.form-check-solid
-                                input.form-check-input(type="checkbox", value="2", checked="checked")
-                                span.form-check-label Customer
-                              // end::Options
-                            // end::Options
-                          // end::Input group
-                          // begin::Input group
-                          .mb-10
-                            // begin::Label
-                            label.form-label.fw-semibold Notifications:
-                            // end::Label
-                            // begin::Switch
-                            .form-check.form-switch.form-switch-sm.form-check-custom.form-check-solid
-                              input.form-check-input(type="checkbox", name="notifications", checked="checked")
-                              label.form-check-label Enabled
-                            // end::Switch
-                          // end::Input group
-                          // begin::Actions
-                          .d-flex.justify-content-end
-                            button.btn.btn-sm.btn-light.btn-active-light-primary.me-2(type="reset", data-kt-menu-dismiss="true") Reset
-                            button.btn.btn-sm.btn-primary(type="submit", data-kt-menu-dismiss="true") Apply
-                          // end::Actions
-                        // end::Form
-                      // end::Menu 1
-                      // end::Menu
-                    // end::File
-                    // begin::File
-                    .d-flex.align-items-center.mb-5
-                      // begin::Icon
-                      .symbol.symbol-30px.me-5
-                        img(alt="Icon", src="assets/media/svg/files/doc.svg")
-                      // end::Icon
-                      // begin::Details
-                      .fw-semibold
-                        a.fs-6.fw-bold.text-gray-900.text-hover-primary(href="#") Create FureStibe branding proposal
-                        .text-gray-500
-                          | Due in 1 day
-                          a(href="#") Marcus Blake
-                      // end::Details
-                      // begin::Menu
-                      button.btn.btn-clean.btn-sm.btn-icon.btn-icon-primary.btn-active-light-primary.ms-auto(type="button", data-kt-menu-trigger="click", data-kt-menu-placement="bottom-end")
-                        i.ki-duotone.ki-element-plus.fs-3
-                          span.path1
-                          span.path2
-                          span.path3
-                          span.path4
-                          span.path5
-                      // begin::Menu 1
-                      .menu.menu-sub.menu-sub-dropdown.w-250px.w-md-300px(data-kt-menu="true", id="kt_menu_654bb8f96fecd")
-                        // begin::Header
-                        .px-7.py-5
-                          .fs-5.text-gray-900.fw-bold Filter Options
-                        // end::Header
-                        // begin::Menu separator
-                        .separator.border-gray-200
-                        // end::Menu separator
-                        // begin::Form
-                        .px-7.py-5
-                          // begin::Input group
-                          .mb-10
-                            // begin::Label
-                            label.form-label.fw-semibold Status:
-                            // end::Label
-                            // begin::Input
-                            div
-                              select.form-select.form-select-solid(multiple="multiple", data-kt-select2="true", data-close-on-select="false", data-placeholder="Select option", data-dropdown-parent="#kt_menu_654bb8f96fecd", data-allow-clear="true")
-                                option
-                                option(value="1") Approved
-                                option(value="2") Pending
-                                option(value="2") In Process
-                                option(value="2") Rejected
-                            // end::Input
-                          // end::Input group
-                          // begin::Input group
-                          .mb-10
-                            // begin::Label
-                            label.form-label.fw-semibold Member Type:
-                            // end::Label
-                            // begin::Options
-                            .d-flex
-                              // begin::Options
-                              label.form-check.form-check-sm.form-check-custom.form-check-solid.me-5
-                                input.form-check-input(type="checkbox", value="1")
-                                span.form-check-label Author
-                              // end::Options
-                              // begin::Options
-                              label.form-check.form-check-sm.form-check-custom.form-check-solid
-                                input.form-check-input(type="checkbox", value="2", checked="checked")
-                                span.form-check-label Customer
-                              // end::Options
-                            // end::Options
-                          // end::Input group
-                          // begin::Input group
-                          .mb-10
-                            // begin::Label
-                            label.form-label.fw-semibold Notifications:
-                            // end::Label
-                            // begin::Switch
-                            .form-check.form-switch.form-switch-sm.form-check-custom.form-check-solid
-                              input.form-check-input(type="checkbox", name="notifications", checked="checked")
-                              label.form-check-label Enabled
-                            // end::Switch
-                          // end::Input group
-                          // begin::Actions
-                          .d-flex.justify-content-end
-                            button.btn.btn-sm.btn-light.btn-active-light-primary.me-2(type="reset", data-kt-menu-dismiss="true") Reset
-                            button.btn.btn-sm.btn-primary(type="submit", data-kt-menu-dismiss="true") Apply
-                          // end::Actions
-                        // end::Form
-                      // end::Menu 1
-                      // end::Menu
-                    // end::File
-                    // begin::File
-                    .d-flex.align-items-center.mb-5
-                      // begin::Icon
-                      .symbol.symbol-30px.me-5
-                        img(alt="Icon", src="assets/media/svg/files/css.svg")
-                      // end::Icon
-                      // begin::Details
-                      .fw-semibold
-                        a.fs-6.fw-bold.text-gray-900.text-hover-primary(href="#") Completed Project Stylings
-                        .text-gray-500
-                          | Due in 1 day
-                          a(href="#") Terry Barry
-                      // end::Details
-                      // begin::Menu
-                      button.btn.btn-clean.btn-sm.btn-icon.btn-icon-primary.btn-active-light-primary.ms-auto(type="button", data-kt-menu-trigger="click", data-kt-menu-placement="bottom-end")
-                        i.ki-duotone.ki-element-plus.fs-3
-                          span.path1
-                          span.path2
-                          span.path3
-                          span.path4
-                          span.path5
-                      // begin::Menu 1
-                      .menu.menu-sub.menu-sub-dropdown.w-250px.w-md-300px(data-kt-menu="true", id="kt_menu_654bb8f96fed5")
-                        // begin::Header
-                        .px-7.py-5
-                          .fs-5.text-gray-900.fw-bold Filter Options
-                        // end::Header
-                        // begin::Menu separator
-                        .separator.border-gray-200
-                        // end::Menu separator
-                        // begin::Form
-                        .px-7.py-5
-                          // begin::Input group
-                          .mb-10
-                            // begin::Label
-                            label.form-label.fw-semibold Status:
-                            // end::Label
-                            // begin::Input
-                            div
-                              select.form-select.form-select-solid(multiple="multiple", data-kt-select2="true", data-close-on-select="false", data-placeholder="Select option", data-dropdown-parent="#kt_menu_654bb8f96fed5", data-allow-clear="true")
-                                option
-                                option(value="1") Approved
-                                option(value="2") Pending
-                                option(value="2") In Process
-                                option(value="2") Rejected
-                            // end::Input
-                          // end::Input group
-                          // begin::Input group
-                          .mb-10
-                            // begin::Label
-                            label.form-label.fw-semibold Member Type:
-                            // end::Label
-                            // begin::Options
-                            .d-flex
-                              // begin::Options
-                              label.form-check.form-check-sm.form-check-custom.form-check-solid.me-5
-                                input.form-check-input(type="checkbox", value="1")
-                                span.form-check-label Author
-                              // end::Options
-                              // begin::Options
-                              label.form-check.form-check-sm.form-check-custom.form-check-solid
-                                input.form-check-input(type="checkbox", value="2", checked="checked")
-                                span.form-check-label Customer
-                              // end::Options
-                            // end::Options
-                          // end::Input group
-                          // begin::Input group
-                          .mb-10
-                            // begin::Label
-                            label.form-label.fw-semibold Notifications:
-                            // end::Label
-                            // begin::Switch
-                            .form-check.form-switch.form-switch-sm.form-check-custom.form-check-solid
-                              input.form-check-input(type="checkbox", name="notifications", checked="checked")
-                              label.form-check-label Enabled
-                            // end::Switch
-                          // end::Input group
-                          // begin::Actions
-                          .d-flex.justify-content-end
-                            button.btn.btn-sm.btn-light.btn-active-light-primary.me-2(type="reset", data-kt-menu-dismiss="true") Reset
-                            button.btn.btn-sm.btn-primary(type="submit", data-kt-menu-dismiss="true") Apply
-                          // end::Actions
-                        // end::Form
-                      // end::Menu 1
-                      // end::Menu
-                    // end::File
-                    // begin::File
-                    .d-flex.align-items-center
-                      // begin::Icon
-                      .symbol.symbol-30px.me-5
-                        img(alt="Icon", src="assets/media/svg/files/ai.svg")
-                      // end::Icon
-                      // begin::Details
-                      .fw-semibold
-                        a.fs-6.fw-bold.text-gray-900.text-hover-primary(href="#") Create Project Wireframes
-                        .text-gray-500
-                          | Due in 3 days
-                          a(href="#") Roth Bloom
-                      // end::Details
-                      // begin::Menu
-                      button.btn.btn-clean.btn-sm.btn-icon.btn-icon-primary.btn-active-light-primary.ms-auto(type="button", data-kt-menu-trigger="click", data-kt-menu-placement="bottom-end")
-                        i.ki-duotone.ki-element-plus.fs-3
-                          span.path1
-                          span.path2
-                          span.path3
-                          span.path4
-                          span.path5
-                      // begin::Menu 1
-                      .menu.menu-sub.menu-sub-dropdown.w-250px.w-md-300px(data-kt-menu="true", id="kt_menu_654bb8f96fedc")
-                        // begin::Header
-                        .px-7.py-5
-                          .fs-5.text-gray-900.fw-bold Filter Options
-                        // end::Header
-                        // begin::Menu separator
-                        .separator.border-gray-200
-                        // end::Menu separator
-                        // begin::Form
-                        .px-7.py-5
-                          // begin::Input group
-                          .mb-10
-                            // begin::Label
-                            label.form-label.fw-semibold Status:
-                            // end::Label
-                            // begin::Input
-                            div
-                              select.form-select.form-select-solid(multiple="multiple", data-kt-select2="true", data-close-on-select="false", data-placeholder="Select option", data-dropdown-parent="#kt_menu_654bb8f96fedc", data-allow-clear="true")
-                                option
-                                option(value="1") Approved
-                                option(value="2") Pending
-                                option(value="2") In Process
-                                option(value="2") Rejected
-                            // end::Input
-                          // end::Input group
-                          // begin::Input group
-                          .mb-10
-                            // begin::Label
-                            label.form-label.fw-semibold Member Type:
-                            // end::Label
-                            // begin::Options
-                            .d-flex
-                              // begin::Options
-                              label.form-check.form-check-sm.form-check-custom.form-check-solid.me-5
-                                input.form-check-input(type="checkbox", value="1")
-                                span.form-check-label Author
-                              // end::Options
-                              // begin::Options
-                              label.form-check.form-check-sm.form-check-custom.form-check-solid
-                                input.form-check-input(type="checkbox", value="2", checked="checked")
-                                span.form-check-label Customer
-                              // end::Options
-                            // end::Options
-                          // end::Input group
-                          // begin::Input group
-                          .mb-10
-                            // begin::Label
-                            label.form-label.fw-semibold Notifications:
-                            // end::Label
-                            // begin::Switch
-                            .form-check.form-switch.form-switch-sm.form-check-custom.form-check-solid
-                              input.form-check-input(type="checkbox", name="notifications", checked="checked")
-                              label.form-check-label Enabled
-                            // end::Switch
-                          // end::Input group
-                          // begin::Actions
-                          .d-flex.justify-content-end
-                            button.btn.btn-sm.btn-light.btn-active-light-primary.me-2(type="reset", data-kt-menu-dismiss="true") Reset
-                            button.btn.btn-sm.btn-primary(type="submit", data-kt-menu-dismiss="true") Apply
-                          // end::Actions
-                        // end::Form
-                      // end::Menu 1
-                      // end::Menu
-                    // end::File
                   // end::Files
                 // end::Card body
               // end::Card

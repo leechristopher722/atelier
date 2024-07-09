@@ -1,4 +1,4 @@
-const Ticket = require('./../models/ticketModel');
+const Ticket = require('../models/ticketModel');
 const factory = require('./handlerFactory');
 // const catchAsync = require('./../utils/catchAsync');
 

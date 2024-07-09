@@ -1,0 +1,147 @@
+html
+  body    
+    // begin::Modal - Create Campaign
+    .modal.fade(id="modal_create_project", tabindex="-1", aria-hidden="true")
+      // begin::Modal dialog
+      .modal-dialog.p-9.mw-650px
+        // begin::Modal content
+        .modal-content.modal-rounded
+          // begin::Modal header
+          .modal-header.pb-0.border-0.d-flex.justify-content-end
+            // begin::Close
+            .btn.btn-sm.btn-icon.btn-active-color-primary(data-bs-dismiss="modal")
+              i.ki-duotone.ki-cross.fs-1
+                span.path1
+                span.path2
+            // end::Close
+          // begin::Modal body
+          .modal-body.scroll-y.px-10.px-lg-15.pt-0.pb-15
+            // begin::Modal header
+            .mb-5.text-center
+              // begin::Modal title
+              h1 Create New Project
+              // end::Modal title
+            // begin::Form
+            form.mx-auto.w-100.mw-600px.pt-5(novalidate="novalidate", id="create_project_form")
+              // begin::Wrapper
+              .w-100
+                // begin::Input group
+                .fv-row.mb-10
+                  input(type="hidden", name="account", value=user.id)
+                  // begin::Label
+                  label.d-block.fw-semibold.fs-6.mb-5
+                    span Project Logo
+                  // end::Label
+                  // begin::Image input placeholder
+                  style.
+                    .image-input-placeholder { background-image: url('assets/media/projects/blank.svg'); } [data-bs-theme="dark"] .image-input-placeholder { background-image: url('assets/media/svg/files/blank-image-dark.svg'); }
+                  // end::Image input placeholder
+                  // begin::Image input
+                  .image-input.image-input-empty.image-input-outline.image-input-placeholder(data-kt-image-input="true")
+                    // begin::Preview existing avatar
+                    .image-input-wrapper.w-125px.h-125px
+                    // end::Preview existing avatar
+                    // begin::Label
+                    label.btn.btn-icon.btn-circle.btn-active-color-primary.w-25px.h-25px.bg-body.shadow(data-kt-image-input-action="change", data-bs-toggle="tooltip", title="Change avatar")
+                      i.ki-duotone.ki-pencil.fs-7
+                        span.path1
+                        span.path2
+                      // begin::Inputs
+                      input(type="file", name="logo", accept=".svg")
+                      input(type="hidden", name="logo_remove")
+                      // end::Inputs
+                    // end::Label
+                    // begin::Cancel
+                    span.btn.btn-icon.btn-circle.btn-active-color-primary.w-25px.h-25px.bg-body.shadow(data-kt-image-input-action="cancel", data-bs-toggle="tooltip", title="Cancel avatar")
+                      i.ki-duotone.ki-cross.fs-2
+                        span.path1
+                        span.path2
+                    // end::Cancel
+                    // begin::Remove
+                    span.btn.btn-icon.btn-circle.btn-active-color-primary.w-25px.h-25px.bg-body.shadow(data-kt-image-input-action="remove", data-bs-toggle="tooltip", title="Remove avatar")
+                      i.ki-duotone.ki-cross.fs-2
+                        span.path1
+                        span.path2
+                    // end::Remove
+                  // end::Image input
+                  // begin::Hint
+                  .form-text Allowed file type: svg
+                  // end::Hint
+                // end::Input group
+                // begin::Input group
+                .mb-10.fv-row
+                  // begin::Label
+                  label.required.form-label.mb-3 Project Name
+                  // end::Label
+                  // begin::Input
+                  input.form-control.form-control-lg.form-control-solid(type="text", name="name")
+                  // end::Input
+                // end::Input group
+                // begin::Input group
+                .mb-10.fv-row
+                  // begin::Label
+                  label.required.fw-semibold.fs-6 Project Summary
+                  .form-text.mb-5 Please provide a short description of the project.
+                  // end::Label
+                  // begin::Input
+                  input.form-control.form-control-solid(type="text", name="summary")
+                  // end::Input
+                // end::Input group
+                // begin::Input group
+                .mb-10.fv-row
+                  // begin::Label
+                  label.fw-semibold.fs-6.mb-5 Project Description
+                  // end::Label
+                  // begin::Input
+                  textarea.form-control.form-control-solid.h-100px(name="description") 
+                  // end::Input
+                // end::Input group
+                // begin::Input group
+                .row.g-9.mb-8
+                  .col-md-6.fv-row
+                    // begin::Label
+                    label.required.fw-semibold.fs-6.mb-5 Start Date
+                    // end::Label
+                    // begin::Input
+                    .d-flex
+                      position-relative.d-flex.align-items-center.w-100
+                        i.ki-duotone.ki-calendar-8.position-absolute.ms-4.mb-1.fs-2
+                          span.path1
+                          span.path2
+                          span.path3
+                          span.path4
+                          span.path5
+                          span.path6
+                        input.form-control.form-control-solid.ps-12(name="startDate", placeholder="Pick a date", value=new Date(Date.now()))
+                    // end::Input
+                  .col-md-6.fv-row
+                    // begin::Label
+                    label.required.fw-semibold.fs-6.mb-5 Due Date
+                    // end::Label
+                    // begin::Input
+                    .d-flex
+                      position-relative.d-flex.align-items-center.w-100
+                        i.ki-duotone.ki-calendar-8.position-absolute.ms-4.mb-1.fs-2
+                          span.path1
+                          span.path2
+                          span.path3
+                          span.path4
+                          span.path5
+                          span.path6
+                        input.form-control.form-control-solid.ps-12(name="dueDate", placeholder="Pick a date")
+                    // end::Input
+                  // begin::Notice
+                  .form-text *You can add project members after the project has been created!
+                  // end::Notice
+                // end::Input group
+              // end::Wrapper
+              // begin::Actions
+              .text-center.pt-5.w-100
+                // begin::Submit
+                button.btn.btn-lg.btn-primary(type="button", id="create_project_submit")
+                  span.indicator-label Create Project
+                  span.indicator-progress Please wait...
+                    span.spinner-border.spinner-border-sm.align-middle.ms-2
+                // end::Submit
+              // end::Actions
+            // end::Form

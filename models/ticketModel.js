@@ -34,6 +34,11 @@ const ticketSchema = new mongoose.Schema(
       type: Date,
       requried: [true, 'A ticket must have a due date'],
     },
+    priority: {
+      type: String,
+      enum: ['High', 'Medium', 'Low'],
+      default: 'Medium',
+    },
     tags: {
       type: [String],
       required: [true, 'A ticket must have at least one tag'],

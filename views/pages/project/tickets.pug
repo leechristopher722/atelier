@@ -152,6 +152,15 @@ block content
           .tab-content
             // begin::Tab pane
             .tab-pane.fade.show.active(id="kt_project_targets_card_pane")
+              - 
+                const groupedTickets = {created: [], in_progress: [], completed: []};
+
+                project.tickets.forEach((ticket) => {
+                  if (!groupedTickets[ticket.status]) {
+                    groupedTickets[ticket.status] = [];
+                  }
+                  groupedTickets[ticket.status].push(ticket);
+                });
               // begin::Row
               .row.g-9
                 +column('Created', groupedTickets.created)

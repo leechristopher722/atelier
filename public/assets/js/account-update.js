@@ -53,7 +53,7 @@ export const accountSettings = (function () {
           formData.append('email', form.querySelector('[name="email"]').value);
           if (form.querySelector('[name="avatar_remove"]').value) {
             formData.append('photo', 'blank.png');
-          } else {
+          } else if (form.querySelector('[name="photo"]').files[0]) {
             formData.append(
               'photo',
               form.querySelector('[name="photo"]').files[0],

@@ -16,17 +16,16 @@ const projectSchema = new mongoose.Schema(
         3,
         'A project name must be more than or equal to 3 characters',
       ],
-      // External Library for validator
-      // validate: [
-      //   validator.isAlpha,
-      //   'A project name must only contain alphabets'
-      // ]
     },
     slug: String,
     summary: {
       type: String,
-      trim: true,
       reuqired: [true, 'A project must have a summary'],
+      trim: true,
+      maxLength: [
+        80,
+        'A project summary must be less than or equal to 80 characters',
+      ],
     },
     description: {
       type: String,
@@ -52,9 +51,12 @@ const projectSchema = new mongoose.Schema(
       type: Number,
       default: 0,
     },
-    createdAt: {
+    startDate: {
       type: Date,
       default: Date.now(),
+    },
+    dueDate: {
+      type: Date,
     },
     isSecret: {
       type: Boolean,
@@ -68,6 +70,10 @@ const projectSchema = new mongoose.Schema(
       },
       default: 'Created',
     },
+    logo: {
+      type: String,
+      default: 'blank.svg',
+    },
   },
   {
     strictQuery: true,
@@ -80,15 +86,6 @@ projectSchema.index({ slug: 1 });
 
 // Virtual Property: For simple data that does not need to be stored in the DB
 // Separating business logic from the database in the model, and having little in controller.
-projectSchema.virtual('createdAtClean').get(function () {
-  return new Date(this.createdAt).toLocaleDateString('en-US', {
-    year: 'numeric',
-    month: 'short',
-    day: 'numeric',
-  });
-});
-
-// Virtual populate
 projectSchema.virtual('tickets', {
   ref: 'Ticket',
   foreignField: 'project',
@@ -114,7 +111,7 @@ projectSchema.pre(/^find/, function (next) {
   // Works on all funciton that starts with find
   // projectSchema.pre('find', function(next) {
   this.find({ isSecret: { $ne: true } });
-  this.sort({ createdAt: -1 });
+  this.sort({ startDate: -1 });
 
   this.start = Date.now();
   next();

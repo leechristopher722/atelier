@@ -2478,7 +2478,7 @@
             formData.append("email", form.querySelector('[name="email"]').value);
             if (form.querySelector('[name="avatar_remove"]').value) {
               formData.append("photo", "blank.png");
-            } else {
+            } else if (form.querySelector('[name="photo"]').files[0]) {
               formData.append(
                 "photo",
                 form.querySelector('[name="photo"]').files[0]
@@ -2702,7 +2702,7 @@
   };
 
   // public/assets/js/ticket/ticket-update.js
-  function KTModalUpdateTicket(modalEl, ticketId) {
+  function ModalUpdateTicket(modalEl, ticketId) {
     let submitButton;
     let cancelButton;
     let validator;
@@ -2724,27 +2724,24 @@
       tags.on("change", function() {
         validator.revalidateField("tags");
       });
-      const dueDate = $(form.querySelector('[name="due_date"]'));
+      const dueDate = $(form.querySelector('[name="dueDate"]'));
       dueDate.flatpickr({
         altInput: true,
         enableTime: true,
         altFormat: "d, M Y, H:i"
       });
-      $(form.querySelector('[name="team_assign"]')).on("change", function() {
-        validator.revalidateField("team_assign");
-      });
     };
     const handleForm = function() {
       validator = FormValidation.formValidation(form, {
         fields: {
-          target_title: {
+          name: {
             validators: {
               notEmpty: {
                 message: "Ticket title is required"
               }
             }
           },
-          target_assign: {
+          assignedTo: {
             validators: {
               notEmpty: {
                 message: "Ticket assign is required"
@@ -2765,10 +2762,17 @@
               }
             }
           },
-          target_status: {
+          status: {
             validators: {
               notEmpty: {
                 message: "Ticket status is required"
+              }
+            }
+          },
+          priority: {
+            validators: {
+              notEmpty: {
+                message: "Please set priority of ticket"
               }
             }
           }
@@ -2793,11 +2797,11 @@
                 const formData = new FormData(form);
                 const formDataObject = {};
                 formData.forEach(function(value, key) {
-                  if (key === "target_title") {
+                  if (key === "name") {
                     formDataObject["name"] = value;
-                  } else if (key === "target_details") {
+                  } else if (key === "description") {
                     formDataObject["description"] = value;
-                  } else if (key === "due_date") {
+                  } else if (key === "dueDate") {
                     formDataObject["dueDate"] = new Date(value);
                   } else if (key === "tags") {
                     const tagsArray = [];
@@ -2806,14 +2810,16 @@
                       tagsArray.push(tagsInput[i].value);
                     }
                     formDataObject["tags"] = tagsArray;
-                  } else if (key === "target_assign") {
+                  } else if (key === "assignedTo") {
                     if (formDataObject["assignedTo"]) {
                       formDataObject["assignedTo"].push(value);
                     } else {
                       formDataObject["assignedTo"] = [value];
                     }
-                  } else if (key === "target_status") {
+                  } else if (key === "status") {
                     formDataObject["status"] = value;
+                  } else if (key === "priority") {
+                    formDataObject["priority"] = value;
                   }
                 });
                 fetch(`/api/v1/tickets/${ticketId}`, {
@@ -2836,11 +2842,11 @@
                     }).then(function(result) {
                       if (result.isConfirmed) {
                         modal2.hide();
+                        submitButton.removeAttribute("data-kt-indicator");
+                        submitButton.disabled = false;
+                        location.reload(true);
                       }
                     });
-                    submitButton.removeAttribute("data-kt-indicator");
-                    submitButton.disabled = false;
-                    location.reload(true);
                   } else {
                     Swal.fire({
                       text: "Sorry, looks like there are some errors detected, please try again.",
@@ -2922,7 +2928,7 @@
   }
 
   // public/assets/js/ticket/ticket-create.js
-  var KTModalNewTarget = /* @__PURE__ */ function() {
+  var ModalNewTicket = /* @__PURE__ */ function() {
     let submitButton;
     let cancelButton;
     let validator;
@@ -2945,51 +2951,55 @@
       tags.on("change", function() {
         validator.revalidateField("tags");
       });
-      const due_date = $(form.querySelector('[name="due_date"]'));
-      due_date.flatpickr({
+      const dueDate = $(form.querySelector('[name="dueDate"]'));
+      dueDate.flatpickr({
         altInput: true,
         enableTime: true,
         altFormat: "d, M Y, H:i"
-      });
-      $(form.querySelector('[name="team_assign"]')).on("change", function() {
-        validator.revalidateField("team_assign");
       });
     };
     const handleForm = function() {
       validator = FormValidation.formValidation(form, {
         fields: {
-          target_title: {
+          name: {
             validators: {
               notEmpty: {
                 message: "Ticket title is required"
               }
             }
           },
-          target_assign: {
+          assignedTo: {
             validators: {
               notEmpty: {
-                message: "Ticket assign is required"
+                message: "Please assign at least one team member"
               }
             }
           },
-          due_date: {
+          dueDate: {
             validators: {
               notEmpty: {
                 message: "Ticket due date is required"
               }
             }
           },
-          target_tags: {
+          tags: {
             validators: {
               notEmpty: {
                 message: "Ticket tags are required"
               }
             }
           },
-          "targets_notifications[]": {
+          priority: {
             validators: {
               notEmpty: {
-                message: "Please select at least one communication method"
+                message: "Ticket priority is required"
+              }
+            }
+          },
+          status: {
+            validators: {
+              notEmpty: {
+                message: "Please set a status for the ticket"
               }
             }
           }
@@ -3015,11 +3025,11 @@
                 const formData = new FormData(form);
                 const formDataObject = {};
                 formData.forEach(function(value, key) {
-                  if (key === "target_title") {
+                  if (key === "name") {
                     formDataObject["name"] = value;
-                  } else if (key === "target_details") {
+                  } else if (key === "description") {
                     formDataObject["description"] = value;
-                  } else if (key === "due_date") {
+                  } else if (key === "dueDate") {
                     formDataObject["dueDate"] = new Date(value);
                   } else if (key === "tags") {
                     const tagsArray = [];
@@ -3028,17 +3038,20 @@
                       tagsArray.push(tagsInput[i].value);
                     }
                     formDataObject["tags"] = tagsArray;
-                  } else if (key === "project_id") {
+                  } else if (key === "project") {
                     formDataObject["project"] = value;
-                  } else if (key === "target_assign") {
+                  } else if (key === "assignedTo") {
                     if (formDataObject["assignedTo"]) {
                       formDataObject["assignedTo"].push(value);
                     } else {
                       formDataObject["assignedTo"] = [value];
                     }
+                  } else if (key === "priority") {
+                    formDataObject["priority"] = value;
+                  } else if (key === "status") {
+                    formDataObject["status"] = value;
                   }
                 });
-                formDataObject["status"] = "created";
                 fetch("/api/v1/tickets", {
                   method: "POST",
                   body: JSON.stringify(formDataObject),
@@ -3059,11 +3072,11 @@
                     }).then(function(result) {
                       if (result.isConfirmed) {
                         modal2.hide();
+                        submitButton.removeAttribute("data-kt-indicator");
+                        submitButton.disabled = false;
+                        location.reload(true);
                       }
                     });
-                    submitButton.removeAttribute("data-kt-indicator");
-                    submitButton.disabled = false;
-                    location.reload(true);
                   } else {
                   }
                 }).catch(function(error) {
@@ -3175,42 +3188,38 @@
           );
           if (commentOpenBtn.dataset.value === item.createdBy._id) {
             listItem.innerHTML = `
-            <div class="d-flex justify-content-end mb-5">
+            <div class="d-flex justify-content-end mb-4">
                 <div class="d-flex flex-column align-items-end">
-                    <div class="d-flex align-items-center mb-2">
-                        <div class="me-3">
-                            <span class="text-muted fs-7 mb-1">${commentCreatedDateTime}</span>
-                            <a class="fs-5 fw-bold text-gray-900 text-hover-primary ms-1" href="#">You</a>
-                        </div>
-                        <div class="symbol symbol-35px symbol-circle">
-                            <img alt="Pic" src="assets/media/avatars/${item.createdBy.photo}">
-                        </div>
-                    </div>
-                    <div class="p-5 rounded bg-light-primary text-gray-900 fw-semibold mw-lg-400px text-end" data-kt-element="message-text">${item.content}</div>
+                  <div class="d-flex align-items-end mb-1">
+                      <span class="text-muted fs-7 mb-1 me-3 flex-shrink-0">${commentCreatedDateTime}</span>
+                      <div class="px-5 py-3 rounded bg-light-primary text-gray-900 fw-semibold mw-lg-400px text-end" data-kt-element="message-text">${item.content}</div>
+                  </div>
                 </div>
             </div>`;
           } else {
             listItem.innerHTML = `<!--begin::Message(in)-->
-						<div class="d-flex justify-content-start mb-5">
+						<div class="d-flex justify-content-start mb-4">
 							<!--begin::Wrapper-->
 							<div class="d-flex flex-column align-items-start">
 								<!--begin::User-->
 								<div class="d-flex align-items-center mb-2">
 									<!--begin::Avatar-->
-									<div class="symbol symbol-35px symbol-circle">
+									<div class="symbol symbol-25px symbol-circle">
 										<img alt="Pic" src="assets/media/avatars/${item.createdBy.photo}" />
 									</div>
 									<!--end::Avatar-->
 									<!--begin::Details-->
-									<div class="ms-3">
-										<a href="#" class="fs-5 fw-bold text-gray-900 text-hover-primary me-1">${item.createdBy.name}</a>
-										<span class="text-muted fs-7 mb-1">${commentCreatedDateTime}</span>
+									<div class="ms-2">
+										<div class="fs-5 fw-bold text-gray-900 me-1">${item.createdBy.name}</div>
 									</div>
 									<!--end::Details-->
 								</div>
 								<!--end::User-->
 								<!--begin::Text-->
-								<div class="p-5 rounded bg-light-info text-gray-900 fw-semibold mw-lg-400px text-start" data-kt-element="message-text">${item.content}</div>
+                <div class="d-flex align-items-end mb-1">
+                  <div class="px-5 py-3 rounded bg-light-info text-gray-900 fw-semibold mw-lg-400px text-start" data-kt-element="message-text">${item.content}</div>
+                  <span class="text-muted fs-7 mb-1 ms-3 flex-shrink-0">${commentCreatedDateTime}</span>
+                </div>
 								<!--end::Text-->
 							</div>
 							<!--end::Wrapper-->
@@ -3248,20 +3257,14 @@
             const listItem = document.createElement("div");
             const createdDateTime = formatDateTime(/* @__PURE__ */ new Date());
             listItem.innerHTML = `
-          <div class="d-flex justify-content-end mb-10">
-              <div class="d-flex flex-column align-items-end">
-                  <div class="d-flex align-items-center mb-2">
-                      <div class="me-3">
-                          <span class="text-muted fs-7 mb-1">${createdDateTime}</span>
-                          <a class="fs-5 fw-bold text-gray-900 text-hover-primary ms-1" href="#">You</a>
-                      </div>
-                      <div class="symbol symbol-35px symbol-circle">
-                          <img alt="Pic" src="assets/media/avatars/300-1.jpg">
-                      </div>
+            <div class="d-flex justify-content-end mb-4">
+                <div class="d-flex flex-column align-items-end">
+                  <div class="d-flex align-items-end mb-1">
+                      <span class="text-muted fs-7 mb-1 me-3 flex-shrink-0">${createdDateTime}</span>
+                      <div class="px-5 py-3 rounded bg-light-primary text-gray-900 fw-semibold mw-lg-400px text-end" data-kt-element="message-text">${body.content}</div>
                   </div>
-                  <div class="p-5 rounded bg-light-primary text-gray-900 fw-semibold mw-lg-400px text-end" data-kt-element="message-text">${body.content}</div>
-              </div>
-          </div>`;
+                </div>
+            </div>`;
             commentMessages.appendChild(listItem);
             commentInput.value = "";
             const commentCount = document.getElementById(
@@ -3314,10 +3317,654 @@
     });
   };
 
+  // public/assets/js/project/project-create.js
+  var createProject = /* @__PURE__ */ function() {
+    let form;
+    let submitButton;
+    let validation;
+    const initValidation = function() {
+      const startDate = $(form.querySelector('[name="startDate"]'));
+      startDate.flatpickr({
+        altInput: true,
+        enableTime: false,
+        altFormat: "d, M Y"
+      });
+      const dueDate = $(form.querySelector('[name="dueDate"]'));
+      dueDate.flatpickr({
+        altInput: true,
+        enableTime: false,
+        altFormat: "d, M Y"
+      });
+      validation = FormValidation.formValidation(form, {
+        fields: {
+          name: {
+            validators: {
+              notEmpty: {
+                message: "Project name is required"
+              }
+            }
+          },
+          summary: {
+            validators: {
+              notEmpty: {
+                message: "Project summary is required"
+              },
+              stringLength: {
+                max: 80,
+                message: "Project summary must be less than 80 characters"
+              }
+            }
+          },
+          startDate: {
+            validators: {
+              notEmpty: {
+                message: "Start date is required"
+              }
+            }
+          },
+          dueDate: {
+            validators: {
+              notEmpty: {
+                message: "Due date is required"
+              }
+            }
+          }
+        },
+        plugins: {
+          trigger: new FormValidation.plugins.Trigger(),
+          submitButton: new FormValidation.plugins.SubmitButton(),
+          bootstrap: new FormValidation.plugins.Bootstrap5({
+            rowSelector: ".fv-row",
+            eleInvalidClass: "",
+            eleValidClass: ""
+          })
+        }
+      });
+    };
+    const handleForm = function() {
+      submitButton.addEventListener("click", function(e) {
+        e.preventDefault();
+        validation.validate().then(async function(status) {
+          if (status === "Valid") {
+            const formData = new FormData(form);
+            if (formData.get("logo").size === 0) {
+              formData.delete("logo");
+            }
+            formData.delete("logo_remove");
+            const member = {};
+            member.access = "Admin";
+            member.account = formData.get("account");
+            formData.append("members", JSON.stringify([member]));
+            formData.delete("account");
+            const start = new Date(formData.get("startDate"));
+            const due = new Date(formData.get("dueDate"));
+            formData.set("startDate", start.toISOString());
+            formData.set("dueDate", due.toISOString());
+            const res = await axios_default({
+              method: "POST",
+              url: `/api/v1/projects/`,
+              data: formData
+            });
+            if (res.data.status === "success") {
+              swal.fire({
+                text: "Congrats! The project has been successfully created.",
+                icon: "success",
+                showConfirmButton: false
+              });
+              location.reload(true);
+            } else {
+              swal.fire({
+                text: "Sorry. Looks like there are some errors detected, please try again.",
+                icon: "error",
+                buttonsStyling: false,
+                confirmButtonText: "Ok, got it!",
+                customClass: {
+                  confirmButton: "btn fw-bold btn-light-primary"
+                }
+              });
+            }
+          } else {
+            swal.fire({
+              text: "Please fill in the required fields.",
+              icon: "error",
+              buttonsStyling: false,
+              confirmButtonText: "Ok, got it!",
+              customClass: {
+                confirmButton: "btn fw-bold btn-light-primary"
+              }
+            });
+          }
+        });
+      });
+    };
+    return {
+      init: function() {
+        form = document.getElementById("create_project_form");
+        if (!form) {
+          return;
+        }
+        submitButton = form.querySelector("#create_project_submit");
+        initValidation();
+        handleForm();
+      }
+    };
+  }();
+
+  // public/assets/js/project/project-settings.js
+  var projectSettings = /* @__PURE__ */ function() {
+    let form;
+    let submitButton;
+    let validation;
+    const initValidation = function() {
+      const start_date = $(form.querySelector('[name="start_date"]'));
+      start_date.flatpickr({
+        altInput: true,
+        enableTime: false,
+        altFormat: "d, M Y"
+      });
+      const due_date = $(form.querySelector('[name="due_date"]'));
+      due_date.flatpickr({
+        altInput: true,
+        enableTime: false,
+        altFormat: "d, M Y"
+      });
+      validation = FormValidation.formValidation(form, {
+        fields: {
+          name: {
+            validators: {
+              notEmpty: {
+                message: "Project name is required"
+              }
+            }
+          },
+          summary: {
+            validators: {
+              notEmpty: {
+                message: "Project summary is required"
+              },
+              stringLength: {
+                max: 80,
+                message: "Project summary must be less than 80 characters"
+              }
+            }
+          },
+          start_date: {
+            validators: {
+              notEmpty: {
+                message: "Start date is required"
+              }
+            }
+          },
+          due_date: {
+            validators: {
+              notEmpty: {
+                message: "Due date is required"
+              }
+            }
+          }
+        },
+        plugins: {
+          trigger: new FormValidation.plugins.Trigger(),
+          submitButton: new FormValidation.plugins.SubmitButton(),
+          bootstrap: new FormValidation.plugins.Bootstrap5({
+            rowSelector: ".fv-row",
+            eleInvalidClass: "",
+            eleValidClass: ""
+          })
+        }
+      });
+    };
+    const handleForm = function() {
+      submitButton.addEventListener("click", function(e) {
+        e.preventDefault();
+        validation.validate().then(async function(status) {
+          if (status === "Valid") {
+            const formData = new FormData();
+            formData.append("name", form.querySelector('[name="name"]').value);
+            formData.append(
+              "summary",
+              form.querySelector('[name="summary"]').value
+            );
+            formData.append(
+              "description",
+              form.querySelector('[name="description"]').value
+            );
+            formData.append(
+              "startDate",
+              new Date(form.querySelector('[name="start_date"]').value)
+            );
+            formData.append(
+              "dueDate",
+              new Date(form.querySelector('[name="due_date"]').value)
+            );
+            formData.append(
+              "status",
+              form.querySelector('[name="status"]').value
+            );
+            if (form.querySelector('[name="logo_remove"]').value) {
+              formData.append("logo", "blank.png");
+            } else if (form.querySelector('[name="logo"]').files[0]) {
+              formData.append(
+                "logo",
+                form.querySelector('[name="logo"]').files[0]
+              );
+            }
+            const projectId = form.querySelector("#projectId").value;
+            const res = await axios_default({
+              method: "PATCH",
+              url: `/api/v1/projects/${projectId}`,
+              data: formData
+            });
+            if (res.data.status === "success") {
+              swal.fire({
+                text: "Thank you! The project's settings have been updated.",
+                icon: "success",
+                showConfirmButton: false
+              });
+              location.reload(true);
+            } else {
+              swal.fire({
+                text: "Sorry. Looks like there are some errors detected, please try again.",
+                icon: "error",
+                buttonsStyling: false,
+                confirmButtonText: "Ok, got it!",
+                customClass: {
+                  confirmButton: "btn fw-bold btn-light-primary"
+                }
+              });
+            }
+          } else {
+            swal.fire({
+              text: "Please complete the form with necessary conditions.",
+              icon: "error",
+              buttonsStyling: false,
+              confirmButtonText: "Ok, got it!",
+              customClass: {
+                confirmButton: "btn fw-bold btn-light-primary"
+              }
+            });
+          }
+        });
+      });
+    };
+    return {
+      init: function() {
+        form = document.getElementById("project_settings_form");
+        if (!form) {
+          return;
+        }
+        submitButton = form.querySelector("#project_settings_submit");
+        initValidation();
+        handleForm();
+      }
+    };
+  }();
+
+  // public/assets/js/project/project.js
+  var projectOverview = /* @__PURE__ */ function() {
+    const initChart = function() {
+      const element = document.getElementById("project_overview_chart");
+      if (!element) {
+        return;
+      }
+      const data = [
+        element.dataset.inprogress,
+        element.dataset.completed,
+        element.dataset.created,
+        element.dataset.overdue
+      ];
+      const config = {
+        type: "doughnut",
+        data: {
+          datasets: [
+            {
+              data,
+              backgroundColor: ["#00A3FF", "#50CD89", "#E4E6EF", "#F8285A"]
+            }
+          ],
+          labels: ["In Progress", "Completed", "Created", "Overdue"]
+        },
+        options: {
+          chart: {
+            fontFamily: "inherit"
+          },
+          cutoutPercentage: 75,
+          responsive: true,
+          maintainAspectRatio: false,
+          cutout: "75%",
+          title: {
+            display: false
+          },
+          animation: {
+            animateScale: true,
+            animateRotate: true
+          },
+          tooltips: {
+            enabled: true,
+            intersect: false,
+            mode: "nearest",
+            bodySpacing: 5,
+            yPadding: 10,
+            xPadding: 10,
+            caretPadding: 0,
+            displayColors: false,
+            backgroundColor: "#20D489",
+            titleFontColor: "#ffffff",
+            cornerRadius: 4,
+            footerSpacing: 0,
+            titleSpacing: 0
+          },
+          plugins: {
+            legend: {
+              display: false
+            }
+          }
+        }
+      };
+      const ctx = element.getContext("2d");
+      const myDoughnut = new Chart(ctx, config);
+    };
+    return {
+      init: function() {
+        initChart();
+      }
+    };
+  }();
+
+  // public/assets/js/member/add-project-member.js
+  var ModalUserSearch = /* @__PURE__ */ function() {
+    var element;
+    var searchElement;
+    var resultsElement;
+    var searchObject;
+    var resultsListElement;
+    var submitButton;
+    var modal2;
+    function addUserToList(user) {
+      const existingMemberUser = resultsElement.querySelector(
+        `[current-user-id='${user._id}']`
+      );
+      if (existingMemberUser) {
+        Swal.fire({
+          text: `${user.name} is already a Project Member.`,
+          icon: "error",
+          buttonsStyling: false,
+          confirmButtonText: "Ok, got it!",
+          customClass: {
+            confirmButton: "btn btn-primary"
+          }
+        });
+        return;
+      }
+      const existingListUser = resultsElement.querySelector(
+        `[data-user-id='${user._id}']`
+      );
+      if (existingListUser) {
+        Swal.fire({
+          text: `${user.name} is already on the list.`,
+          icon: "error",
+          buttonsStyling: false,
+          confirmButtonText: "Ok, got it!",
+          customClass: {
+            confirmButton: "btn btn-primary"
+          }
+        });
+        return;
+      }
+      const userElement = document.createElement("div");
+      userElement.className = "rounded d-flex flex-stack bg-active-lighten p-4";
+      userElement.setAttribute("data-user-id", user._id);
+      userElement.innerHTML = `
+      <div class="d-flex align-items-center">
+        <label class="form-check form-check-custom form-check-solid me-5">
+          <input class="form-check-input" checked="true" type="checkbox" name="users" data-kt-check="true" data-kt-check-target="[data-user-id='${user._id}']" value="1" />
+        </label>
+        <div class="symbol symbol-35px symbol-circle">
+          <img alt="Pic" src="assets/media/avatars/${user.photo}" />
+        </div>
+        <div class="ms-5">
+          <a href="#" class="fs-5 fw-bold text-gray-900 text-hover-primary mb-2">${user.name}</a>
+          <div class="fw-semibold text-muted">${user.email}</div>
+        </div>
+      </div>
+      <div class="ms-2 w-100px">
+        <select class="form-select form-select-solid form-select-sm" data-control="select2" data-hide-search="true">
+          <option value="Viewer" selected="selected">Viewer</option>
+          <option value="Member">Member</option>
+          <option value="Admin">Admin</option>
+        </select>
+      </div>
+    `;
+      if (resultsListElement.innerHTML !== "") {
+        const separator = document.createElement("div");
+        separator.className = "border-bottom border-gray-300 border-bottom-dashed";
+        resultsListElement.appendChild(separator);
+      }
+      resultsListElement.appendChild(userElement);
+    }
+    var processs = function(search) {
+      var timeout = setTimeout(function() {
+        fetch(`api/v1/users?search=${search.inputElement.value}`, {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json"
+          }
+        }).then((response) => response.json()).then((data) => {
+          searchResult = data.data.data;
+          searchElement.innerHTML = "";
+          resultsElement.classList.remove("d-none");
+          if (searchResult.length === 0) {
+            searchElement.innerHTML = `<div class="text-muted fw-semibold fs-5 mb-2">Search Results</div>
+              <div class="d-flex align-items-center text-muted">No users found with such name or email</div>`;
+          } else {
+            let dropdownContent = '<div class="text-muted fw-semibold fs-5 mb-2">Search Results</div>';
+            for (let i = 0; i < searchResult.length; i++) {
+              dropdownContent += `<div class="dropdown-item p-3" data-user-id="${searchResult[i]._id}">
+                  <div class="d-flex align-items-center">
+                    <div class="symbol symbol-35px symbol-circle">
+                      <img alt="Pic" src="assets/media/avatars/${searchResult[i].photo}" />
+                    </div>
+                    <div class="ms-5">
+                      <a class="fs-5 fw-bold text-gray-900 text-hover-primary mb-2">${searchResult[i].name}</a>
+                      <div class="fw-semibold text-muted">${searchResult[i].email}</div>
+                    </div>
+                  </div>
+                </div>`;
+              if (i < searchResult.length - 1) {
+                dropdownContent += '<div class="border-bottom border-gray-300 border-bottom-dashed"></div>';
+              }
+            }
+            searchElement.innerHTML += dropdownContent;
+            const dropdownItems = searchElement.querySelectorAll(".dropdown-item");
+            dropdownItems.forEach((item) => {
+              item.addEventListener("click", function() {
+                const userId = item.getAttribute("data-user-id");
+                const user = searchResult.find((user2) => user2._id === userId);
+                addUserToList(user);
+              });
+            });
+            searchElement.classList.remove("d-none");
+          }
+        }).catch((error) => console.error("Error:", error));
+        search.complete();
+      }, 1500);
+    };
+    var clear = function(search) {
+      searchElement.classList.add("d-none");
+    };
+    function collectSelectedUsers() {
+      const selectedUsers = [];
+      const userElements = resultsListElement.querySelectorAll("[data-user-id]");
+      userElements.forEach((userElement) => {
+        const checkbox = userElement.querySelector('input[type="checkbox"]');
+        if (checkbox.checked) {
+          const userId = userElement.getAttribute("data-user-id");
+          const userRole = userElement.querySelector("select").value;
+          selectedUsers.push({ account: userId, access: userRole });
+        }
+      });
+      return selectedUsers;
+    }
+    var addMember = function() {
+      const selectedUsers = collectSelectedUsers();
+      const projectId = resultsElement.querySelector("#project-id").value;
+      submitButton.disabled = true;
+      if (selectedUsers.length > 0) {
+        fetch(`api/v1/projects/${projectId}`, {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({ addMembers: selectedUsers })
+        }).then((response) => {
+          if (!response.ok) {
+            Swal.fire({
+              text: "Sorry, looks like there are some errors detected, please try again.",
+              icon: "error",
+              buttonsStyling: false,
+              confirmButtonText: "Ok, got it!",
+              customClass: {
+                confirmButton: "btn btn-primary"
+              }
+            }).then(function(result) {
+              if (result.isConfirmed) {
+                submitButton.disabled = false;
+              }
+            });
+          } else {
+            Swal.fire({
+              text: "Selected users have been successfully added!",
+              icon: "success",
+              buttonsStyling: false,
+              confirmButtonText: "Ok, got it!",
+              customClass: {
+                confirmButton: "btn btn-primary"
+              }
+            }).then(function(result) {
+              console.log(result.isConfirmed);
+              if (result.isConfirmed) {
+                modal2.hide();
+                location.reload(true);
+              }
+            });
+          }
+        }).catch((error) => console.error("Error:", error));
+      } else {
+        Swal.fire({
+          text: "Please select at least one user.",
+          icon: "error",
+          buttonsStyling: false,
+          confirmButtonText: "Ok, got it!",
+          customClass: {
+            confirmButton: "btn btn-primary"
+          }
+        }).then(function(result) {
+          if (result.isConfirmed) {
+            submitButton.disabled = false;
+          }
+        });
+      }
+    };
+    return {
+      init: function() {
+        element = document.querySelector("#kt_modal_users_search_handler");
+        if (!element) {
+          return;
+        }
+        modal2 = new bootstrap.Modal(
+          document.querySelector("#kt_modal_users_search")
+        );
+        searchElement = element.querySelector(
+          '[data-kt-search-element="search"]'
+        );
+        resultsElement = element.querySelector(
+          '[data-kt-search-element="results"]'
+        );
+        resultsListElement = element.querySelector("#users_add");
+        submitButton = element.querySelector("#kt_modal_users_search_submit");
+        searchObject = new KTSearch(element);
+        searchObject.on("kt.search.process", processs);
+        searchObject.on("kt.search.clear", clear);
+        submitButton.addEventListener("click", addMember);
+      }
+    };
+  }();
+
+  // public/assets/js/member/edit-project-member.js
+  var editAccess = (el) => {
+    const userId = el.dataset.value;
+    const body = {};
+    if (el.classList.contains("viewer")) {
+      body["access"] = "Viewer";
+    } else if (el.classList.contains("member")) {
+      body["access"] = "Member";
+    } else if (el.classList.contains("admin")) {
+      body["access"] = "Admin";
+    }
+    body["account"] = userId;
+    const projectId = document.querySelector("#project-id").value;
+    fetch(`/api/v1/projects/${projectId}`, {
+      method: "PATCH",
+      body: JSON.stringify({ updateMemberAccess: body }),
+      headers: {
+        "Content-Type": "application/json"
+      }
+    }).then(function(response) {
+      if (response.ok) {
+        Swal.fire({
+          text: "Access has been successfully modified!",
+          icon: "success",
+          buttonsStyling: false,
+          confirmButtonText: "Ok, got it!",
+          customClass: {
+            confirmButton: "btn btn-primary"
+          }
+        }).then(function() {
+          location.reload(true);
+        });
+      } else {
+      }
+    }).catch(function(error) {
+      console.error("Error:", error);
+    });
+  };
+  var removeMember = (el) => {
+    const userId = el.dataset.value;
+    const projectId = document.querySelector("#project-id").value;
+    fetch(`/api/v1/projects/${projectId}`, {
+      method: "PATCH",
+      body: JSON.stringify({ removeMembers: [userId] }),
+      headers: {
+        "Content-Type": "application/json"
+      }
+    }).then(function(response) {
+      if (response.ok) {
+        Swal.fire({
+          text: "Member has been successfully removed!",
+          icon: "success",
+          buttonsStyling: false,
+          confirmButtonText: "Ok, got it!",
+          customClass: {
+            confirmButton: "btn btn-primary"
+          }
+        }).then(function(result) {
+          if (result.isConfirmed) {
+            location.reload(true);
+          }
+        });
+      } else {
+      }
+    }).catch(function(error) {
+      console.error("Error:", error);
+    });
+  };
+
   // public/assets/js/index.js
   var deleteTicketBtns = document.querySelectorAll(".delete--ticket");
   var markTicketBtns = document.querySelectorAll(".mark-ticket");
   var logoutButton = document.querySelector("#logout_button");
+  var editAccessBtns = document.querySelectorAll(".edit-access");
+  var removeMemberBtns = document.querySelectorAll(".remove-member");
   if (deleteTicketBtns) {
     deleteTicketBtns.forEach(
       (el) => el.addEventListener("click", () => deleteTicket(el))
@@ -3328,12 +3975,26 @@
       (el) => el.addEventListener("click", () => markTicketAs(el))
     );
   }
+  if (editAccessBtns) {
+    editAccessBtns.forEach(
+      (el) => el.addEventListener("click", () => editAccess(el))
+    );
+  }
+  if (removeMemberBtns) {
+    removeMemberBtns.forEach(
+      (el) => el.addEventListener("click", () => removeMember(el))
+    );
+  }
   if (logoutButton) {
     logoutButton.addEventListener("click", logout);
   }
   KTUtil.onDOMContentLoaded(function() {
     accountSettings.init();
-    KTModalNewTarget.init();
+    projectOverview.init();
+    createProject.init();
+    projectSettings.init();
+    ModalNewTicket.init();
+    ModalUserSearch.init();
     const commentOpenBtns = document.querySelectorAll(
       '[id^="ticket_comment_view_"]'
     );
@@ -3347,7 +4008,7 @@
     );
     modalEls.forEach((el) => {
       const ticketId = el.id.replace("kt_modal_update_ticket_modal_", "");
-      const modalInstance = new KTModalUpdateTicket(el, ticketId);
+      const modalInstance = new ModalUpdateTicket(el, ticketId);
       modalInstance.init();
     });
   });

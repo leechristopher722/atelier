@@ -16,12 +16,21 @@ router.route('/project-stats').get(projectController.getProjectStats);
 router
   .route('/')
   .get(projectController.getAllProjectsForUser)
-  .post(projectController.createProject);
+  .post(
+    projectController.uploadLogo,
+    projectController.processLogo,
+    projectController.parseMembers,
+    projectController.createProject,
+  );
 
 router
   .route('/:id')
   .get(projectController.getProject)
-  .patch(projectController.updateProject)
+  .patch(
+    projectController.uploadLogo,
+    projectController.processLogo,
+    projectController.updateProject,
+  )
   .delete(
     authController.restrictTo('admin', 'project manager'),
     projectController.deleteProject,

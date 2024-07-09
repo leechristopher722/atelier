@@ -1,6 +1,6 @@
 /* eslint-disable */
 
-const editAccess = (el) => {
+export const editAccess = (el) => {
   const userId = el.dataset.value;
 
   const body = {};
@@ -14,6 +14,8 @@ const editAccess = (el) => {
   }
 
   body['account'] = userId;
+
+  const projectId = document.querySelector('#project-id').value;
 
   fetch(`/api/v1/projects/${projectId}`, {
     method: 'PATCH',
@@ -47,8 +49,9 @@ const editAccess = (el) => {
     });
 };
 
-const removeMember = (el) => {
+export const removeMember = (el) => {
   const userId = el.dataset.value;
+  const projectId = document.querySelector('#project-id').value;
 
   fetch(`/api/v1/projects/${projectId}`, {
     method: 'PATCH',
@@ -82,23 +85,3 @@ const removeMember = (el) => {
       console.error('Error:', error);
     });
 };
-
-// DOM ELEMENTS
-const editAccessBtns = document.querySelectorAll('.edit-access');
-const removeMemberBtns = document.querySelectorAll('.remove-member');
-const projectId = document.querySelector('#project-id').value;
-
-// ACTIONS
-// Delete Ticket
-if (editAccessBtns) {
-  editAccessBtns.forEach((el) =>
-    el.addEventListener('click', () => editAccess(el)),
-  );
-}
-
-// Update Ticket Status
-if (removeMemberBtns) {
-  removeMemberBtns.forEach((el) =>
-    el.addEventListener('click', () => removeMember(el)),
-  );
-}

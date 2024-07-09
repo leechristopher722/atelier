@@ -1,15 +1,23 @@
+/* eslint-disable */
+
 import { accountSettings } from './account-update';
-import { deleteTicket } from './ticket/ticket-deleteEdit';
-import { markTicketAs } from './ticket/ticket-deleteEdit';
-import { KTModalUpdateTicket } from './ticket/ticket-update';
-import { KTModalNewTarget } from './ticket/ticket-create';
+import { deleteTicket, markTicketAs } from './ticket/ticket-deleteEdit';
+import { ModalUpdateTicket } from './ticket/ticket-update';
+import { ModalNewTicket } from './ticket/ticket-create';
 import { TicketComment } from './ticket/ticket-comment';
 import { logout } from './authentication/sign-out';
+import { createProject } from './project/project-create';
+import { projectSettings } from './project/project-settings';
+import { projectOverview } from './project/project';
+import { ModalUserSearch } from './member/add-project-member';
+import { editAccess, removeMember } from './member/edit-project-member';
 
 // DOM ELEMENTS
 const deleteTicketBtns = document.querySelectorAll('.delete--ticket');
 const markTicketBtns = document.querySelectorAll('.mark-ticket');
 const logoutButton = document.querySelector('#logout_button');
+const editAccessBtns = document.querySelectorAll('.edit-access');
+const removeMemberBtns = document.querySelectorAll('.remove-member');
 
 // ACTIONS
 // Delete Ticket
@@ -26,6 +34,20 @@ if (markTicketBtns) {
   );
 }
 
+// Update Member Access
+if (editAccessBtns) {
+  editAccessBtns.forEach((el) =>
+    el.addEventListener('click', () => editAccess(el)),
+  );
+}
+
+// Remove Member
+if (removeMemberBtns) {
+  removeMemberBtns.forEach((el) =>
+    el.addEventListener('click', () => removeMember(el)),
+  );
+}
+
 // Sign Out
 if (logoutButton) {
   logoutButton.addEventListener('click', logout);
@@ -35,8 +57,20 @@ KTUtil.onDOMContentLoaded(function () {
   // Account Settings
   accountSettings.init();
 
+  // Project Overview
+  projectOverview.init();
+
+  // Create Project
+  createProject.init();
+
+  // Project Settings
+  projectSettings.init();
+
   // Create Ticket
-  KTModalNewTarget.init();
+  ModalNewTicket.init();
+
+  // Add Project Member
+  ModalUserSearch.init();
 
   // Ticket Comment
   const commentOpenBtns = document.querySelectorAll(
@@ -54,7 +88,7 @@ KTUtil.onDOMContentLoaded(function () {
   );
   modalEls.forEach((el) => {
     const ticketId = el.id.replace('kt_modal_update_ticket_modal_', '');
-    const modalInstance = new KTModalUpdateTicket(el, ticketId);
+    const modalInstance = new ModalUpdateTicket(el, ticketId);
     modalInstance.init();
   });
 });

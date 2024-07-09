@@ -1,5 +1,5 @@
 // Class definition
-export const KTModalNewTarget = (function() {
+export const ModalNewTicket = (function () {
   let submitButton;
   let cancelButton;
   let validator;
@@ -8,7 +8,7 @@ export const KTModalNewTarget = (function() {
   let modalEl;
 
   // Init form inputs
-  const initForm = function() {
+  const initForm = function () {
     // Tags. For more info, please visit the official plugin site: https://yaireo.github.io/tagify/
     const tags = new Tagify(form.querySelector('[name="tags"]'), {
       whitelist: ['Development', 'Bug', 'High', 'Medium', 'Low'],
@@ -16,89 +16,90 @@ export const KTModalNewTarget = (function() {
       dropdown: {
         maxItems: 10, // <- mixumum allowed rendered suggestions
         enabled: 0, // <- show suggestions on focus
-        closeOnSelect: false // <- do not hide the suggestions dropdown once an item has been selected
-      }
+        closeOnSelect: false, // <- do not hide the suggestions dropdown once an item has been selected
+      },
     });
-    tags.on('change', function() {
+    tags.on('change', function () {
       // Revalidate the field when an option is chosen
       validator.revalidateField('tags');
     });
 
     // Due date. For more info, please visit the official plugin site: https://flatpickr.js.org/
-    const due_date = $(form.querySelector('[name="due_date"]'));
-    due_date.flatpickr({
+    const dueDate = $(form.querySelector('[name="dueDate"]'));
+    dueDate.flatpickr({
       altInput: true,
       enableTime: true,
-      altFormat: 'd, M Y, H:i'
-    });
-
-    // Team assign. For more info, plase visit the official plugin site: https://select2.org/
-    $(form.querySelector('[name="team_assign"]')).on('change', function() {
-      // Revalidate the field when an option is chosen
-      validator.revalidateField('team_assign');
+      altFormat: 'd, M Y, H:i',
     });
   };
 
   // Handle form validation and submittion
-  const handleForm = function() {
+  const handleForm = function () {
     // Stepper custom navigation
 
     // Init form validation rules. For more info check the FormValidation plugin's official documentation:https://formvalidation.io/
     validator = FormValidation.formValidation(form, {
       fields: {
-        target_title: {
+        name: {
           validators: {
             notEmpty: {
-              message: 'Ticket title is required'
-            }
-          }
+              message: 'Ticket title is required',
+            },
+          },
         },
-        target_assign: {
+        assignedTo: {
           validators: {
             notEmpty: {
-              message: 'Ticket assign is required'
-            }
-          }
+              message: 'Please assign at least one team member',
+            },
+          },
         },
-        due_date: {
+        dueDate: {
           validators: {
             notEmpty: {
-              message: 'Ticket due date is required'
-            }
-          }
+              message: 'Ticket due date is required',
+            },
+          },
         },
-        target_tags: {
+        tags: {
           validators: {
             notEmpty: {
-              message: 'Ticket tags are required'
-            }
-          }
+              message: 'Ticket tags are required',
+            },
+          },
         },
-        'targets_notifications[]': {
+        priority: {
           validators: {
             notEmpty: {
-              message: 'Please select at least one communication method'
-            }
-          }
-        }
+              message: 'Ticket priority is required',
+            },
+          },
+        },
+        status: {
+          validators: {
+            notEmpty: {
+              message: 'Please set a status for the ticket',
+            },
+          },
+        },
       },
       plugins: {
         trigger: new FormValidation.plugins.Trigger(),
         bootstrap: new FormValidation.plugins.Bootstrap5({
           rowSelector: '.fv-row',
           eleInvalidClass: '',
-          eleValidClass: ''
-        })
-      }
+          eleValidClass: '',
+        }),
+      },
     });
 
     // Action buttons
-    submitButton.addEventListener('click', function(e) {
+    submitButton.addEventListener('click', function (e) {
       e.preventDefault();
 
       // Validate form before submit
       if (validator) {
-        validator.validate().then(function(status) {
+        validator.validate().then(function (status) {
           console.log('validated!');
 
           if (status === 'Valid') {
@@ -107,17 +108,17 @@ export const KTModalNewTarget = (function() {
             // Disable button to avoid multiple click
             submitButton.disabled = true;
 
-            setTimeout(function() {
+            setTimeout(function () {
               const formData = new FormData(form); // Create FormData object from form
               const formDataObject = {}; // Create an empty object to store form data as key-value pairs
 
               // Loop through FormData entries and populate formDataObject
-              formData.forEach(function(value, key) {
-                if (key === 'target_title') {
+              formData.forEach(function (value, key) {
+                if (key === 'name') {
                   formDataObject['name'] = value;
-                } else if (key === 'target_details') {
+                } else if (key === 'description') {
                   formDataObject['description'] = value;
-                } else if (key === 'due_date') {
+                } else if (key === 'dueDate') {
                   formDataObject['dueDate'] = new Date(value);
                 } else if (key === 'tags') {
                   const tagsArray = [];
@@ -126,28 +127,29 @@ export const KTModalNewTarget = (function() {
                     tagsArray.push(tagsInput[i].value);
                   }
                   formDataObject['tags'] = tagsArray;
-                } else if (key === 'project_id') {
+                } else if (key === 'project') {
                   formDataObject['project'] = value;
-                } else if (key === 'target_assign') {
+                } else if (key === 'assignedTo') {
                   if (formDataObject['assignedTo']) {
                     formDataObject['assignedTo'].push(value);
                   } else {
                     formDataObject['assignedTo'] = [value];
                   }
+                } else if (key === 'priority') {
+                  formDataObject['priority'] = value;
+                } else if (key === 'status') {
+                  formDataObject['status'] = value;
                 }
               });
 
-              formDataObject['status'] = 'created';
-
-              // Now you can send the form data to your server using an HTTP request (e.g., AJAX)
               fetch('/api/v1/tickets', {
                 method: 'POST',
                 body: JSON.stringify(formDataObject), // Convert form data object to JSON string
                 headers: {
-                  'Content-Type': 'application/json'
-                }
+                  'Content-Type': 'application/json',
+                },
               })
-                .then(function(response) {
+                .then(function (response) {
                   // Handle response from server
                   if (response.ok) {
                     // Show success message. For more info check the plugin's official documentation: https://sweetalert2.github.io/
@@ -157,27 +159,26 @@ export const KTModalNewTarget = (function() {
                       buttonsStyling: false,
                       confirmButtonText: 'Ok, got it!',
                       customClass: {
-                        confirmButton: 'btn btn-primary'
-                      }
-                    }).then(function(result) {
+                        confirmButton: 'btn btn-primary',
+                      },
+                    }).then(function (result) {
                       if (result.isConfirmed) {
                         modal.hide();
+                        submitButton.removeAttribute('data-kt-indicator');
+
+                        // Enable button
+                        submitButton.disabled = false;
+
+                        location.reload(true);
                       }
                     });
-
-                    submitButton.removeAttribute('data-kt-indicator');
-
-                    // Enable button
-                    submitButton.disabled = false;
-
-                    location.reload(true);
                   } else {
                     // TODO: Handle error on the server side response here
                     // Error occurred during form submission
                     // Optionally, you can handle error response here
                   }
                 })
-                .catch(function(error) {
+                .catch(function (error) {
                   // Handle network or other errors
                   console.error('Error:', error);
                 });
@@ -185,21 +186,20 @@ export const KTModalNewTarget = (function() {
           } else {
             // Show error message.
             Swal.fire({
-              text:
-                'Sorry, looks like there are some errors detected, please try again.',
+              text: 'Sorry, looks like there are some errors detected, please try again.',
               icon: 'error',
               buttonsStyling: false,
               confirmButtonText: 'Ok, got it!',
               customClass: {
-                confirmButton: 'btn btn-primary'
-              }
+                confirmButton: 'btn btn-primary',
+              },
             });
           }
         });
       }
     });
 
-    cancelButton.addEventListener('click', function(e) {
+    cancelButton.addEventListener('click', function (e) {
       e.preventDefault();
 
       Swal.fire({
@@ -211,9 +211,9 @@ export const KTModalNewTarget = (function() {
         cancelButtonText: 'No, return',
         customClass: {
           confirmButton: 'btn btn-primary',
-          cancelButton: 'btn btn-active-light'
-        }
-      }).then(function(result) {
+          cancelButton: 'btn btn-active-light',
+        },
+      }).then(function (result) {
         if (result.value) {
           form.reset(); // Reset form
           modal.hide(); // Hide modal
@@ -224,8 +224,8 @@ export const KTModalNewTarget = (function() {
             buttonsStyling: false,
             confirmButtonText: 'Ok, got it!',
             customClass: {
-              confirmButton: 'btn btn-primary'
-            }
+              confirmButton: 'btn btn-primary',
+            },
           });
         }
       });
@@ -234,7 +234,7 @@ export const KTModalNewTarget = (function() {
 
   return {
     // Public functions
-    init: function() {
+    init: function () {
       // Elements
       modalEl = document.querySelector('#kt_modal_new_target');
 
@@ -250,6 +250,6 @@ export const KTModalNewTarget = (function() {
 
       initForm();
       handleForm();
-    }
+    },
   };
 })();

@@ -1,3 +1,5 @@
+const multer = require('multer');
+const fs = require('fs');
 const Project = require('../models/projectModel');
 const catchAsync = require('../utils/catchAsync');
 const factory = require('./handlerFactory');
@@ -7,6 +9,46 @@ exports.getProject = factory.getOne(Project, 'tickets');
 exports.createProject = factory.createOne(Project);
 exports.updateProject = factory.updateOne(Project);
 exports.deleteProject = factory.deleteOne(Project);
+
+const multerStorage = multer.memoryStorage();
+
+const multerFilter = (req, file, cb) => {
+  if (file.mimetype === 'image/svg+xml') {
+    cb(null, true);
+  } else {
+    cb(new AppError('Not an image! Please upload only SVG files.', 400), false);
+  }
+};
+
+const upload = multer({
+  storage: multerStorage,
+  fileFilter: multerFilter,
+});
+
+exports.uploadLogo = upload.single('logo');
+
+exports.processLogo = catchAsync(async (req, res, next) => {
+  if (!req.file) {
+    if (req.body.logo) {
+      req.file = { filename: req.body.logo };
+    }
+    return next();
+  }
+
+  req.file.filename = `project-${req.params.id}-${Date.now()}.svg`;
+  req.body.logo = req.file.filename;
+
+  fs.writeFile(
+    `public/assets/media/projects/${req.file.filename}`,
+    req.file.buffer,
+    (err) => {
+      if (err) {
+        return next(new AppError('Error saving the file', 500));
+      }
+      next();
+    },
+  );
+});
 
 exports.getAllProjectsForUser = catchAsync(async (req, res, next) => {
   // Aggregate pipeline to match projects where the user ID is in members.account
@@ -31,6 +73,13 @@ exports.getAllProjectsForUser = catchAsync(async (req, res, next) => {
     },
   });
 });
+
+exports.parseMembers = (req, res, next) => {
+  if (req.body.members) {
+    req.body.members = JSON.parse(req.body.members);
+  }
+  next();
+};
 
 exports.getProjectStats = catchAsync(async (req, res, next) => {
   const stats = await Project.aggregate([

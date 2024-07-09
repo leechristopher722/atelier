@@ -23,30 +23,21 @@ html
           .hover-scroll-y.my-3.mx-3(id="kt_app_sidebar_menu_scroll", data-kt-scroll="true", data-kt-scroll-activate="true", data-kt-scroll-height="auto", data-kt-scroll-dependencies="#kt_app_sidebar_logo, #kt_app_sidebar_footer", data-kt-scroll-wrappers="#kt_app_sidebar_menu", data-kt-scroll-offset="5px", data-kt-scroll-save-state="true")
             // begin::Menu
             .menu.menu-column.menu-rounded.menu-sub-indention.fw-medium(id="#kt_app_sidebar_menu", data-kt-menu="true", data-kt-menu-expand="false")
-              if projects
-                // begin:Menu item
-                .menu-item.here.menu-accordion(data-kt-menu-trigger="click")
-                  // begin:Menu link
-                  span.menu-link
-                    span.menu-icon
-                      i.ki-duotone.ki-abstract-26.fs-2
-                        span.path1
-                        span.path2
-                    span.menu-title Projects
-                    span.menu-arrow
-                  // end:Menu link
-                  // begin:Menu sub
-                  .menu-sub.menu-sub-accordion
-                    // begin:Menu item
-                    .menu-item
-                      // begin:Menu link
-                      a.menu-link(href='/')
-                        span.menu-bullet
-                          span.bullet.bullet-dot
-                        span.menu-title View All
-                      // end:Menu link
-                    // end:Menu item
-                    each project in projects
+              // begin:Menu item
+              .menu-item.here.menu-accordion(data-kt-menu-trigger="click")
+                // begin:Menu link
+                span.menu-link
+                  span.menu-icon
+                    i.ki-duotone.ki-abstract-26.fs-2
+                      span.path1
+                      span.path2
+                  span.menu-title Projects
+                  span.menu-arrow
+                // end:Menu link
+                // begin:Menu sub
+                .menu-sub.menu-sub-accordion
+                  if recentProjects
+                    each project in recentProjects
                       // begin:Menu item
                       .menu-item
                         // begin:Menu link
@@ -56,8 +47,15 @@ html
                           span.menu-title #{project.name}
                         // end:Menu link
                       // end:Menu item
-                  // end:Menu sub
-                // end:Menu item
+                  // begin:Menu item
+                  .menu-item
+                    // begin:Menu link
+                    a.menu-link.ms-2(href='/')
+                      span.menu-title View All
+                    // end:Menu link
+                  // end:Menu item
+                // end:Menu sub
+              // end:Menu item
               if project
                 .menu-item
                   .menu-content
